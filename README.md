@@ -4,6 +4,8 @@
 
 LOCUS Startup Hackathon 2026, Case 2. PathShift connects a student's profile to explicit requirements, explains the gaps, calculates the effect of a change and builds a next-action roadmap.
 
+**Live:** https://pathshift-locus-2026.vercel.app · **Repository:** https://github.com/abdumutalipabay0/pathshift-locus-2026 (private).
+
 ## Run
 
 Node.js 22+ and npm. No API key, database or paid service required.

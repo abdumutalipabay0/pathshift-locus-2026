@@ -10,4 +10,10 @@ Local: Windows, Node 24.17.0, Chrome, Next.js 16.3.5.
 - axe WCAG A/AA on the main map: zero violations after contrast/semantic fixes; no audit rules disabled.
 - Desktop 1440px and mobile 390px screenshots inspected; mobile quick links added to What-if and next action.
 
-Public deployment verification will be appended after execution.
+## Production verification
+
+- Deployed successfully to https://pathshift-locus-2026.vercel.app on Vercel.
+- Anonymous HTTP request returned 200; public API returned all 12 programs and the expected supplemented dataset version.
+- All seven Playwright tests passed again against the public production URL (20.9 seconds), including the complete golden journey and accessibility audit.
+- Original source whitespace is intentionally preserved. `git diff --check` flagged trailing spaces only inside the supplied reports/master prompt; application code was clean.
+- Repository: https://github.com/abdumutalipabay0/pathshift-locus-2026 (private). Actual team members, organizer repository access, video and slides remain team submission tasks.
