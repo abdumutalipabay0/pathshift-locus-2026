@@ -69,6 +69,14 @@ export type Program = {
   conditional?: { name: string; fact: string; note: string };
 };
 export type Profile = {
+  personal_plan?: {
+    id: string;
+    title: string;
+    kind: 'STUDY' | 'ACTIVITY';
+    due: string | null;
+    notes: string;
+    complete: boolean;
+  }[];
   name: string;
   age: number;
   citizenship: string;

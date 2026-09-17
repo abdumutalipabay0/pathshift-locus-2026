@@ -58,3 +58,45 @@ Conditions: {count}	Условий: {count}	Шарттар саны: {count}
 Shortlisted programs: {count}	Выбранных программ: {count}	Таңдалған бағдарламалар саны: {count}
 Your hard budget moves over-budget historical estimates lower in the list. Future total costs still need verification.	При жёстком бюджете программы, превышающие его по прошлогодней оценке, показываются ниже. Полную стоимость будущего года всё ещё нужно уточнить.	Бюджет қатаң шектелсе, өткен жылғы бағалау бойынша одан асатын бағдарламалар төменірек көрсетіледі. Болашақ жылдың толық құнын әлі нақтылау қажет.
 Demo profile	Демонстрационный профиль	Демонстрациялық профиль
+Import profile	Импортировать профиль	Профильді импорттау
+Profile backup file	Файл резервной копии профиля	Профильдің сақтық көшірме файлы
+Review imported profile	Проверьте импортируемый профиль	Импортталатын профильді тексеріңіз
+Import replaces this profile. A local backup of your current profile will be kept for Undo demo reset. Only confirm results that you actually achieved.	Импорт заменит текущий профиль. Его локальная копия сохранится для восстановления кнопкой «Восстановить профиль до сброса». Подтверждайте только действительно полученные результаты.	Импорт ағымдағы профильді ауыстырады. Оның жергілікті көшірмесін «Қалпына келтіруге дейінгі профильді қайтару» батырмасымен қайтаруға болады. Тек нақты алған нәтижелерді растаңыз.
+Confirm import	Подтвердить импорт	Импортты растау
+Choose a PathShift JSON backup smaller than 250 KB.	Выберите JSON-копию PathShift размером меньше 250 КБ.	Көлемі 250 КБ-тан аз PathShift JSON көшірмесін таңдаңыз.
+This backup version is not supported. Export a new copy from PathShift.	Версия копии не поддерживается. Скачайте новую копию из PathShift.	Көшірменің бұл нұсқасы қолдау таппайды. PathShift-тен жаңа көшірме жүктеңіз.
+The backup contains invalid profile data. Your current profile has not changed.	В копии есть некорректные данные. Текущий профиль не изменён.	Көшірмеде жарамсыз деректер бар. Ағымдағы профиль өзгерген жоқ.
+Choose a valid JSON backup exported from PathShift.	Выберите корректную JSON-копию, скачанную из PathShift.	PathShift-тен жүктелген жарамды JSON көшірмесін таңдаңыз.
+Profile imported. Your previous profile is available through Undo demo reset.	Профиль импортирован. Прежний профиль доступен через «Восстановить профиль до сброса».	Профиль импортталды. Бұрынғы профильді қалпына келтіру батырмасы арқылы қайтаруға болады.
+Study and activities	Учёба и активности	Оқу және қосымша іс-шаралар
+Build your preparation plan: subjects to practise, projects and extracurricular activities. These are your goals, not university requirements or an admission guarantee.	Составьте план подготовки: учебные темы, проекты и внеучебные занятия. Это ваши цели, а не требования вуза или гарантия поступления.	Дайындық жоспарын құрыңыз: оқу тақырыптары, жобалар және сабақтан тыс іс-шаралар. Бұлар — сіздің мақсаттарыңыз, университет талаптары немесе оқуға түсу кепілдігі емес.
+Discard the scenario to edit your personal plan.	Закройте сценарий, чтобы изменить личный план.	Жеке жоспарды өзгерту үшін сценарийді жабыңыз.
+Review one challenging topic	Разобрать одну сложную учебную тему	Бір күрделі оқу тақырыбын пысықтау
+Build a small project and record what I learned	Сделать небольшой проект и записать, чему научился	Шағын жоба жасап, үйренгенімді жазу
+Plan study time	Добавить учебную цель	Оқу мақсатын қосу
+Plan an activity	Добавить активность	Іс-шара қосу
+Personal task	Моя задача	Менің тапсырмам
+Task category	Категория задачи	Тапсырма санаты
+Study	Учёба	Оқу
+Activity	Активность	Іс-шара
+My target date	Мой срок выполнения	Менің орындау мерзімім
+Notes and evidence of progress	Заметки и результаты работы	Жазбалар және жұмыс нәтижелері
+Save task changes	Сохранить изменения задачи	Тапсырма өзгерістерін сақтау
+Add personal task	Добавить задачу	Тапсырма қосу
+Check the title and date. You can save up to 40 personal tasks.	Проверьте название и дату. Можно сохранить до 40 личных задач.	Атау мен күнді тексеріңіз. 40 жеке тапсырмаға дейін сақтауға болады.
+Your changes were not saved. Try again.	Изменения не сохранены. Попробуйте ещё раз.	Өзгерістер сақталмады. Қайта көріңіз.
+Start with one study goal and one activity you can complete this week.	Начните с одной учебной цели и одной активности на эту неделю.	Осы аптада орындай алатын бір оқу мақсаты мен бір іс-шарадан бастаңыз.
+No target date	Без срока	Мерзім белгіленмеген
+Edit task	Изменить задачу	Тапсырманы өзгерту
+Remove task	Удалить задачу	Тапсырманы жою
+Confirm task removal	Подтверждение удаления задачи	Тапсырманы жоюды растау
+Remove this personal task and its notes?	Удалить эту личную задачу и её заметки?	Осы жеке тапсырма мен оның жазбаларын жою керек пе?
+Confirm removal	Подтвердить удаление	Жоюды растау
+Download personal plan	Скачать личный план	Жеке жоспарды жүктеу
+IELTS overall does not match the four bands. Check the scores on your result report.	Общий балл IELTS не согласуется с четырьмя компонентами. Проверьте баллы в сертификате.	IELTS жалпы балы төрт бөлімнің балдарына сәйкес келмейді. Сертификаттағы балдарды тексеріңіз.
+Your original grade out of 45 and IB total must match.	Исходная оценка из 45 и общий балл IB должны совпадать.	45 балдық бастапқы баға мен IB жалпы балы сәйкес келуі керек.
+Personal plan items must have unique identifiers.	В личном плане есть повторяющиеся записи. Проверьте файл копии.	Жеке жоспарда қайталанатын жазбалар бар. Көшірме файлын тексеріңіз.
+Ready routes, current → scenario	Готовые маршруты: сейчас → сценарий	Дайын бағыттар: қазір → сценарий
+A scenario shows what would change. It is not an offer or a new test result.	Сценарий показывает возможные изменения. Это не предложение о зачислении и не новый результат экзамена.	Сценарий ықтимал өзгерістерді көрсетеді. Бұл оқуға қабылдау ұсынысы немесе жаңа емтихан нәтижесі емес.
+Your requirements to resolve	Ваши условия для выполнения	Орындауыңыз қажет шарттар
+University rules to verify	Правила вуза для уточнения	Нақтылауды қажет ететін университет ережелері

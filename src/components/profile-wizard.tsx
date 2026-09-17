@@ -462,7 +462,7 @@ export default function ProfileWizard({
                   <input
                     type="number"
                     min="0"
-                    step="1000"
+                    step="1"
                     value={p.budgets[c] ?? ''}
                     onChange={(e) => set('budgets', { ...p.budgets, [c]: numeric(e.target.value) })}
                     placeholder={tr('Unknown')}

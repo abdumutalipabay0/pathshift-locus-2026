@@ -32,7 +32,7 @@ The demo's component scores, dates, course counts and expected completion date (
 
 ## Features and architecture
 
-Four-step profile, diagnosis, 12 CS programs, nested requirement explanations, source sheets, independent admission/evidence/timeline/cost states, conditional routes, bounded recourse, causal What-if, three named saved scenarios, shortlist, comparison, deterministic next action, task dependencies and export. Profiles, drafts, comparison selections and progress persist on this browser/device. Verified-deadline calendar export and editable verification questions connect uncertainty to practical next steps.
+Four-step profile, diagnosis, 12 CS programs, nested requirement explanations, source sheets, independent admission/evidence/timeline/cost states, conditional routes, bounded recourse, causal What-if, three named saved scenarios, shortlist, comparison, deterministic next action, task dependencies and export. Profiles, drafts, comparison selections and progress persist on this browser/device. Verified-deadline calendar export and editable verification questions connect uncertainty to practical next steps. A personal study/activity planner supports dates, notes, editing, completion and export. Versioned profile backups can be imported after validation and preview; the prior profile remains recoverable. IELTS overall and complete component sets are checked for consistency.
 
 Next.js App Router, React, TypeScript, Zod and a pure server decision engine. The client never imports the engine. Facts/rule trees are versioned JSON. Radix manages dialogs; Lucide supplies icons. Manrope and DM Sans are self-hosted. No runtime LLM or scraping is needed.
 

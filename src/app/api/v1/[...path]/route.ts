@@ -28,7 +28,7 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ path: 
 }
 async function handle(request: NextRequest, path: string[]) {
   try {
-    if (Number(request.headers.get('content-length') || 0) > 100000)
+    if (Number(request.headers.get('content-length') || 0) > 250000)
       return reply({ error: 'Request too large' }, 413);
     const body = await request.json();
     const profile = profileSchema.parse(body.profile);
@@ -63,7 +63,8 @@ async function handle(request: NextRequest, path: string[]) {
       {
         error:
           error instanceof z.ZodError
-            ? 'Check the profile fields and enter valid values.'
+            ? error.issues.find((issue) => issue.code === 'custom')?.message ||
+              'Check the profile fields and enter valid values.'
             : error instanceof Error
               ? error.message
               : 'Invalid request',

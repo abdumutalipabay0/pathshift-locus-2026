@@ -11,5 +11,5 @@
 - Persistence is local to this browser/device; no accounts, cross-device sync or server database. Application code does not log profile payloads.
 - Automated accessibility checks do not replace a complete assistive-technology audit. The main journey, keyboard dialog dismissal, mobile layout and persistence are tested.
 
-- JSON profile download is an archival export; automatic file import is not implemented. Undo restores the local pre-reset backup.
-- The roadmap covers source-backed academic gaps and optional interest exploration. It does not yet provide a standalone extracurricular portfolio or academic study scheduler.
+- Version 1 JSON profile backups can be imported after validation and preview; a local copy of the replaced profile is retained. There is no automatic cloud sync.
+- The personal study/activity planner stores up to 40 tasks with dates, notes and completion. It is user-directed preparation, not proof of admission eligibility. It does not send scheduled notifications.

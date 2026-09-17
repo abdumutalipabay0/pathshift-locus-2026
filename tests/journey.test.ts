@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluate, dataset, simulate } from '../src/lib/engine';
-import { demoProfile } from '../src/lib/profile';
+import { demoProfile, profileSchema } from '../src/lib/profile';
 import { calendarExport, scenarioMutation } from '../src/lib/journey';
 import { formatDate } from '../src/lib/i18n';
 const now = '2026-09-17T12:00:00Z';
@@ -77,4 +77,55 @@ test('calendar exports only sourced intake dates and safely folds UTF-8', () => 
 });
 test('Kazakh dates have meaningful month names even without browser ICU locale data', () => {
   assert.equal(formatDate('2027-01-15', 'kk'), '15 қаңтар 2027 ж.');
+});
+
+test('IELTS checks official half-band rounding while preserving unknown components', () => {
+  const p = structuredClone(demoProfile);
+  p.ielts = { ...p.ielts, overall: 6.5, reading: 6, writing: 6.5, listening: 6, speaking: 6.5 };
+  assert.equal(profileSchema.safeParse(p).success, true);
+  p.ielts.overall = 7;
+  assert.equal(profileSchema.safeParse(p).success, false);
+  p.ielts.reading = null;
+  assert.equal(profileSchema.safeParse(p).success, true);
+  p.ielts = { ...p.ielts, overall: 7, reading: 7, writing: 7, listening: 6.5, speaking: 6.5 };
+  assert.equal(profileSchema.safeParse(p).success, true);
+});
+test('IB duplicate values agree only when the original scale is explicitly 45', () => {
+  assert.equal(profileSchema.safeParse({ ...demoProfile, raw_grade: '40' }).success, false);
+  assert.equal(
+    profileSchema.safeParse({ ...demoProfile, raw_grade: '40', raw_scale: '100' }).success,
+    true,
+  );
+});
+test('personal preparation persists without changing admission and cannot be altered by scenarios', () => {
+  const p = {
+    ...structuredClone(demoProfile),
+    personal_plan: [
+      {
+        id: 'study-1',
+        title: 'Math practice',
+        kind: 'STUDY' as const,
+        due: '2026-10-01',
+        notes: 'Two exercises',
+        complete: false,
+      },
+    ],
+  };
+  assert.equal(profileSchema.safeParse(p).success, true);
+  const before = evaluate(p, now);
+  p.personal_plan[0].complete = true;
+  const after = evaluate(p, now);
+  assert.deepEqual(before.programs, after.programs);
+  assert.equal(after.profile.personal_plan?.[0].complete, true);
+  assert.throws(() => simulate(p, { personal_plan: [] }, now));
+  assert.equal(
+    profileSchema.safeParse({ ...p, personal_plan: [...p.personal_plan, ...p.personal_plan] })
+      .success,
+    false,
+  );
+  assert.equal(
+    profileSchema.safeParse({ ...p, personal_plan: [{ ...p.personal_plan[0], due: '2026-02-30' }] })
+      .success,
+    false,
+  );
 });

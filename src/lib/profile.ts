@@ -12,6 +12,21 @@ const score = z.number().min(0).max(9).multipleOf(0.5).nullable();
 const testStatus = z.enum(['MISSING', 'PLANNED', 'VALID']);
 export const profileSchema = z
   .object({
+    personal_plan: z
+      .array(
+        z
+          .object({
+            id: z.string().min(1).max(80),
+            title: z.string().trim().min(1).max(120),
+            kind: z.enum(['STUDY', 'ACTIVITY']),
+            due: date,
+            notes: z.string().max(1000),
+            complete: z.boolean(),
+          })
+          .strict(),
+      )
+      .max(40)
+      .optional(),
     name: z.string().trim().min(1).max(60),
     age: z.number().int().min(10).max(100),
     citizenship: z.string().min(1).max(80),
@@ -71,6 +86,36 @@ export const profileSchema = z
   })
   .strict()
   .superRefine((p, ctx) => {
+    const bands = [p.ielts.reading, p.ielts.writing, p.ielts.listening, p.ielts.speaking];
+    if (
+      p.ielts.overall !== null &&
+      bands.every((v) => v !== null) &&
+      Math.round(bands.reduce<number>((sum, v) => sum + (v ?? 0), 0) / 2) / 2 !== p.ielts.overall
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['ielts'],
+        message:
+          'IELTS overall does not match the four bands. Check the scores on your result report.',
+      });
+    if (
+      p.curriculum === 'IB' &&
+      p.raw_scale.trim() === '45' &&
+      /^\d+(\.\d+)?$/.test(p.raw_grade.trim()) &&
+      p.ib_total !== null &&
+      Number(p.raw_grade) !== p.ib_total
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['ib_total'],
+        message: 'Your original grade out of 45 and IB total must match.',
+      });
+    if (new Set(p.personal_plan?.map((t) => t.id)).size !== (p.personal_plan?.length ?? 0))
+      ctx.addIssue({
+        code: 'custom',
+        path: ['personal_plan'],
+        message: 'Personal plan items must have unique identifiers.',
+      });
     if (p.hl_courses !== null && p.ib_courses !== null && p.hl_courses > p.ib_courses)
       ctx.addIssue({
         code: 'custom',

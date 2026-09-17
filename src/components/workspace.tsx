@@ -48,6 +48,7 @@ import { blankProfile, demoProfile, profileSchema } from '@/lib/profile';
 import ProfileWizard from './profile-wizard';
 import { calendarExport, downloadText, scenarioMutation, type SavedScenario } from '@/lib/journey';
 import { JourneyExtras } from './journey-extras';
+import { PersonalPlanner, ProfileImport } from './personal-tools';
 type View = 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
   READY_TO_APPLY: 'Ready to apply',
@@ -964,6 +965,28 @@ export default function Workspace() {
               >
                 {tr('Back up my profile')}
               </button>
+              <ProfileImport
+                busy={busy}
+                onRestore={async (imported) => {
+                  try {
+                    localStorage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
+                  } catch {
+                    setNotice('Changes could not be saved');
+                    return false;
+                  }
+                  if (await compute(imported, true, false)) {
+                    try {
+                      localStorage.removeItem('pathshift-draft');
+                    } catch {}
+                    setNotice(
+                      'Profile imported. Your previous profile is available through Undo demo reset.',
+                    );
+                    navigate('map');
+                    return true;
+                  }
+                  return false;
+                }}
+              />
               <button
                 className="btn ghost small-btn"
                 disabled={busy}
@@ -1558,6 +1581,29 @@ export default function Workspace() {
                               {simulation && (
                                 <div className="causal-diff" aria-live="polite">
                                   <div className="eyebrow">{tr('HERE’S WHAT CHANGED')}</div>
+                                  <p className="scenario-outcome">
+                                    {tr('Ready routes, current → scenario')}:{' '}
+                                    <strong>
+                                      {
+                                        simulation.before.programs.filter(
+                                          (r) =>
+                                            r.in_scope && r.admission_state === 'READY_TO_APPLY',
+                                        ).length
+                                      }{' '}
+                                      →{' '}
+                                      {
+                                        simulation.after.programs.filter(
+                                          (r) =>
+                                            r.in_scope && r.admission_state === 'READY_TO_APPLY',
+                                        ).length
+                                      }
+                                    </strong>
+                                  </p>
+                                  <p className="small">
+                                    {tr(
+                                      'A scenario shows what would change. It is not an offer or a new test result.',
+                                    )}
+                                  </p>
                                   <div className="diff-stat">
                                     <strong>{simulation.diff.removed_blockers.length}</strong>
                                     <span>{tr('requirement gaps removed')}</span>
@@ -1748,7 +1794,16 @@ export default function Workspace() {
                       </>
                     )}
                     {view === 'roadmap' && (
-                      <JourneyExtras evaluation={current} facts={facts} onProof={setProof} />
+                      <>
+                        {' '}
+                        <JourneyExtras evaluation={current} facts={facts} onProof={setProof} />
+                        <PersonalPlanner
+                          profile={profile}
+                          busy={busy}
+                          hypothetical={!!simulation}
+                          onChange={(p) => compute(p)}
+                        />{' '}
+                      </>
                     )}
                     {view === 'roadmap' && (
                       <div className="roadmap-layout">
@@ -2380,6 +2435,10 @@ function ProgramCard({
               ? 'Matches your chosen field and country; requirements still need attention.'
               : 'Outside your current preferences; review before adding.',
         )}
+      </p>
+      <p className="requirement-summary">
+        {tr('Your requirements to resolve')}: {r.blockers.length} ·{' '}
+        {tr('University rules to verify')}: {r.unknowns.length}
       </p>
       <div className="card-reason">
         <span className={`reason-icon ${r.blockers.length ? 'amber-text' : ''}`}>

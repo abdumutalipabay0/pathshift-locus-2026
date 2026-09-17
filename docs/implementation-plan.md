@@ -31,3 +31,7 @@ All four source documents were received, read completely and compared with the m
 The master prompt's 22 Definition of Done criteria are addressed by these gates. JSON fixtures replace the proposed database, and browser persistence replaces server sessions. Readiness means supported evaluated requirements are satisfied, never an admission prediction. The golden journey demonstrates three supported ready routes after explicit score changes and document declarations. Remaining gaps do not block the rest of the application.
 
 Final executed checks are recorded in `validation.md`; launch and demo instructions are in the README. Team identities and separate video/slide submissions must be provided by the actual team.
+
+## Final presentation release
+
+Close the remaining product gaps within the frozen 12-program scope: personal study/activity tasks (dates, notes, edit/completion/export); validated profile import with preview and recoverable replacement; IELTS aggregate consistency and explicit IB duplicate-value consistency; compact scenario outcome and separate missing-rule counts. These are product features, not additions to admission policy. Preserve original research and institutional rules. Validate task changes cannot alter eligibility, test all three languages and production, then freeze this version for presentation.

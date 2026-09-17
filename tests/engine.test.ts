@@ -49,7 +49,7 @@ const ready = () =>
     documents_ready: true,
     aif: true,
     sat: { status: 'VALID', score: 1550, date: '2026-08-01' },
-    ielts: { ...demoProfile.ielts, overall: 8, reading: 7, writing: 7, listening: 7, speaking: 7 },
+    ielts: { ...demoProfile.ielts, overall: 8, reading: 8, writing: 8, listening: 8, speaking: 8 },
   });
 test('dataset has exactly 12 unique programs and unique evidence ids', () => {
   assert.equal(dataset.programs.length, 12);
@@ -303,7 +303,9 @@ test('recourse never changes citizenship, academic history or hard geography', (
 test('simulation is identical to evaluate and never mutates the original profile', () => {
   const p = profile(),
     copy = structuredClone(p);
-  const mutation = { ielts: { ...p.ielts, overall: 7 } };
+  const mutation = {
+    ielts: { ...p.ielts, overall: 7, reading: 7, writing: 7, listening: 7, speaking: 7 },
+  };
   const s = simulate(p, mutation, now);
   assert.deepEqual(p, copy);
   assert.deepEqual(s.before, evaluate(p, now));

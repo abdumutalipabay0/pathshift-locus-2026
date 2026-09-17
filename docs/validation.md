@@ -37,3 +37,14 @@ Local: Windows, Node 24.17.0, Chrome, Next.js 16.3.5.
 Catalog: 621 complete RU/KK entries. Automated axe checks passed for the screens/states exercised by the tests, without disabling rules. This does not claim exhaustive accessibility or correctness for every possible input.
 
 Application facts and original frozen research were not modified in this update. See [case review and remaining work](case-review-2026-09-17.md). The README demo was updated to distinguish hypothetical scenarios from achieved results.
+
+## Final presentation release — 17 September 2026
+
+- 52 domain/localization/validation tests passed. New coverage: IELTS rounding and incomplete components, explicit IB scale consistency, personal-plan persistence and eligibility independence, duplicate task IDs and invalid dates.
+- All 21 local browser tests passed (1.2 minutes). Added study/activity creation, editing, completion, reload/export and mobile axe checks in EN/RU/KK; profile import rejects malformed JSON, requires preview confirmation and supports restoration of the preceding profile.
+- All 21 browser tests passed on the public Vercel URL (1.4 minutes), including the additional imported-plan preservation assertion and complete golden demo.
+- TypeScript, ESLint, Prettier, `git diff --check` and production build passed. Source dataset and original research have no changes.
+- Production deployment: `dpl_6GQSikbnUACYcPYKxKu3Lvebq2PA`, READY, aliased to https://pathshift-locus-2026.vercel.app. An initial CLI authorization error was resolved by retrying with the existing team scope; no permissions were broadened.
+- Manual review: Russian desktop planner, Kazakh mobile layout at 390px, public import control, and no recorded browser error logs in the final public check. Temporary viewport override was reset.
+- Catalog contains 663 complete RU/KK translations. Automated checks cover exercised states, not every assistive technology or possible input.
+- Freeze tag: `hackathon-final-2026-09-17`. [Final scope and presentation freeze](final-release.md).

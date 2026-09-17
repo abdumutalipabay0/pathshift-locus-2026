@@ -3899,3 +3899,96 @@ fieldset.scenario-body {
   margin: 0;
   min-width: 0;
 }
+
+.personal-planner {
+  margin: 20px 0;
+  padding: 24px;
+}
+.personal-planner summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+.personal-planner fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.personal-planner form {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0;
+}
+.personal-planner label {
+  display: grid;
+  gap: 7px;
+}
+.personal-planner input:not([type='checkbox']),
+.personal-planner textarea,
+.personal-planner select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+}
+.personal-planner textarea {
+  resize: vertical;
+}
+.planner-starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.personal-task-list {
+  list-style: none;
+  padding: 0;
+}
+.personal-task-list li {
+  border-top: 1px solid var(--line);
+  padding: 18px 0;
+  overflow-wrap: anywhere;
+}
+.personal-task-check {
+  display: flex !important;
+  align-items: baseline;
+}
+.personal-task-check input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.personal-notes {
+  white-space: pre-wrap;
+}
+.profile-import {
+  display: contents;
+}
+.import-preview {
+  flex-basis: 100%;
+  padding: 20px;
+}
+.import-preview h2 {
+  font-size: 18px;
+}
+@media (max-width: 700px) {
+  .personal-planner {
+    padding: 18px;
+  }
+  .scenario-rail {
+    scroll-margin-top: 88px;
+  }
+}
+
+.requirement-summary {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.scenario-outcome {
+  font-size: 14px;
+  line-height: 1.6;
+}
