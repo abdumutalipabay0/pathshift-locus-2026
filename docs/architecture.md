@@ -15,3 +15,12 @@ Timeline uses date/time/timezone facts. If time or timezone is missing, dates we
 Design: white/slate workspace (#F6F8FB), ink (#18243A), cobalt (#3559DB), pale blue (#EDF2FF), teal (#137B69), amber (#936A17). Manrope for headings, DM Sans for reading and controls, tabular numerals for inputs. The signature is a branching path diagram and a live causal comparison, not a decorative hero photograph. Dashboard: quiet left navigation, wide opportunity workspace, compact scenario rail. Mobile: top navigation, stacked cards, sheet dialogs.
 
 Technical references consulted: https://nextjs.org/docs/app/getting-started/server-and-client-components ; https://nextjs.org/docs/app/getting-started/deploying ; https://vercel.com/docs/frameworks/full-stack/nextjs ; https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md .
+
+
+## Future Lab and optional AI, 18 September 2026
+
+`future-lab.ts` runs only behind `/api/lab`. It reuses evaluate, recourse candidates, simulation validation, diff and roadmap generation. No evaluation module is bundled into the client. Numeric/boolean question branches are validated hypothetical input values, never inferred actual data. English alternatives are enumerated separately; an OR is not flattened into a combined higher threshold. Future simulations evaluate at the explicitly entered completion date while retaining the actual baseline at the current date. The planning date is a user assumption, not evidence that preparation or delivery is guaranteed.
+
+CloseRouter chat/completions uses server-only credentials and `openai/gpt-5.5`. GPT-5.4 mini returned an upstream availability error and was not retained. The provider advertises response_format, but live testing showed schema-inconsistent output when relying on it alone. The exact JSON schema is therefore also included in the parser instruction, and every output is independently validated by a discriminated Zod union, semantic checks, profile validation and existing hard constraints. Invalid output is rejected, never silently repaired into admission facts. Users see the parsed draft and confirm before calculation. Only scenario text is transmitted to the provider.
+
+The endpoint bounds text/output size, timeout, operations and three saved scenarios. An in-memory six-per-minute per-IP limiter protects a single runtime instance; it is not a distributed production quota. For a larger public launch add persistent rate limits/authentication and a provider spend cap. No account settings were altered.

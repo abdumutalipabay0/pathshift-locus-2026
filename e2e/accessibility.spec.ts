@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 test('opportunity map has no WCAG A/AA automated accessibility violations', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   const audit = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])

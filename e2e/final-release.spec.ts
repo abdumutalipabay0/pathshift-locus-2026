@@ -6,10 +6,10 @@ for (const locale of ['en', 'ru', 'kk'] as const)
   test(`${locale}: personal study and activity plan survives edits, reload and export`, async ({
     page,
   }) => {
-    await page.goto('/');
+    await page.goto('/?view=map');
     await expect(page.locator('.program-card')).toHaveCount(6);
     await page.getByRole('combobox', { name: 'Interface language' }).selectOption(locale);
-    await page.locator('.sidebar nav button').nth(3).click();
+    await page.locator('.sidebar nav button[data-view=roadmap]').click();
     const panel = page.locator('.personal-planner');
     await page.locator('.optional-tools > summary').click();
     await panel.locator('summary').click();
@@ -51,7 +51,7 @@ for (const locale of ['en', 'ru', 'kk'] as const)
 test('profile import validates, previews, restores a full plan and can be undone', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('/?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.locator('.profile-tools > summary').click();
   const file = page.locator('input[type="file"]');
@@ -90,7 +90,7 @@ test('profile import validates, previews, restores a full plan and can be undone
   await expect(page.locator('.profile-button')).toContainText('Imported student');
   await page.reload();
   await expect(page.locator('.profile-button')).toContainText('Imported student');
-  await page.locator('.sidebar nav button').nth(3).click();
+  await page.locator('.sidebar nav button[data-view=roadmap]').click();
   await page.locator('.optional-tools > summary').click();
   await page.locator('.personal-planner summary').click();
   await expect(page.getByRole('checkbox', { name: 'Project portfolio' })).toBeChecked();

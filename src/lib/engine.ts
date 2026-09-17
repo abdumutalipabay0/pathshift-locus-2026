@@ -397,7 +397,7 @@ function core(program: Program, p: Profile, facts: Fact[], now: string): Result 
     deadline,
   };
 }
-function mutations(
+export function recourseMutations(
   r: Result,
   p: Profile,
   facts: Fact[],
@@ -441,7 +441,11 @@ function mutations(
 }
 function recourse(r: Result, p: Profile, facts: Fact[], now: string): Recourse[] {
   if (r.timeline_state === 'MISSED' || !r.in_scope) return [];
-  const options = mutations(r, p, facts);
+  const options = recourseMutations(r, p, facts).filter(
+    (o) =>
+      p.test_willingness?.[o.id === 'english' ? 'IELTS' : o.id === 'sat' ? 'SAT' : 'ACT'] !==
+        false || !['english', 'sat', 'act'].includes(o.id),
+  );
   const paths: Recourse[] = [];
   for (let mask = 1; mask < 1 << Math.min(options.length, 5); mask++) {
     const selected = options.filter((_, i) => mask & (1 << i));
@@ -747,12 +751,24 @@ export function simulate(
     'interest',
     'intake',
     'expected_score_date',
+    'test_willingness',
+    'documents_by_program',
+    'aif',
   ]);
   if (Object.keys(mutation).some((key) => !allowed.has(key)))
     throw new Error(
       'Scenarios can change future tests and preferences, not your identity or academic history.',
     );
   const afterProfile = profileSchema.parse({ ...structuredClone(p), ...mutation });
+  for (const test of ['ielts', 'sat', 'act'] as const)
+    if (
+      mutation[test] &&
+      JSON.stringify(mutation[test]) !== JSON.stringify(p[test]) &&
+      afterProfile.test_willingness?.[
+        test === 'ielts' ? 'IELTS' : test === 'sat' ? 'SAT' : 'ACT'
+      ] === false
+    )
+      throw new Error('A score change conflicts with your test lock.');
   if (
     mutation.countries &&
     (!p.geography_flexible || p.country_locks.length) &&
@@ -767,6 +783,9 @@ export function simulate(
     throw new Error('Enable financial flexibility before simulating a higher budget.');
   const before = evaluate(p, now),
     after = evaluate(afterProfile, now);
+  return { before, after, diff: diffEvaluations(before, after) };
+}
+export function diffEvaluations(before: Evaluation, after: Evaluation): Diff {
   const diff: Diff = {
     changed_states: [],
     changed_rules: [],
@@ -818,5 +837,5 @@ export function simulate(
   diff.tasks_removed = before.roadmap
     .filter((b) => !after.roadmap.some((a) => a.id === b.id))
     .map((t) => t.id);
-  return { before, after, diff };
+  return diff;
 }

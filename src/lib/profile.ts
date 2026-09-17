@@ -12,6 +12,14 @@ const score = z.number().min(0).max(9).multipleOf(0.5).nullable();
 const testStatus = z.enum(['MISSING', 'PLANNED', 'VALID']);
 export const profileSchema = z
   .object({
+    test_willingness: z
+      .object({
+        IELTS: z.boolean().optional(),
+        SAT: z.boolean().optional(),
+        ACT: z.boolean().optional(),
+      })
+      .strict()
+      .optional(),
     personal_plan: z
       .array(
         z

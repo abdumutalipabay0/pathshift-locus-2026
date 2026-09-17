@@ -72,6 +72,7 @@ export type Program = {
   conditional?: { name: string; fact: string; note: string };
 };
 export type Profile = {
+  test_willingness?: { IELTS?: boolean; SAT?: boolean; ACT?: boolean };
   school?: {
     natural_science?: number | null;
     electives?: number | null;

@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 test('draft survives navigation and reload, geography locks follow changed selections', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('/?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('button', { name: 'Build my profile', exact: true }).click();
   await page.getByLabel('Your name', { exact: true }).fill('Draft student');
@@ -39,7 +39,7 @@ test('draft survives navigation and reload, geography locks follow changed selec
   await expect(page.locator('.profile-button')).toContainText('Draft student');
 });
 test('comparison limit, reload and browser Back retain usable navigation', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page
     .locator('.sidebar')
@@ -59,7 +59,7 @@ test('comparison limit, reload and browser Back retain usable navigation', async
 test('saved scenario remains hypothetical across reload; calendar and verification draft work', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('/?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('switch', { name: /Explore an English result/ }).check();
   await page.getByRole('button', { name: 'Explore this scenario', exact: true }).click();
@@ -95,7 +95,7 @@ test('saved scenario remains hypothetical across reload; calendar and verificati
 });
 test('mobile navigation communicates state and closes by Escape', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   const toggle = page.getByRole('button', { name: 'Toggle navigation' });
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
@@ -110,7 +110,7 @@ test('mobile navigation communicates state and closes by Escape', async ({ page 
 test('focused entry separates incomplete research and keeps secondary tools closed', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('/?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await expect(page.locator('.program-grid')).toContainText('UW–Madison');
   await expect(page.locator('.program-grid')).toContainText('Waterloo');

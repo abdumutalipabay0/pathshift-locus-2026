@@ -1,0 +1,123 @@
+Future Lab	Лаборатория сценариев	Сценарийлер зертханасы
+ADMISSION DECISION LAB	ЛАБОРАТОРИЯ ПОСТУПЛЕНИЯ	ОҚУҒА ТҮСУ ЗЕРТХАНАСЫ
+Explore your possible futures.	Исследуй свои варианты будущего.	Болашақ мүмкіндіктеріңді зертте.
+Find the answer that matters. See which actions change your paths.	Найди важный ответ. Узнай, какие действия меняют твои варианты поступления.	Маңызды жауапты тап. Қай әрекеттер оқуға түсу жолдарыңды өзгертетінін көр.
+Exploring your paths…	Исследуем твои маршруты…	Жолдарыңды зерттеп жатырмыз…
+Your actual profile	Твой фактический профиль	Нақты профилің
+Explore a target	Выбери цель	Мақсатты таңда
+Expected completion date	Плановая дата готовности	Жоспарланған дайындық күні
+Update planning date	Сохранить плановую дату	Жоспарланған күнді сақтау
+Assumed date when planned results and documents are available. Actual scores stay unchanged.	Предполагаемая дата получения результатов и готовности документов. Фактические баллы не меняются.	Нәтижелер мен құжаттар дайын болады деп жоспарланған күн. Нақты балдар өзгермейді.
+THE NEXT USEFUL ANSWER	СЛЕДУЮЩИЙ ВАЖНЫЙ ОТВЕТ	КЕЛЕСІ МАҢЫЗДЫ ЖАУАП
+One answer can clarify {count} program checks.	Один ответ прояснит проверки по программам: {count}.	Бір жауап {count} бағдарлама бойынша тексерулерді нақтылайды.
+Why this question:	Почему этот вопрос:	Бұл сұрақ не үшін:
+{count} unresolved rules can be checked.	Можно проверить условий: {count}.	Тексеруге болатын шарттар: {count}.
+Your actual answer	Твой фактический ответ	Нақты жауабың
+Choose an answer	Выбери ответ	Жауапты таңда
+Save answer and update graph	Сохранить ответ и обновить схему	Жауапты сақтап, сызбаны жаңарту
+I don’t know yet	Пока не знаю	Әзірге білмеймін
+Enter a real profile value here. Future assumptions belong in the paths below.	Укажи реальные данные. Предположения о будущем рассматриваются в маршрутах ниже.	Нақты деректерді енгіз. Болашақ туралы болжамдар төмендегі жолдарда қарастырылады.
+No more supported questions to ask right now.	Сейчас нет дополнительных вопросов для автоматической проверки.	Қазір автоматты тексеруге арналған қосымша сұрақтар жоқ.
+Review remaining source gaps and requirements in the decision receipt.	Оставшиеся требования и пробелы в источниках можно посмотреть в объяснении решения.	Қалған талаптар мен дереккөздердегі олқылықтарды шешім түсіндірмесінен қара.
+Revisit skipped questions	Вернуться к пропущенным вопросам	Өткізіп жіберген сұрақтарға оралу
+Future paths	Возможные маршруты	Мүмкін жолдар
+FUTURE PATHS	МАРШРУТЫ БУДУЩЕГО	БОЛАШАҚ ЖОЛДАРЫ
+Paths to {school}	Маршруты к {school}	{school} оқу орнына апаратын жолдар
+Up to two actions · conditional outcomes	До двух действий · результат зависит от выполнения условий	Екі әрекетке дейін · нәтиже шарттардың орындалуына байланысты
+View current state	Показать текущее состояние	Қазіргі күйді көрсету
+Path	Маршрут	Жол
+Timing needs verification	Сроки требуют проверки	Мерзімдерді тексеру қажет
+Fits the published deadline	Укладывается в опубликованный срок	Жарияланған мерзімге сәйкес келеді
+IF the planned outcome is achieved	ЕСЛИ плановый результат достигнут	ЕГЕР жоспарланған нәтижеге қол жеткізілсе
+{count} failed checks resolved	Устранено несоответствий: {count}	Жойылған сәйкессіздіктер: {count}
+{count} requirement groups remain	Осталось групп требований: {count}	Қалған талаптар топтары: {count}
+No supported action sequence found.	Подтверждённая последовательность действий не найдена.	Расталған әрекеттер тізбегі табылмады.
+Check the planning date, test preferences and remaining requirements. Academic history and unknown policies cannot be changed by a scenario.	Проверь плановую дату, готовность сдавать тесты и оставшиеся требования. Сценарий не меняет прошлые оценки и неизвестные правила вузов.	Жоспарланған күнді, тест тапсыруға дайындығыңды және қалған талаптарды тексер. Сценарий бұрынғы бағалар мен ЖОО-ның белгісіз ережелерін өзгертпейді.
+Hypothetical result	Условный результат	Болжамды нәтиже
+Costs and remaining requirements still apply.	Расходы и оставшиеся требования по-прежнему учитываются.	Шығындар мен қалған талаптар әлі де ескеріледі.
+Open actual roadmap	Открыть текущий план	Қазіргі жоспарды ашу
+DECISION X-RAY	РАЗБОР ЗАВИСИМОСТЕЙ	БАЙЛАНЫСТАРДЫ ТАЛДАУ
+Follow the dependencies.	Посмотри, что от чего зависит.	Ненің неге байланысты екенін көр.
+Connections explain our rules, not an admissions committee’s decision.	Связи объясняют работу наших правил, а не решение приёмной комиссии.	Байланыстар қабылдау комиссиясының шешімін емес, біздің ережелерімізді түсіндіреді.
+Inspect an input	Выбери параметр для разбора	Талдау үшін параметрді таңда
+Selected action inputs	Параметры выбранного действия	Таңдалған әрекеттің параметрлері
+Connected to selected input	Связан с выбранным параметром	Таңдалған параметрмен байланысты
+No dependency on selected input	Не зависит от выбранного параметра	Таңдалған параметрге тәуелді емес
+Connected requirements	Связанные требования	Байланысты талаптар
+Choose an input to inspect its rules.	Выбери параметр, чтобы посмотреть связанные правила.	Байланысты ережелерді көру үшін параметрді таңда.
+Decision receipt	Объяснение решения	Шешім түсіндірмесі
+Your input	Твои данные	Сенің деректерің
+Rule	Правило	Ереже
+Evaluation result	Результат проверки	Тексеру нәтижесі
+PathShift inference	Вывод PathShift	PathShift қорытындысы
+The program state also depends on its other requirements.	Состояние программы также зависит от остальных требований.	Бағдарламаның күйі басқа талаптарға да байланысты.
+Available action	Доступное действие	Қолжетімді әрекет
+Review the requirement and update your profile.	Проверь требование и обнови профиль.	Талапты тексеріп, профиліңді жаңарт.
+Connected roadmap tasks	Связанные задачи плана	Жоспардың байланысты тапсырмалары
+KEEP DOORS OPEN	СОХРАНИ БОЛЬШЕ ВАРИАНТОВ	КӨБІРЕК МҮМКІНДІКТІ САҚТА
+Which move helps more of your options?	Какое действие поможет большему числу твоих вариантов?	Қай әрекет көбірек мүмкіндігіңе көмектеседі?
+Verified failed checks · no admission score	Подтверждённые несоответствия · без оценки шансов	Расталған сәйкессіздіктер · түсу ықтималдығын бағаламаймыз
+Counts describe conditional rule improvements. Missing timing is shown separately.	Числа показывают улучшения при выполнении условий. Неопределённые сроки отмечены отдельно.	Сандар шарттар орындалғандағы жақсаруды көрсетеді. Белгісіз мерзімдер бөлек белгіленген.
+Willing to take {test}	Готов(а) сдавать {test}	{test} тапсыруға дайынмын
+current options improved	текущих вариантов улучшено	қазіргі мүмкіндік жақсарды
+{count} verified failed checks resolved	Подтверждённых несоответствий устранено: {count}	Жойылған расталған сәйкессіздіктер: {count}
+{count} saved scenarios also benefit	Также полезно в сохранённых сценариях: {count}	Сақталған сценарийлердің {count} нұсқасына да пайдалы
+No budget or country locks relaxed.	Ограничения бюджета и стран не ослаблены.	Бюджет пен елдерге қатысты шектеулер өзгермеді.
+Inspect this action	Разобрать действие	Әрекетті талдау
+Some saved scenarios conflict with current constraints and were excluded.	Некоторые сохранённые сценарии противоречат текущим ограничениям и исключены из сравнения.	Кейбір сақталған сценарийлер қазіргі шектеулерге қайшы болғандықтан салыстырудан алынды.
+DESCRIBE A FUTURE	ОПИШИ БУДУЩИЙ СЦЕНАРИЙ	БОЛАШАҚ СЦЕНАРИЙДІ СИПАТТА
+Your words. A scenario you can inspect.	Твои слова — проверяемый сценарий.	Сенің сөзің — тексеруге болатын сценарий.
+AI extracts only the changes you request. Review them before the rules are recalculated.	AI выделит только запрошенные изменения. Проверь их перед пересчётом правил.	AI тек сұраған өзгерістеріңді бөліп алады. Ережелер қайта есептелмес бұрын оларды тексер.
+Only your scenario text is sent to the AI provider. Do not include personal documents or identifiers.	Провайдеру AI отправляется только текст сценария. Не указывай персональные документы и идентификаторы.	AI провайдеріне тек сценарий мәтіні жіберіледі. Жеке құжаттар мен сәйкестендіру деректерін қоспа.
+Scenario AI is not configured. Use the available paths instead.	AI для сценариев пока не подключён. Можно исследовать доступные маршруты.	Сценарийлерге арналған AI әлі қосылмаған. Қолжетімді жолдарды зерттеуге болады.
+Describe your scenario	Опиши сценарий	Сценарийіңді сипатта
+For example: IELTS 6.5, no SAT, and 3000 USD more per year.	Например: IELTS 6.5, без SAT, бюджет выше на 3000 USD в год.	Мысалы: IELTS 6.5, SAT тапсырмаймын, жылдық бюджет 3000 USD-ға артады.
+Interpreting your scenario…	Разбираем сценарий…	Сценарийді талдап жатырмыз…
+Preview changes	Посмотреть изменения	Өзгерістерді көру
+Review what AI understood	Проверь, как AI понял запрос	AI сұрауды қалай түсінгенін тексер
+Unspecified IELTS bands remain unknown; overall alone may not resolve English requirements.	Неуказанные баллы разделов IELTS остаются неизвестными. Одного общего балла может быть недостаточно.	Көрсетілмеген IELTS бөлімдерінің балдары белгісіз болып қалады. Жалпы балдың өзі жеткіліксіз болуы мүмкін.
+Confirm and simulate	Подтвердить и рассчитать	Растап, есептеу
+Scenario calculated. Your actual profile has not changed.	Сценарий рассчитан. Фактический профиль не изменён.	Сценарий есептелді. Нақты профиль өзгерген жоқ.
+Future saved. Your actual profile has not changed.	Сценарий сохранён. Фактический профиль не изменён.	Сценарий сақталды. Нақты профиль өзгерген жоқ.
+Scenario result	Результат сценария	Сценарий нәтижесі
+{count} program states changed	Изменилось состояний программ: {count}	Бағдарламалардың өзгерген күйлері: {count}
+{count} requirement groups resolved	Закрыто групп требований: {count}	Орындалған талаптар топтары: {count}
+Inspect the result	Разобрать результат	Нәтижені талдау
+Not supplied	Не указано	Көрсетілмеген
+Retake IELTS	Пересдать IELTS	IELTS-ті қайта тапсыру
+Take SAT	Сдать SAT	SAT тапсыру
+Take ACT	Сдать ACT	ACT тапсыру
+Submit the AIF	Подать форму AIF	AIF нысанын тапсыру
+Prepare application documents	Подготовить документы для заявки	Өтінім құжаттарын дайындау
+Clarify the unresolved parts before running this scenario.	Уточни неоднозначные части запроса перед расчётом.	Есептемес бұрын сұраудың түсініксіз бөліктерін нақтыла.
+Describe at least one supported change.	Опиши хотя бы одно поддерживаемое изменение.	Кемінде бір қолдау көрсетілетін өзгерісті сипатта.
+Conflicting or repeated scenario changes.	Изменения повторяются или противоречат друг другу.	Өзгерістер қайталанады немесе бір-біріне қайшы.
+Specify the budget currency.	Укажи валюту бюджета.	Бюджет валютасын көрсет.
+Enter your current budget before adding an amount.	Укажи текущий бюджет перед его увеличением.	Бюджетті арттырмас бұрын қазіргі соманы көрсет.
+Set an expected result date before simulating a new score.	Укажи плановую дату получения результата перед моделированием нового балла.	Жаңа балды модельдемес бұрын нәтиже алу күнін көрсет.
+A score change conflicts with your test lock.	Изменение балла противоречит отказу от этого теста.	Балды өзгерту осы тесттен бас тартуыңа қайшы.
+Scenario AI is temporarily unavailable. Your profile has not changed.	AI временно недоступен. Профиль не изменён.	AI уақытша қолжетімсіз. Профиль өзгерген жоқ.
+Scenario AI could not safely interpret this request. Rephrase it.	AI не смог однозначно разобрать запрос. Переформулируй его.	AI сұрауды нақты түсіне алмады. Басқаша тұжырымда.
+Scenario AI returned an invalid draft. Your profile has not changed.	AI вернул некорректный сценарий. Профиль не изменён.	AI жарамсыз сценарий қайтарды. Профиль өзгерген жоқ.
+Please wait a minute before another AI request.	Подожди минуту перед следующим запросом к AI.	AI-ға келесі сұрауды жібермес бұрын бір минут күт.
+IELTS score	Балл IELTS	IELTS балы
+Test preferences	Готовность сдавать тесты	Тест тапсыруға дайындық
+Budget change	Изменение бюджета	Бюджетті өзгерту
+IB bonus points	Бонусные баллы IB	IB бонустық балдары
+IB Math AA HL	IB Math AA HL	IB Math AA HL
+English A	Английский A	Ағылшын тілі A
+English B HL	Английский B HL	Ағылшын тілі B HL
+Documents ready	Документы готовы	Құжаттар дайын
+IB courses	Предметы IB	IB пәндері
+HL courses	Предметы HL	HL пәндері
+IB diploma	Диплом IB	IB дипломы
+Senior English	Английский в выпускном классе	Бітіруші сыныптағы ағылшын тілі
+Remaining requirements	Оставшиеся требования	Қалған талаптар
+None	Нет	Жоқ
+Reference cost	Справочная стоимость	Анықтамалық құн
+Roadmap changes	Изменения в плане	Жоспардағы өзгерістер
+Resolved task	Задача закрыта	Тапсырма орындалды
+New task	Новая задача	Жаңа тапсырма
+Published deadline source	Источник опубликованного срока	Жарияланған мерзімнің дереккөзі
+WITHIN BUDGET	В пределах указанного бюджета	Көрсетілген бюджет шегінде
+OVER BUDGET	Выше указанного бюджета	Көрсетілген бюджеттен жоғары

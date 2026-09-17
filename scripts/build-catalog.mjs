@@ -6,6 +6,7 @@ for (const file of [
   'scripts/journey-catalog.tsv',
   'scripts/research-generated.tsv',
   'scripts/research-ui.tsv',
+  'scripts/lab-catalog.tsv',
 ])
   for (const row of readFileSync(file, 'utf8').trim().split(/\r?\n/)) {
     const [en, ru, kk, ...extra] = row.split('\t');

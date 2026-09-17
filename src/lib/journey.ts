@@ -8,6 +8,9 @@ export const scenarioFields = [
   'countries',
   'interest',
   'expected_score_date',
+  'test_willingness',
+  'documents_by_program',
+  'aif',
 ] as const;
 export function scenarioMutation(before: Profile, after: Profile): Partial<Profile> {
   return Object.fromEntries(

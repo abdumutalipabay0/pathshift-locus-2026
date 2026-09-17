@@ -50,8 +50,9 @@ import { calendarExport, downloadText, scenarioMutation, type SavedScenario } fr
 import { JourneyExtras } from './journey-extras';
 import { PersonalPlanner, ProfileImport } from './personal-tools';
 import { ResearchDetails, ResearchComparison, resultCaption } from './research-details';
+import FutureLab from './future-lab';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
-type View = 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
+type View = 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
   READY_TO_APPLY: 'Ready to apply',
   WITHIN_REACH: 'Within reach',
@@ -66,6 +67,7 @@ const friendly = (s: string) =>
     .replaceAll('_', ' ')
     .replace(/^./, (c) => c.toUpperCase());
 const navItems = [
+  { id: 'lab', label: 'Future Lab', icon: FlaskConical },
   { id: 'map', label: 'Opportunity map', icon: Compass },
   { id: 'shortlist', label: 'My shortlist', icon: Bookmark },
   { id: 'compare', label: 'Compare paths', icon: GitCompareArrows },
@@ -287,7 +289,7 @@ function PathGraphic() {
 export default function Workspace() {
   const { tr, dateLabel, money } = useLocale();
 
-  const [view, setView] = useState<View>('map');
+  const [view, setView] = useState<View>('lab');
   const [profile, setProfile] = useState<Profile>(demoProfile);
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
   const [facts, setFacts] = useState<Fact[]>([]);
@@ -327,9 +329,9 @@ export default function Workspace() {
   useEffect(() => {
     const readView = () => {
       const value = new URL(window.location.href).searchParams.get('view');
-      if (['map', 'shortlist', 'compare', 'roadmap', 'sources'].includes(value || ''))
+      if (['lab', 'map', 'shortlist', 'compare', 'roadmap', 'sources'].includes(value || ''))
         setView(value as View);
-      else setView('map');
+      else setView('lab');
     };
     readView();
     window.addEventListener('popstate', readView);
@@ -856,7 +858,7 @@ export default function Workspace() {
       <aside ref={sidebarRef} id="workspace-navigation" className={`sidebar ${menu ? 'open' : ''}`}>
         <button
           className="brand-button"
-          onClick={() => navigate('map')}
+          onClick={() => navigate('lab')}
           aria-label={tr('PathShift opportunity map')}
         >
           <Brand />
@@ -866,6 +868,7 @@ export default function Workspace() {
           {navItems.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
+              data-view={id}
               onClick={() => navigate(id)}
               className={`nav-item ${view === id ? 'active' : ''}`}
               aria-current={view === id ? 'page' : undefined}
@@ -1054,6 +1057,25 @@ export default function Workspace() {
               </details>
             </div>
           )}
+          {evaluation && view === 'lab' && (
+            <FutureLab
+              profile={profile}
+              facts={facts}
+              saved={savedScenarios}
+              onProfile={async (p) => {
+                if (!(await compute(p))) throw new Error('Unable to reach the decision engine.');
+              }}
+              onSave={(s) => {
+                if (savedScenarios.length >= 3) {
+                  setSavedOpen(true);
+                  return false;
+                }
+                return storeScenarios([...savedScenarios, s]);
+              }}
+              onRoadmap={() => navigate('roadmap')}
+              onEdit={() => edit()}
+            />
+          )}
           {simulation && (
             <div className="simulation-banner">
               <FlaskConical size={19} />
@@ -1102,58 +1124,60 @@ export default function Workspace() {
             />
           ) : (
             <>
-              <div className="page-heading">
-                <div>
-                  <div className="eyebrow">
-                    {tr(
-                      view === 'map'
-                        ? 'YOUR NEXT CHAPTER'
-                        : view === 'roadmap'
-                          ? 'FROM POSSIBILITIES TO PROGRESS'
-                          : view === 'sources'
-                            ? 'CLARITY YOU CAN CHECK'
-                            : 'YOUR ADMISSION WORKSPACE',
-                    )}
+              {view !== 'lab' && (
+                <div className="page-heading">
+                  <div>
+                    <div className="eyebrow">
+                      {tr(
+                        view === 'map'
+                          ? 'YOUR NEXT CHAPTER'
+                          : view === 'roadmap'
+                            ? 'FROM POSSIBILITIES TO PROGRESS'
+                            : view === 'sources'
+                              ? 'CLARITY YOU CAN CHECK'
+                              : 'YOUR ADMISSION WORKSPACE',
+                      )}
+                    </div>
+                    <h1>
+                      {tr(
+                        view === 'map'
+                          ? 'Your opportunity map.'
+                          : view === 'shortlist'
+                            ? 'The paths you’re keeping close.'
+                            : view === 'compare'
+                              ? 'Different paths. A clearer choice.'
+                              : view === 'roadmap'
+                                ? 'Small steps. Real progress.'
+                                : 'Every decision has a source.',
+                      )}
+                    </h1>
+                    <p>
+                      {tr(
+                        view === 'map'
+                          ? 'See where you stand — and what could change your options.'
+                          : view === 'shortlist'
+                            ? 'Your saved programs shape your personal roadmap.'
+                            : view === 'compare'
+                              ? 'Compare the requirements that matter to your profile.'
+                              : view === 'roadmap'
+                                ? 'A living plan, built from your shortlist and the requirements ahead.'
+                                : 'Official requirements, transparent reasoning, and clearly marked gaps.',
+                      )}
+                    </p>
                   </div>
-                  <h1>
-                    {tr(
-                      view === 'map'
-                        ? 'Your opportunity map.'
-                        : view === 'shortlist'
-                          ? 'The paths you’re keeping close.'
-                          : view === 'compare'
-                            ? 'Different paths. A clearer choice.'
-                            : view === 'roadmap'
-                              ? 'Small steps. Real progress.'
-                              : 'Every decision has a source.',
-                    )}
-                  </h1>
-                  <p>
-                    {tr(
-                      view === 'map'
-                        ? 'See where you stand — and what could change your options.'
-                        : view === 'shortlist'
-                          ? 'Your saved programs shape your personal roadmap.'
-                          : view === 'compare'
-                            ? 'Compare the requirements that matter to your profile.'
-                            : view === 'roadmap'
-                              ? 'A living plan, built from your shortlist and the requirements ahead.'
-                              : 'Official requirements, transparent reasoning, and clearly marked gaps.',
-                    )}
-                  </p>
+                  {view === 'roadmap' ? (
+                    <button className="btn secondary" onClick={exportPlan} disabled={!current}>
+                      <Download size={16} />
+                      {tr('Export plan ')}
+                    </button>
+                  ) : (
+                    <button className="btn secondary" disabled={busy} onClick={() => edit(true)}>
+                      <Plus size={16} />
+                      {tr('Build my profile ')}
+                    </button>
+                  )}
                 </div>
-                {view === 'roadmap' ? (
-                  <button className="btn secondary" onClick={exportPlan} disabled={!current}>
-                    <Download size={16} />
-                    {tr('Export plan ')}
-                  </button>
-                ) : (
-                  <button className="btn secondary" disabled={busy} onClick={() => edit(true)}>
-                    <Plus size={16} />
-                    {tr('Build my profile ')}
-                  </button>
-                )}
-              </div>
+              )}
               {view === 'map' && (
                 <>
                   <section className="journey-banner">
