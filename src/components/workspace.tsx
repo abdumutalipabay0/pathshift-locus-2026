@@ -427,6 +427,17 @@ export default function Workspace() {
         } catch {
           /* A corrupt cache never prevents a fresh demo. */
         }
+        // Upgrade only the explicitly labelled synthetic demo. Real profiles keep missing
+        // school fields and bonus points unanswered; never infer them from a grade.
+        if (
+          isDemo &&
+          p.name === demoProfile.name &&
+          p.ib_total === demoProfile.ib_total &&
+          p.curriculum === demoProfile.curriculum
+        ) {
+          if (p.school === undefined) p.school = structuredClone(demoProfile.school);
+          if (p.ib_core_points === undefined) p.ib_core_points = demoProfile.ib_core_points;
+        }
         if (!p.documents_by_program)
           p.documents_by_program = Object.fromEntries(
             p.shortlist.map((id) => [id, p.documents_ready]),

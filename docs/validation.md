@@ -66,3 +66,6 @@ Application facts and original frozen research were not modified in this update.
 - TypeScript, ESLint (no warnings), Prettier, production build and diff whitespace checks passed. Manual Russian desktop/mobile comparison checked; mobile columns narrowed and university names repeated in cells to keep context while scrolling.
 - Published references preserve USD/CAD and 2026–27, including specific costs and exclusions. Purdue/RIT recurring dates are displayed but not manufactured into calendar timestamps. Other English tests are documented as official alternatives; automatic score evaluation remains focused on the implemented IELTS branches. ASU GPA equivalency is not guessed from IB or national grades.
 - Production verification follows deployment below.
+
+- Initial production deployment `dpl_6QkvxqfzEisY8J48Qh9JZdFbszUa`: all 27 browser tests passed on the public URL in 1.8 minutes.
+- Manual public reload exposed a legacy-demo presentation issue: the saved synthetic demo predated the new school/IB fields. A narrowly scoped demo migration now fills only missing fields for the matching synthetic profile. Real profiles are explicitly excluded, covered by a separate regression. No actual applicant record is supplemented from demo values.

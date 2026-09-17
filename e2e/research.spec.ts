@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { demoProfile } from '../src/lib/profile';
 
 test('six researched choices and comparison survive invalid saved selections', async ({ page }) => {
   await page.addInitScript(() =>
@@ -68,4 +69,38 @@ test('IB bonus and school input persist as profile data, without changing the or
     'true',
   );
   await expect(page.getByLabel('Original scale', { exact: true })).toHaveValue('45');
+});
+
+test('legacy synthetic demo gains new fields without losing its saved state', async ({ page }) => {
+  const legacy = structuredClone(demoProfile);
+  delete legacy.school;
+  delete legacy.ib_core_points;
+  await page.addInitScript(
+    (p) => localStorage.setItem('pathshift-v1', JSON.stringify({ profile: p, demo: true })),
+    legacy,
+  );
+  await page.goto('/');
+  await expect(page.locator('.program-card')).toHaveCount(6);
+  await page.getByRole('button', { name: 'Edit profile', exact: true }).click();
+  await page.getByRole('button', { name: '2 Academics' }).click();
+  await expect(page.getByLabel('IB bonus points (TOK / EE)', { exact: true })).toHaveValue('3');
+  await expect(page.getByLabel('School mathematics years', { exact: true })).toHaveValue('4');
+});
+
+test('real profiles never inherit synthetic school history or IB bonus points', async ({
+  page,
+}) => {
+  const legacy = structuredClone(demoProfile);
+  delete legacy.school;
+  delete legacy.ib_core_points;
+  await page.addInitScript(
+    (p) => localStorage.setItem('pathshift-v1', JSON.stringify({ profile: p, demo: false })),
+    legacy,
+  );
+  await page.goto('/');
+  await expect(page.locator('.program-card')).toHaveCount(6);
+  await page.getByRole('button', { name: 'Edit profile', exact: true }).click();
+  await page.getByRole('button', { name: '2 Academics' }).click();
+  await expect(page.getByLabel('IB bonus points (TOK / EE)', { exact: true })).toHaveValue('');
+  await expect(page.getByLabel('School mathematics years', { exact: true })).toHaveValue('');
 });
