@@ -184,7 +184,12 @@ export function evaluateRule(
     return {
       ...base,
       result: pass ? 'PASS' : 'FAIL',
-      reason: `${String(input)} ${pass ? 'satisfies' : 'does not satisfy'} the published requirement (${String(expected)}).`,
+      reason:
+        typeof input === 'boolean'
+          ? pass
+            ? 'You have confirmed this step in your profile.'
+            : 'This step is not confirmed yet. Complete it, then update your profile.'
+          : `${String(input)} ${pass ? 'satisfies' : 'does not satisfy'} the published requirement (${String(expected)}).`,
     };
   }
   if (rule.op === 'EXEMPTION') {
@@ -288,6 +293,8 @@ function flatten(rule: RuleResult): RuleResult[] {
   return [rule, ...rule.children.flatMap(flatten)];
 }
 function core(program: Program, p: Profile, facts: Fact[], now: string): Result {
+  if (p.documents_by_program)
+    p = { ...p, documents_ready: p.documents_by_program[program.id] === true };
   const supported =
     p.intake === 'FALL_2027' &&
     p.major === 'Computer Science' &&
@@ -397,7 +404,15 @@ function mutations(
     }
     if (block.action === 'aif') options.push({ id: 'aif', mutation: { aif: true } });
     if (block.action === 'documents')
-      options.push({ id: 'documents', mutation: { documents_ready: true } });
+      options.push({
+        id: 'documents',
+        mutation: {
+          documents_ready: true,
+          ...(p.documents_by_program
+            ? { documents_by_program: { ...p.documents_by_program, [r.program.id]: true } }
+            : {}),
+        },
+      });
   }
   return options;
 }
@@ -548,7 +563,7 @@ function roadmap(results: Result[], p: Profile): Task[] {
         );
       else if (b.action === 'documents')
         add(
-          'documents',
+          `documents-${r.program.id}`,
           'Prepare your application records',
           'Review each shortlisted institution’s checklist, official transcripts, translations and supplementary forms.',
           'DOCUMENT',
@@ -614,28 +629,21 @@ function roadmap(results: Result[], p: Profile): Task[] {
       add(
         `application-${r.program.id}`,
         `Complete ${r.program.short} application`,
-        'Use the official application portal after reviewing all requirements. PathShift does not submit applications.',
+        'Submit the initial application by this date. Documents and scores may have separate later deadlines below. PathShift does not submit applications.',
         'DOCUMENT',
         r,
         [r.deadline.fact],
         r.deadline.date,
       );
-      tasks.get(`application-${r.program.id}`)!.dependencies = [
-        dep,
-        ...[...tasks.values()]
-          .filter(
-            (t) =>
-              t.programs.includes(r.program.id) && t.requires_value && t.id !== 'english-direct',
-          )
-          .map((t) => t.id),
-      ];
+      tasks.get(`application-${r.program.id}`)!.dependencies = [dep];
     }
   }
   return [...tasks.values()].sort(
     (a, b) =>
       Number(a.complete) - Number(b.complete) ||
-      b.impact - a.impact ||
       (a.deadline || '9999').localeCompare(b.deadline || '9999') ||
+      a.dependencies.length - b.dependencies.length ||
+      b.impact - a.impact ||
       a.id.localeCompare(b.id),
   );
 }
@@ -659,6 +667,10 @@ export function evaluate(
   results.sort(
     (a, b) =>
       Number(b.in_scope) - Number(a.in_scope) ||
+      (p.budget_hard
+        ? Number(a.reference_cost_state === 'OVER_BUDGET') -
+          Number(b.reference_cost_state === 'OVER_BUDGET')
+        : 0) ||
       order.indexOf(a.admission_state) - order.indexOf(b.admission_state) ||
       b.passed - a.passed ||
       Number(a.reference_cost_state === 'OVER_BUDGET') -
@@ -700,6 +712,20 @@ export function simulate(
   mutation: Partial<Profile>,
   now = new Date().toISOString(),
 ): Simulation {
+  const allowed = new Set([
+    'ielts',
+    'sat',
+    'act',
+    'budgets',
+    'countries',
+    'interest',
+    'intake',
+    'expected_score_date',
+  ]);
+  if (Object.keys(mutation).some((key) => !allowed.has(key)))
+    throw new Error(
+      'Scenarios can change future tests and preferences, not your identity or academic history.',
+    );
   const afterProfile = profileSchema.parse({ ...structuredClone(p), ...mutation });
   if (
     mutation.countries &&

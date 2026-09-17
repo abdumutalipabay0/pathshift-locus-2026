@@ -42,13 +42,14 @@ for (const locale of ['ru', 'kk'] as const) {
     await page.locator('.wizard-steps button').nth(3).click();
     await page.getByRole('button', { name: t('Build my opportunity map') }).click();
     await expect(page.locator('.wizard').getByRole('alert')).toContainText(
-      t('Check the profile fields and enter valid values.'),
+      t('Age must be between 10 and 100.'),
     );
     await page.locator('.wizard-steps button').nth(0).click();
     await page.getByLabel(t('Age'), { exact: true }).fill('17');
     await page.locator('.wizard-steps button').nth(3).click();
     await page.getByRole('button', { name: t('Build my opportunity map') }).click();
     await page.getByRole('button', { name: t('Explore my paths') }).click();
+    await page.getByRole('switch', { name: new RegExp(t('Explore an English result')) }).check();
     await page.getByRole('button', { name: t('Explore this scenario'), exact: true }).click();
     await expect(page.locator('.causal-diff')).toContainText(t('HERE’S WHAT CHANGED'));
     const before = await page.locator('.causal-diff .diff-stat strong').allTextContents();

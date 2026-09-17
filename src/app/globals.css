@@ -243,6 +243,135 @@ select {
   display: flex;
   min-height: 100vh;
 }
+.journey-toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.scenario-name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+}
+.scenario-name input {
+  min-width: 0;
+  max-width: 220px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+}
+.saved-scenarios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+.saved-scenarios article {
+  padding: 20px;
+  min-width: 0;
+}
+.saved-scenarios dd {
+  margin: 6px 0 14px;
+  overflow-wrap: anywhere;
+}
+.saved-scenarios button {
+  margin-top: 12px;
+  width: 100%;
+  white-space: normal;
+}
+.journey-extras {
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.journey-extras summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 650;
+}
+.deadline-list {
+  padding: 0;
+  list-style: none;
+}
+.deadline-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.deadline-list time {
+  color: var(--primary);
+  font-weight: 600;
+}
+.verification-row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.question-draft {
+  padding-top: 20px;
+}
+.question-draft textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font: inherit;
+  resize: vertical;
+}
+.why-fit {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 12px 0 0;
+  color: #4d596a;
+}
+.menu-backdrop {
+  display: none;
+}
+@media (max-width: 760px) {
+  .sidebar:not(.open) {
+    visibility: hidden;
+  }
+  .sidebar.open {
+    visibility: visible;
+    z-index: 60;
+  }
+  .menu-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #14203355;
+    border: 0;
+    z-index: 55;
+  }
+  .journey-toolbar {
+    gap: 6px;
+  }
+  .journey-toolbar .btn {
+    font-size: 11px;
+    padding: 9px 10px;
+  }
+  .simulation-banner {
+    flex-wrap: wrap;
+  }
+  .scenario-name {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .saved-scenarios {
+    grid-template-columns: 1fr;
+  }
+  .card-metadata,
+  .branch-caption {
+    font-size: 11px;
+  }
+}
 .sidebar {
   width: 220px;
   position: fixed;
@@ -3746,4 +3875,27 @@ html:not(:lang(en)) .proof-grid dd {
   .score-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+.next-action-hero {
+  background: #3c409c;
+}
+.next-action-hero .eyebrow,
+.next-action-hero > p,
+.next-action-hero .next-reasons span,
+.next-action-hero .next-policy {
+  color: #fff;
+  opacity: 1;
+}
+.deadline-list time {
+  color: var(--blue);
+}
+.scenario-name input {
+  color: var(--ink);
+}
+
+fieldset.scenario-body {
+  border: 0;
+  margin: 0;
+  min-width: 0;
 }

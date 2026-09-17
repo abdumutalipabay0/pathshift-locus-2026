@@ -36,6 +36,7 @@ export const profileSchema = z
     senior_english: z.boolean().nullable(),
     aif: z.boolean(),
     documents_ready: z.boolean().default(false),
+    documents_by_program: z.record(z.string().max(60), z.boolean()).optional(),
     ielts: z.object({
       status: testStatus,
       overall: score,
@@ -70,6 +71,12 @@ export const profileSchema = z
   })
   .strict()
   .superRefine((p, ctx) => {
+    if (p.hl_courses !== null && p.ib_courses !== null && p.hl_courses > p.ib_courses)
+      ctx.addIssue({
+        code: 'custom',
+        path: ['hl_courses'],
+        message: 'HL courses cannot exceed the total number of IB courses.',
+      });
     for (const key of ['sat', 'act'] as const)
       if (p[key].status === 'VALID' && (p[key].score === null || p[key].date === null))
         ctx.addIssue({

@@ -1,6 +1,6 @@
 'use client';
 import { useLocale, LanguagePicker } from './locale-provider';
-import { useEffect, useRef, useState, useId } from 'react';
+import { useEffect, useRef, useState, useId, useCallback } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import {
   ArrowUpRight,
@@ -46,6 +46,8 @@ import type {
 } from '@/lib/types';
 import { blankProfile, demoProfile, profileSchema } from '@/lib/profile';
 import ProfileWizard from './profile-wizard';
+import { calendarExport, downloadText, scenarioMutation, type SavedScenario } from '@/lib/journey';
+import { JourneyExtras } from './journey-extras';
 type View = 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
   READY_TO_APPLY: 'Ready to apply',
@@ -239,7 +241,7 @@ function RuleRow({
         </div>
         {rule.children.length > 0 && (
           <details>
-            <summary>{tr(`See ${rule.children.length} conditions`)}</summary>
+            <summary>{tr(`Conditions: ${rule.children.length}`)}</summary>
             {rule.children.map((r) => (
               <RuleRow key={r.id} rule={r} onProof={onProof} depth={depth + 1} />
             ))}
@@ -302,9 +304,62 @@ export default function Workspace() {
   const [simBusy, setSimBusy] = useState(false);
   const [simError, setSimError] = useState('');
   const [notice, setNotice] = useState('');
+  const [wizardStep, setWizardStep] = useState(0);
+  const [saveState, setSaveState] = useState('Demo profile');
+  const [resetOpen, setResetOpen] = useState(false);
+  const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([]);
+  const [scenarioName, setScenarioName] = useState('');
+  const [savedOpen, setSavedOpen] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
+  const draftChange = useCallback((p: Profile, step: number) => {
+    try {
+      localStorage.setItem('pathshift-draft', JSON.stringify({ profile: p, step }));
+      setSaveState('Draft saved on this device');
+    } catch {
+      setSaveState('Changes could not be saved');
+    }
+  }, []);
+  useEffect(() => {
+    const readView = () => {
+      const value = new URL(window.location.href).searchParams.get('view');
+      if (['map', 'shortlist', 'compare', 'roadmap', 'sources'].includes(value || ''))
+        setView(value as View);
+      else setView('map');
+    };
+    readView();
+    window.addEventListener('popstate', readView);
+    return () => window.removeEventListener('popstate', readView);
+  }, []);
+  useEffect(() => {
+    if (!menu) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenu(false);
+        menuRef.current?.focus();
+      }
+      if (event.key === 'Tab') {
+        const nodes = Array.from(
+          sidebarRef.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') || [],
+        );
+        const first = nodes[0],
+          last = nodes.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    sidebarRef.current?.querySelector('button')?.focus();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [menu]);
   const generation = useRef(0);
   const [scenario, setScenario] = useState({
-    english: true,
+    english: false,
     ielts: 6.5,
     reading: 6,
     writing: 6.5,
@@ -327,6 +382,7 @@ export default function Workspace() {
       const e = await api<Evaluation>('evaluate', { profile: p });
       if (token !== generation.current) return;
       setProfile(e.profile);
+      setDemo(demoValue);
       setEvaluation(e);
       setSimulation(null);
       if (persist)
@@ -335,9 +391,12 @@ export default function Workspace() {
             'pathshift-v1',
             JSON.stringify({ profile: e.profile, demo: demoValue }),
           );
+          setSaveState('Saved on this device');
         } catch {
           setNotice('Your browser could not save changes. Keep this tab open.');
+          setSaveState('Changes could not be saved');
         }
+      return true;
     } catch (e) {
       if (token === generation.current) setError((e as Error).message);
     } finally {
@@ -364,12 +423,37 @@ export default function Workspace() {
         } catch {
           /* A corrupt cache never prevents a fresh demo. */
         }
+        if (!p.documents_by_program)
+          p.documents_by_program = Object.fromEntries(
+            p.shortlist.map((id) => [id, p.documents_ready]),
+          );
+        try {
+          const comparison = JSON.parse(localStorage.getItem('pathshift-comparison') || 'null');
+          if (Array.isArray(comparison))
+            setComparison(comparison.filter((id) => typeof id === 'string').slice(0, 3));
+          const saved = JSON.parse(localStorage.getItem('pathshift-scenarios') || '[]');
+          if (Array.isArray(saved))
+            setSavedScenarios(
+              saved
+                .filter(
+                  (item) =>
+                    typeof item?.id === 'string' &&
+                    typeof item.name === 'string' &&
+                    item.mutation &&
+                    typeof item.mutation === 'object',
+                )
+                .slice(0, 3),
+            );
+        } catch {
+          /* Invalid optional caches do not stop the journey. */
+        }
         const result = await api<Evaluation>('evaluate', { profile: p });
         if (alive) {
           setFacts(sources.facts);
           setProfile(p);
           setWizard(p);
           setDemo(isDemo);
+          setSaveState(isDemo ? 'Demo profile' : 'Saved on this device');
           setEvaluation(result);
           setBusy(false);
         }
@@ -387,13 +471,26 @@ export default function Workspace() {
   }, []);
   const navigate = (v: View) => {
     setView(v);
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', v === 'profile' ? 'map' : v);
+    url.hash = '';
+    window.history.pushState({}, '', url);
     setMenu(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
-  const reset = () => {
-    setDemo(true);
+  const reset = async () => {
+    try {
+      if (!demo || !localStorage.getItem('pathshift-backup'))
+        localStorage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
+    } catch {
+      setNotice('Changes could not be saved');
+      return;
+    }
+    setResetOpen(false);
+    if (!(await compute({ ...structuredClone(demoProfile), documents_by_program: {} }, true, true)))
+      return;
     setScenario({
-      english: true,
+      english: false,
       ielts: 6.5,
       reading: 6,
       writing: 6.5,
@@ -409,27 +506,117 @@ export default function Workspace() {
     });
     setComparison(['waterloo', 'gatech']);
     navigate('map');
-    void compute(structuredClone(demoProfile), true, true);
+    try {
+      localStorage.setItem('pathshift-comparison', JSON.stringify(['waterloo', 'gatech']));
+    } catch {
+      /* Evaluation remains usable without storage. */
+    }
     setNotice('Demo reset to Aruzhan’s starting profile.');
   };
   const edit = (fresh = false) => {
-    setWizard(structuredClone(fresh ? blankProfile : profile));
+    let next = structuredClone(fresh ? { ...blankProfile, documents_by_program: {} } : profile),
+      step = 0;
+    try {
+      const draft = JSON.parse(localStorage.getItem('pathshift-draft') || 'null');
+      if (
+        draft &&
+        typeof draft.profile?.name === 'string' &&
+        draft.profile?.ielts &&
+        draft.profile?.budgets &&
+        Array.isArray(draft.profile?.countries) &&
+        Array.isArray(draft.profile?.shortlist)
+      ) {
+        next = { ...next, ...draft.profile };
+        step = Math.max(0, Math.min(3, Number(draft.step) || 0));
+        setNotice('Your unfinished profile has been restored.');
+      }
+    } catch {
+      /* Recover with current profile if draft is unreadable. */
+    }
+    setWizardStep(step);
+    setWizard(next);
     navigate('profile');
   };
   const shortlist = (id: string) => {
+    if (simulation) {
+      setNotice('Close the scenario before changing your actual shortlist.');
+      return;
+    }
     const list = profile.shortlist.includes(id)
       ? profile.shortlist.filter((i) => i !== id)
       : [...profile.shortlist, id];
     void compute({ ...profile, shortlist: list });
   };
-  const compare = (id: string) =>
-    setComparison((ids) =>
-      ids.includes(id)
-        ? ids.filter((i) => i !== id)
-        : ids.length < 3
-          ? [...ids, id]
-          : [...ids.slice(1), id],
-    );
+  const compare = (id: string) => {
+    if (!comparison.includes(id) && comparison.length >= 3) {
+      setNotice('Three paths selected. Remove one before adding another.');
+      return;
+    }
+    const next = comparison.includes(id)
+      ? comparison.filter((item) => item !== id)
+      : [...comparison, id];
+    setComparison(next);
+    try {
+      localStorage.setItem('pathshift-comparison', JSON.stringify(next));
+    } catch {
+      setNotice('Changes could not be saved');
+    }
+  };
+  const storeScenarios = (items: SavedScenario[]) => {
+    try {
+      localStorage.setItem('pathshift-scenarios', JSON.stringify(items));
+      setSavedScenarios(items);
+      return true;
+    } catch {
+      setNotice('Changes could not be saved');
+      return false;
+    }
+  };
+  const saveScenario = () => {
+    if (!simulation) return;
+    if (savedScenarios.length >= 3) {
+      setSavedOpen(true);
+      setNotice('Three scenarios saved. Remove one before saving another.');
+      return;
+    }
+    const mutation = scenarioMutation(simulation.before.profile, simulation.after.profile);
+    if (!Object.keys(mutation).length) {
+      setNotice('Choose at least one change before saving a scenario.');
+      return;
+    }
+    if (
+      storeScenarios([
+        ...savedScenarios,
+        {
+          id: crypto.randomUUID(),
+          name: scenarioName.trim() || `${tr('Scenario')} ${savedScenarios.length + 1}`,
+          mutation,
+          savedAt: new Date().toISOString(),
+        },
+      ])
+    ) {
+      setSimulation(null);
+      setSavedOpen(true);
+      setScenarioName('');
+      setNotice('Scenario saved. Your actual results are unchanged.');
+    }
+  };
+  const previewSaved = async (item: SavedScenario) => {
+    setSavedOpen(false);
+    setSimBusy(true);
+    const token = generation.current;
+    try {
+      const next = await api<Simulation>('simulate', { profile, mutation: item.mutation });
+      if (token === generation.current) {
+        setSimulation(next);
+        navigate('map');
+      }
+    } catch (e) {
+      setNotice((e as Error).message);
+    } finally {
+      setSimBusy(false);
+    }
+  };
   const runScenario = async () => {
     const token = generation.current;
     setSimBusy(true);
@@ -540,13 +727,101 @@ export default function Workspace() {
         .toLowerCase()
         .includes(search.toLowerCase()),
   );
+  const modals = (
+    <>
+      <Modal
+        open={resetOpen}
+        onClose={() => setResetOpen(false)}
+        title="Reset to the demo?"
+        description="Your current profile will be backed up. Use Undo demo reset to restore it."
+      >
+        <button className="btn secondary" onClick={() => setResetOpen(false)}>
+          {tr('Cancel')}
+        </button>{' '}
+        <button className="btn primary" onClick={reset}>
+          {tr('Back up and reset')}
+        </button>
+      </Modal>
+      <Modal
+        open={savedOpen}
+        onClose={() => setSavedOpen(false)}
+        title="Saved scenarios"
+        description="Up to three alternative plans. Opening a plan recalculates it against your current profile; actual results never change."
+        wide
+      >
+        {!savedScenarios.length && (
+          <p>{tr('Explore a change in the scenario lab, then save it here.')}</p>
+        )}
+        <div className="saved-scenarios">
+          {savedScenarios.map((item) => (
+            <article className="panel" key={item.id}>
+              <h3>{item.name}</h3>
+              <p className="small muted">{dateLabel(item.savedAt)}</p>
+              <dl>
+                {Object.entries(item.mutation).map(([key, value]) => (
+                  <div key={key}>
+                    <dt>
+                      {tr(
+                        key === 'ielts'
+                          ? 'IELTS overall'
+                          : key === 'sat'
+                            ? 'SAT score'
+                            : key === 'budgets'
+                              ? 'Budget'
+                              : key === 'countries'
+                                ? 'Country preference'
+                                : key,
+                      )}
+                    </dt>
+                    <dd>
+                      {key === 'ielts'
+                        ? (value as Profile['ielts']).overall
+                        : key === 'sat'
+                          ? (value as Profile['sat']).score
+                          : typeof value === 'object'
+                            ? JSON.stringify(value)
+                            : String(value)}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <button
+                className="btn primary"
+                disabled={simBusy}
+                onClick={() => void previewSaved(item)}
+              >
+                {tr('Compare with my current profile')}
+              </button>
+              <button
+                className="btn ghost"
+                onClick={() => storeScenarios(savedScenarios.filter((s) => s.id !== item.id))}
+              >
+                {tr('Remove scenario')}
+              </button>
+            </article>
+          ))}
+        </div>
+      </Modal>
+    </>
+  );
   const navLabel = view === 'profile' ? 'Your profile' : navItems.find((n) => n.id === view)?.label;
   return (
     <div className="app-shell">
+      {modals}
       <a className="skip-link" href="#main">
         {tr('Skip to main content ')}
       </a>
-      <aside className={`sidebar ${menu ? 'open' : ''}`}>
+      {menu && (
+        <button
+          className="menu-backdrop"
+          aria-label={tr('Close navigation')}
+          onClick={() => {
+            setMenu(false);
+            menuRef.current?.focus();
+          }}
+        />
+      )}
+      <aside ref={sidebarRef} id="workspace-navigation" className={`sidebar ${menu ? 'open' : ''}`}>
         <button
           className="brand-button"
           onClick={() => navigate('map')}
@@ -602,6 +877,9 @@ export default function Workspace() {
           <div className="breadcrumb">
             <button
               className="icon-button menu-toggle"
+              ref={menuRef}
+              aria-expanded={menu}
+              aria-controls="workspace-navigation"
               aria-label={tr('Toggle navigation')}
               onClick={() => setMenu(!menu)}
             >
@@ -615,11 +893,19 @@ export default function Workspace() {
             <LanguagePicker />
             <span className="save-status">
               <span />
-              {tr(busy ? 'Recalculating…' : 'Saved on this device')}
+              {tr(
+                busy
+                  ? 'Recalculating…'
+                  : view === 'profile'
+                    ? saveState
+                    : saveState === 'Draft saved on this device'
+                      ? 'Saved profile · draft available'
+                      : saveState,
+              )}
             </span>
             <button
               className="btn small-btn secondary"
-              onClick={reset}
+              onClick={() => setResetOpen(true)}
               disabled={busy}
               aria-label={tr('Reset demo')}
             >
@@ -661,21 +947,64 @@ export default function Workspace() {
               </div>
             ),
           )}
+          {evaluation && view !== 'profile' && (
+            <div className="journey-toolbar">
+              <button className="btn secondary small-btn" onClick={() => setSavedOpen(true)}>
+                {tr('Saved scenarios')} · {savedScenarios.length}
+              </button>
+              <button
+                className="btn ghost small-btn"
+                onClick={() =>
+                  downloadText(
+                    JSON.stringify({ version: 1, profile }, null, 2),
+                    'pathshift-profile.json',
+                    'application/json',
+                  )
+                }
+              >
+                {tr('Back up my profile')}
+              </button>
+              <button
+                className="btn ghost small-btn"
+                disabled={busy}
+                onClick={async () => {
+                  try {
+                    const backup = JSON.parse(localStorage.getItem('pathshift-backup') || 'null');
+                    const valid = profileSchema.safeParse(backup?.profile);
+                    if (valid.success) {
+                      if (await compute(valid.data, true, backup.demo === true))
+                        setNotice('Previous profile restored.');
+                    } else setNotice('No previous profile backup is available.');
+                  } catch {
+                    setNotice('No previous profile backup is available.');
+                  }
+                }}
+              >
+                {tr('Undo demo reset')}
+              </button>
+            </div>
+          )}
           {simulation && (
             <div className="simulation-banner">
               <FlaskConical size={19} />
               <div>
                 <strong>{tr('You’re exploring a scenario')}</strong>
                 <span>{tr('Your saved profile has not changed.')}</span>
+                <label className="scenario-name">
+                  {tr('Scenario name')}
+                  <input
+                    maxLength={60}
+                    value={scenarioName}
+                    onChange={(e) => setScenarioName(e.target.value)}
+                    placeholder={tr('e.g. IELTS target')}
+                  />
+                </label>
               </div>
               <button className="btn ghost" onClick={() => setSimulation(null)}>
                 {tr('Discard ')}
               </button>
-              <button
-                className="btn primary"
-                onClick={() => void compute(simulation.after.profile)}
-              >
-                {tr('Apply scenario ')}
+              <button className="btn primary" onClick={saveScenario}>
+                {tr('Save scenario ')}
                 <Check size={15} />
               </button>
             </div>
@@ -684,12 +1013,21 @@ export default function Workspace() {
             <ProfileWizard
               key={JSON.stringify(wizard)}
               initial={wizard}
+              initialStep={wizardStep}
+              onDraft={draftChange}
+              programs={evaluation?.programs.map((r) => r.program) || []}
               onCancel={() => navigate('map')}
-              onSave={(p) => {
-                setDemo(false);
-                void compute(p, true, false);
-                navigate('map');
-                setDiagnosis(true);
+              onSave={async (p) => {
+                if (await compute(p, true, false)) {
+                  setDemo(false);
+                  try {
+                    localStorage.removeItem('pathshift-draft');
+                  } catch {
+                    /* Keep a recoverable draft. */
+                  }
+                  navigate('map');
+                  setDiagnosis(true);
+                }
               }}
             />
           ) : (
@@ -1016,7 +1354,7 @@ export default function Workspace() {
                                 </div>
                                 <span className="mini-badge">{tr('LAB')}</span>
                               </div>
-                              <div className="scenario-body">
+                              <fieldset className="scenario-body" disabled={simBusy || busy}>
                                 <label className="toggle-label">
                                   <span>
                                     <strong>{tr('Explore an English result')}</strong>
@@ -1214,9 +1552,9 @@ export default function Workspace() {
                                 </button>
                                 <p className="private-note">
                                   <ShieldCheck size={12} />
-                                  {tr('Try freely. Apply only when you’re ready. ')}
+                                  {tr('Your saved profile has not changed.')}
                                 </p>
-                              </div>
+                              </fieldset>
                               {simulation && (
                                 <div className="causal-diff" aria-live="polite">
                                   <div className="eyebrow">{tr('HERE’S WHAT CHANGED')}</div>
@@ -1258,11 +1596,8 @@ export default function Workspace() {
                                         : 'Next action updated',
                                     )}
                                   </p>
-                                  <button
-                                    className="btn primary full"
-                                    onClick={() => void compute(simulation.after.profile)}
-                                  >
-                                    {tr('Apply scenario ')}
+                                  <button className="btn primary full" onClick={saveScenario}>
+                                    {tr('Save scenario ')}
                                     <Check size={16} />
                                   </button>
                                   <button
@@ -1413,6 +1748,9 @@ export default function Workspace() {
                       </>
                     )}
                     {view === 'roadmap' && (
+                      <JourneyExtras evaluation={current} facts={facts} onProof={setProof} />
+                    )}
+                    {view === 'roadmap' && (
                       <div className="roadmap-layout">
                         <div>
                           <section className="next-action-hero">
@@ -1433,8 +1771,9 @@ export default function Workspace() {
                                 <div className="next-reasons">
                                   <span>
                                     <Bookmark size={14} />
-                                    {current.next_action.programs.length}{' '}
-                                    {tr(' shortlisted programs ')}
+                                    {tr(
+                                      `Shortlisted programs: ${current.next_action.programs.length}`,
+                                    )}
                                   </span>
                                   <span>
                                     <ShieldCheck size={14} />
@@ -1455,7 +1794,7 @@ export default function Workspace() {
                                 </button>
                                 <p className="small next-policy">
                                   {tr(
-                                    'Why this action? Among steps with completed prerequisites: most shortlisted programs affected, then earliest known deadline, then a stable tie-break. Timing is not a guarantee. ',
+                                    'Why this action? Among available steps: earliest known deadline, then most shortlisted programs affected. Timing is not a guarantee.',
                                   )}
                                 </p>
                               </>
@@ -1624,6 +1963,19 @@ export default function Workspace() {
                               'Marking a research task complete records progress. It does not turn an unknown university rule into a verified one. Test results need their actual new values. ',
                             )}
                           </p>
+                          <button
+                            className="btn secondary full"
+                            onClick={() =>
+                              downloadText(
+                                calendarExport(current, tr, facts),
+                                'pathshift-deadlines.ics',
+                                'text/calendar;charset=utf-8',
+                              )
+                            }
+                          >
+                            <CalendarDays size={15} />
+                            {tr('Export calendar')}
+                          </button>
                           <button className="btn secondary full" onClick={exportPlan}>
                             <Download size={15} />
                             {tr('Export my plan ')}
@@ -1719,7 +2071,7 @@ export default function Workspace() {
               <Badge state={selected.admission_state} />
               <span className="mini-badge">
                 <ShieldCheck size={13} />
-                {tr(friendly(selected.evidence_state))} {tr(' evidence ')}
+                {tr(`Evidence status: ${friendly(selected.evidence_state)}`)}
               </span>
             </div>
             <p className="detail-structure">{tr(selected.program.structure)}</p>
@@ -1801,19 +2153,30 @@ export default function Workspace() {
                   <ExternalLink size={13} />
                 </button>
               )}
-              {selected.program.deadlines.map((d) => (
-                <div className="deadline-row" key={d.type}>
-                  <span>{tr(friendly(d.type))}</span>
-                  <strong>{tr(dateLabel(d.date))}</strong>
-                  <button className="text-button" onClick={() => setProof([d.fact])}>
-                    {tr('Source ')}
-                    <ArrowUpRight size={12} />
-                  </button>
-                  <small>
-                    {tr(d.time ? `${d.time} · ${d.timezone}` : 'Time / timezone not verified')}
-                  </small>
-                </div>
-              ))}
+              {selected.program.deadlines
+                .filter((d) =>
+                  facts.some(
+                    (f) =>
+                      f.id === d.fact && f.intake === profile.intake && f.evidence === 'VERIFIED',
+                  ),
+                )
+                .map((d) => (
+                  <div className="deadline-row" key={d.type}>
+                    <span>{tr(friendly(d.type))}</span>
+                    <strong>{tr(dateLabel(d.date))}</strong>
+                    <button className="text-button" onClick={() => setProof([d.fact])}>
+                      {tr('Source ')}
+                      <ArrowUpRight size={12} />
+                    </button>
+                    <small>
+                      {tr(
+                        d.time
+                          ? `${d.time} · ${d.timezone === 'APPLICANT_LOCAL' ? tr('Your local timezone') : d.timezone || tr('Time / timezone not verified')}`
+                          : 'Time / timezone not verified',
+                      )}
+                    </small>
+                  </div>
+                ))}
             </section>
             <div className="modal-actions">
               <button
@@ -2009,6 +2372,15 @@ function ProgramCard({
       </button>
       <p className="degree">{tr(r.program.degree)}</p>
       <Badge state={r.admission_state} />
+      <p className="why-fit">
+        {tr(
+          r.rules.some((rule) => rule.strength === 'HARD' && rule.result === 'PASS')
+            ? `Already meets: ${r.rules.find((rule) => rule.strength === 'HARD' && rule.result === 'PASS')!.label}`
+            : r.in_scope
+              ? 'Matches your chosen field and country; requirements still need attention.'
+              : 'Outside your current preferences; review before adding.',
+        )}
+      </p>
       <div className="card-reason">
         <span className={`reason-icon ${r.blockers.length ? 'amber-text' : ''}`}>
           {r.blockers.length ? (

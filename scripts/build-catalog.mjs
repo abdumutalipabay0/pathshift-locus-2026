@@ -1,6 +1,10 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 const catalog = {};
-for (const file of ['scripts/catalog.tsv', 'scripts/domain-catalog.tsv'])
+for (const file of [
+  'scripts/catalog.tsv',
+  'scripts/domain-catalog.tsv',
+  'scripts/journey-catalog.tsv',
+])
   for (const row of readFileSync(file, 'utf8').trim().split(/\r?\n/)) {
     const [en, ru, kk, ...extra] = row.split('\t');
     if (!en || !ru || !kk || extra.length) throw new Error('Invalid translation row: ' + row);

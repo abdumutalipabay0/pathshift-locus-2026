@@ -93,6 +93,7 @@ export type Profile = {
   senior_english: boolean | null;
   aif: boolean;
   documents_ready: boolean;
+  documents_by_program?: Record<string, boolean>;
   ielts: {
     status: string;
     overall: number | null;

@@ -1,5 +1,13 @@
 # Validated implementation plan — 17 September 2026
 
+## Case revalidation and audit remediation
+
+The resupplied case PDF has the same SHA-256 as the repository copy. The case permits rule-based logic, local persistence and a narrow audience; a paid LLM, accounts and admission probabilities are not required. The current journey needs stronger state preservation, human explanations, correct staged deadlines and a clearer transition from diagnosis to at least three candidate paths. Unknown academic mappings and future prices remain evidence limits, not implementation shortcuts.
+
+Execute: (1) isolate hypothetical scenarios from actual results; (2) persist drafts/navigation/comparison and protect reset; (3) correct geography, budget preference, document scope and roadmap dependencies; (4) add saved scenario alternatives, verified-deadline calendar export and verification assistance; (5) repair multilingual copy, date formatting, validation and mobile navigation; (6) regression tests, production build, browser journey and Vercel verification. Preserve the existing path motif, typography and palette; place new features in compact panels within the existing journey.
+
+Submission remains separate: accessible repository, actual team roles, a recorded video up to three minutes, PDF up to eight slides and captain submission. Do not fabricate team identities or claim those materials have been submitted.
+
 All four source documents were received, read completely and compared with the master prompt before implementation. Earlier missing-source status is closed. Their SHA-256 checksums matched the supplied originals. Raw research and its editorial notes are preserved.
 
 ## Resolved source and architecture decisions

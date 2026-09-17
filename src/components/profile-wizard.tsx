@@ -1,6 +1,6 @@
 'use client';
 import { useLocale } from './locale-provider';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   ArrowRight,
   ArrowLeft,
@@ -18,16 +18,29 @@ export default function ProfileWizard({
   initial,
   onSave,
   onCancel,
+  initialStep = 0,
+  onDraft,
+  programs = [],
 }: {
   initial: Profile;
   onSave: (p: Profile) => void;
   onCancel: () => void;
+  initialStep?: number;
+  onDraft?: (p: Profile, step: number) => void;
+  programs?: { id: string; short: string }[];
 }) {
   const { tr } = useLocale();
 
   const [p, setP] = useState(() => structuredClone(initial));
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(initialStep);
   const [error, setError] = useState('');
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    onDraft?.(p, step);
+  }, [p, step, onDraft]);
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error, step]);
   const set = <K extends keyof Profile>(key: K, value: Profile[K]) =>
     setP((prev) => ({ ...prev, [key]: value }));
   const numeric = (v: string) => (v === '' ? null : Number(v));
@@ -35,10 +48,23 @@ export default function ProfileWizard({
     const result = profileSchema.safeParse(p);
     if (!result.success) {
       const issue = result.error.issues[0];
+      const field = String(issue.path[0]);
+      const target = ['name', 'age', 'citizenship', 'countries', 'major', 'intake'].includes(field)
+        ? 0
+        : ['ielts', 'sat', 'act', 'expected_score_date'].includes(field)
+          ? 2
+          : ['budgets', 'aif', 'documents_by_program'].includes(field)
+            ? 3
+            : 1;
+      setStep(target);
       setError(
-        issue.code === 'custom'
-          ? issue.message
-          : 'Check the profile fields and enter valid values.',
+        field === 'age'
+          ? 'Age must be between 10 and 100.'
+          : field === 'name'
+            ? 'Enter your name to continue.'
+            : issue.code === 'custom'
+              ? issue.message
+              : 'Check the profile fields and enter valid values.',
       );
       return;
     }
@@ -50,6 +76,14 @@ export default function ProfileWizard({
       <h1>{tr('Start with where you are.')}</h1>
       <p className="muted">
         {tr('A few details help us turn requirements into a plan that belongs to you. ')}
+      </p>
+      <p className="notice">
+        {tr(
+          'This workspace covers 12 Computer Science programs for international first-year entry in Fall 2027. IB is the best-supported curriculum; other routes may need verification.',
+        )}
+      </p>
+      <p className="small muted">
+        {tr('Your unfinished profile is saved as a draft on this device.')}
       </p>
       <ol className="wizard-steps">
         {steps.map((s, i) => (
@@ -144,12 +178,16 @@ export default function ProfileWizard({
                       type="checkbox"
                       checked={p.countries.includes(c)}
                       onChange={() =>
-                        set(
-                          'countries',
-                          p.countries.includes(c)
-                            ? p.countries.filter((v) => v !== c)
-                            : [...p.countries, c],
-                        )
+                        setP((prev) => {
+                          const countries = prev.countries.includes(c)
+                            ? prev.countries.filter((v) => v !== c)
+                            : [...prev.countries, c];
+                          return {
+                            ...prev,
+                            countries,
+                            country_locks: prev.geography_flexible ? [] : countries,
+                          };
+                        })
                       }
                     />
                     {tr(c === 'US' ? 'United States' : c === 'UK' ? 'United Kingdom' : c)}
@@ -457,13 +495,50 @@ export default function ProfileWizard({
             <label className="checkbox-row">
               <input
                 type="checkbox"
-                checked={p.documents_ready}
-                onChange={(e) => set('documents_ready', e.target.checked)}
+                checked={
+                  p.shortlist.length > 0 &&
+                  p.shortlist.every((id) => p.documents_by_program?.[id] === true)
+                }
+                disabled={!p.shortlist.length}
+                onChange={(e) =>
+                  setP((prev) => ({
+                    ...prev,
+                    documents_ready: false,
+                    documents_by_program: {
+                      ...prev.documents_by_program,
+                      ...Object.fromEntries(prev.shortlist.map((id) => [id, e.target.checked])),
+                    },
+                  }))
+                }
               />
               {tr(
                 'I have checked the official document lists for my shortlist, prepared transcripts / translations, and completed required supplementary forms ',
               )}
             </label>
+            {programs
+              .filter((program) => p.shortlist.includes(program.id))
+              .map((program) => (
+                <label className="checkbox-row" key={program.id}>
+                  <input
+                    type="checkbox"
+                    checked={p.documents_by_program?.[program.id] === true}
+                    onChange={(e) =>
+                      set('documents_by_program', {
+                        ...p.documents_by_program,
+                        [program.id]: e.target.checked,
+                      })
+                    }
+                  />
+                  {tr('Documents checked for')} {program.short}
+                </label>
+              ))}
+            {!p.shortlist.length && (
+              <p className="field-note">
+                {tr(
+                  'Save programs first, then confirm each institution’s document checklist here.',
+                )}
+              </p>
+            )}
             <p className="field-note">
               {tr(
                 'For Waterloo this includes DAE and the CS Supplementary Information Form. AIF is recorded separately below. This is your declaration; PathShift does not verify or send documents. ',
@@ -481,7 +556,7 @@ export default function ProfileWizard({
         )}
         {tr(
           error && (
-            <p role="alert" className="error-box">
+            <p ref={errorRef} tabIndex={-1} role="alert" className="error-box">
               {tr(error)}
             </p>
           ),

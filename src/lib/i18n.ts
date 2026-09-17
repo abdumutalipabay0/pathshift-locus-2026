@@ -60,12 +60,31 @@ export function translateText(text: string, locale: Locale): string {
   }
   return text;
 }
-export const formatDate = (date: string, locale: Locale) =>
-  new Intl.DateTimeFormat(localeTags[locale], {
+export const formatDate = (date: string, locale: Locale) => {
+  const value = new Date(date.length === 10 ? date + 'T12:00:00Z' : date);
+  if (locale === 'kk') {
+    const months = [
+      'қаңтар',
+      'ақпан',
+      'наурыз',
+      'сәуір',
+      'мамыр',
+      'маусым',
+      'шілде',
+      'тамыз',
+      'қыркүйек',
+      'қазан',
+      'қараша',
+      'желтоқсан',
+    ];
+    return `${value.getUTCDate()} ${months[value.getUTCMonth()]} ${value.getUTCFullYear()} ж.`;
+  }
+  return new Intl.DateTimeFormat(localeTags[locale], {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
     timeZone: 'UTC',
-  }).format(new Date(date.length === 10 ? date + 'T12:00:00Z' : date));
+  }).format(value);
+};
 export const formatNumber = (n: number, locale: Locale) =>
   new Intl.NumberFormat(localeTags[locale], { maximumFractionDigits: 2 }).format(n);

@@ -27,3 +27,13 @@ Local: Windows, Node 24.17.0, Chrome, Next.js 16.3.5.
 - Automated WCAG A/AA checks passed on the English, Russian and Kazakh opportunity maps. Language picker is keyboard-operable; document language and accessible names change with the selection.
 - Production build, TypeScript check, lint and formatting checks passed. Translation catalog regeneration produced an identical hash.
 - Deployed the three-language update to the existing public Vercel URL. All 12 browser tests passed again against production in 40.1 seconds, including both localized journeys and server-rendered locale selection.
+
+## Case revalidation and three quality cycles — 17 September 2026
+
+1. Source/case review and user-journey repairs: separate scenario persistence, institution-scoped documents, chronological application dependencies, draft recovery, hard-budget ordering and synchronized country restrictions.
+2. Local integration: 49 unit/domain/localization tests passed; all 16 Playwright tests passed in 51 seconds. Fixed failures discovered during iteration, including roadmap contrast and an exact-label selector; a test run during hot edits was discarded and rerun on the stable tree. TypeScript, ESLint, Prettier and production build passed. Russian calendar screenshot and live page inspected manually.
+3. Production: Vercel deployment `dpl_GRscqQB5zoZDMCzGhPeTiEdg9P75` READY, aliased to the existing public URL. All 16 tests passed again against production in 1.1 minutes, including golden-path demo, saved scenarios, calendar/question export, reset recovery, draft persistence, keyboard mobile menu and translated journeys.
+
+Catalog: 621 complete RU/KK entries. Automated axe checks passed for the screens/states exercised by the tests, without disabling rules. This does not claim exhaustive accessibility or correctness for every possible input.
+
+Application facts and original frozen research were not modified in this update. See [case review and remaining work](case-review-2026-09-17.md). The README demo was updated to distinguish hypothetical scenarios from achieved results.
