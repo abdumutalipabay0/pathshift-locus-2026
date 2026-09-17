@@ -16,7 +16,17 @@ Scenario Composer uses GPT-5.5 through CloseRouter. Actual RU/KK/EN requests wer
 - Desktop and RU/KK/EN mobile views reviewed; mobile keyboard and automated WCAG checks passed.
 - Key-value scan: no matches in tracked/unignored files or browser bundles. Local env ignored; production key stored as a Vercel secret.
 
-Production verification will be recorded below after release.
+## Production verification
+
+Deployment `dpl_ACeGfUB9HymPBZZmCneRGzT69uno`, code commit `d2d8c94`, is READY and aliased to https://pathshift-locus-2026.vercel.app/.
+
+- Full production browser suite: **36/36 passed**, 2.8 minutes.
+- Includes the repaired immediate checkbox feedback, actual-answer persistence, route saving, source receipts, scenario confirmation, all original golden paths, mobile accessibility and all three locales.
+- Live production `/api/lab` reported GPT-5.5 enabled. Real Russian scenario extraction returned the requested IELTS 6.5 and SAT refusal, then explicit preview returned HTTP 200: baseline IELTS 6, hypothetical IELTS 6.5, unspecified writing score null, 69 decision receipts.
+- Real RU/KK/EN provider extraction passed strict schema and semantic validation. An ambiguous “3000 dollars” request asked for currency rather than guessing.
+- Production mobile and desktop route-board screenshots were visually inspected. No page overflow; source explanations and conditional outcomes remain readable.
+
+No implementation blocker remains. Provider availability and the documented bounded planning/model assumptions still apply.
 
 ## Boundaries
 

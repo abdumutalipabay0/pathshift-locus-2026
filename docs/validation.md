@@ -71,3 +71,8 @@ Application facts and original frozen research were not modified in this update.
 - Manual public reload exposed a legacy-demo presentation issue: the saved synthetic demo predated the new school/IB fields. A narrowly scoped demo migration now fills only missing fields for the matching synthetic profile. Real profiles are explicitly excluded, covered by a separate regression. No actual applicant record is supplemented from demo values.
 
 - Final production deployment `dpl_At3ReMu4duyxCaUUmDTwLKuxvM8y`, code commit `2af4d81`, READY at the public URL. **All 29 browser tests passed on production (1.8 minutes)**, including both legacy-demo and real-profile regressions. The 59 unit/domain/localization tests passed; production compilation and TypeScript passed. Manual public Russian map shows all six universities and their amounts, and the existing synthetic profile recovers correctly. Temporary browser viewport override reset and local audit tab closed.
+
+
+## Future Lab production — 18 September 2026
+
+71 unit/domain/localization tests, TypeScript, ESLint, Prettier and build passed. Production deployment dpl_ACeGfUB9HymPBZZmCneRGzT69uno (code d2d8c94): 36/36 browser tests passed in 2.8m. Genuine CloseRouter GPT-5.5 extraction passed RU/KK/EN schema checks; production parse → explicit preview → simulation returned 200 and preserved the actual baseline. See future-lab-release.md for scope, fixes and limits.
