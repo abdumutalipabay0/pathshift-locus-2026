@@ -1,0 +1,2505 @@
+{
+  "version": "freeze-2026-09-17+official-supplement-1",
+  "facts": [
+    {
+      "id": "cmu.sat_required",
+      "field": "sat_required",
+      "value": true,
+      "statement": "First-year applicants must submit SAT or ACT; CMU policy is scoped to SCS.",
+      "source_url": "https://coursecatalog.web.cmu.edu/aboutcmu/undergraduateadmission/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Carnegie Mellon University",
+        "program": "cmu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "cmu.admission_evidence",
+      "field": "admission_evidence",
+      "value": null,
+      "statement": "Complete first-year requirements need verification",
+      "source_url": "https://coursecatalog.web.cmu.edu/aboutcmu/undergraduateadmission/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Carnegie Mellon University",
+        "program": "cmu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "cmu.reference_cost",
+      "field": "reference_cost",
+      "value": {
+        "min": 96879,
+        "max": 96879,
+        "currency": "USD",
+        "complete": true
+      },
+      "statement": "2026–27 published annual estimate: USD 96879–96879. Not Fall 2027 total cost.",
+      "source_url": "https://www.cmu.edu/oie/pre-arrival-and-settling-in/students/instructions/estimated-expenses.html",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "Carnegie Mellon University",
+        "program": "cmu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "cmu.progression",
+      "field": "progression",
+      "value": "Apply to SCS; choose your major after enrolment.",
+      "statement": "Apply to SCS; choose your major after enrolment.",
+      "source_url": "https://www.cs.cmu.edu/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Carnegie Mellon University",
+        "program": "cmu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "gatech.sat_required",
+      "field": "sat_required",
+      "value": true,
+      "statement": "First-year applicants must submit SAT or ACT; CMU policy is scoped to SCS.",
+      "source_url": "https://admission.gatech.edu/first-year/standardized-tests",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "gatech.english",
+      "field": "english",
+      "value": null,
+      "statement": "Exact USG English method is not frozen",
+      "source_url": "https://admission.gatech.edu/international/first-year",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "gatech.credential",
+      "field": "credential",
+      "value": null,
+      "statement": "Secondary credential assessment needs verification",
+      "source_url": "https://admission.gatech.edu/international/first-year",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "gatech.deadlines",
+      "field": "deadlines",
+      "value": {
+        "application": "2027-01-06",
+        "documents": "2027-01-22"
+      },
+      "statement": "Regular application 2027-01-06; supporting materials 2027-01-22. APPLICANT_LOCAL.",
+      "source_url": "https://admission.gatech.edu/first-year/deadlines",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uiuc.sat_optional",
+      "field": "sat_optional",
+      "value": true,
+      "statement": "SAT/ACT is optional for Fall 2027 first-year applicants.",
+      "source_url": "https://www.admissions.illinois.edu/first-year-apply-faq/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Illinois Urbana-Champaign",
+        "program": "uiuc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uiuc.english",
+      "field": "english",
+      "value": null,
+      "statement": "First-year English predicate is not frozen",
+      "source_url": "https://www.admissions.illinois.edu/international-requirements/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Illinois Urbana-Champaign",
+        "program": "uiuc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uiuc.preparation",
+      "field": "preparation",
+      "value": null,
+      "statement": "15-unit subject pattern needs a complete mapping",
+      "source_url": "https://www.admissions.illinois.edu/general-admission-policies/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Illinois Urbana-Champaign",
+        "program": "uiuc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uiuc.deadlines",
+      "field": "deadlines",
+      "value": {
+        "application": "2027-01-05",
+        "documents": "2027-01-11"
+      },
+      "statement": "Regular application 2027-01-05; supporting materials 2027-01-11. America/Chicago.",
+      "source_url": "https://www.admissions.illinois.edu/first-year-dates/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Illinois Urbana-Champaign",
+        "program": "uiuc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uiuc.reference_cost",
+      "field": "reference_cost",
+      "value": {
+        "min": 62146,
+        "max": 72976,
+        "currency": "USD",
+        "complete": true
+      },
+      "statement": "2026–27 published annual estimate: USD 62146–72976. Not Fall 2027 total cost.",
+      "source_url": "https://www.admissions.illinois.edu/tuition/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "University of Illinois Urbana-Champaign",
+        "program": "uiuc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "purdue.admission_evidence",
+      "field": "admission_evidence",
+      "value": null,
+      "statement": "Complete first-year requirements need verification",
+      "source_url": null,
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uw.sat_optional",
+      "field": "sat_optional",
+      "value": true,
+      "statement": "SAT/ACT is optional for Fall 2027 first-year applicants.",
+      "source_url": "https://admissions.wisc.edu/apply-as-a-freshman/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uw.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5
+      },
+      "statement": "IELTS Academic: overall 6.5.",
+      "source_url": "https://admissions.wisc.edu/international/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uw.documents",
+      "field": "documents",
+      "value": null,
+      "statement": "International secondary documents need verification",
+      "source_url": "https://admissions.wisc.edu/international/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uw.deadlines",
+      "field": "deadlines",
+      "value": {
+        "application": "2027-01-15",
+        "documents": "2027-01-22"
+      },
+      "statement": "Regular application 2027-01-15; supporting materials 2027-01-22. America/Los_Angeles.",
+      "source_url": "https://admissions.wisc.edu/deadlines/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uw.reference_cost",
+      "field": "reference_cost",
+      "value": {
+        "min": 65120,
+        "max": 65120,
+        "currency": "USD",
+        "complete": false
+      },
+      "statement": "2026–27 published tuition/fees and books subtotal: USD 65120–65120. Not Fall 2027 total cost.",
+      "source_url": "https://financialaid.wisc.edu/cost-of-attendance/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uw.progression",
+      "field": "progression",
+      "value": "University admission first; declare Computer Sciences later.",
+      "statement": "University admission first; declare Computer Sciences later.",
+      "source_url": "https://www.cs.wisc.edu/undergraduate/undergrad-program-cs/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "rit.admission_evidence",
+      "field": "admission_evidence",
+      "value": null,
+      "statement": "Complete first-year requirements need verification",
+      "source_url": null,
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "rit.conditional",
+      "field": "conditional",
+      "value": "Conditional English route",
+      "statement": "Conditional English route exists; complete applicability predicates are not frozen.",
+      "source_url": "https://www.rit.edu/admissions/international",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "PARTIAL",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "asu.admission_evidence",
+      "field": "admission_evidence",
+      "value": null,
+      "statement": "Complete first-year requirements need verification",
+      "source_url": null,
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "waterloo.ib",
+      "field": "ib",
+      "value": {
+        "ib_total": 32,
+        "math_aa_hl": 6,
+        "ib_courses": 6,
+        "hl_courses": 3,
+        "ib_diploma": true,
+        "english_a": true
+      },
+      "statement": "IB Diploma, six courses, at least three HL; total 32; Math AA HL minimum 6; English A HL or SL. AIF required.",
+      "source_url": "https://uwaterloo.ca/future-students/admissions/admission-requirements/computer-science/high-school/international-system/ib",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "waterloo.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5,
+        "reading": 6,
+        "writing": 6.5,
+        "listening": 6,
+        "speaking": 6.5
+      },
+      "statement": "IELTS Academic: overall 6.5; reading 6, writing 6.5, listening 6, speaking 6.5.",
+      "source_url": "https://uwaterloo.ca/future-students/admissions/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "waterloo.deadlines",
+      "field": "deadlines",
+      "value": {
+        "application": "2027-02-01",
+        "documents": "2027-02-15"
+      },
+      "statement": "Regular application 2027-02-01; supporting materials 2027-02-15. Timezone not frozen.",
+      "source_url": "https://uwaterloo.ca/future-students/admissions/application-deadlines",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "waterloo.reference_cost",
+      "field": "reference_cost",
+      "value": {
+        "min": 74500,
+        "max": 74500,
+        "currency": "CAD",
+        "complete": false
+      },
+      "statement": "2026–27 published tuition/fees and books subtotal: CAD 74500–74500. Not Fall 2027 total cost.",
+      "source_url": "https://uwaterloo.ca/future-students/financing/tuition",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "waterloo.conditional",
+      "field": "conditional",
+      "value": "BASE English pathway",
+      "statement": "BASE English pathway exists; complete applicability predicates are not frozen.",
+      "source_url": "https://uwaterloo.ca/future-students/admissions/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "ubc.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5,
+        "reading": 6,
+        "writing": 6,
+        "listening": 6,
+        "speaking": 6
+      },
+      "statement": "IELTS Academic: overall 6.5; reading 6, writing 6, listening 6, speaking 6.",
+      "source_url": "https://you.ubc.ca/applying-ubc/requirements/english-language-competency/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of British Columbia",
+        "program": "ubc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "ubc.academic",
+      "field": "academic",
+      "value": null,
+      "statement": "Curriculum-specific academic mapping is not frozen",
+      "source_url": null,
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of British Columbia",
+        "program": "ubc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "ubc.deadlines",
+      "field": "deadlines",
+      "value": {
+        "application": "2027-01-15",
+        "documents": "2027-03-15"
+      },
+      "statement": "Regular application 2027-01-15; supporting materials 2027-03-15. America/Los_Angeles.",
+      "source_url": "https://you.ubc.ca/applying-ubc/dates-deadlines/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of British Columbia",
+        "program": "ubc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "ubc.progression",
+      "field": "progression",
+      "value": "Enter the Faculty of Science; CS specialization is a later step.",
+      "statement": "Enter the Faculty of Science; CS specialization is a later step.",
+      "source_url": "https://you.ubc.ca/programs/computer-science-vancouver-bsc/",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of British Columbia",
+        "program": "ubc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "PARTIAL",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uoft.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5,
+        "reading": 6,
+        "writing": 6,
+        "listening": 6,
+        "speaking": 6
+      },
+      "statement": "IELTS Academic: overall 6.5; reading 6, writing 6, listening 6, speaking 6.",
+      "source_url": "https://future.utoronto.ca/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto",
+        "program": "uoft",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uoft.academic",
+      "field": "academic",
+      "value": null,
+      "statement": "Curriculum-specific academic mapping is not frozen",
+      "source_url": null,
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto",
+        "program": "uoft",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uoft.senior_english",
+      "field": "senior_english",
+      "value": true,
+      "statement": "Senior-level academic English is required independently of English-language facility.",
+      "source_url": "https://future.utoronto.ca/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto",
+        "program": "uoft",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uoft.progression",
+      "field": "progression",
+      "value": "Enter the CS admission category; progress to the program after Year 1.",
+      "statement": "Enter the CS admission category; progress to the program after Year 1.",
+      "source_url": "https://web.cs.toronto.edu/undergraduate/how-to-apply/cmp1",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto",
+        "program": "uoft",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "uoft.conditional",
+      "field": "conditional",
+      "value": "English Language Transition Program",
+      "statement": "English Language Transition Program exists; complete applicability predicates are not frozen.",
+      "source_url": "https://future.utoronto.ca/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto",
+        "program": "uoft",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "utsc.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5,
+        "reading": 6,
+        "writing": 6,
+        "listening": 6,
+        "speaking": 6
+      },
+      "statement": "IELTS Academic: overall 6.5; reading 6, writing 6, listening 6, speaking 6.",
+      "source_url": "https://future.utoronto.ca/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto Scarborough",
+        "program": "utsc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "utsc.academic",
+      "field": "academic",
+      "value": null,
+      "statement": "Curriculum-specific academic mapping is not frozen",
+      "source_url": null,
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto Scarborough",
+        "program": "utsc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "utsc.senior_english",
+      "field": "senior_english",
+      "value": true,
+      "statement": "Senior-level academic English is required independently of English-language facility.",
+      "source_url": "https://future.utoronto.ca/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto Scarborough",
+        "program": "utsc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "utsc.conditional",
+      "field": "conditional",
+      "value": "English Language Transition Program",
+      "statement": "English Language Transition Program exists; complete applicability predicates are not frozen.",
+      "source_url": "https://future.utoronto.ca/english-language-requirements",
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Toronto Scarborough",
+        "program": "utsc",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "manchester.admission_evidence",
+      "field": "admission_evidence",
+      "value": null,
+      "statement": "Complete first-year requirements need verification",
+      "source_url": null,
+      "page_title": null,
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Manchester",
+        "program": "manchester",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "UNKNOWN",
+      "provenance": "UNKNOWN",
+      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
+    },
+    {
+      "id": "gatech.supplement.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6
+      },
+      "statement": "IELTS Academic minimum 6 overall.",
+      "source_url": "https://www.usg.edu/international-education/esl-programs/english-proficiency-requirements/",
+      "page_title": "USG English Proficiency Requirements",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "gatech.supplement.usg_link",
+      "field": "usg_link",
+      "value": true,
+      "statement": "Georgia Tech directs international applicants to USG-approved proficiency methods. Language mastery also receives holistic review.",
+      "source_url": "https://admission.gatech.edu/international/first-year",
+      "page_title": "International First-Year Admission",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "gatech.supplement.secondary_documents",
+      "field": "secondary_documents",
+      "value": true,
+      "statement": "Secondary academic records are required. The applicant must confirm the curriculum-specific checklist, translations and official delivery.",
+      "source_url": "https://admission.gatech.edu/international/first-year",
+      "page_title": "International First-Year Admission",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "uw.supplement.secondary_documents",
+      "field": "secondary_documents",
+      "value": true,
+      "statement": "Secondary academic records are required. The applicant must confirm the curriculum-specific checklist, translations and official delivery.",
+      "source_url": "https://admissions.wisc.edu/international/",
+      "page_title": "International Students Applying to UW–Madison",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "cmu.supplement.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 7.5
+      },
+      "statement": "IELTS Academic minimum 7.5 overall.",
+      "source_url": "https://www.cmu.edu/admission/admission/international-applicants",
+      "page_title": "International Applicants",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Carnegie Mellon University",
+        "program": "cmu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "rit.supplement.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5
+      },
+      "statement": "IELTS Academic minimum 6.5 overall.",
+      "source_url": "https://www.rit.edu/admissions/international",
+      "page_title": "International Student Information",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "asu.supplement.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5
+      },
+      "statement": "IELTS Academic minimum 6.5 overall.",
+      "source_url": "https://degrees.asu.edu/bachelors/major/ASU00/ESCSEBS/computer-science",
+      "page_title": "Computer Science Degree, BS",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "manchester.supplement.ielts",
+      "field": "ielts",
+      "value": {
+        "overall": 6.5,
+        "reading": 6.5,
+        "writing": 6.5,
+        "listening": 6.5,
+        "speaking": 6.5
+      },
+      "statement": "IELTS Academic minimum 6.5 overall; each component 6.5.",
+      "source_url": "https://www.manchester.ac.uk/study/undergraduate/courses/2027/00560/bsc-computer-science/",
+      "page_title": "BSc Computer Science (2027 entry)",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Manchester",
+        "program": "manchester",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "waterloo.supplement.ielts_alternative",
+      "field": "ielts_alternative",
+      "value": {
+        "overall": 7,
+        "reading": 6,
+        "writing": 6,
+        "listening": 6,
+        "speaking": 6
+      },
+      "statement": "An alternative direct IELTS configuration is overall 7.0 and all components at least 6.0.",
+      "source_url": "https://uwaterloo.ca/future-students/admissions/english-language-requirements",
+      "page_title": "English language requirements",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "waterloo.supplement.base_1term",
+      "field": "base_1term",
+      "value": {
+        "overall": 6,
+        "writing": 6
+      },
+      "statement": "One-term BASE lists IELTS 6.0 overall and 6.0 writing. Academic requirements and program availability also apply.",
+      "source_url": "https://uwaterloo.ca/bridge-to-academic-success-in-english/language-requirements",
+      "page_title": "English language requirements for BASE",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current threshold checked 2026-09-17. Page also contains an August 2026 transition deadline, which is NOT carried into Fall 2027."
+    },
+    {
+      "id": "waterloo.supplement.base_cs",
+      "field": "base_cs",
+      "value": true,
+      "statement": "Computer Science is listed under Mathematics/BASE; the Faculty of Mathematics offers iBASE and one-term BASE. Admission is discretionary.",
+      "source_url": "https://uwaterloo.ca/bridge-to-academic-success-in-english/about",
+      "page_title": "About BASE",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "waterloo.supplement.application_documents",
+      "field": "application_documents",
+      "value": true,
+      "statement": "Applicants complete DAE, AIF and the CS Supplementary Information Form and submit required academic records.",
+      "source_url": "https://uwaterloo.ca/computer-science/future-undergraduate-students/applying-admissions",
+      "page_title": "Applying and admissions",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "rit.supplement.conditional_ielts",
+      "field": "conditional_ielts",
+      "value": 6,
+      "statement": "IELTS 6.0 or below is considered for conditional undergraduate admission; academic requirements still apply.",
+      "source_url": "https://www.rit.edu/admissions/international",
+      "page_title": "International Student Information",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "purdue.supplement.ielts_guidance",
+      "field": "ielts_guidance",
+      "value": {
+        "overall": 6.5,
+        "component": 6
+      },
+      "statement": "Purdue describes IELTS 6.5 / components 6.0 as a general applicant guideline; it is not encoded as a universal hard cutoff.",
+      "source_url": "https://admissions.purdue.edu/become-student/english-proficiency/",
+      "page_title": "English Proficiency",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    }
+  ],
+  "programs": [
+    {
+      "id": "cmu",
+      "name": "Carnegie Mellon University",
+      "short": "Carnegie Mellon",
+      "degree": "School of Computer Science",
+      "country": "US",
+      "city": "Pittsburgh",
+      "initials": "CM",
+      "color": "#A63D40",
+      "structure": "Apply to SCS; choose your major after enrolment.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "cmu.test",
+          "label": "SAT or ACT required",
+          "op": "ANY_OF",
+          "strength": "HARD",
+          "facts": [
+            "cmu.sat_required"
+          ],
+          "action": "sat",
+          "children": [
+            {
+              "id": "cmu.sat",
+              "label": "SAT result",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "cmu.sat_required"
+              ],
+              "field": "sat.status",
+              "comparator": "EQ",
+              "value": "VALID"
+            },
+            {
+              "id": "cmu.act",
+              "label": "ACT result",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "cmu.sat_required"
+              ],
+              "field": "act.status",
+              "comparator": "EQ",
+              "value": "VALID"
+            }
+          ]
+        },
+        {
+          "id": "cmu.admission_evidence",
+          "label": "Remaining academic / application requirements need verification",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "cmu.admission_evidence"
+          ],
+          "field": "evidence.admission_evidence",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "cmu.progression",
+          "label": "Apply to SCS; choose your major after enrolment.",
+          "op": "POST_ENROLMENT",
+          "strength": "INFO",
+          "facts": [
+            "cmu.progression"
+          ],
+          "children": []
+        },
+        {
+          "id": "cmu.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "cmu.supplement.ielts"
+          ],
+          "action": "english",
+          "children": [
+            {
+              "id": "cmu.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "cmu.supplement.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            }
+          ]
+        }
+      ],
+      "deadlines": [],
+      "cost": {
+        "min": 96879,
+        "max": 96879,
+        "currency": "USD",
+        "year": "2026–27",
+        "complete": true,
+        "fact": "cmu.reference_cost"
+      }
+    },
+    {
+      "id": "gatech",
+      "name": "Georgia Institute of Technology",
+      "short": "Georgia Tech",
+      "degree": "BS Computer Science",
+      "country": "US",
+      "city": "Atlanta",
+      "initials": "GT",
+      "color": "#796027",
+      "structure": "First-year admission with an intended major.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "gatech.test",
+          "label": "SAT or ACT required",
+          "op": "ANY_OF",
+          "strength": "HARD",
+          "facts": [
+            "gatech.sat_required"
+          ],
+          "action": "sat",
+          "children": [
+            {
+              "id": "gatech.sat",
+              "label": "SAT result",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "gatech.sat_required"
+              ],
+              "field": "sat.status",
+              "comparator": "EQ",
+              "value": "VALID"
+            },
+            {
+              "id": "gatech.act",
+              "label": "ACT result",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "gatech.sat_required"
+              ],
+              "field": "act.status",
+              "comparator": "EQ",
+              "value": "VALID"
+            }
+          ]
+        },
+        {
+          "id": "gatech.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "gatech.supplement.ielts",
+            "gatech.supplement.usg_link"
+          ],
+          "action": "english",
+          "children": [
+            {
+              "id": "gatech.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "gatech.supplement.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            }
+          ]
+        },
+        {
+          "id": "gatech.documents",
+          "label": "Secondary documents checklist",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "gatech.supplement.secondary_documents"
+          ],
+          "field": "documents_ready",
+          "comparator": "EQ",
+          "value": true,
+          "action": "documents"
+        }
+      ],
+      "deadlines": [
+        {
+          "type": "APPLICATION",
+          "plan": "REGULAR",
+          "date": "2027-01-06",
+          "time": "23:59:00",
+          "timezone": "APPLICANT_LOCAL",
+          "fact": "gatech.deadlines"
+        },
+        {
+          "type": "DOCUMENT",
+          "plan": "REGULAR",
+          "date": "2027-01-22",
+          "time": "23:59:00",
+          "timezone": "APPLICANT_LOCAL",
+          "fact": "gatech.deadlines"
+        },
+        {
+          "type": "TEST_SCORE",
+          "plan": "REGULAR",
+          "date": "2027-01-22",
+          "time": "23:59:00",
+          "timezone": "APPLICANT_LOCAL",
+          "fact": "gatech.deadlines"
+        }
+      ]
+    },
+    {
+      "id": "uiuc",
+      "name": "University of Illinois Urbana-Champaign",
+      "short": "UIUC",
+      "degree": "BS Computer Science · Grainger",
+      "country": "US",
+      "city": "Urbana–Champaign",
+      "initials": "IL",
+      "color": "#A7481D",
+      "structure": "Apply with Computer Science as your chosen major.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "uiuc.optional",
+          "label": "SAT / ACT is optional",
+          "op": "ATOM",
+          "strength": "INFO",
+          "facts": [
+            "uiuc.sat_optional"
+          ],
+          "field": "sat.status",
+          "comparator": "PRESENT"
+        },
+        {
+          "id": "uiuc.english",
+          "label": "First-year English predicate is not frozen",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uiuc.english"
+          ],
+          "field": "evidence.english",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "uiuc.preparation",
+          "label": "15-unit subject pattern needs a complete mapping",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uiuc.preparation"
+          ],
+          "field": "evidence.preparation",
+          "comparator": "EQ",
+          "unknown": true
+        }
+      ],
+      "deadlines": [
+        {
+          "type": "APPLICATION",
+          "plan": "REGULAR",
+          "date": "2027-01-05",
+          "time": "23:59:00",
+          "timezone": "America/Chicago",
+          "fact": "uiuc.deadlines"
+        },
+        {
+          "type": "DOCUMENT",
+          "plan": "REGULAR",
+          "date": "2027-01-11",
+          "time": "23:59:00",
+          "timezone": "America/Chicago",
+          "fact": "uiuc.deadlines"
+        }
+      ],
+      "cost": {
+        "min": 62146,
+        "max": 72976,
+        "currency": "USD",
+        "year": "2026–27",
+        "complete": true,
+        "fact": "uiuc.reference_cost"
+      }
+    },
+    {
+      "id": "purdue",
+      "name": "Purdue University",
+      "short": "Purdue",
+      "degree": "BS Computer Science",
+      "country": "US",
+      "city": "West Lafayette",
+      "initials": "PU",
+      "color": "#715F3D",
+      "structure": "Intended-major application; complete rules need verification.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "purdue.admission_evidence",
+          "label": "Complete first-year requirements need verification",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "purdue.admission_evidence"
+          ],
+          "field": "evidence.admission_evidence",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "purdue.guidance",
+          "label": "IELTS guidance: usually 6.5, components 6.0",
+          "op": "ATOM",
+          "strength": "INFO",
+          "facts": [
+            "purdue.supplement.ielts_guidance"
+          ]
+        }
+      ],
+      "deadlines": []
+    },
+    {
+      "id": "uw",
+      "name": "University of Wisconsin–Madison",
+      "short": "UW–Madison",
+      "degree": "Computer Sciences · BA / BS",
+      "country": "US",
+      "city": "Madison",
+      "initials": "W",
+      "color": "#BB3C4C",
+      "structure": "University admission first; declare Computer Sciences later.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "uw.optional",
+          "label": "SAT / ACT is optional",
+          "op": "ATOM",
+          "strength": "INFO",
+          "facts": [
+            "uw.sat_optional"
+          ],
+          "field": "sat.status",
+          "comparator": "PRESENT"
+        },
+        {
+          "id": "uw.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "uw.ielts"
+          ],
+          "children": [
+            {
+              "id": "uw.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "uw.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            }
+          ],
+          "action": "english"
+        },
+        {
+          "id": "uw.progression",
+          "label": "University admission first; declare Computer Sciences later.",
+          "op": "POST_ENROLMENT",
+          "strength": "INFO",
+          "facts": [
+            "uw.progression"
+          ],
+          "children": []
+        },
+        {
+          "id": "uw.documents",
+          "label": "Secondary documents checklist",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uw.supplement.secondary_documents"
+          ],
+          "field": "documents_ready",
+          "comparator": "EQ",
+          "value": true,
+          "action": "documents"
+        }
+      ],
+      "deadlines": [
+        {
+          "type": "APPLICATION",
+          "plan": "REGULAR",
+          "date": "2027-01-15",
+          "time": "23:59:00",
+          "timezone": "America/Los_Angeles",
+          "fact": "uw.deadlines"
+        },
+        {
+          "type": "DOCUMENT",
+          "plan": "REGULAR",
+          "date": "2027-01-22",
+          "time": "23:59:00",
+          "timezone": "America/Los_Angeles",
+          "fact": "uw.deadlines"
+        }
+      ],
+      "cost": {
+        "min": 65120,
+        "max": 65120,
+        "currency": "USD",
+        "year": "2026–27",
+        "complete": false,
+        "fact": "uw.reference_cost"
+      }
+    },
+    {
+      "id": "rit",
+      "name": "Rochester Institute of Technology",
+      "short": "RIT",
+      "degree": "Computer Science BS",
+      "country": "US",
+      "city": "Rochester",
+      "initials": "RIT",
+      "color": "#984B18",
+      "structure": "Program application; English pathway requires verification.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "rit.admission_evidence",
+          "label": "Remaining academic / application requirements need verification",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "rit.admission_evidence"
+          ],
+          "field": "evidence.admission_evidence",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "rit.english",
+          "label": "English: direct or conditional route",
+          "op": "CONDITIONAL_PATH",
+          "strength": "HARD",
+          "facts": [],
+          "action": "english",
+          "direct": {
+            "id": "rit.english.direct",
+            "label": "IELTS Academic requirement",
+            "op": "ALL",
+            "strength": "HARD",
+            "facts": [
+              "rit.supplement.ielts"
+            ],
+            "action": "english",
+            "children": [
+              {
+                "id": "rit.ielts.overall",
+                "label": "IELTS overall",
+                "op": "ATOM",
+                "strength": "HARD",
+                "facts": [
+                  "rit.supplement.ielts"
+                ],
+                "field": "ielts.overall",
+                "comparator": "GTE",
+                "valueKey": "overall"
+              }
+            ]
+          },
+          "alternative": {
+            "id": "rit.conditional",
+            "label": "Conditional IELTS range",
+            "op": "ATOM",
+            "strength": "HARD",
+            "facts": [
+              "rit.supplement.conditional_ielts"
+            ],
+            "field": "ielts.overall",
+            "comparator": "LTE"
+          }
+        }
+      ],
+      "deadlines": [],
+      "conditional": {
+        "name": "English Language Center conditional route",
+        "fact": "rit.supplement.conditional_ielts",
+        "note": "Academic eligibility still needs verification; meeting the English range does not establish admission."
+      }
+    },
+    {
+      "id": "asu",
+      "name": "Arizona State University",
+      "short": "Arizona State",
+      "degree": "Computer Science BS",
+      "country": "US",
+      "city": "Tempe",
+      "initials": "AS",
+      "color": "#913657",
+      "structure": "CS may set requirements above the university baseline.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "asu.admission_evidence",
+          "label": "Remaining academic / application requirements need verification",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "asu.admission_evidence"
+          ],
+          "field": "evidence.admission_evidence",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "asu.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "asu.supplement.ielts"
+          ],
+          "action": "english",
+          "children": [
+            {
+              "id": "asu.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "asu.supplement.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            }
+          ]
+        }
+      ],
+      "deadlines": []
+    },
+    {
+      "id": "waterloo",
+      "name": "University of Waterloo",
+      "short": "Waterloo",
+      "degree": "Computer Science · Faculty of Mathematics",
+      "country": "Canada",
+      "city": "Waterloo",
+      "initials": "W",
+      "color": "#795800",
+      "structure": "IB entry into the Faculty of Mathematics / CS route.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "waterloo.academic",
+          "label": "IB academic prerequisites",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "waterloo.ib"
+          ],
+          "children": [
+            {
+              "id": "waterloo.curriculum",
+              "label": "IB curriculum",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "waterloo.ib"
+              ],
+              "field": "curriculum",
+              "comparator": "EQ",
+              "value": "IB"
+            },
+            {
+              "id": "waterloo.ib_total",
+              "label": "ib total",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "waterloo.ib"
+              ],
+              "field": "ib_total",
+              "comparator": "GTE",
+              "valueKey": "ib_total",
+              "immutable": true
+            },
+            {
+              "id": "waterloo.math_aa_hl",
+              "label": "math aa hl",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "waterloo.ib"
+              ],
+              "field": "math_aa_hl",
+              "comparator": "GTE",
+              "valueKey": "math_aa_hl",
+              "immutable": true
+            },
+            {
+              "id": "waterloo.ib_courses",
+              "label": "ib courses",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "waterloo.ib"
+              ],
+              "field": "ib_courses",
+              "comparator": "GTE",
+              "valueKey": "ib_courses",
+              "immutable": true
+            },
+            {
+              "id": "waterloo.hl_courses",
+              "label": "hl courses",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "waterloo.ib"
+              ],
+              "field": "hl_courses",
+              "comparator": "GTE",
+              "valueKey": "hl_courses",
+              "immutable": true
+            },
+            {
+              "id": "waterloo.ib_diploma",
+              "label": "ib diploma",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "waterloo.ib"
+              ],
+              "field": "ib_diploma",
+              "comparator": "EQ",
+              "valueKey": "ib_diploma",
+              "immutable": true
+            },
+            {
+              "id": "waterloo.english_a",
+              "label": "english a",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "waterloo.ib"
+              ],
+              "field": "english_a",
+              "comparator": "EQ",
+              "valueKey": "english_a",
+              "immutable": true
+            }
+          ]
+        },
+        {
+          "id": "waterloo.aif",
+          "label": "Admission Information Form",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "waterloo.ib"
+          ],
+          "field": "aif",
+          "comparator": "EQ",
+          "value": true,
+          "action": "aif"
+        },
+        {
+          "id": "waterloo.english",
+          "label": "English: direct or BASE pathway",
+          "op": "CONDITIONAL_PATH",
+          "strength": "HARD",
+          "facts": [],
+          "action": "english",
+          "direct": {
+            "id": "waterloo.english.direct",
+            "label": "Direct English route",
+            "op": "ANY_OF",
+            "strength": "HARD",
+            "facts": [],
+            "children": [
+              {
+                "id": "waterloo.english.standard",
+                "label": "IELTS Academic requirement",
+                "op": "ALL",
+                "strength": "HARD",
+                "facts": [
+                  "waterloo.ielts"
+                ],
+                "children": [
+                  {
+                    "id": "waterloo.ielts.overall",
+                    "label": "IELTS overall",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.ielts"
+                    ],
+                    "field": "ielts.overall",
+                    "comparator": "GTE",
+                    "valueKey": "overall"
+                  },
+                  {
+                    "id": "waterloo.ielts.reading",
+                    "label": "IELTS reading",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.ielts"
+                    ],
+                    "field": "ielts.reading",
+                    "comparator": "GTE",
+                    "valueKey": "reading"
+                  },
+                  {
+                    "id": "waterloo.ielts.writing",
+                    "label": "IELTS writing",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.ielts"
+                    ],
+                    "field": "ielts.writing",
+                    "comparator": "GTE",
+                    "valueKey": "writing"
+                  },
+                  {
+                    "id": "waterloo.ielts.listening",
+                    "label": "IELTS listening",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.ielts"
+                    ],
+                    "field": "ielts.listening",
+                    "comparator": "GTE",
+                    "valueKey": "listening"
+                  },
+                  {
+                    "id": "waterloo.ielts.speaking",
+                    "label": "IELTS speaking",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.ielts"
+                    ],
+                    "field": "ielts.speaking",
+                    "comparator": "GTE",
+                    "valueKey": "speaking"
+                  }
+                ]
+              },
+              {
+                "id": "waterloo.english.alternative",
+                "label": "Alternative IELTS configuration",
+                "op": "ALL",
+                "strength": "HARD",
+                "facts": [
+                  "waterloo.supplement.ielts_alternative"
+                ],
+                "children": [
+                  {
+                    "id": "waterloo.alt.overall",
+                    "label": "IELTS overall",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.supplement.ielts_alternative"
+                    ],
+                    "field": "ielts.overall",
+                    "comparator": "GTE",
+                    "valueKey": "overall"
+                  },
+                  {
+                    "id": "waterloo.alt.reading",
+                    "label": "IELTS reading",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.supplement.ielts_alternative"
+                    ],
+                    "field": "ielts.reading",
+                    "comparator": "GTE",
+                    "valueKey": "reading"
+                  },
+                  {
+                    "id": "waterloo.alt.writing",
+                    "label": "IELTS writing",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.supplement.ielts_alternative"
+                    ],
+                    "field": "ielts.writing",
+                    "comparator": "GTE",
+                    "valueKey": "writing"
+                  },
+                  {
+                    "id": "waterloo.alt.listening",
+                    "label": "IELTS listening",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.supplement.ielts_alternative"
+                    ],
+                    "field": "ielts.listening",
+                    "comparator": "GTE",
+                    "valueKey": "listening"
+                  },
+                  {
+                    "id": "waterloo.alt.speaking",
+                    "label": "IELTS speaking",
+                    "op": "ATOM",
+                    "strength": "HARD",
+                    "facts": [
+                      "waterloo.supplement.ielts_alternative"
+                    ],
+                    "field": "ielts.speaking",
+                    "comparator": "GTE",
+                    "valueKey": "speaking"
+                  }
+                ]
+              }
+            ]
+          },
+          "alternative": {
+            "id": "waterloo.base",
+            "label": "One-term BASE English thresholds",
+            "op": "ALL",
+            "strength": "HARD",
+            "facts": [
+              "waterloo.supplement.base_1term",
+              "waterloo.supplement.base_cs"
+            ],
+            "children": [
+              {
+                "id": "waterloo.base.overall",
+                "label": "BASE IELTS overall",
+                "op": "ATOM",
+                "strength": "HARD",
+                "facts": [
+                  "waterloo.supplement.base_1term"
+                ],
+                "field": "ielts.overall",
+                "comparator": "GTE",
+                "valueKey": "overall"
+              },
+              {
+                "id": "waterloo.base.writing",
+                "label": "BASE IELTS writing",
+                "op": "ATOM",
+                "strength": "HARD",
+                "facts": [
+                  "waterloo.supplement.base_1term"
+                ],
+                "field": "ielts.writing",
+                "comparator": "GTE",
+                "valueKey": "writing"
+              }
+            ]
+          }
+        },
+        {
+          "id": "waterloo.documents",
+          "label": "CS application checklist (DAE / SIF / records)",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "waterloo.supplement.application_documents"
+          ],
+          "field": "documents_ready",
+          "comparator": "EQ",
+          "value": true,
+          "action": "documents"
+        }
+      ],
+      "deadlines": [
+        {
+          "type": "APPLICATION",
+          "plan": "REGULAR",
+          "date": "2027-02-01",
+          "time": null,
+          "timezone": null,
+          "fact": "waterloo.deadlines"
+        },
+        {
+          "type": "DOCUMENT",
+          "plan": "REGULAR",
+          "date": "2027-02-15",
+          "time": null,
+          "timezone": null,
+          "fact": "waterloo.deadlines"
+        }
+      ],
+      "cost": {
+        "min": 74500,
+        "max": 74500,
+        "currency": "CAD",
+        "year": "2026–27",
+        "complete": false,
+        "fact": "waterloo.reference_cost"
+      },
+      "conditional": {
+        "name": "One-term BASE English pathway",
+        "fact": "waterloo.supplement.base_1term",
+        "note": "Published English thresholds and academic gates are evaluated. Any offer remains at Waterloo’s discretion. 2027 transition deadlines are not inferred."
+      }
+    },
+    {
+      "id": "ubc",
+      "name": "University of British Columbia",
+      "short": "UBC Vancouver",
+      "degree": "BSc · Computer Science pathway",
+      "country": "Canada",
+      "city": "Vancouver",
+      "initials": "UBC",
+      "color": "#315D7B",
+      "structure": "Enter the Faculty of Science; CS specialization is a later step.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "ubc.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "ubc.ielts"
+          ],
+          "children": [
+            {
+              "id": "ubc.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "ubc.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            },
+            {
+              "id": "ubc.ielts.reading",
+              "label": "IELTS reading",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "ubc.ielts"
+              ],
+              "field": "ielts.reading",
+              "comparator": "GTE",
+              "valueKey": "reading"
+            },
+            {
+              "id": "ubc.ielts.writing",
+              "label": "IELTS writing",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "ubc.ielts"
+              ],
+              "field": "ielts.writing",
+              "comparator": "GTE",
+              "valueKey": "writing"
+            },
+            {
+              "id": "ubc.ielts.listening",
+              "label": "IELTS listening",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "ubc.ielts"
+              ],
+              "field": "ielts.listening",
+              "comparator": "GTE",
+              "valueKey": "listening"
+            },
+            {
+              "id": "ubc.ielts.speaking",
+              "label": "IELTS speaking",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "ubc.ielts"
+              ],
+              "field": "ielts.speaking",
+              "comparator": "GTE",
+              "valueKey": "speaking"
+            }
+          ],
+          "action": "english"
+        },
+        {
+          "id": "ubc.academic",
+          "label": "Curriculum-specific academic mapping is not frozen",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "ubc.academic"
+          ],
+          "field": "evidence.academic",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "ubc.progression",
+          "label": "Enter the Faculty of Science; CS specialization is a later step.",
+          "op": "POST_ENROLMENT",
+          "strength": "INFO",
+          "facts": [
+            "ubc.progression"
+          ],
+          "children": []
+        }
+      ],
+      "deadlines": [
+        {
+          "type": "APPLICATION",
+          "plan": "REGULAR",
+          "date": "2027-01-15",
+          "time": "23:59:00",
+          "timezone": "America/Los_Angeles",
+          "fact": "ubc.deadlines"
+        },
+        {
+          "type": "DOCUMENT",
+          "plan": "REGULAR",
+          "date": "2027-03-15",
+          "time": "23:59:00",
+          "timezone": "America/Los_Angeles",
+          "fact": "ubc.deadlines"
+        },
+        {
+          "type": "ENGLISH_SCORE",
+          "plan": "REGULAR",
+          "date": "2027-02-15",
+          "time": null,
+          "timezone": null,
+          "fact": "ubc.deadlines"
+        }
+      ]
+    },
+    {
+      "id": "uoft",
+      "name": "University of Toronto",
+      "short": "Toronto St George",
+      "degree": "Computer Science category · BCS",
+      "country": "Canada",
+      "city": "Toronto",
+      "initials": "UT",
+      "color": "#2D4D7C",
+      "structure": "Enter the CS admission category; progress to the program after Year 1.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "uoft.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "uoft.ielts"
+          ],
+          "children": [
+            {
+              "id": "uoft.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "uoft.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            },
+            {
+              "id": "uoft.ielts.reading",
+              "label": "IELTS reading",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "uoft.ielts"
+              ],
+              "field": "ielts.reading",
+              "comparator": "GTE",
+              "valueKey": "reading"
+            },
+            {
+              "id": "uoft.ielts.writing",
+              "label": "IELTS writing",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "uoft.ielts"
+              ],
+              "field": "ielts.writing",
+              "comparator": "GTE",
+              "valueKey": "writing"
+            },
+            {
+              "id": "uoft.ielts.listening",
+              "label": "IELTS listening",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "uoft.ielts"
+              ],
+              "field": "ielts.listening",
+              "comparator": "GTE",
+              "valueKey": "listening"
+            },
+            {
+              "id": "uoft.ielts.speaking",
+              "label": "IELTS speaking",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "uoft.ielts"
+              ],
+              "field": "ielts.speaking",
+              "comparator": "GTE",
+              "valueKey": "speaking"
+            }
+          ],
+          "action": "english"
+        },
+        {
+          "id": "uoft.academic",
+          "label": "Curriculum-specific academic mapping is not frozen",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uoft.academic"
+          ],
+          "field": "evidence.academic",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "uoft.senior_english",
+          "label": "Senior academic English",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uoft.senior_english"
+          ],
+          "field": "senior_english",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "uoft.progression",
+          "label": "Enter the CS admission category; progress to the program after Year 1.",
+          "op": "POST_ENROLMENT",
+          "strength": "INFO",
+          "facts": [
+            "uoft.progression"
+          ],
+          "children": []
+        }
+      ],
+      "deadlines": [],
+      "conditional": {
+        "name": "English Language Transition Program",
+        "fact": "uoft.conditional",
+        "note": "Availability for your profile needs verification. Route existence does not establish eligibility."
+      }
+    },
+    {
+      "id": "utsc",
+      "name": "University of Toronto Scarborough",
+      "short": "Toronto Scarborough",
+      "degree": "Computer Science · BCS",
+      "country": "Canada",
+      "city": "Toronto",
+      "initials": "UTS",
+      "color": "#47618B",
+      "structure": "BCS begins Fall 2027; secondary prerequisites need verification.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "utsc.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "utsc.ielts"
+          ],
+          "children": [
+            {
+              "id": "utsc.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "utsc.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            },
+            {
+              "id": "utsc.ielts.reading",
+              "label": "IELTS reading",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "utsc.ielts"
+              ],
+              "field": "ielts.reading",
+              "comparator": "GTE",
+              "valueKey": "reading"
+            },
+            {
+              "id": "utsc.ielts.writing",
+              "label": "IELTS writing",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "utsc.ielts"
+              ],
+              "field": "ielts.writing",
+              "comparator": "GTE",
+              "valueKey": "writing"
+            },
+            {
+              "id": "utsc.ielts.listening",
+              "label": "IELTS listening",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "utsc.ielts"
+              ],
+              "field": "ielts.listening",
+              "comparator": "GTE",
+              "valueKey": "listening"
+            },
+            {
+              "id": "utsc.ielts.speaking",
+              "label": "IELTS speaking",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "utsc.ielts"
+              ],
+              "field": "ielts.speaking",
+              "comparator": "GTE",
+              "valueKey": "speaking"
+            }
+          ],
+          "action": "english"
+        },
+        {
+          "id": "utsc.academic",
+          "label": "Curriculum-specific academic mapping is not frozen",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "utsc.academic"
+          ],
+          "field": "evidence.academic",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "utsc.senior_english",
+          "label": "Senior academic English",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "utsc.senior_english"
+          ],
+          "field": "senior_english",
+          "comparator": "EQ",
+          "unknown": true
+        }
+      ],
+      "deadlines": [],
+      "conditional": {
+        "name": "English Language Transition Program",
+        "fact": "utsc.conditional",
+        "note": "Availability for your profile needs verification. Route existence does not establish eligibility."
+      }
+    },
+    {
+      "id": "manchester",
+      "name": "University of Manchester",
+      "short": "Manchester",
+      "degree": "BSc Computer Science",
+      "country": "UK",
+      "city": "Manchester",
+      "initials": "M",
+      "color": "#76529B",
+      "structure": "Exact direct BSc record needs verification; foundation is a separate route.",
+      "tags": [],
+      "rules": [
+        {
+          "id": "manchester.admission_evidence",
+          "label": "Remaining academic / application requirements need verification",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "manchester.admission_evidence"
+          ],
+          "field": "evidence.admission_evidence",
+          "comparator": "EQ",
+          "unknown": true
+        },
+        {
+          "id": "manchester.english",
+          "label": "IELTS Academic requirement",
+          "op": "ALL",
+          "strength": "HARD",
+          "facts": [
+            "manchester.supplement.ielts"
+          ],
+          "action": "english",
+          "children": [
+            {
+              "id": "manchester.ielts.overall",
+              "label": "IELTS overall",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "manchester.supplement.ielts"
+              ],
+              "field": "ielts.overall",
+              "comparator": "GTE",
+              "valueKey": "overall"
+            },
+            {
+              "id": "manchester.ielts.reading",
+              "label": "IELTS reading",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "manchester.supplement.ielts"
+              ],
+              "field": "ielts.reading",
+              "comparator": "GTE",
+              "valueKey": "reading"
+            },
+            {
+              "id": "manchester.ielts.writing",
+              "label": "IELTS writing",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "manchester.supplement.ielts"
+              ],
+              "field": "ielts.writing",
+              "comparator": "GTE",
+              "valueKey": "writing"
+            },
+            {
+              "id": "manchester.ielts.listening",
+              "label": "IELTS listening",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "manchester.supplement.ielts"
+              ],
+              "field": "ielts.listening",
+              "comparator": "GTE",
+              "valueKey": "listening"
+            },
+            {
+              "id": "manchester.ielts.speaking",
+              "label": "IELTS speaking",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "manchester.supplement.ielts"
+              ],
+              "field": "ielts.speaking",
+              "comparator": "GTE",
+              "valueKey": "speaking"
+            }
+          ]
+        }
+      ],
+      "deadlines": []
+    }
+  ]
+}

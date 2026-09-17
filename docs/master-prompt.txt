@@ -1,0 +1,2149 @@
+Да. Я сперва посмотрел актуальные рекомендации OpenAI по Codex и забрал оттуда именно то, что нам полезно.
+
+Для большой задачи OpenAI рекомендует **сначала Ask Mode → implementation plan → потом Code Mode**, формулировать задачу примерно как хороший GitHub Issue: цель, конкретные компоненты, ограничения, expected behavior и проверки. Также полезно вынести постоянные правила в `AGENTS.md`.  Для больших agentic-проектов OpenAI отдельно отмечает, что лучше давать Codex **карту репозитория и структурированные docs**, а не один гигантский постоянно растущий `AGENTS.md`; edge cases и действия агента должны быть явно определены. 
+
+Поэтому я сделал не просто «сделай сайт», а **implementation contract**.
+
+**Как запускать:** сначала положи/дай Codex в контекст Case 2, Regulations и два Deep Research отчёта. Затем вставь промпт ниже в **Ask Mode**. После его плана переключаешься в **Code Mode** и говоришь: `Execute the approved plan end-to-end. Do not reduce scope unless blocked by a source-of-truth constraint.`
+
+---
+
+# MASTER PROMPT — PATHSHIFT
+
+```text
+You are the principal engineer and product-minded coding agent responsible for building a competition-grade hackathon product called PathShift.
+
+This is not a brainstorming task.
+
+The product concept, decision logic, research direction, scope and core invariants have already been researched extensively. Your job is to turn them into a polished, functioning, testable web product.
+
+Treat this task like an implementation-critical GitHub epic.
+
+============================================================
+0. OPERATING MODE
+============================================================
+
+Before editing code:
+
+1. Inspect the entire repository.
+2. Read every AGENTS.md / AGENTS.override.md that applies.
+3. Locate and read all supplied hackathon and research documents.
+4. Understand existing architecture, dependencies, scripts and conventions.
+5. Produce a concrete implementation plan broken into phases and identify blockers.
+6. Do not invent admissions facts to unblock implementation.
+
+If you are currently running in Ask/Plan mode:
+- stop after producing the implementation plan;
+- include files/components/modules you intend to create or modify;
+- include test strategy and critical risks.
+
+If you are running in Code mode:
+- create/update the implementation plan in the repository and then execute it end-to-end unless a true source-of-truth blocker prevents implementation.
+
+Do not repeatedly ask the user small implementation questions.
+For normal engineering choices, make a sensible decision and document it.
+For admissions facts or decision semantics, NEVER guess.
+
+If repository is existing:
+- preserve working architecture where reasonable;
+- do not rewrite unrelated code;
+- follow existing conventions.
+
+If repository is empty/new:
+use the greenfield architecture defined later in this specification.
+
+============================================================
+1. SOURCE OF TRUTH
+============================================================
+
+The project should have access to these documents either as repository files or task attachments:
+
+- LOCUS Hackathon 2026 Case 2 — Admission Journey
+- LOCUS Startup Hackathon 2026 Regulations
+- PathShift Decision Engine research / 50-question research
+- PathShift Implementation Dataset Freeze / Fall 2027 research
+
+Suggested repository locations:
+
+docs/case/
+  LOCUS_Hackathon_2026_Case_2_Admission_Journey.pdf
+  LOCUS_Startup_Hackathon_2026_Regulations_v2.pdf
+
+docs/research/
+  pathshift-decision-research.md
+  pathshift-data-freeze.md
+
+If exact filenames differ, find the equivalent documents.
+
+These files are authoritative for this project.
+
+Priority when information conflicts:
+
+1. Hackathon Case / Regulations for competition requirements.
+2. Frozen PathShift research for admissions facts and domain semantics.
+3. Existing verified repository fixture data.
+4. This implementation brief for architecture/product behavior.
+5. Your engineering judgment for implementation details only.
+
+ABSOLUTE RULE:
+
+If a factual admissions value is not supported by the research/source material:
+
+    UNKNOWN
+
+Do not replace UNKNOWN with:
+- guessed IELTS thresholds;
+- guessed deadlines;
+- previous-year deadlines pretending to be Fall 2027;
+- guessed SAT policies;
+- guessed scholarship amounts;
+- guessed tuition;
+- inferred Kazakhstan credential equivalency;
+- guessed admission probabilities.
+
+============================================================
+2. PRODUCT THESIS
+============================================================
+
+PathShift is NOT:
+
+- a generic university search engine;
+- an AI chat wrapper;
+- a university ranking site;
+- a fake admission-probability calculator;
+- a static catalogue;
+- an LLM-generated roadmap.
+
+PathShift is a:
+
+    source-backed Admission Decision Engine
+
+Core product promise:
+
+“Other tools tell students where they can apply.
+PathShift shows what must change for their available paths to change — and proves every factual decision.”
+
+The central causal loop is:
+
+STUDENT STATE
+→ VERIFIED FACTS
+→ RULE EVALUATION
+→ PROGRAM STATES
+→ BLOCKERS
+→ FEASIBLE RECOURSE
+→ MINIMAL UNLOCKS
+→ SHORTLIST
+→ ROADMAP
+→ NEXT BEST ACTION
+→ USER ACTION
+→ UPDATED STUDENT STATE
+→ FULL RECALCULATION
+
+A user changing IELTS, SAT, budget, country or another relevant input must trigger the SAME underlying evaluation pipeline used for a real profile.
+
+There must be no fake frontend animation pretending recalculation happened.
+
+============================================================
+3. HACKATHON SUCCESS CRITERIA
+============================================================
+
+The product must strongly satisfy the Case 2 flow:
+
+Profile
+→ Diagnosis
+→ at least 3 recommendations
+→ understandable Why Fit
+→ comparison of at least 2 options
+→ personalized roadmap
+→ one obvious next action
+→ progress state
+
+Key profile changes must visibly affect the correct downstream outputs.
+
+The product must be:
+- a real functioning web app;
+- browser-accessible;
+- usable by judges without explanation;
+- responsive/mobile-safe;
+- stable during live demo;
+- source transparent;
+- robust to missing or uncertain data.
+
+Prioritize:
+1. user journey;
+2. UX clarity and polish;
+3. causal personalization;
+4. reliability;
+5. explainability;
+6. technical defensibility.
+
+Do not optimize for feature count.
+
+============================================================
+4. NON-NEGOTIABLE DOMAIN CONTRACT
+============================================================
+
+These enums are core business semantics:
+
+AdmissionState:
+- READY_TO_APPLY
+- WITHIN_REACH
+- CONDITIONAL_PATH
+- BLOCKED
+- INDETERMINATE
+
+EvidenceState:
+- VERIFIED
+- PARTIAL
+- STALE
+- CONFLICTING
+- UNKNOWN
+
+TimelineState:
+- FEASIBLE
+- TIGHT
+- MISSED
+- UNKNOWN
+
+CostState:
+- WITHIN_BUDGET
+- OVER_BUDGET
+- UNKNOWN
+
+IMPORTANT:
+
+READY_TO_APPLY means only:
+
+“No verified published hard blocker was detected for this application path.”
+
+It NEVER means:
+- likely admitted;
+- safe school;
+- high admission chance;
+- recommended acceptance probability.
+
+Never display admission probabilities.
+
+Never display fake numerical match percentages such as:
+“92% match”
+“78% admission chance”
+
+============================================================
+5. ORTHOGONAL STATES
+============================================================
+
+Admission, evidence, cost and timeline are independent dimensions.
+
+A valid result can be:
+
+{
+  "admission_state": "READY_TO_APPLY",
+  "evidence_state": "VERIFIED",
+  "timeline_state": "FEASIBLE",
+  "cost_state": "OVER_BUDGET"
+}
+
+Do NOT collapse these dimensions into one score.
+
+A student can satisfy academic application requirements while being:
+- over budget;
+- too late for the intake;
+- partially verified;
+- waiting on an unknown fact.
+
+============================================================
+6. CRITICAL DATA PRINCIPLES
+============================================================
+
+FACTS and RULES must be separate.
+
+Fact changes must not require editing frontend components.
+
+Facts must contain provenance.
+
+Minimum FactRecord concept:
+
+fact_id
+field
+normalized_value
+raw_value
+scope
+source_url
+source_type
+page_title
+retrieved_at
+effective_intake
+effective_from
+effective_until
+evidence_state
+provenance_class
+notes
+
+provenance_class:
+- OFFICIAL_FACT
+- PATHSHIFT_INFERENCE
+- PRODUCT_ASSUMPTION
+- UNKNOWN
+
+Scope should support:
+
+institution
+campus
+faculty/school
+admission_category
+program
+applicant_type
+curriculum
+application_plan
+intake
+
+Do not model:
+
+University → one global requirement set.
+
+Model:
+
+Institution
+→ Campus
+→ Faculty/School
+→ Admission Category
+→ Program
+→ Intake
+
+where applicable.
+
+============================================================
+7. RULE DSL
+============================================================
+
+Implement a deterministic rule representation.
+
+Required node types:
+
+ATOM
+ALL
+ANY_OF
+EXEMPTION
+CONDITIONAL_PATH
+POST_ENROLMENT
+
+Required strengths:
+
+HARD
+SOFT
+INFO
+
+Conceptually:
+
+RuleNode =
+  Atom
+  | All
+  | AnyOf
+  | Exemption
+  | ConditionalPath
+  | PostEnrolment
+
+ATOM should support comparators such as:
+
+EQ
+NEQ
+GTE
+LTE
+PRESENT
+IN
+BEFORE
+AFTER
+SATISFIES
+
+Every meaningful HARD rule must reference one or more source_fact_ids unless the rule is explicitly UNKNOWN/evidence-gated.
+
+Rules cannot contain factual values invented inside React components.
+
+============================================================
+8. RULE EVALUATION SEMANTICS
+============================================================
+
+Evaluation should generate explicit per-rule results:
+
+PASS
+FAIL
+UNKNOWN
+NOT_APPLICABLE
+
+Each evaluation should expose:
+
+rule_id
+result
+strength
+human-readable reason
+source_fact_ids
+affected_field
+
+Core logic:
+
+A. READY_TO_APPLY
+
+If:
+- all applicable verified HARD rules pass;
+- there is no unresolved critical HARD rule.
+
+B. CONDITIONAL_PATH
+
+If:
+- direct route currently fails;
+- an OFFICIALLY VERIFIED conditional/foundation/pathway alternative applies.
+
+The route must be real.
+Never invent a conditional route.
+
+C. WITHIN_REACH
+
+If:
+- at least one verified HARD rule fails;
+- every decisive blocker has a feasible, allowed and timeline-valid recourse.
+
+D. BLOCKED
+
+If:
+- a verified HARD rule fails;
+- no allowed feasible recourse exists for the target intake.
+
+Prefer wording:
+
+“Blocked for this intake”
+
+instead of implying permanent impossibility.
+
+E. INDETERMINATE
+
+If:
+- a critical HARD fact/rule cannot be evaluated because evidence is missing, stale, conflicting or unsupported.
+
+MISSING SOURCE != PASS
+MISSING SOURCE != FAIL
+
+============================================================
+9. SOURCE/EVIDENCE RESOLUTION
+============================================================
+
+Implement evidence resolution before rule evaluation.
+
+A critical fact with:
+
+STALE
+CONFLICTING
+UNKNOWN
+
+must not silently act as VERIFIED.
+
+If two authoritative facts conflict at the same scope and target intake:
+
+evidence_state = CONFLICTING
+
+Expose both sources.
+
+Do not arbitrarily choose one.
+
+Specific scope beats generic scope when both are valid and non-conflicting.
+
+Program-specific rules must override generic university-wide assumptions for program-specific fields.
+
+============================================================
+10. FROZEN MVP PROGRAM UNIVERSE
+============================================================
+
+Support exactly this curated universe for the MVP:
+
+1. Carnegie Mellon University — School of Computer Science
+2. Georgia Tech — BS Computer Science
+3. UIUC — BS Computer Science
+4. Purdue — BS Computer Science
+5. UW–Madison — Computer Sciences
+6. RIT — Computer Science BS
+7. Arizona State University — Computer Science BS
+8. University of Waterloo — Computer Science
+9. UBC Vancouver — Computer Science / BSc route
+10. University of Toronto St George — CS / BCS route
+11. University of Toronto Scarborough — Computer Science / BCS
+12. University of Manchester — BSc Computer Science
+
+This is NOT a prestige ranking.
+
+It is a curated rule-diversity dataset.
+
+The frozen research intentionally contains incomplete records.
+
+Do not “fix” incomplete records.
+
+High-confidence logic currently exists especially for:
+- Georgia Tech
+- UIUC
+- UW–Madison
+- Waterloo
+- UBC English/timeline
+- University of Toronto English/structure
+
+Other programs intentionally exercise:
+PARTIAL / UNKNOWN / INDETERMINATE behavior.
+
+============================================================
+11. REQUIRED RULE CONTRASTS
+============================================================
+
+The system must preserve at least these verified behavioral contrasts from the research:
+
+Georgia Tech:
+- SAT or ACT is a HARD requirement for first-year applicants.
+- Missing valid SAT/ACT can therefore create a blocker.
+- Fall 2027-cycle deadlines have source-backed data in the frozen research.
+
+UIUC:
+- SAT/ACT is OPTIONAL for first-year applicants/all majors.
+- Missing SAT must NEVER create a hard blocker.
+- English and academic preparation are separate rule branches.
+
+UW–Madison:
+- SAT/ACT is optional for Fall 2027.
+- direct English rules are source-backed in research.
+- admission to UW–Madison is separate from later CS major declaration.
+- CS declaration logic is POST_ENROLMENT and must not block high-school application.
+
+Waterloo:
+- strong verified IB-specific CS branch.
+- Math AA HL requirement exists for the frozen IB branch.
+- direct English requirement exists.
+- BASE/English alternative pathway exists and can create CONDITIONAL_PATH.
+- AIF/application component exists in the verified branch.
+
+UBC:
+- IELTS direct branch includes:
+  overall >= 6.5
+  minimum component >= 6.0
+- passing overall with a component below the minimum must fail that branch.
+- academic/curriculum mapping remains evidence-gated where not frozen.
+
+University of Toronto:
+- English requirement and senior academic English are separate concepts.
+- St George admission category and later CS program progression are separate.
+- Year-1 program progression is POST_ENROLMENT.
+- verified English transition/alternate route may produce CONDITIONAL_PATH where research supports it.
+
+Partial records such as Purdue/RIT/ASU/Manchester must expose uncertainty rather than guessed rules.
+
+============================================================
+12. STUDENT PROFILE MODEL
+============================================================
+
+Support at minimum:
+
+identity:
+- display_name
+- citizenship_country
+
+application:
+- applicant_type
+- target_intake
+- target_countries[]
+- target_major / domain
+- hard_country_locks[]
+- geography_flexible boolean
+
+academics:
+- curriculum
+- school_completion_status
+- raw GPA/grade values
+- grading scale
+- IB diploma data when applicable
+- subject-level data
+- senior English status where relevant
+
+tests:
+- IELTS:
+  status
+  overall
+  reading
+  writing
+  listening
+  speaking
+  test_date
+  expected_score_date
+- TOEFL where supported
+- SAT:
+  status
+  score
+  test_date
+  expected_score_date
+- ACT equivalent structure
+
+financial:
+- annual_budget_by_currency
+- budget_is_hard_constraint
+- financial_flexibility
+
+preferences:
+- interest_tags[]
+- soft preferences
+- hard locks
+
+progress:
+- completed actions/tasks
+
+Do not convert Kazakhstan grades to a 4.0 GPA unless a specific source-supported normalization exists.
+
+Keep:
+raw_grade
+raw_scale
+curriculum
+
+============================================================
+13. INTEREST PERSONALIZATION
+============================================================
+
+Interest changes are allowed to influence SOFT ranking and diagnosis.
+
+They must NOT rewrite admission facts.
+
+Because the frozen research does not provide a fully source-backed “program strength by AI/systems/theory” dataset:
+
+- program interest tags may be stored as PATHSHIFT_INFERENCE or PRODUCT_ASSUMPTION;
+- visibly distinguish these from OFFICIAL_FACT;
+- never let interest tags create a HARD blocker;
+- changing interest may re-rank recommendations but may not alter factual admission eligibility.
+
+This gives a causal but honest reaction to a changed interest input.
+
+============================================================
+14. BUDGET MODEL
+============================================================
+
+User-facing meaning:
+
+“Maximum annual education budget including tuition, mandatory fees and living costs.”
+
+Do not compare “tuition” against a total annual budget while pretending it is full cost.
+
+Store separate components where the research provides them.
+
+Older/current-year costs may be displayed as:
+
+“Latest published estimate — 2026/27”
+
+They must NOT be relabeled:
+
+“Fall 2027 verified cost”
+
+If exact Fall 2027 cost is unknown:
+
+cost evidence must say so.
+
+Scholarships:
+
+GUARANTEED_RULE
+AUTOMATIC_COMPETITIVE
+APPLICATION_COMPETITIVE
+NEED_BASED
+UNKNOWN
+
+Competitive scholarships must NOT reduce cost before actually awarded.
+
+For MVP international multi-country handling:
+- allow annual_budget_by_currency, e.g. USD/CAD/GBP;
+- do not invent FX rates;
+- compare program costs only against a budget in the same billing currency unless a verified FX snapshot is explicitly present.
+
+============================================================
+15. TIMELINE MODEL
+============================================================
+
+Deadline types must support:
+
+APPLICATION
+DOCUMENT
+TEST_SCORE
+ENGLISH_SCORE
+SCHOLARSHIP
+HOUSING
+DEPOSIT
+OTHER
+
+Deadlines should contain:
+- date
+- time if available
+- timezone semantics if available
+- application plan
+- source fact
+- target intake
+
+Do not copy a previous-year deadline into a later intake.
+
+If user changes:
+
+Fall 2027 → Fall 2028
+
+then Fall 2027 deadlines become NOT_APPLICABLE.
+
+If Fall 2028 data does not exist:
+
+timeline_state = UNKNOWN
+
+Do not invent 2028 dates.
+
+============================================================
+16. ACTIONABILITY / RECOURSE
+============================================================
+
+Classify profile variables:
+
+IMMUTABLE
+ACTIONABLE
+SLOW_ACTIONABLE
+FINANCIAL
+PREFERENCE
+
+Never recommend changing:
+- citizenship as recourse;
+- already completed historic grades;
+- past school years;
+- immutable history.
+
+Examples of allowed actionable recourse:
+- submit/take an accepted SAT/ACT where relevant;
+- improve accepted English proficiency;
+- choose an accepted alternative English test;
+- verify a legitimate exemption;
+- submit a required document;
+- select an official conditional/foundation route.
+
+Budget increases:
+- may be simulated if user enables financial flexibility;
+- should not automatically be framed as the “best action” unless the user opted into financial flexibility.
+
+Country changes:
+- may be simulated if geography_flexible=true;
+- must not be silently suggested if the user hard-locked geography.
+
+============================================================
+17. MINIMAL UNLOCK ENGINE
+============================================================
+
+Do not implement Minimal Unlock as a hard-coded string.
+
+Algorithm:
+
+1. collect failed verified HARD rules;
+2. enumerate supported recourse actions;
+3. remove immutable actions;
+4. remove hard-lock violations;
+5. remove timeline-infeasible actions;
+6. simulate remaining action sets through the SAME rule engine;
+7. keep non-dominated solutions;
+8. return 1–3 minimal feasible paths.
+
+Support alternative solutions.
+
+Example:
+
+English blocker may be resolvable via:
+- IELTS threshold;
+- TOEFL threshold;
+- verified exemption;
+- official conditional route.
+
+Do not hide valid alternatives simply because one is easiest.
+
+============================================================
+18. ACTION IMPACT / NEXT BEST ACTION
+============================================================
+
+DO NOT show fake scalar values such as:
+
+Action ROI: 87.3%
+
+Instead expose understandable dimensions:
+
+programs_improved
+priority_programs_improved
+hard_blockers_removed
+deadlines_affected
+effort_band
+time_band
+financial_requirement
+urgency
+
+Internally choose Next Best Action deterministically using a documented lexicographic policy such as:
+
+1. feasibility;
+2. user hard priorities;
+3. priority programs improved;
+4. hard blockers removed;
+5. number of programs improved;
+6. deadline urgency;
+7. lower effort;
+8. stable deterministic tie-break.
+
+The UI should explain:
+
+“Why this action?”
+
+Example:
+
+“Improving your English requirement affects 4 shortlisted programs and removes 5 verified blockers.”
+
+No fake optimization claim such as:
+“This is objectively your optimal life decision.”
+
+Use:
+“Highest-impact feasible action under your current PathShift settings.”
+
+============================================================
+19. SHORTLIST / RECOMMENDATION ORDERING
+============================================================
+
+Do not use a fake percentage.
+
+Use explainable state-based ordering.
+
+Suggested order:
+
+1. matches hard user scope;
+2. admission state;
+3. evidence quality;
+4. cost state;
+5. timeline state;
+6. user soft preferences;
+7. stable name/id tie-break.
+
+Possible visual grouping:
+
+READY
+CONDITIONAL PATH
+WITHIN REACH
+NEEDS VERIFICATION
+BLOCKED
+
+Never hide INDETERMINATE programs entirely.
+They demonstrate trustworthy uncertainty.
+
+============================================================
+20. WHAT-IF / SIMULATION ENGINE
+============================================================
+
+This is the signature feature.
+
+Implementation rule:
+
+simulation_profile = deep copy of StudentState
+apply mutation
+run identical evaluation pipeline
+compare snapshots
+
+Never mutate real profile until user explicitly applies scenario.
+
+POST endpoint concept:
+
+/api/v1/simulate
+
+Input:
+{
+  student_profile,
+  mutation
+}
+
+Output:
+{
+  before,
+  after,
+  diff
+}
+
+Diff should identify:
+
+changed_program_states[]
+added_blockers[]
+removed_blockers[]
+changed_cost_states[]
+changed_timeline_states[]
+roadmap_tasks_added[]
+roadmap_tasks_removed[]
+next_action_before
+next_action_after
+summary
+}
+
+Example demo mutation:
+
+IELTS 6.0 → 6.5
+
+The UI should visibly show only real causal changes.
+
+============================================================
+21. ROADMAP GENERATION
+============================================================
+
+Roadmap must be generated from the selected shortlist and evaluated requirements.
+
+Do not ask an LLM to invent it.
+
+Pipeline:
+
+selected programs
+→ requirements
+→ unresolved actions/artifacts
+→ tasks
+→ deduplication
+→ dependencies
+→ deadlines
+→ next action
+
+Task fields:
+
+task_id
+title
+description
+task_type
+status
+affected_program_ids[]
+source_fact_ids[]
+deadline
+dependencies[]
+actionability
+profile_mutation_on_completion?
+artifact_key?
+provenance
+
+Deduplicate shared artifacts.
+
+For example:
+“Prepare official transcript”
+
+may affect several applications.
+
+Do not create three duplicate transcript tasks just because three universities require it.
+
+Program-specific supplements remain separate.
+
+============================================================
+22. PROGRESS LOOP
+============================================================
+
+The roadmap must support marking progress.
+
+Simple task completion:
+status → COMPLETE
+
+Profile-changing task:
+should require the new factual value.
+
+Example:
+
+Completing:
+“Improve IELTS”
+
+must not magically set IELTS to 6.5.
+
+Ask for / accept the new verified score.
+
+Then:
+
+StudentState changes
+→ decision engine reruns
+→ blockers change
+→ roadmap rebuilds
+→ Next Best Action changes
+
+This closes the Digital Twin loop.
+
+============================================================
+23. NO-MATCH STATE
+============================================================
+
+“No universities found” is unacceptable.
+
+If no current exact path exists, show:
+
+“No exact paths under your current constraints.”
+
+Then:
+- summarize dominant blockers;
+- show closest feasible paths;
+- show verified conditional routes where available;
+- allow scenario simulation.
+
+Example categories:
+
+English blocker
+Budget blocker
+Timeline blocker
+Missing evidence
+Academic prerequisite
+
+Do not tell the user to increase money/change country if those variables are hard-locked.
+
+============================================================
+24. WHY / WHY NOT
+============================================================
+
+Every program detail should show deterministic fired rules before any LLM prose.
+
+Example:
+
+✓ SAT requirement satisfied
+✓ Application window open
+△ SAT optional / not submitted
+✕ IELTS below published threshold
+? Curriculum equivalency needs verification
+
+Each factual row should allow Source Proof.
+
+The frontend must visually distinguish:
+
+Official fact
+PathShift inference
+Product assumption
+Unknown
+
+============================================================
+25. SOURCE PROOF
+============================================================
+
+Implement a source-proof drawer/sheet.
+
+For a fact/rule show:
+
+- normalized statement
+- raw/source statement where stored
+- institution/program scope
+- target intake
+- retrieved date
+- evidence state
+- provenance class
+- page title
+- external source link
+
+If the rule result is a PathShift inference, show:
+
+“PathShift inference based on these official facts”
+
+and list source facts.
+
+Do not represent PathShift inference as university wording.
+
+============================================================
+26. OPTIONAL LLM EXPLANATION LAYER
+============================================================
+
+The deterministic engine is authoritative.
+
+LLM is optional and non-authoritative.
+
+If an LLM provider already exists in the repository, use it behind an adapter.
+
+Otherwise build a provider interface with:
+
+TemplateExplanationProvider
+OptionalLLMExplanationProvider
+
+Default must work without external AI keys.
+
+An LLM may:
+- rewrite a structured diagnosis into concise natural language;
+- explain fired rules in user-friendly wording;
+- summarize a scenario diff.
+
+An LLM may NOT:
+- create a new requirement;
+- alter a state;
+- invent a deadline;
+- invent a cost;
+- invent a scholarship;
+- calculate admission probability;
+- override the rule engine.
+
+Its input must consist only of structured evaluated data.
+
+If the LLM fails, deterministic template output must keep the demo fully functional.
+
+============================================================
+27. MVP USER JOURNEY
+============================================================
+
+Build one coherent flow.
+
+SCREEN 1 — Entry
+
+Explain in one sentence:
+
+“See what you can apply to now — and what changes would unlock more options.”
+
+CTA:
+Build my path
+
+Allow:
+Load demo profile
+
+SCREEN 2 — Profile / Onboarding
+
+Progressive multi-step flow.
+
+Capture:
+- applicant type / current education
+- curriculum
+- academics
+- English tests
+- SAT/ACT
+- intended field
+- countries
+- annual budget
+- intake
+- constraints/preferences
+
+Do not overwhelm with one giant form.
+
+SCREEN 3 — Diagnosis
+
+Show:
+- concise profile summary;
+- strengths;
+- constraints;
+- known evidence gaps;
+- target scope.
+
+CTA:
+See my opportunity map
+
+SCREEN 4 — Opportunity Map
+
+Main product surface.
+
+Show state groups:
+READY
+CONDITIONAL
+WITHIN REACH
+NEEDS VERIFICATION
+BLOCKED
+
+Display counts.
+
+Show cards with:
+program
+state
+top reason
+cost state
+timeline state
+evidence badge
+
+This must feel like an admission decision system, not a catalogue.
+
+SCREEN 5 — Program Decision Detail
+
+Show:
+- Why this fits
+- Why not / blockers
+- What would unlock it?
+- cost/timeline/evidence dimensions
+- Source Proof
+- add/remove shortlist
+- Simulate change
+
+SCREEN 6 — Compare
+
+Minimum 2 programs.
+
+Comparison must be personalized.
+
+Prioritize:
+- decisive differences for this user;
+- current blockers;
+- cost relative to budget;
+- timeline;
+- evidence;
+- path structure;
+- conditional/direct route.
+
+Do not render a generic 20-row feature table.
+
+SCREEN 7 — Roadmap
+
+Show:
+- one clearly highlighted Next Best Action;
+- dependency-aware tasks;
+- shared artifacts;
+- deadlines;
+- affected programs;
+- progress.
+
+============================================================
+28. WHAT-IF UX
+============================================================
+
+Implement a Scenario Simulator accessible from the Opportunity Map.
+
+Suggested component:
+
+ScenarioSimulator
+
+Inputs may include:
+- IELTS score
+- SAT present/score
+- target country
+- annual budget
+- interest preference
+
+Interaction:
+
+1. user changes temporary value;
+2. system recalculates;
+3. UI enters Simulation Mode;
+4. changed cards animate/highlight;
+5. CausalDiffPanel shows exact downstream changes;
+6. user can:
+   Apply scenario
+   or
+   Discard
+
+Display:
+
+BEFORE → AFTER
+
+Examples:
+
+IELTS
+6.0 → 6.5
+
++3 program states improved
+-5 English blockers
+2 roadmap tasks removed
+Next action changed
+
+Only show counts actually computed.
+
+============================================================
+29. VISUAL / UX DIRECTION
+============================================================
+
+The interface must look startup-grade, not default hackathon CRUD.
+
+Use a restrained modern visual system.
+
+Preferred feeling:
+- precise;
+- calm;
+- premium;
+- data-driven;
+- trustworthy.
+
+Avoid:
+- excessive gradients;
+- giant glowing AI blobs;
+- chatbot as homepage;
+- random glassmorphism everywhere;
+- dense admin tables;
+- childish gamification.
+
+Use:
+- clear typography hierarchy;
+- generous whitespace;
+- state badges;
+- subtle motion;
+- excellent empty/error states;
+- a consistent spacing system;
+- accessible contrast;
+- icons paired with labels.
+
+Color must not be the only status indicator.
+
+Opportunity Map should have a memorable visual identity.
+
+If using shadcn/Radix or existing component library:
+customize it enough that it does not look like an untouched template.
+
+============================================================
+30. SUGGESTED FRONTEND COMPONENTS
+============================================================
+
+Names may adapt to existing conventions, but create equivalent responsibilities:
+
+ProfileWizard
+DiagnosisSummary
+OpportunityBoard
+OpportunityColumn
+ProgramCard
+ProgramDecisionDrawer
+RuleResultList
+SourceProofSheet
+ScenarioSimulator
+CausalDiffPanel
+MinimalUnlockPanel
+CompareWorkspace
+RoadmapTimeline
+NextActionCard
+TaskCard
+EvidenceBadge
+TimelineBadge
+CostBadge
+DemoProfileLoader
+
+Keep domain logic out of these components.
+
+Frontend consumes typed API outputs.
+
+============================================================
+31. TECH STACK
+============================================================
+
+If repository already has a viable stack:
+prefer the existing stack.
+
+For a greenfield project use:
+
+Frontend:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- accessible component primitives such as shadcn/Radix
+- lightweight animation only where it improves causal feedback
+
+Backend:
+- Python
+- Django
+- Django REST Framework
+
+Database:
+- PostgreSQL
+
+Do NOT add Redis/Celery unless an actual background requirement exists.
+
+For this MVP:
+there should be no need for background processing.
+
+Do not over-engineer infrastructure.
+
+============================================================
+32. SUGGESTED REPOSITORY SHAPE
+============================================================
+
+For greenfield:
+
+/
+  AGENTS.md
+  README.md
+  docs/
+    architecture.md
+    domain-contract.md
+    implementation-plan.md
+    demo-script.md
+    limitations.md
+    research/
+  apps/
+    web/
+    api/
+  infra/
+    docker-compose.yml
+  .env.example
+
+Backend logical structure:
+
+apps/api/
+  config/
+  decision_engine/
+    models.py
+    schemas.py
+    rules/
+    evaluator.py
+    evidence.py
+    cost.py
+    timeline.py
+    recourse.py
+    ranking.py
+    roadmap.py
+    diff.py
+    explanations.py
+    tests/
+  programs/
+  profiles/
+  api/
+
+Adapt if current project layout differs.
+
+============================================================
+33. AGENTS.md
+============================================================
+
+If a root AGENTS.md is missing, create a concise one.
+
+Do NOT paste this entire master specification into AGENTS.md.
+
+AGENTS.md should be a map, not a huge manual.
+
+Include only persistent operational constraints such as:
+
+- authoritative docs locations;
+- domain invariants;
+- commands;
+- style conventions;
+- “never invent admissions facts”;
+- “UNKNOWN is valid”;
+- “frontend cannot determine eligibility”;
+- test commands.
+
+Put detailed specifications in docs/.
+
+============================================================
+34. DATABASE / PERSISTENCE
+============================================================
+
+Recommended models/concepts:
+
+Program
+FactRecord
+RuleDefinition
+StudentProfile / StudentSession
+EvaluationSnapshot
+RoadmapTask
+ScenarioSnapshot if useful
+
+Use JSON/JSONB where the rule/fact structure is naturally heterogeneous.
+
+Keep program fixtures version-controlled.
+
+Recommended approach:
+
+data/research-backed facts/rules
+→ management command / fixture importer
+→ PostgreSQL
+
+This makes the evidence graph auditable.
+
+Do not hide important rule data in migrations or React constants.
+
+============================================================
+35. API CONTRACTS
+============================================================
+
+Implement equivalent REST endpoints.
+
+GET
+/api/v1/programs
+
+GET
+/api/v1/programs/{program_id}
+
+POST
+/api/v1/evaluate
+
+POST
+/api/v1/simulate
+
+POST
+/api/v1/roadmap
+
+PATCH
+/api/v1/roadmap/tasks/{task_id}
+
+GET
+/api/v1/demo-profiles
+
+Optional:
+POST
+/api/v1/profiles
+PATCH
+/api/v1/profiles/{id}
+
+The exact routes may adapt to existing backend conventions.
+
+Evaluation response should resemble:
+
+{
+  "profile_id": "...",
+  "evaluated_at": "...",
+  "programs": [
+    {
+      "program_id": "...",
+      "admission_state": "...",
+      "evidence_state": "...",
+      "timeline_state": "...",
+      "cost_state": "...",
+
+      "fired_rules": [],
+      "blockers": [],
+      "conditional_paths": [],
+      "recourse_paths": [],
+      "source_fact_ids": [],
+      "interest_fit": {}
+    }
+  ],
+
+  "diagnosis": {},
+  "next_action": {},
+  "roadmap": {},
+  "warnings": []
+}
+
+============================================================
+36. DEMO PROFILE
+============================================================
+
+Seed a polished demo applicant.
+
+Name:
+Aruzhan
+
+Applicant:
+international first-year
+
+Citizenship:
+Kazakhstan
+
+Target:
+Computer Science
+Fall 2027
+
+Curriculum:
+IB
+
+Academics:
+strong IB profile sufficient to exercise verified IB paths
+including strong Math AA HL
+
+Initial English:
+IELTS 6.0
+
+SAT:
+missing / planned
+
+Budget:
+high enough initially that budget does not dominate the first demo step
+
+Target countries:
+US + Canada
+
+Geography:
+flexible for demo
+
+The exact academic values should follow the frozen synthetic fixture research.
+
+Do not invent admissions conclusions beyond the fixture expectations.
+
+============================================================
+37. GOLDEN-PATH LIVE DEMO
+============================================================
+
+The product must make this demo excellent.
+
+Aim for approximately 90 seconds.
+
+STEP 1
+
+Load Aruzhan.
+
+Show:
+
+“12 programs evaluated”
+
+with multiple meaningful states.
+
+Do not fake all programs as READY.
+
+STEP 2
+
+Open What-If.
+
+Change:
+
+IELTS 6.0 → 6.5
+
+The same evaluation engine reruns.
+
+Show a strong visual causal diff:
+
+- programs whose English state genuinely changes;
+- blockers removed;
+- direct vs conditional path changes where supported;
+- roadmap task changes;
+- Next Best Action change.
+
+Do not claim “+3” unless actual data produces +3.
+
+STEP 3
+
+Add a valid SAT.
+
+Georgia Tech / CMU testing branches may change where all other decisive evidence permits.
+
+UIUC and UW–Madison must NOT falsely unlock merely because SAT is optional there.
+
+This contrast is a key technical proof.
+
+STEP 4
+
+Lower the budget.
+
+Academic admission states stay unchanged.
+
+CostState changes.
+
+Recommendations may reorder.
+
+This proves orthogonal causal modeling.
+
+STEP 5
+
+Open a changed program → Why?
+
+Show:
+- fired rule;
+- official source;
+- target intake;
+- retrieved date;
+- PathShift inference.
+
+Optional if time:
+change target country and demonstrate program universe/roadmap rerouting without mutating test scores.
+
+============================================================
+38. DEMO RESET / RELIABILITY
+============================================================
+
+Judges will interact with the app.
+
+Provide a reliable way to:
+
+- Load Demo Profile
+- Reset Demo Profile
+
+Do not require hidden developer operations.
+
+All demo behavior must be produced by real backend logic.
+
+No hardcoded “presentation mode” result JSON.
+
+============================================================
+39. SYNTHETIC FIXTURES
+============================================================
+
+Implement deterministic fixtures covering:
+
+F_READY
+F_REACH
+F_CONDITIONAL
+F_BLOCKED
+F_INDETERMINATE
+F_MIXED
+
+Use the expected state matrix in the frozen research.
+
+The fixture dataset is not a convenience only.
+
+It is a test oracle.
+
+============================================================
+40. REQUIRED AUTOMATED TESTS
+============================================================
+
+Write tests BEFORE considering the decision engine complete.
+
+At minimum:
+
+TEST 1 — Georgia Tech SAT required
+
+Given all other verified decisive rules passing
+and SAT/ACT missing:
+
+not READY
+
+After valid SAT:
+SAT blocker disappears.
+
+TEST 2 — UIUC SAT optional
+
+SAT missing:
+must NOT create SAT blocker.
+
+SAT added:
+must NOT produce a state transition caused solely by SAT.
+
+TEST 3 — UW–Madison English
+
+IELTS below verified requirement:
+English blocker/path state appears.
+
+IELTS raised to valid threshold:
+English blocker disappears.
+
+TEST 4 — Waterloo direct vs conditional
+
+English below direct rule but matching verified BASE path:
+CONDITIONAL_PATH
+
+Direct English later satisfied:
+conditional route can move to direct/ready state if all other rules pass.
+
+TEST 5 — UBC components
+
+IELTS overall >= 6.5
+but one component below 6.0:
+
+direct IELTS branch FAILS.
+
+TEST 6 — Budget independence
+
+Budget decreases:
+
+CostState may change.
+
+Admission hard-rule results must remain exactly unchanged.
+
+TEST 7 — Country preference independence
+
+Changing target country:
+may change filtering/ranking/roadmap.
+
+It must not mutate:
+SAT score
+IELTS score
+curriculum
+factual program rules.
+
+TEST 8 — Intake versioning
+
+Fall 2027 → Fall 2028
+
+Fall 2027 deadlines:
+NOT_APPLICABLE.
+
+No Fall 2028 facts:
+TimelineState UNKNOWN.
+
+TEST 9 — Unknown critical evidence
+
+Critical rule without valid evidence:
+INDETERMINATE.
+
+TEST 10 — Conflicting evidence
+
+Same-scope authoritative contradiction:
+EvidenceState CONFLICTING.
+
+Do not arbitrarily PASS/FAIL.
+
+TEST 11 — competitive scholarship
+
+Discovering competitive award:
+does not reduce cost.
+
+TEST 12 — deadline passing
+
+Before verified deadline:
+FEASIBLE.
+
+After deadline:
+MISSED / blocked for that intake where applicable.
+
+TEST 13 — immutable recourse
+
+Engine must never return:
+“change past GPA”
+“change citizenship”
+as recourse.
+
+TEST 14 — What-if equivalence
+
+Simulating a profile mutation
+must produce exactly the same evaluated output
+as applying the same mutation to a cloned real profile and calling normal evaluation.
+
+This is crucial.
+
+============================================================
+41. FRONTEND ACCEPTANCE TESTS
+============================================================
+
+The product is not done if backend tests pass but UX fails.
+
+Verify:
+
+- onboarding can be completed without developer help;
+- progress indicator exists;
+- diagnosis is clear;
+- >=3 program options are visible;
+- 2 programs can be compared;
+- changing a supported exam input visibly changes only causally related outputs;
+- budget mutation does not pretend admission eligibility changed;
+- source proof is accessible;
+- unknown data is visibly explained;
+- no-match state has useful next paths;
+- roadmap has one highlighted Next Best Action;
+- roadmap tasks can be marked/progressed;
+- mobile layout remains functional;
+- page refresh does not destroy necessary demo state unexpectedly;
+- API error has graceful recovery.
+
+============================================================
+42. ERROR / EDGE STATES
+============================================================
+
+Explicitly design:
+
+No exact matches
+All programs blocked
+All programs indeterminate
+Program source incomplete
+Conflicting source
+Stale source
+Unsupported curriculum
+Unsupported major
+Unsupported country
+Deadline missed
+Unknown future intake
+Budget unknown
+External explanation provider unavailable
+Backend network failure
+
+Do not use blank screens.
+
+============================================================
+43. RANKING / PERSONALIZATION DEFENSIBILITY
+============================================================
+
+If judges ask:
+
+“Is this just filtering cards?”
+
+the architecture must visibly prove no.
+
+Decision state:
+rule engine.
+
+Recourse:
+counterfactual engine.
+
+Roadmap:
+requirements graph.
+
+Next action:
+action impact + deadline logic.
+
+What-if:
+same full evaluation pipeline.
+
+Ranking:
+only one downstream view.
+
+============================================================
+44. SECURITY / ENVIRONMENT
+============================================================
+
+Never commit secrets.
+
+Provide:
+.env.example
+
+Do not require paid APIs for core functionality.
+
+Do not perform runtime web scraping for admissions data.
+
+The curated dataset is intentional.
+
+If web access exists during development, you may verify sources already provided by the frozen research, but you may NOT fill UNKNOWN facts by casual search without explicitly updating provenance and evidence records.
+
+============================================================
+45. PERFORMANCE / DEMO TARGETS
+============================================================
+
+The core evaluation for the 12-program curated universe should feel effectively instant.
+
+Avoid unnecessary network calls during simulation.
+
+All factual/rule evaluation should happen locally/backend from the curated evidence store.
+
+Simulation should not call external AI or web search before rendering its decision diff.
+
+LLM explanation may update afterward if enabled.
+
+============================================================
+46. README / SUBMISSION DOCUMENTATION
+============================================================
+
+Produce a strong README suitable for hackathon submission.
+
+Include:
+
+- problem;
+- product thesis;
+- supported audience/scope;
+- why PathShift is different;
+- architecture;
+- stack;
+- repository map;
+- setup/run;
+- environment variables;
+- test commands;
+- demo profile;
+- exact judge test scenario;
+- decision engine semantics;
+- state definitions;
+- data sources strategy;
+- AI/LLM usage;
+- pre-existing libraries/components;
+- limitations;
+- UNKNOWN-data philosophy;
+- supported programs;
+- what is intentionally not implemented.
+
+Also create:
+
+docs/architecture.md
+docs/domain-contract.md
+docs/demo-script.md
+docs/limitations.md
+
+Keep these concise and useful.
+
+============================================================
+47. HACKATHON NON-GOALS
+============================================================
+
+Do NOT spend hackathon time building:
+
+- all universities in the world;
+- live university scraping;
+- real application submission;
+- complete visa workflow;
+- social network;
+- counselor admin panel;
+- essay editor;
+- recommendation-letter platform;
+- payment processing;
+- complex authentication system;
+- mobile native app;
+- generic chatbot homepage;
+- fake admission-probability ML;
+- full scholarship marketplace;
+- elaborate microservices;
+- Redis/Celery without a real requirement.
+
+Depth of causal logic and execution quality beat breadth.
+
+============================================================
+48. IMPLEMENTATION ORDER
+============================================================
+
+Use this order unless repository constraints strongly justify another.
+
+PHASE 0
+Repository inspection + plan.
+
+PHASE 1
+Create concise repository docs and domain contracts.
+
+PHASE 2
+Implement FactRecord / Program / RuleDefinition schema and seed import.
+
+PHASE 3
+Implement rule DSL and evaluator.
+
+PHASE 4
+Implement evidence, timeline and cost state engines.
+
+PHASE 5
+Implement blockers + recourse + Minimal Unlock.
+
+PHASE 6
+Implement deterministic simulation and diff engine.
+
+PHASE 7
+Implement roadmap/task graph + Next Best Action.
+
+PHASE 8
+Expose stable REST API.
+
+PHASE 9
+Build onboarding + diagnosis.
+
+PHASE 10
+Build Opportunity Map + program detail + Source Proof.
+
+PHASE 11
+Build Scenario Simulator + causal diff animations.
+
+PHASE 12
+Build comparison + roadmap + progress loop.
+
+PHASE 13
+Add optional explanation provider.
+
+PHASE 14
+Polish responsive UX / accessibility / error states.
+
+PHASE 15
+Run complete automated test/build/lint suite.
+
+PHASE 16
+Run golden-path demo manually.
+
+PHASE 17
+Update README and limitations.
+
+Do not polish the landing page for hours while domain tests are failing.
+
+============================================================
+49. PRIORITY IF TIME RUNS OUT
+============================================================
+
+P0 — absolutely required:
+
+- working profile flow;
+- deterministic rule engine;
+- source-backed program data;
+- program states;
+- Why / Why not;
+- at least 3 recommendations;
+- comparison of 2;
+- What-If;
+- causal diff;
+- roadmap;
+- Next Best Action;
+- progress;
+- sources;
+- tests;
+- responsive core flow.
+
+P1:
+
+- richer recourse alternatives;
+- interest ranking;
+- advanced roadmap visuals;
+- optional LLM explanations;
+- additional animation polish.
+
+P2:
+
+- anything outside the main judge path.
+
+If time pressure appears:
+cut P2 first, then P1.
+
+Never cut integrity of the decision engine to preserve cosmetic features.
+
+============================================================
+50. DEFINITION OF DONE
+============================================================
+
+The task is complete only when:
+
+1. Application runs locally from documented commands.
+2. Database/fixtures load predictably.
+3. Demo profile works.
+4. Judge can complete the core journey without team guidance.
+5. At least 3 recommendations appear where appropriate.
+6. At least 2 can be compared.
+7. Program detail explains Why / Why not.
+8. Source Proof works.
+9. IELTS What-If causes a genuine backend recalculation.
+10. SAT behavior differs correctly between required and optional institutions.
+11. Budget change affects CostState without rewriting academic eligibility.
+12. UNKNOWN facts remain UNKNOWN.
+13. Roadmap is generated from the shortlist/rules.
+14. Next Best Action is deterministic and explainable.
+15. Progress updates work.
+16. Automated domain tests pass.
+17. Frontend build/lint pass.
+18. Backend test suite passes.
+19. README contains launch/demo instructions.
+20. No secrets are committed.
+21. No fake admission probabilities exist anywhere.
+22. No unsupported factual values are invented.
+
+============================================================
+51. FINAL SELF-REVIEW
+============================================================
+
+Before finishing, behave like a skeptical hackathon judge.
+
+Try to break the product.
+
+Test:
+
+- missing SAT;
+- optional SAT;
+- IELTS just below threshold;
+- IELTS component below threshold;
+- very low budget;
+- very high budget;
+- country change;
+- unsupported curriculum;
+- missed deadline;
+- unknown deadline;
+- partial evidence;
+- conflicting evidence;
+- conditional route;
+- no exact matches.
+
+Ask internally:
+
+“Is this just a recommender?”
+
+The answer should be visible in the product:
+No — it calculates blockers, feasible changes, causal effects and a dynamic roadmap.
+
+Ask:
+
+“Is this just ChatGPT?”
+
+No — the authoritative layer is deterministic and source-backed.
+
+Ask:
+
+“Did you make up admission probabilities?”
+
+No probabilities should exist.
+
+Ask:
+
+“Does changing IELTS merely filter cards?”
+
+No — it must recompute:
+rules
+states
+blockers
+unlock paths
+roadmap
+next action
+and causal diff.
+
+Ask:
+
+“What happens when you do not know?”
+
+The product must explicitly say:
+Needs verification / Unknown.
+
+============================================================
+52. FINAL RESPONSE AFTER IMPLEMENTATION
+============================================================
+
+When implementation is complete, report concisely:
+
+- what was built;
+- major architecture decisions;
+- files/modules created;
+- test/build commands run;
+- test results;
+- known limitations;
+- exact steps to run the golden demo;
+- any source facts still intentionally UNKNOWN.
+
+Do not claim success for tests you did not run.
+
+Do not hide broken parts.
+
+Build the strongest reliable hackathon product possible from this specification.
+```
+
+### Перед тем как отдать это Codex
+
+**Один важный момент:** в prompt я специально **не переписал все десятки source URLs и весь Deep Research на 60k символов**. Это соответствует совету OpenAI не превращать agent context в один монолит; Codex должен иметь research как отдельный source-of-truth file и получать из master prompt карту того, *как им пользоваться*. 
+
+То есть перед запуском я бы положил **полный последний Deep Research** в `docs/research/pathshift-data-freeze.md`, а предыдущий 50-вопросный research — в `docs/research/pathshift-decision-research.md`. Тогда Codex сможет сам читать точные URL, значения и rule trees, а этот master prompt будет управлять всей разработкой.
+
+И да — **вот после этого уже можно реально стартовать разработку**. У нас больше нет проблемы «что вообще строить». Теперь задача — execution.
