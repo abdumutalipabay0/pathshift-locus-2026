@@ -48,3 +48,11 @@ Application facts and original frozen research were not modified in this update.
 - Manual review: Russian desktop planner, Kazakh mobile layout at 390px, public import control, and no recorded browser error logs in the final public check. Temporary viewport override was reset.
 - Catalog contains 663 complete RU/KK translations. Automated checks cover exercised states, not every assistive technology or possible input.
 - Freeze tag: `hackathon-final-2026-09-17`. [Final scope and presentation freeze](final-release.md).
+
+## Product simplification requested after freeze
+
+- Focus cohort is explicit: UW–Madison, Waterloo, Georgia Tech. Incomplete research is opt-in; original dataset unchanged. Secondary profile tools and roadmap helpers are collapsed.
+- 52 unit/domain/localization tests passed. 22 browser scenarios passed locally (1.1 minutes) and on production (1.4 minutes); new assertion verifies the three-program initial view, opt-in research and hidden secondary controls.
+- TypeScript, ESLint, production build, formatting and diff whitespace checks passed. Russian desktop screenshot inspected; public header manually confirmed.
+- Production deployment `dpl_AucuLvceFrEZ53aWJpRSAtfEaZcV` READY at the existing public URL.
+- The prior release tag remains unchanged. This user-requested revision reopens the earlier freeze. Plan B is documented as a proposed concept, not a shipped complete workflow.

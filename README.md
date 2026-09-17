@@ -30,6 +30,10 @@ Open http://localhost:3000. Production: `npm run build`, then `npm start`.
 
 The demo's component scores, dates, course counts and expected completion date (20 November 2026) are synthetic profile inputs, not university facts. Documents/AIF are not pre-assumed complete. Saved scenarios retain only hypothetical changes and are re-evaluated against the latest actual profile.
 
+## Product focus
+
+The initial map focuses on UW–Madison, Waterloo and Georgia Tech. Other research programs can be included explicitly; the full dataset still has 12 programs. This is a supported starting cohort, not a personalized global ranking. Program-specific missing inputs, uncertain costs and sources remain visible. File tools and optional roadmap helpers are collapsed by default. See [product focus and concept brainstorm](docs/product-focus.md).
+
 ## Features and architecture
 
 Four-step profile, diagnosis, 12 CS programs, nested requirement explanations, source sheets, independent admission/evidence/timeline/cost states, conditional routes, bounded recourse, causal What-if, three named saved scenarios, shortlist, comparison, deterministic next action, task dependencies and export. Profiles, drafts, comparison selections and progress persist on this browser/device. Verified-deadline calendar export and editable verification questions connect uncertainty to practical next steps. A personal study/activity planner supports dates, notes, editing, completion and export. Versioned profile backups can be imported after validation and preview; the prior profile remains recoverable. IELTS overall and complete component sets are checked for consistency.

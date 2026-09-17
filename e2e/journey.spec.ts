@@ -7,7 +7,7 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Your opportunity map.' })).toBeVisible();
-  await expect(page.locator('.program-card')).toHaveCount(11);
+  await expect(page.locator('.program-card')).toHaveCount(3);
   await page
     .locator('.program-card')
     .filter({ has: page.getByRole('heading', { name: 'Waterloo', exact: true }) })
@@ -71,7 +71,7 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
     .locator('.sidebar')
     .getByRole('button', { name: 'Opportunity map', exact: true })
     .click();
-  await expect(page.locator('.program-card')).toHaveCount(11);
+  await expect(page.locator('.program-card')).toHaveCount(3);
   await expect(page.locator('.profile-chips')).toContainText('IELTS 6.5');
   await expect(page.locator('.profile-button')).toContainText('Your admission journey');
   await page.locator('.sidebar').getByRole('button', { name: 'My roadmap', exact: true }).click();
@@ -85,7 +85,7 @@ test('budget-only scenario changes cost comparisons without changing academic ru
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(11);
+  await expect(page.locator('.program-card')).toHaveCount(3);
   await page.getByRole('switch', { name: /Explore an English result/ }).uncheck();
   await page.getByRole('switch', { name: /Explore a different budget/ }).check();
   const response = page.waitForResponse((r) => r.url().endsWith('/simulate'));
@@ -99,7 +99,7 @@ test('budget-only scenario changes cost comparisons without changing academic ru
 test('mobile layout, navigation and profile form remain usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(11);
+  await expect(page.locator('.program-card')).toHaveCount(3);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   );
@@ -136,7 +136,7 @@ test('desktop layout is captured after evaluation with no horizontal overflow', 
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(11);
+  await expect(page.locator('.program-card')).toHaveCount(3);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   );
@@ -144,7 +144,7 @@ test('desktop layout is captured after evaluation with no horizontal overflow', 
 });
 test('unsupported field and empty filters explain how to recover', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(11);
+  await expect(page.locator('.program-card')).toHaveCount(3);
   await page.getByRole('textbox', { name: 'Search programs' }).fill('NoSuchInstitution');
   await expect(
     page.getByRole('heading', { name: 'No exact paths under these filters.' }),

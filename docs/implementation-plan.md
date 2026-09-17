@@ -35,3 +35,7 @@ Final executed checks are recorded in `validation.md`; launch and demo instructi
 ## Final presentation release
 
 Close the remaining product gaps within the frozen 12-program scope: personal study/activity tasks (dates, notes, edit/completion/export); validated profile import with preview and recoverable replacement; IELTS aggregate consistency and explicit IB duplicate-value consistency; compact scenario outcome and separate missing-rule counts. These are product features, not additions to admission policy. Preserve original research and institutional rules. Validate task changes cannot alter eligibility, test all three languages and production, then freeze this version for presentation.
+
+## User-requested simplification
+
+The user reopened the frozen release to remove distraction and reconsider differentiation. Focus the default map on the three evaluated starting programs; retain incomplete research behind an explicit toggle. Collapse file management and optional roadmap helpers. Clarify remaining applicant actions versus unknown university rules without changing engine verdicts. Brainstorm Plan B separately; do not claim it is fully implemented. Validate existing flows and the new focused entry before deployment.

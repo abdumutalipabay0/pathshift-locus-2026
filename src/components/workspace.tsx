@@ -49,6 +49,7 @@ import ProfileWizard from './profile-wizard';
 import { calendarExport, downloadText, scenarioMutation, type SavedScenario } from '@/lib/journey';
 import { JourneyExtras } from './journey-extras';
 import { PersonalPlanner, ProfileImport } from './personal-tools';
+const focusPrograms = new Set(['uw', 'waterloo', 'gatech']);
 type View = 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
   READY_TO_APPLY: 'Ready to apply',
@@ -301,6 +302,7 @@ export default function Workspace() {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
   const [allCountries, setAllCountries] = useState(false);
+  const [includeIncomplete, setIncludeIncomplete] = useState(false);
   const [simulation, setSimulation] = useState<Simulation | null>(null);
   const [simBusy, setSimBusy] = useState(false);
   const [simError, setSimError] = useState('');
@@ -707,22 +709,31 @@ export default function Workspace() {
     URL.revokeObjectURL(url);
   };
   const selected = current?.programs.find((r) => r.program.id === detail);
-  const inScope = current?.programs.filter((r) => r.in_scope) || [];
+  const inScope =
+    current?.programs.filter(
+      (r) => r.in_scope && (includeIncomplete || focusPrograms.has(r.program.id)),
+    ) || [];
   const counts = {
     ready: inScope.filter((r) => r.admission_state === 'READY_TO_APPLY').length,
     reach: inScope.filter(
-      (r) => r.admission_state === 'WITHIN_REACH' || r.admission_state === 'CONDITIONAL_PATH',
+      (r) =>
+        r.admission_state === 'WITHIN_REACH' ||
+        r.admission_state === 'CONDITIONAL_PATH' ||
+        (r.admission_state === 'INDETERMINATE' && r.unknowns.length === 0),
     ).length,
-    verify: inScope.filter((r) => r.admission_state === 'INDETERMINATE').length,
+    verify: inScope.filter((r) => r.unknowns.length > 0).length,
     blocked: inScope.filter((r) => r.admission_state === 'BLOCKED').length,
   };
   const shown = (current?.programs || []).filter(
     (r) =>
       (allCountries || r.in_scope) &&
+      (view === 'shortlist' || includeIncomplete || focusPrograms.has(r.program.id)) &&
       (view !== 'shortlist' || profile.shortlist.includes(r.program.id)) &&
       (filter === 'all' ||
         (filter === 'actionable'
-          ? r.admission_state === 'WITHIN_REACH' || r.admission_state === 'CONDITIONAL_PATH'
+          ? r.admission_state === 'WITHIN_REACH' ||
+            r.admission_state === 'CONDITIONAL_PATH' ||
+            (r.admission_state === 'INDETERMINATE' && r.unknowns.length === 0)
           : r.admission_state === filter)) &&
       `${r.program.name} ${r.program.short} ${r.program.degree} ${tr(r.program.degree)} ${tr(r.program.city)}`
         .toLowerCase()
@@ -953,58 +964,65 @@ export default function Workspace() {
               <button className="btn secondary small-btn" onClick={() => setSavedOpen(true)}>
                 {tr('Saved scenarios')} · {savedScenarios.length}
               </button>
-              <button
-                className="btn ghost small-btn"
-                onClick={() =>
-                  downloadText(
-                    JSON.stringify({ version: 1, profile }, null, 2),
-                    'pathshift-profile.json',
-                    'application/json',
-                  )
-                }
-              >
-                {tr('Back up my profile')}
-              </button>
-              <ProfileImport
-                busy={busy}
-                onRestore={async (imported) => {
-                  try {
-                    localStorage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
-                  } catch {
-                    setNotice('Changes could not be saved');
-                    return false;
-                  }
-                  if (await compute(imported, true, false)) {
-                    try {
-                      localStorage.removeItem('pathshift-draft');
-                    } catch {}
-                    setNotice(
-                      'Profile imported. Your previous profile is available through Undo demo reset.',
-                    );
-                    navigate('map');
-                    return true;
-                  }
-                  return false;
-                }}
-              />
-              <button
-                className="btn ghost small-btn"
-                disabled={busy}
-                onClick={async () => {
-                  try {
-                    const backup = JSON.parse(localStorage.getItem('pathshift-backup') || 'null');
-                    const valid = profileSchema.safeParse(backup?.profile);
-                    if (valid.success) {
-                      if (await compute(valid.data, true, backup.demo === true))
-                        setNotice('Previous profile restored.');
-                    } else setNotice('No previous profile backup is available.');
-                  } catch {
-                    setNotice('No previous profile backup is available.');
-                  }
-                }}
-              >
-                {tr('Undo demo reset')}
-              </button>
+              <details className="profile-tools">
+                <summary>{tr('Profile tools')}</summary>
+                <div className="profile-tools-body">
+                  <button
+                    className="btn ghost small-btn"
+                    onClick={() =>
+                      downloadText(
+                        JSON.stringify({ version: 1, profile }, null, 2),
+                        'pathshift-profile.json',
+                        'application/json',
+                      )
+                    }
+                  >
+                    {tr('Back up my profile')}
+                  </button>
+                  <ProfileImport
+                    busy={busy}
+                    onRestore={async (imported) => {
+                      try {
+                        localStorage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
+                      } catch {
+                        setNotice('Changes could not be saved');
+                        return false;
+                      }
+                      if (await compute(imported, true, false)) {
+                        try {
+                          localStorage.removeItem('pathshift-draft');
+                        } catch {}
+                        setNotice(
+                          'Profile imported. Your previous profile is available through Undo demo reset.',
+                        );
+                        navigate('map');
+                        return true;
+                      }
+                      return false;
+                    }}
+                  />
+                  <button
+                    className="btn ghost small-btn"
+                    disabled={busy}
+                    onClick={async () => {
+                      try {
+                        const backup = JSON.parse(
+                          localStorage.getItem('pathshift-backup') || 'null',
+                        );
+                        const valid = profileSchema.safeParse(backup?.profile);
+                        if (valid.success) {
+                          if (await compute(valid.data, true, backup.demo === true))
+                            setNotice('Previous profile restored.');
+                        } else setNotice('No previous profile backup is available.');
+                      } catch {
+                        setNotice('No previous profile backup is available.');
+                      }
+                    }}
+                  >
+                    {tr('Undo demo reset')}
+                  </button>
+                </div>
+              </details>
             </div>
           )}
           {simulation && (
@@ -1120,11 +1138,7 @@ export default function Workspace() {
                           <ArrowUpRight size={14} />
                         </button>
                       </div>
-                      <h2>
-                        {tr('Your future has more ')}
-                        <br />
-                        {tr('than one path. ')}
-                      </h2>
+                      <h2>{tr('Which change opens your next path?')}</h2>
                       <p>
                         {tr('Change an input. See what opens up. ')}
                         <br />
@@ -1222,7 +1236,7 @@ export default function Workspace() {
                                   <Route size={17} />
                                 </span>
                                 <strong>{tr(counts.reach.toString().padStart(2, '0'))}</strong>
-                                <span>{tr('Reachable / conditional')}</span>
+                                <span>{tr('Requirements to complete')}</span>
                               </button>
                               <button
                                 className={filter === 'INDETERMINATE' ? 'selected' : ''}
@@ -1237,6 +1251,19 @@ export default function Workspace() {
                                 <span>{tr('Need verification')}</span>
                               </button>
                             </div>
+                            <p className="focus-note">
+                              {tr(
+                                'Start with programs whose evaluated requirements can be explained. Incomplete research stays separate; costs and admission outcomes are never guaranteed.',
+                              )}
+                            </p>
+                            <label className="research-toggle">
+                              <input
+                                type="checkbox"
+                                checked={includeIncomplete}
+                                onChange={(e) => setIncludeIncomplete(e.target.checked)}
+                              />
+                              {tr('Include programs with unverified rules')}
+                            </label>
                             <div className="board-toolbar">
                               <div className="board-tabs">
                                 <button
@@ -1305,6 +1332,7 @@ export default function Workspace() {
                                     setFilter('all');
                                     setSearch('');
                                     setAllCountries(true);
+                                    setIncludeIncomplete(true);
                                     navigate('map');
                                   }}
                                 >
@@ -1796,13 +1824,16 @@ export default function Workspace() {
                     {view === 'roadmap' && (
                       <>
                         {' '}
-                        <JourneyExtras evaluation={current} facts={facts} onProof={setProof} />
-                        <PersonalPlanner
-                          profile={profile}
-                          busy={busy}
-                          hypothetical={!!simulation}
-                          onChange={(p) => compute(p)}
-                        />{' '}
+                        <details className="optional-tools">
+                          <summary>{tr('Calendar, personal tasks and verification help')}</summary>
+                          <JourneyExtras evaluation={current} facts={facts} onProof={setProof} />
+                          <PersonalPlanner
+                            profile={profile}
+                            busy={busy}
+                            hypothetical={!!simulation}
+                            onChange={(p) => compute(p)}
+                          />
+                        </details>{' '}
                       </>
                     )}
                     {view === 'roadmap' && (
@@ -2426,7 +2457,11 @@ function ProgramCard({
         </h3>
       </button>
       <p className="degree">{tr(r.program.degree)}</p>
-      <Badge state={r.admission_state} />
+      {r.admission_state === 'INDETERMINATE' && r.unknowns.length === 0 ? (
+        <span className="badge">{tr('Complete remaining steps')}</span>
+      ) : (
+        <Badge state={r.admission_state} />
+      )}
       <p className="why-fit">
         {tr(
           r.rules.some((rule) => rule.strength === 'HARD' && rule.result === 'PASS')

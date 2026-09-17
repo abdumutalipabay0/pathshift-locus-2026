@@ -9,7 +9,7 @@ for (const locale of ['ru', 'kk'] as const) {
     page.on('pageerror', (e) => errors.push(e.message));
     const t = (text: string) => translateText(text, locale);
     await page.goto('/');
-    await expect(page.locator('.program-card')).toHaveCount(11);
+    await expect(page.locator('.program-card')).toHaveCount(3);
     await page.locator('.language-picker select').selectOption(locale);
     await expect(page.locator('html')).toHaveAttribute('lang', locale);
     await expect(page.getByRole('heading', { name: t('Your opportunity map.') })).toBeVisible();
@@ -86,7 +86,7 @@ for (const locale of ['ru', 'kk'] as const) {
   test(`${locale}: mobile layout and keyboard language selector`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
-    await expect(page.locator('.program-card')).toHaveCount(11);
+    await expect(page.locator('.program-card')).toHaveCount(3);
     await page.locator('.language-picker select').selectOption(locale);
     await expect(page.locator('.language-picker select')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(

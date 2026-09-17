@@ -3992,3 +3992,39 @@ fieldset.scenario-body {
   font-size: 14px;
   line-height: 1.6;
 }
+
+.profile-tools summary,
+.optional-tools > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px;
+}
+.profile-tools-body {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+}
+.profile-tools[open] {
+  flex-basis: 100%;
+}
+.optional-tools {
+  margin: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.focus-note {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 16px 0 8px;
+}
+.research-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin: 12px 0;
+}
+.research-toggle input {
+  width: 18px;
+  height: 18px;
+}
