@@ -11,11 +11,13 @@
     "test": "tsx --test tests/*.test.ts",
     "test:e2e": "playwright test",
     "data:build": "node scripts/build-dataset.mjs && node scripts/supplement-dataset.mjs",
-    "format:check": "prettier --check src tests e2e scripts"
+    "format:check": "prettier --check src tests e2e scripts",
+    "i18n:build": "node scripts/build-catalog.mjs"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.8",
     "@fontsource/manrope": "^5.2.8",
+    "@fontsource/noto-sans": "^5.3.0",
     "@radix-ui/react-dialog": "^1.1.15",
     "lucide-react": "^0.577.0",
     "next": "16.3.5",

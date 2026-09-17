@@ -96,7 +96,8 @@ test('mobile layout, navigation and profile form remain usable', async ({ page }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   );
-  await page.getByRole('button', { name: 'Edit profile', exact: true }).click();
+  await page.getByRole('button', { name: 'Toggle navigation' }).click();
+  await page.locator('.sidebar').getByRole('button', { name: 'My profile', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Start with where you are.' })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,

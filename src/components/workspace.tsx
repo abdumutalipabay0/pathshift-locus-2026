@@ -1,4 +1,5 @@
 'use client';
+import { useLocale, LanguagePicker } from './locale-provider';
 import { useEffect, useRef, useState, useId } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import {
@@ -59,14 +60,6 @@ const friendly = (s: string) =>
     .toLowerCase()
     .replaceAll('_', ' ')
     .replace(/^./, (c) => c.toUpperCase());
-const money = (n: number) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n);
-const dateLabel = (d: string) =>
-  new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    timeZone: 'UTC',
-  });
 const navItems = [
   { id: 'map', label: 'Opportunity map', icon: Compass },
   { id: 'shortlist', label: 'My shortlist', icon: Bookmark },
@@ -86,6 +79,8 @@ async function api<T>(path: string, body?: unknown, method = 'POST'): Promise<T>
   return value;
 }
 function Brand() {
+  const { tr } = useLocale();
+
   return (
     <span className="brand">
       <span className="brand-symbol">
@@ -99,15 +94,18 @@ function Brand() {
           />
         </svg>
       </span>
-      pathshift<span className="brand-dot">.</span>
+      {tr('pathshift')}
+      <span className="brand-dot">.</span>
     </span>
   );
 }
 function Badge({ state }: { state: State }) {
+  const { tr } = useLocale();
+
   return (
     <span className={`badge state-${state.toLowerCase()}`}>
       <span className="status-dot" />
-      {labels[state]}
+      {tr(labels[state])}
     </span>
   );
 }
@@ -126,6 +124,8 @@ function Modal({
   children: React.ReactNode;
   wide?: boolean;
 }) {
+  const { tr } = useLocale();
+
   return (
     <Dialog.Root
       open={open}
@@ -138,58 +138,67 @@ function Modal({
         <Dialog.Content className={`modal ${wide ? 'wide' : ''}`}>
           <div className="modal-header">
             <div>
-              <Dialog.Title>{title}</Dialog.Title>
-              <Dialog.Description>{description}</Dialog.Description>
+              <Dialog.Title>{tr(title)}</Dialog.Title>
+              <Dialog.Description>{tr(description)}</Dialog.Description>
             </div>
-            <Dialog.Close className="icon-button" aria-label="Close dialog">
+            <Dialog.Close className="icon-button" aria-label={tr('Close dialog')}>
               <X size={20} />
             </Dialog.Close>
           </div>
-          {children}
+          {tr(children)}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   );
 }
 function FactProof({ fact }: { fact: Fact }) {
+  const { tr, dateLabel } = useLocale();
+
   return (
     <article className="fact-proof">
       <div className="between">
         <span className={`mini-badge ${fact.evidence === 'VERIFIED' ? 'verified' : ''}`}>
           <ShieldCheck size={13} />
-          {friendly(fact.evidence)}
+          {tr(friendly(fact.evidence))}
         </span>
         <span className="small muted">
-          {fact.provenance === 'OFFICIAL_FACT' ? 'Official source' : 'Evidence gap'}
+          {tr(fact.provenance === 'OFFICIAL_FACT' ? 'Official source' : 'Evidence gap')}
         </span>
       </div>
-      <h4>{fact.statement}</h4>
+      <h4>{tr(fact.statement)}</h4>
       <dl className="proof-grid">
         <div>
-          <dt>Scope</dt>
+          <dt>{tr('Scope')}</dt>
           <dd>{fact.scope.institution}</dd>
         </div>
         <div>
-          <dt>Intake / period</dt>
-          <dd>{friendly(fact.intake)}</dd>
+          <dt>{tr('Intake / period')}</dt>
+          <dd>{tr(friendly(fact.intake))}</dd>
         </div>
         <div>
-          <dt>Checked</dt>
-          <dd>{dateLabel(fact.retrieved_at.slice(0, 10))}</dd>
+          <dt>{tr('Checked')}</dt>
+          <dd>{tr(dateLabel(fact.retrieved_at.slice(0, 10)))}</dd>
         </div>
         <div>
-          <dt>Source title</dt>
-          <dd>{fact.page_title || 'Not recorded in original research'}</dd>
+          <dt>{tr('Source title')}</dt>
+          <dd lang={fact.page_title ? 'en' : undefined}>
+            {fact.page_title || tr('Not recorded in original research')}
+          </dd>
         </div>
       </dl>
-      <p className="small muted">{fact.notes}</p>
+      <p className="small muted">{tr(fact.notes)}</p>
+      <p className="small muted">
+        {tr(
+          'Source summary translated by PathShift. The official page retains its original language.',
+        )}
+      </p>
       {fact.source_url ? (
         <a className="source-link" href={fact.source_url} target="_blank" rel="noreferrer">
-          Open official source
+          {tr('Open official source ')}
           <ArrowUpRight size={15} />
         </a>
       ) : (
-        <p className="small muted">A claim-specific source has not been established.</p>
+        <p className="small muted">{tr('A claim-specific source has not been established.')}</p>
       )}
     </article>
   );
@@ -203,31 +212,34 @@ function RuleRow({
   onProof: (ids: string[]) => void;
   depth?: number;
 }) {
+  const { tr } = useLocale();
+
   return (
     <div className={`rule-row ${depth ? 'nested' : ''}`}>
-      <div className={`rule-symbol ${rule.result.toLowerCase()}`}>{symbols[rule.result]}</div>
+      <div className={`rule-symbol ${rule.result.toLowerCase()}`}>{tr(symbols[rule.result])}</div>
       <div className="rule-content">
         <div className="between">
-          <strong>{rule.label}</strong>
+          <strong>{tr(rule.label)}</strong>
           <span className="rule-verdict">
-            {rule.conditional ? 'CONDITIONAL' : rule.result.replaceAll('_', ' ')}
+            {tr(rule.conditional ? 'CONDITIONAL' : rule.result.replaceAll('_', ' '))}
           </span>
         </div>
-        <p>{rule.reason}</p>
+        <p>{tr(rule.reason)}</p>
         <div className="rule-links">
           <span>
-            {rule.strength === 'HARD' ? 'Required' : 'Informational'} · PathShift evaluation
+            {tr(rule.strength === 'HARD' ? 'Required' : 'Informational')}{' '}
+            {tr(' · PathShift evaluation ')}
           </span>
           {rule.facts.length > 0 && (
             <button onClick={() => onProof(rule.facts)}>
               <ShieldCheck size={12} />
-              Source proof
+              {tr('Source proof ')}
             </button>
           )}
         </div>
         {rule.children.length > 0 && (
           <details>
-            <summary>See {rule.children.length} conditions</summary>
+            <summary>{tr(`See ${rule.children.length} conditions`)}</summary>
             {rule.children.map((r) => (
               <RuleRow key={r.id} rule={r} onProof={onProof} depth={depth + 1} />
             ))}
@@ -238,6 +250,8 @@ function RuleRow({
   );
 }
 function PathGraphic() {
+  const { tr } = useLocale();
+
   return (
     <div className="path-graphic" aria-hidden="true">
       <div className="path-grid" />
@@ -252,19 +266,22 @@ function PathGraphic() {
         <circle cx="355" cy="75" r="6" fill="#B29CDB" />
         <circle cx="355" cy="120" r="6" fill="#A9B4C5" />
       </svg>
-      <span className="diagram-label origin">You, today</span>
+      <span className="diagram-label origin">{tr('You, today')}</span>
       <span className="diagram-label top">
-        A new possibility <ArrowUpRight size={13} />
+        {tr('A new possibility ')}
+        <ArrowUpRight size={13} />
       </span>
-      <span className="diagram-label middle">An alternative route</span>
-      <span className="diagram-label bottom">A question to resolve</span>
+      <span className="diagram-label middle">{tr('An alternative route')}</span>
+      <span className="diagram-label bottom">{tr('A question to resolve')}</span>
       <span className="diagram-pivot">
-        <SlidersHorizontal size={13} /> One change
+        <SlidersHorizontal size={13} /> {tr(' One change ')}
       </span>
     </div>
   );
 }
 export default function Workspace() {
+  const { tr, dateLabel, money } = useLocale();
+
   const [view, setView] = useState<View>('map');
   const [profile, setProfile] = useState<Profile>(demoProfile);
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
@@ -477,15 +494,23 @@ export default function Workspace() {
   };
   const exportPlan = () => {
     if (!current) return;
-    const text = `PATHSHIFT · ${current.profile.name}\n${friendly(current.profile.intake)} · ${current.profile.major}\n\n${current.roadmap
-      .map(
-        (t, i) =>
-          `${i + 1}. [${t.complete ? 'x' : ' '}] ${t.title}\n${t.description}\n${t.deadline ? 'Date: ' + t.deadline : 'Date: needs verification'}\n${t.facts
-            .map((id) => facts.find((f) => f.id === id)?.source_url)
-            .filter(Boolean)
-            .join('\n')}`,
-      )
-      .join('\n\n')}\n\nCalculated ${current.evaluated_at}. Not a guarantee of admission.\n`;
+    const text = [
+      `PATHSHIFT · ${current.profile.name}`,
+      `${tr(friendly(current.profile.intake))} · ${tr(current.profile.major)}`,
+      '',
+      ...current.roadmap.map((task, i) =>
+        [
+          `${i + 1}. [${task.complete ? 'x' : ' '}] ${tr(task.title)}`,
+          tr(task.description),
+          task.deadline
+            ? `${tr('Date')}: ${dateLabel(task.deadline)}`
+            : tr('Date: needs verification'),
+          ...task.facts.map((id) => facts.find((f) => f.id === id)?.source_url).filter(Boolean),
+          '',
+        ].join('\n'),
+      ),
+      `${tr('Calculated')}: ${dateLabel(current.evaluated_at)}. ${tr('Not a guarantee of admission.')}`,
+    ].join('\n');
     const url = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));
     const a = document.createElement('a');
     a.href = url;
@@ -511,24 +536,26 @@ export default function Workspace() {
         (filter === 'actionable'
           ? r.admission_state === 'WITHIN_REACH' || r.admission_state === 'CONDITIONAL_PATH'
           : r.admission_state === filter)) &&
-      `${r.program.name} ${r.program.degree}`.toLowerCase().includes(search.toLowerCase()),
+      `${r.program.name} ${r.program.short} ${r.program.degree} ${tr(r.program.degree)} ${tr(r.program.city)}`
+        .toLowerCase()
+        .includes(search.toLowerCase()),
   );
   const navLabel = view === 'profile' ? 'Your profile' : navItems.find((n) => n.id === view)?.label;
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main">
-        Skip to main content
+        {tr('Skip to main content ')}
       </a>
       <aside className={`sidebar ${menu ? 'open' : ''}`}>
         <button
           className="brand-button"
           onClick={() => navigate('map')}
-          aria-label="PathShift opportunity map"
+          aria-label={tr('PathShift opportunity map')}
         >
           <Brand />
         </button>
-        <div className="workspace-label">YOUR WORKSPACE</div>
-        <nav aria-label="Main navigation">
+        <div className="workspace-label">{tr('YOUR WORKSPACE')}</div>
+        <nav aria-label={tr('Main navigation')}>
           {navItems.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -537,7 +564,7 @@ export default function Workspace() {
               aria-current={view === id ? 'page' : undefined}
             >
               <Icon size={18} />
-              {label}
+              {tr(label)}
               {id === 'shortlist' && <span className="nav-count">{profile.shortlist.length}</span>}
               {id === 'map' && <span className="nav-active-dot" />}
             </button>
@@ -546,25 +573,26 @@ export default function Workspace() {
         <div className="sidebar-divider" />
         <button className={`nav-item ${view === 'profile' ? 'active' : ''}`} onClick={() => edit()}>
           <UserRound size={18} />
-          My profile
+          {tr('My profile ')}
         </button>
         <div className="sidebar-grow" />
         <div className="sidebar-card">
           <span className="mini-badge">
             <GraduationCap size={13} />
-            FALL 2027
+            {tr('FALL 2027 ')}
           </span>
-          <h3>One step closer.</h3>
-          <p>Every small change can open a different path.</p>
+          <h3>{tr('One step closer.')}</h3>
+          <p>{tr('Every small change can open a different path.')}</p>
           <button onClick={() => navigate('roadmap')}>
-            See my next step <ArrowRight size={15} />
+            {tr('See my next step ')}
+            <ArrowRight size={15} />
           </button>
         </div>
         <button className="profile-button" onClick={() => edit()}>
           <span className="avatar">{profile.name.slice(0, 1) || 'A'}</span>
           <span>
             <strong>{profile.name || 'Your profile'}</strong>
-            <small>{demo ? 'Demo applicant' : 'Your admission journey'}</small>
+            <small>{tr(demo ? 'Demo applicant' : 'Your admission journey')}</small>
           </span>
           <ChevronRight size={16} />
         </button>
@@ -574,70 +602,80 @@ export default function Workspace() {
           <div className="breadcrumb">
             <button
               className="icon-button menu-toggle"
-              aria-label="Toggle navigation"
+              aria-label={tr('Toggle navigation')}
               onClick={() => setMenu(!menu)}
             >
               <Menu size={20} />
             </button>
-            <span className="desktop-crumb">Workspace</span>
+            <span className="desktop-crumb">{tr('Workspace')}</span>
             <ChevronRight size={13} className="desktop-crumb" />
-            <strong>{navLabel}</strong>
+            <strong>{tr(navLabel)}</strong>
           </div>
           <div className="top-actions">
+            <LanguagePicker />
             <span className="save-status">
               <span />
-              {busy ? 'Recalculating…' : 'Saved on this device'}
+              {tr(busy ? 'Recalculating…' : 'Saved on this device')}
             </span>
-            <button className="btn small-btn secondary" onClick={reset} disabled={busy}>
+            <button
+              className="btn small-btn secondary"
+              onClick={reset}
+              disabled={busy}
+              aria-label={tr('Reset demo')}
+            >
               <RotateCcw size={14} />
-              Reset demo
+              <span className="reset-label">{tr('Reset demo')}</span>
             </button>
-            <button className="top-avatar" aria-label="Edit profile" onClick={() => edit()}>
+            <button className="top-avatar" aria-label={tr('Edit profile')} onClick={() => edit()}>
               {profile.name.slice(0, 1) || 'A'}
             </button>
           </div>
         </header>
         <main id="main" className="main-content">
-          {error && (
-            <div className="error-box" role="alert">
-              <AlertCircle size={19} />
-              <div>
-                <strong>We couldn’t update your paths.</strong>
-                <p>{error}</p>
+          {tr(
+            error && (
+              <div className="error-box" role="alert">
+                <AlertCircle size={19} />
+                <div>
+                  <strong>{tr('We couldn’t update your paths.')}</strong>
+                  <p>{tr(error)}</p>
+                </div>
+                <button className="btn secondary" onClick={() => void compute(profile)}>
+                  {tr('Try again ')}
+                </button>
               </div>
-              <button className="btn secondary" onClick={() => void compute(profile)}>
-                Try again
-              </button>
-            </div>
+            ),
           )}
-          {notice && (
-            <div className="toast" role="status">
-              <CheckCircle2 size={17} />
-              {notice}
-              <button
-                className="icon-button"
-                aria-label="Dismiss notification"
-                onClick={() => setNotice('')}
-              >
-                <X size={15} />
-              </button>
-            </div>
+          {tr(
+            notice && (
+              <div className="toast" role="status">
+                <CheckCircle2 size={17} />
+                {tr(notice)}
+                <button
+                  className="icon-button"
+                  aria-label={tr('Dismiss notification')}
+                  onClick={() => setNotice('')}
+                >
+                  <X size={15} />
+                </button>
+              </div>
+            ),
           )}
           {simulation && (
             <div className="simulation-banner">
               <FlaskConical size={19} />
               <div>
-                <strong>You’re exploring a scenario</strong>
-                <span>Your saved profile has not changed.</span>
+                <strong>{tr('You’re exploring a scenario')}</strong>
+                <span>{tr('Your saved profile has not changed.')}</span>
               </div>
               <button className="btn ghost" onClick={() => setSimulation(null)}>
-                Discard
+                {tr('Discard ')}
               </button>
               <button
                 className="btn primary"
                 onClick={() => void compute(simulation.after.profile)}
               >
-                Apply scenario
+                {tr('Apply scenario ')}
                 <Check size={15} />
               </button>
             </div>
@@ -659,46 +697,52 @@ export default function Workspace() {
               <div className="page-heading">
                 <div>
                   <div className="eyebrow">
-                    {view === 'map'
-                      ? 'YOUR NEXT CHAPTER'
-                      : view === 'roadmap'
-                        ? 'FROM POSSIBILITIES TO PROGRESS'
-                        : view === 'sources'
-                          ? 'CLARITY YOU CAN CHECK'
-                          : 'YOUR ADMISSION WORKSPACE'}
+                    {tr(
+                      view === 'map'
+                        ? 'YOUR NEXT CHAPTER'
+                        : view === 'roadmap'
+                          ? 'FROM POSSIBILITIES TO PROGRESS'
+                          : view === 'sources'
+                            ? 'CLARITY YOU CAN CHECK'
+                            : 'YOUR ADMISSION WORKSPACE',
+                    )}
                   </div>
                   <h1>
-                    {view === 'map'
-                      ? 'Your opportunity map.'
-                      : view === 'shortlist'
-                        ? 'The paths you’re keeping close.'
-                        : view === 'compare'
-                          ? 'Different paths. A clearer choice.'
-                          : view === 'roadmap'
-                            ? 'Small steps. Real progress.'
-                            : 'Every decision has a source.'}
+                    {tr(
+                      view === 'map'
+                        ? 'Your opportunity map.'
+                        : view === 'shortlist'
+                          ? 'The paths you’re keeping close.'
+                          : view === 'compare'
+                            ? 'Different paths. A clearer choice.'
+                            : view === 'roadmap'
+                              ? 'Small steps. Real progress.'
+                              : 'Every decision has a source.',
+                    )}
                   </h1>
                   <p>
-                    {view === 'map'
-                      ? 'See where you stand — and what could change your options.'
-                      : view === 'shortlist'
-                        ? 'Your saved programs shape your personal roadmap.'
-                        : view === 'compare'
-                          ? 'Compare the requirements that matter to your profile.'
-                          : view === 'roadmap'
-                            ? 'A living plan, built from your shortlist and the requirements ahead.'
-                            : 'Official requirements, transparent reasoning, and clearly marked gaps.'}
+                    {tr(
+                      view === 'map'
+                        ? 'See where you stand — and what could change your options.'
+                        : view === 'shortlist'
+                          ? 'Your saved programs shape your personal roadmap.'
+                          : view === 'compare'
+                            ? 'Compare the requirements that matter to your profile.'
+                            : view === 'roadmap'
+                              ? 'A living plan, built from your shortlist and the requirements ahead.'
+                              : 'Official requirements, transparent reasoning, and clearly marked gaps.',
+                    )}
                   </p>
                 </div>
                 {view === 'roadmap' ? (
                   <button className="btn secondary" onClick={exportPlan} disabled={!current}>
                     <Download size={16} />
-                    Export plan
+                    {tr('Export plan ')}
                   </button>
                 ) : (
                   <button className="btn secondary" onClick={() => edit(true)}>
                     <Plus size={16} />
-                    Build my profile
+                    {tr('Build my profile ')}
                   </button>
                 )}
               </div>
@@ -708,38 +752,41 @@ export default function Workspace() {
                     <div className="journey-copy">
                       <div className="between">
                         <span className="eyebrow">
-                          {demo ? 'MEET ARUZHAN · DEMO PROFILE' : 'YOUR STARTING POINT'}
+                          {tr(demo ? 'MEET ARUZHAN · DEMO PROFILE' : 'YOUR STARTING POINT')}
                         </span>
                         <button className="text-button" onClick={() => setDiagnosis(true)}>
-                          View diagnosis
+                          {tr('View diagnosis ')}
                           <ArrowUpRight size={14} />
                         </button>
                       </div>
                       <h2>
-                        Your future has more
+                        {tr('Your future has more ')}
                         <br />
-                        than one path.
+                        {tr('than one path. ')}
                       </h2>
                       <p>
-                        Change an input. See what opens up.
+                        {tr('Change an input. See what opens up. ')}
                         <br />
-                        Make your next move with a reason.
+                        {tr('Make your next move with a reason. ')}
                       </p>
                       <div className="profile-chips">
                         <span>
                           <GraduationCap size={14} />
-                          {profile.curriculum}
-                          {profile.ib_total !== null && profile.curriculum === 'IB'
-                            ? ` ${profile.ib_total}/45`
-                            : ''}
+                          {tr(profile.curriculum)}
+                          {tr(
+                            profile.ib_total !== null && profile.curriculum === 'IB'
+                              ? ` ${profile.ib_total}/45`
+                              : '',
+                          )}
                         </span>
                         <span>
                           <Languages size={14} />
-                          IELTS {profile.ielts.overall ?? '—'}
+                          {tr('IELTS ')}
+                          {profile.ielts.overall === null ? '—' : money(profile.ielts.overall)}
                         </span>
                         <span>
                           <Globe2 size={14} />
-                          {profile.countries.join(' + ') || 'No country selected'}
+                          {tr(profile.countries.join(' + ') || 'No country selected')}
                         </span>
                       </div>
                     </div>
@@ -748,22 +795,22 @@ export default function Workspace() {
                   <div className="journey-steps">
                     <span className="complete">
                       <CheckCircle2 size={16} />
-                      Your profile
+                      {tr('Your profile ')}
                     </span>
                     <i />
                     <span className="current">
                       <Compass size={16} />
-                      Explore paths
+                      {tr('Explore paths ')}
                     </span>
                     <i />
                     <button onClick={() => navigate('compare')}>
                       <GitCompareArrows size={16} />
-                      Compare
+                      {tr('Compare ')}
                     </button>
                     <i />
                     <button onClick={() => navigate('roadmap')}>
                       <Route size={16} />
-                      Take your next step
+                      {tr('Take your next step ')}
                     </button>
                   </div>
                 </>
@@ -771,8 +818,8 @@ export default function Workspace() {
               {!current && !error ? (
                 <div className="loading-state">
                   <LoaderCircle className="spin" />
-                  <h2>Connecting your profile to the evidence…</h2>
-                  <p>Evaluating requirements, dates and possible next steps.</p>
+                  <h2>{tr('Connecting your profile to the evidence…')}</h2>
+                  <p>{tr('Evaluating requirements, dates and possible next steps.')}</p>
                 </div>
               ) : (
                 current && (
@@ -782,11 +829,11 @@ export default function Workspace() {
                         <div className="mobile-quick-actions">
                           <a className="btn primary" href="#scenario-lab">
                             <FlaskConical size={16} />
-                            Try a what-if
+                            {tr('Try a what-if ')}
                           </a>
                           <button className="btn secondary" onClick={() => navigate('roadmap')}>
                             <Route size={16} />
-                            My next step
+                            {tr('My next step ')}
                           </button>
                         </div>
                         <div className="workspace-grid">
@@ -801,8 +848,8 @@ export default function Workspace() {
                                 <span className="stat-icon green">
                                   <CheckCircle2 size={17} />
                                 </span>
-                                <strong>{counts.ready.toString().padStart(2, '0')}</strong>
-                                <span>Ready to apply</span>
+                                <strong>{tr(counts.ready.toString().padStart(2, '0'))}</strong>
+                                <span>{tr('Ready to apply')}</span>
                               </button>
                               <button
                                 className={filter === 'actionable' ? 'selected' : ''}
@@ -813,8 +860,8 @@ export default function Workspace() {
                                 <span className="stat-icon purple">
                                   <Route size={17} />
                                 </span>
-                                <strong>{counts.reach.toString().padStart(2, '0')}</strong>
-                                <span>Reachable / conditional</span>
+                                <strong>{tr(counts.reach.toString().padStart(2, '0'))}</strong>
+                                <span>{tr('Reachable / conditional')}</span>
                               </button>
                               <button
                                 className={filter === 'INDETERMINATE' ? 'selected' : ''}
@@ -825,8 +872,8 @@ export default function Workspace() {
                                 <span className="stat-icon amber">
                                   <Info size={17} />
                                 </span>
-                                <strong>{counts.verify.toString().padStart(2, '0')}</strong>
-                                <span>Need verification</span>
+                                <strong>{tr(counts.verify.toString().padStart(2, '0'))}</strong>
+                                <span>{tr('Need verification')}</span>
                               </button>
                             </div>
                             <div className="board-toolbar">
@@ -835,7 +882,7 @@ export default function Workspace() {
                                   className={filter === 'all' ? 'active' : ''}
                                   onClick={() => setFilter('all')}
                                 >
-                                  {view === 'shortlist' ? 'Saved paths' : 'All paths'}
+                                  {tr(view === 'shortlist' ? 'Saved paths' : 'All paths')}
                                   <span>
                                     {view === 'shortlist'
                                       ? profile.shortlist.length
@@ -847,15 +894,16 @@ export default function Workspace() {
                                     onClick={() => setFilter('BLOCKED')}
                                     className={filter === 'BLOCKED' ? 'active' : ''}
                                   >
-                                    Blocked <span>{counts.blocked}</span>
+                                    {tr('Blocked ')}
+                                    <span>{counts.blocked}</span>
                                   </button>
                                 )}
                               </div>
                               <label className="search-input">
                                 <Search size={15} />
                                 <input
-                                  aria-label="Search programs"
-                                  placeholder="Find a program…"
+                                  aria-label={tr('Search programs')}
+                                  placeholder={tr('Find a program…')}
                                   value={search}
                                   onChange={(e) => setSearch(e.target.value)}
                                 />
@@ -863,7 +911,8 @@ export default function Workspace() {
                             </div>
                             <div className="board-caption">
                               <span>
-                                {current.programs.length} programs evaluated · {shown.length} shown
+                                {current.programs.length} {tr(' programs evaluated · ')}
+                                {shown.length} {tr(' shown ')}
                               </span>
                               <label>
                                 <input
@@ -871,20 +920,23 @@ export default function Workspace() {
                                   checked={allCountries}
                                   onChange={(e) => setAllCountries(e.target.checked)}
                                 />
-                                Include other countries
+                                {tr('Include other countries ')}
                               </label>
                             </div>
                             {!shown.length ? (
                               <div className="empty-state panel">
                                 <Compass size={30} />
                                 <h2>
-                                  {view === 'shortlist'
-                                    ? 'Your shortlist starts with a possibility.'
-                                    : 'No exact paths under these filters.'}
+                                  {tr(
+                                    view === 'shortlist'
+                                      ? 'Your shortlist starts with a possibility.'
+                                      : 'No exact paths under these filters.',
+                                  )}
                                 </h2>
                                 <p>
-                                  Explore the full map, keep a program that interests you, or adjust
-                                  your country preferences.
+                                  {tr(
+                                    'Explore the full map, keep a program that interests you, or adjust your country preferences. ',
+                                  )}
                                 </p>
                                 <button
                                   className="btn primary"
@@ -895,7 +947,7 @@ export default function Workspace() {
                                     navigate('map');
                                   }}
                                 >
-                                  Explore all 12 programs
+                                  {tr('Explore all 12 programs ')}
                                   <ArrowRight size={15} />
                                 </button>
                               </div>
@@ -926,25 +978,27 @@ export default function Workspace() {
                             <div className="map-footnote">
                               <ShieldCheck size={16} />
                               <p>
-                                Ready means no detected published blocker in the evaluated rules. It
-                                is not an admission guarantee. Every program includes its evidence
-                                limits.
+                                {tr(
+                                  'Ready means no detected published blocker in the evaluated rules. It is not an admission guarantee. Every program includes its evidence limits. ',
+                                )}
                               </p>
                             </div>
                             {comparison.length >= 2 && (
                               <div className="compare-tray">
                                 <div>
                                   <GitCompareArrows size={19} />
-                                  <strong>{comparison.length} paths selected</strong>
+                                  <strong>
+                                    {comparison.length} {tr(' paths selected')}
+                                  </strong>
                                   <span className="muted small">
-                                    See the differences side by side.
+                                    {tr('See the differences side by side. ')}
                                   </span>
                                 </div>
                                 <button
                                   className="btn primary small-btn"
                                   onClick={() => navigate('compare')}
                                 >
-                                  Compare paths
+                                  {tr('Compare paths ')}
                                   <ArrowRight size={15} />
                                 </button>
                               </div>
@@ -957,16 +1011,16 @@ export default function Workspace() {
                                   <SlidersHorizontal size={20} />
                                 </span>
                                 <div>
-                                  <h2>What if?</h2>
-                                  <p>One change. New possibilities.</p>
+                                  <h2>{tr('What if?')}</h2>
+                                  <p>{tr('One change. New possibilities.')}</p>
                                 </div>
-                                <span className="mini-badge">LAB</span>
+                                <span className="mini-badge">{tr('LAB')}</span>
                               </div>
                               <div className="scenario-body">
                                 <label className="toggle-label">
                                   <span>
-                                    <strong>Explore an English result</strong>
-                                    <small>Choose the score and bands below</small>
+                                    <strong>{tr('Explore an English result')}</strong>
+                                    <small>{tr('Choose the score and bands below')}</small>
                                   </span>
                                   <input
                                     type="checkbox"
@@ -983,11 +1037,13 @@ export default function Workspace() {
                                   disabled={!scenario.english || simBusy}
                                 >
                                   <div className="between">
-                                    <label htmlFor="scenario-ielts">IELTS overall</label>
+                                    <label htmlFor="scenario-ielts">{tr('IELTS overall')}</label>
                                     <div className="score-pill">
-                                      {profile.ielts.overall ?? '—'}
+                                      {profile.ielts.overall === null
+                                        ? '—'
+                                        : money(profile.ielts.overall)}
                                       <MoveRight size={14} />
-                                      <strong>{scenario.ielts.toFixed(1)}</strong>
+                                      <strong>{money(scenario.ielts)}</strong>
                                     </div>
                                   </div>
                                   <input
@@ -998,26 +1054,30 @@ export default function Workspace() {
                                     step="0.5"
                                     value={scenario.ielts}
                                     onChange={(e) => {
-                                      setScenario({ ...scenario, ielts: Number(e.target.value) });
+                                      setScenario({
+                                        ...scenario,
+                                        ielts: Number(e.target.value),
+                                      });
                                       setSimulation(null);
                                     }}
                                   />
                                   <div className="range-labels">
-                                    <span>4.0</span>
-                                    <span>9.0</span>
+                                    <span>{money(4)}</span>
+                                    <span>{money(9)}</span>
                                   </div>
                                   <details className="scenario-details" open>
                                     <summary>
-                                      Component scores <ChevronDown size={14} />
+                                      {tr('Component scores ')}
+                                      <ChevronDown size={14} />
                                     </summary>
                                     <div className="band-inputs">
                                       {(
                                         ['reading', 'writing', 'listening', 'speaking'] as const
                                       ).map((k) => (
                                         <label key={k}>
-                                          {k.slice(0, 1).toUpperCase() + k.slice(1)}
+                                          {tr(k.slice(0, 1).toUpperCase() + k.slice(1))}
                                           <input
-                                            aria-label={`Scenario ${k}`}
+                                            aria-label={tr(`Scenario ${k}`)}
                                             type="number"
                                             min="0"
                                             max="9"
@@ -1036,15 +1096,16 @@ export default function Workspace() {
                                     </div>
                                   </details>
                                   <p className="field-note">
-                                    These are hypothetical scores. Your bands do not automatically
-                                    change with your overall score.
+                                    {tr(
+                                      'These are hypothetical scores. Your bands do not automatically change with your overall score. ',
+                                    )}
                                   </p>
                                 </fieldset>
                                 <div className="scenario-divider" />
                                 <label className="toggle-label">
                                   <span>
-                                    <strong>Add a valid SAT</strong>
-                                    <small>Test a required-score branch</small>
+                                    <strong>{tr('Add a valid SAT')}</strong>
+                                    <small>{tr('Test a required-score branch')}</small>
                                   </span>
                                   <input
                                     type="checkbox"
@@ -1058,7 +1119,7 @@ export default function Workspace() {
                                 </label>
                                 {scenario.sat && (
                                   <label className="scenario-number">
-                                    Hypothetical SAT score
+                                    {tr('Hypothetical SAT score ')}
                                     <input
                                       type="number"
                                       min="400"
@@ -1077,8 +1138,8 @@ export default function Workspace() {
                                 )}
                                 <label className="toggle-label">
                                   <span>
-                                    <strong>Explore a different budget</strong>
-                                    <small>Keep academic results separate</small>
+                                    <strong>{tr('Explore a different budget')}</strong>
+                                    <small>{tr('Keep academic results separate')}</small>
                                   </span>
                                   <input
                                     type="checkbox"
@@ -1094,7 +1155,7 @@ export default function Workspace() {
                                   <div className="budget-inputs">
                                     {(['USD', 'CAD', 'GBP'] as const).map((c) => (
                                       <label key={c}>
-                                        {c}
+                                        {tr(c)}
                                         <input
                                           type="number"
                                           min="0"
@@ -1113,7 +1174,7 @@ export default function Workspace() {
                                   </div>
                                 )}
                                 <label className="scenario-number">
-                                  Country preference
+                                  {tr('Country preference ')}
                                   <select
                                     disabled={
                                       !profile.geography_flexible || !!profile.country_locks.length
@@ -1124,16 +1185,18 @@ export default function Workspace() {
                                       setSimulation(null);
                                     }}
                                   >
-                                    <option value="keep">Keep my countries</option>
-                                    <option value="US">United States</option>
-                                    <option value="Canada">Canada</option>
-                                    <option value="UK">United Kingdom</option>
+                                    <option value="keep">{tr('Keep my countries')}</option>
+                                    <option value="US">{tr('United States')}</option>
+                                    <option value="Canada">{tr('Canada')}</option>
+                                    <option value="UK">{tr('United Kingdom')}</option>
                                   </select>
                                 </label>
-                                {simError && (
-                                  <p className="error-text" role="alert">
-                                    {simError}
-                                  </p>
+                                {tr(
+                                  simError && (
+                                    <p className="error-text" role="alert">
+                                      {tr(simError)}
+                                    </p>
+                                  ),
                                 )}
                                 <button
                                   className="btn primary full"
@@ -1144,93 +1207,103 @@ export default function Workspace() {
                                     <LoaderCircle size={17} className="spin" />
                                   ) : (
                                     <FlaskConical size={17} />
-                                  )}{' '}
-                                  {simBusy ? 'Recalculating…' : 'Explore this scenario'}
+                                  )}
+                                  {tr(' ')}
+                                  {tr(simBusy ? 'Recalculating…' : 'Explore this scenario')}
                                   <ArrowRight size={16} />
                                 </button>
                                 <p className="private-note">
                                   <ShieldCheck size={12} />
-                                  Try freely. Apply only when you’re ready.
+                                  {tr('Try freely. Apply only when you’re ready. ')}
                                 </p>
                               </div>
                               {simulation && (
                                 <div className="causal-diff" aria-live="polite">
-                                  <div className="eyebrow">HERE’S WHAT CHANGED</div>
+                                  <div className="eyebrow">{tr('HERE’S WHAT CHANGED')}</div>
                                   <div className="diff-stat">
                                     <strong>{simulation.diff.removed_blockers.length}</strong>
-                                    <span>requirement gaps removed</span>
+                                    <span>{tr('requirement gaps removed')}</span>
                                   </div>
                                   <div className="diff-stat">
                                     <strong>{simulation.diff.changed_states.length}</strong>
-                                    <span>program states changed</span>
+                                    <span>{tr('program states changed')}</span>
                                   </div>
                                   <div className="diff-stat">
                                     <strong>{simulation.diff.changed_costs.length}</strong>
-                                    <span>dated budget comparisons changed</span>
+                                    <span>{tr('dated budget comparisons changed')}</span>
                                   </div>
                                   {simulation.diff.changed_rules.slice(0, 6).map((d) => (
                                     <div className="diff-line" key={d.rule}>
                                       <span>
-                                        {
+                                        {tr(
                                           current.programs.find((r) => r.program.id === d.program)
-                                            ?.program.short
-                                        }
-                                        <small>{d.label}</small>
+                                            ?.program.short,
+                                        )}
+                                        <small>{tr(d.label)}</small>
                                       </span>
                                       <span>
-                                        {symbols[d.before]}
+                                        {tr(symbols[d.before])}
                                         <ArrowRight size={11} />
-                                        <strong>{symbols[d.after]}</strong>
+                                        <strong>{tr(symbols[d.after])}</strong>
                                       </span>
                                     </div>
                                   ))}
                                   <p className="small">
-                                    {simulation.diff.tasks_removed.length} roadmap tasks removed ·{' '}
-                                    {simulation.diff.next_before === simulation.diff.next_after
-                                      ? 'Next action stays the same'
-                                      : 'Next action updated'}
+                                    {simulation.diff.tasks_removed.length}{' '}
+                                    {tr(' roadmap tasks removed ·')}
+                                    {tr(' ')}
+                                    {tr(
+                                      simulation.diff.next_before === simulation.diff.next_after
+                                        ? 'Next action stays the same'
+                                        : 'Next action updated',
+                                    )}
                                   </p>
                                   <button
                                     className="btn primary full"
                                     onClick={() => void compute(simulation.after.profile)}
                                   >
-                                    Apply scenario
+                                    {tr('Apply scenario ')}
                                     <Check size={16} />
                                   </button>
                                   <button
                                     className="text-button full"
                                     onClick={() => setSimulation(null)}
                                   >
-                                    Discard changes
+                                    {tr('Discard changes ')}
                                   </button>
                                 </div>
                               )}
                             </section>
                             <section className="next-preview">
                               <span className="eyebrow">
-                                <Route size={13} /> YOUR NEXT MOVE
+                                <Route size={13} /> {tr(' YOUR NEXT MOVE ')}
                               </span>
                               <h3>
-                                {current.next_action?.title ||
-                                  'Choose a path to start your roadmap'}
+                                {tr(
+                                  current.next_action?.title ||
+                                    'Choose a path to start your roadmap',
+                                )}
                               </h3>
                               <p>
-                                {current.next_action
-                                  ? `Connects to ${current.next_action.programs.length} shortlisted ${current.next_action.programs.length === 1 ? 'program' : 'programs'}.`
-                                  : 'Save programs that interest you. Your next steps will take shape here.'}
+                                {tr(
+                                  current.next_action
+                                    ? `Connects to ${current.next_action.programs.length} shortlisted ${current.next_action.programs.length === 1 ? 'program' : 'programs'}.`
+                                    : 'Save programs that interest you. Your next steps will take shape here.',
+                                )}
                               </p>
                               <button className="text-button" onClick={() => navigate('roadmap')}>
-                                Open my roadmap
+                                {tr('Open my roadmap ')}
                                 <ArrowUpRight size={15} />
                               </button>
                             </section>
                             <div className="evidence-note">
                               <ShieldCheck size={20} />
                               <div>
-                                <strong>Evidence, not guesswork.</strong>
+                                <strong>{tr('Evidence, not guesswork.')}</strong>
                                 <p>
-                                  Requirements linked to official sources. Remaining gaps shown
-                                  clearly.
+                                  {tr(
+                                    'Requirements linked to official sources. Remaining gaps shown clearly. ',
+                                  )}
                                 </p>
                               </div>
                             </div>
@@ -1251,16 +1324,19 @@ export default function Workspace() {
                                 <Check size={14} />
                               ) : (
                                 <Plus size={14} />
-                              )}{' '}
-                              {r.program.short}
+                              )}
+                              {tr(' ')}
+                              {tr(r.program.short)}
                             </button>
                           ))}
                         </div>
                         {comparison.length < 2 ? (
                           <div className="empty-state panel">
                             <GitCompareArrows size={32} />
-                            <h2>Choose at least two paths.</h2>
-                            <p>Select programs above to compare their decisive differences.</p>
+                            <h2>{tr('Choose at least two paths.')}</h2>
+                            <p>
+                              {tr('Select programs above to compare their decisive differences.')}
+                            </p>
                           </div>
                         ) : (
                           <div
@@ -1279,50 +1355,55 @@ export default function Workspace() {
                                       background: r.program.color + '12',
                                     }}
                                   >
-                                    {r.program.initials}
+                                    {tr(r.program.initials)}
                                   </div>
-                                  <h2>{r.program.short}</h2>
-                                  <p className="muted">{r.program.degree}</p>
+                                  <h2>{tr(r.program.short)}</h2>
+                                  <p className="muted">{tr(r.program.degree)}</p>
                                   <Badge state={r.admission_state} />
                                   <div className="compare-section">
-                                    <span className="eyebrow">FOR YOUR PROFILE</span>
+                                    <span className="eyebrow">{tr('FOR YOUR PROFILE')}</span>
                                     <strong>
-                                      {r.passed} of {r.total} required branches satisfied
+                                      {tr(`${r.passed} of ${r.total} required branches satisfied`)}
                                     </strong>
                                     <p>
-                                      {r.blockers.length
-                                        ? r.blockers.map((b) => b.label).join(' · ')
-                                        : 'No known requirement gaps in the evaluated branches.'}
+                                      {tr(
+                                        r.blockers.length
+                                          ? r.blockers.map((b) => tr(b.label)).join(' · ')
+                                          : 'No known requirement gaps in the evaluated branches.',
+                                      )}
                                     </p>
                                     {r.unknowns.length > 0 && (
                                       <p className="amber-text">
-                                        {r.unknowns.length} branches need verification.
+                                        {tr(`Branches to verify: ${r.unknowns.length}.`)}
                                       </p>
                                     )}
                                   </div>
                                   <div className="compare-section">
-                                    <span className="eyebrow">THE ROUTE</span>
-                                    <p>{r.program.structure}</p>
+                                    <span className="eyebrow">{tr('THE ROUTE')}</span>
+                                    <p>{tr(r.program.structure)}</p>
                                     {r.program.conditional && (
                                       <p>
-                                        {r.program.conditional.name}: {r.program.conditional.note}
+                                        {tr(r.program.conditional.name)}:{' '}
+                                        {tr(r.program.conditional.note)}
                                       </p>
                                     )}
                                   </div>
                                   <div className="compare-section">
-                                    <span className="eyebrow">COST & TIMING</span>
+                                    <span className="eyebrow">{tr('COST & TIMING')}</span>
                                     <CostText result={r} />
                                     <p>
-                                      {r.deadline
-                                        ? `${dateLabel(r.deadline.date)} · ${friendly(r.timeline_state)}`
-                                        : 'Application deadline needs verification.'}
+                                      {tr(
+                                        r.deadline
+                                          ? `${dateLabel(r.deadline.date)} · ${friendly(r.timeline_state)}`
+                                          : 'Application deadline needs verification.',
+                                      )}
                                     </p>
                                   </div>
                                   <button
                                     className="btn secondary full"
                                     onClick={() => setDetail(r.program.id)}
                                   >
-                                    Understand this path
+                                    {tr('Understand this path ')}
                                     <ArrowUpRight size={16} />
                                   </button>
                                 </article>
@@ -1336,23 +1417,28 @@ export default function Workspace() {
                         <div>
                           <section className="next-action-hero">
                             <div className="eyebrow">
-                              <Route size={14} /> YOUR NEXT BEST ACTION
+                              <Route size={14} /> {tr(' YOUR NEXT BEST ACTION ')}
                             </div>
-                            <h2>{current.next_action?.title || 'Save a program. Start a plan.'}</h2>
+                            <h2>
+                              {tr(current.next_action?.title || 'Save a program. Start a plan.')}
+                            </h2>
                             <p>
-                              {current.next_action?.description ||
-                                'Your roadmap is built from the programs in your shortlist.'}
+                              {tr(
+                                current.next_action?.description ||
+                                  'Your roadmap is built from the programs in your shortlist.',
+                              )}
                             </p>
                             {current.next_action && (
                               <>
                                 <div className="next-reasons">
                                   <span>
                                     <Bookmark size={14} />
-                                    {current.next_action.programs.length} shortlisted programs
+                                    {current.next_action.programs.length}{' '}
+                                    {tr(' shortlisted programs ')}
                                   </span>
                                   <span>
                                     <ShieldCheck size={14} />
-                                    Requirement-based action
+                                    {tr('Requirement-based action ')}
                                   </span>
                                 </div>
                                 <button
@@ -1360,24 +1446,27 @@ export default function Workspace() {
                                   onClick={() => void toggleTask(current.next_action!)}
                                   disabled={!!simulation || busy}
                                 >
-                                  {current.next_action.requires_value
-                                    ? 'Update my profile'
-                                    : 'Mark this step complete'}
+                                  {tr(
+                                    current.next_action.requires_value
+                                      ? 'Update my profile'
+                                      : 'Mark this step complete',
+                                  )}
                                   <ArrowRight size={16} />
                                 </button>
                                 <p className="small next-policy">
-                                  Why this action? Among steps with completed prerequisites: most
-                                  shortlisted programs affected, then earliest known deadline, then
-                                  a stable tie-break. Timing is not a guarantee.
+                                  {tr(
+                                    'Why this action? Among steps with completed prerequisites: most shortlisted programs affected, then earliest known deadline, then a stable tie-break. Timing is not a guarantee. ',
+                                  )}
                                 </p>
                               </>
                             )}
                           </section>
                           <div className="between roadmap-heading">
-                            <h2>Your action plan</h2>
+                            <h2>{tr('Your action plan')}</h2>
                             <span className="muted small">
-                              {current.roadmap.filter((t) => t.complete).length} of{' '}
-                              {current.roadmap.length} completed
+                              {current.roadmap.filter((t) => t.complete).length} {tr(' of')}
+                              {tr(' ')}
+                              {current.roadmap.length} {tr(' completed ')}
                             </span>
                           </div>
                           <div className="roadmap-progress">
@@ -1390,10 +1479,10 @@ export default function Workspace() {
                           {!current.roadmap.length ? (
                             <div className="empty-state panel">
                               <Bookmark size={28} />
-                              <h3>Your shortlist powers this page.</h3>
-                              <p>Save a few programs to create personalized steps.</p>
+                              <h3>{tr('Your shortlist powers this page.')}</h3>
+                              <p>{tr('Save a few programs to create personalized steps.')}</p>
                               <button className="btn primary" onClick={() => navigate('map')}>
-                                Explore paths
+                                {tr('Explore paths ')}
                                 <ArrowRight size={15} />
                               </button>
                             </div>
@@ -1405,51 +1494,62 @@ export default function Workspace() {
                                   key={t.id}
                                 >
                                   <div className="task-marker">
-                                    {t.complete ? (
-                                      <Check size={16} />
-                                    ) : (
-                                      String(i + 1).padStart(2, '0')
+                                    {tr(
+                                      t.complete ? (
+                                        <Check size={16} />
+                                      ) : (
+                                        String(i + 1).padStart(2, '0')
+                                      ),
                                     )}
                                   </div>
                                   <div className="task-body">
                                     <div className="between">
                                       <span className="eyebrow">
-                                        {t.type === 'VERIFY'
-                                          ? 'CHECK & CONFIRM'
-                                          : t.type === 'SCORE'
-                                            ? 'TESTS & LANGUAGE'
-                                            : t.type === 'BUDGET'
-                                              ? 'FINANCIAL PLANNING'
-                                              : 'APPLICATION MATERIALS'}
+                                        {tr(
+                                          t.type === 'VERIFY'
+                                            ? 'CHECK & CONFIRM'
+                                            : t.type === 'SCORE'
+                                              ? 'TESTS & LANGUAGE'
+                                              : t.type === 'BUDGET'
+                                                ? 'FINANCIAL PLANNING'
+                                                : 'APPLICATION MATERIALS',
+                                        )}
                                       </span>
-                                      {t.deadline && (
-                                        <span className="task-date">
-                                          <CalendarDays size={12} />
-                                          {dateLabel(t.deadline)}
-                                        </span>
+                                      {tr(
+                                        t.deadline && (
+                                          <span className="task-date">
+                                            <CalendarDays size={12} />
+                                            {tr(dateLabel(t.deadline))}
+                                          </span>
+                                        ),
                                       )}
                                     </div>
-                                    <h3>{t.title}</h3>
-                                    <p>{t.description}</p>
+                                    <h3>{tr(t.title)}</h3>
+                                    <p>{tr(t.description)}</p>
                                     <div className="task-tags">
                                       {t.programs.map((id) => (
                                         <span key={id}>
-                                          {
+                                          {tr(
                                             current.programs.find((r) => r.program.id === id)
-                                              ?.program.short
-                                          }
+                                              ?.program.short,
+                                          )}
                                         </span>
                                       ))}
                                     </div>
                                     {t.dependencies.length > 0 && (
                                       <p className="small muted">
-                                        First:{' '}
-                                        {t.dependencies
-                                          .map(
-                                            (id) =>
-                                              current.roadmap.find((x) => x.id === id)?.title || id,
-                                          )
-                                          .join('; ')}
+                                        {tr('First:')}
+                                        {tr(' ')}
+                                        {tr(
+                                          t.dependencies
+                                            .map((id) =>
+                                              tr(
+                                                current.roadmap.find((x) => x.id === id)?.title ||
+                                                  id,
+                                              ),
+                                            )
+                                            .join('; '),
+                                        )}
                                       </p>
                                     )}
                                     <div className="task-bottom">
@@ -1457,7 +1557,7 @@ export default function Workspace() {
                                         className="text-button"
                                         onClick={() => setProof(t.facts)}
                                       >
-                                        View evidence
+                                        {tr('View evidence ')}
                                         <ExternalLink size={13} />
                                       </button>
                                       <button
@@ -1472,11 +1572,13 @@ export default function Workspace() {
                                         }
                                         onClick={() => void toggleTask(t)}
                                       >
-                                        {t.complete
-                                          ? 'Reopen'
-                                          : t.requires_value
-                                            ? 'Enter completed result'
-                                            : 'Mark complete'}
+                                        {tr(
+                                          t.complete
+                                            ? 'Reopen'
+                                            : t.requires_value
+                                              ? 'Enter completed result'
+                                              : 'Mark complete',
+                                        )}
                                         {t.complete ? <RotateCcw size={13} /> : <Check size={13} />}
                                       </button>
                                     </div>
@@ -1487,13 +1589,13 @@ export default function Workspace() {
                           )}
                         </div>
                         <aside className="roadmap-aside panel">
-                          <span className="eyebrow">YOUR DESTINATION</span>
-                          <h3>{profile.major}</h3>
+                          <span className="eyebrow">{tr('YOUR DESTINATION')}</span>
+                          <h3>{tr(profile.major)}</h3>
                           <p>
-                            {friendly(profile.intake)} · {profile.countries.join(' + ')}
+                            {tr(friendly(profile.intake))} · {tr(profile.countries.join(' + '))}
                           </p>
                           <div className="form-divider" />
-                          <h4>Built around your shortlist</h4>
+                          <h4>{tr('Built around your shortlist')}</h4>
                           {current.programs
                             .filter((r) => profile.shortlist.includes(r.program.id))
                             .map((r) => (
@@ -1509,22 +1611,22 @@ export default function Workspace() {
                                     background: r.program.color + '15',
                                   }}
                                 >
-                                  {r.program.initials}
+                                  {tr(r.program.initials)}
                                 </span>
-                                {r.program.short}
+                                {tr(r.program.short)}
                                 <ChevronRight size={14} />
                               </button>
                             ))}
                           <div className="form-divider" />
                           <Info size={19} />
                           <p className="small muted">
-                            Marking a research task complete records progress. It does not turn an
-                            unknown university rule into a verified one. Test results need their
-                            actual new values.
+                            {tr(
+                              'Marking a research task complete records progress. It does not turn an unknown university rule into a verified one. Test results need their actual new values. ',
+                            )}
                           </p>
                           <button className="btn secondary full" onClick={exportPlan}>
                             <Download size={15} />
-                            Export my plan
+                            {tr('Export my plan ')}
                           </button>
                         </aside>
                       </div>
@@ -1534,24 +1636,24 @@ export default function Workspace() {
                         <section className="source-intro panel">
                           <ShieldCheck size={27} />
                           <div>
-                            <h2>A clear boundary between facts and conclusions.</h2>
+                            <h2>{tr('A clear boundary between facts and conclusions.')}</h2>
                             <p>
-                              Official facts come from the frozen research and a new source check on
-                              17 September 2026. PathShift compares those facts with your inputs. It
-                              does not predict admission. Cost references keep their original year.
+                              {tr(
+                                'Official facts come from the frozen research and a new source check on 17 September 2026. PathShift compares those facts with your inputs. It does not predict admission. Cost references keep their original year. ',
+                              )}
                             </p>
                             <div className="source-legend">
                               <span>
                                 <i className="green-dot" />
-                                Official fact
+                                {tr('Official fact ')}
                               </span>
                               <span>
                                 <i className="blue-dot" />
-                                PathShift reasoning
+                                {tr('PathShift reasoning ')}
                               </span>
                               <span>
                                 <i className="amber-dot" />
-                                Needs verification
+                                {tr('Needs verification ')}
                               </span>
                             </div>
                           </div>
@@ -1567,12 +1669,13 @@ export default function Workspace() {
                                     background: r.program.color + '12',
                                   }}
                                 >
-                                  {r.program.initials}
+                                  {tr(r.program.initials)}
                                 </span>
-                                <strong>{r.program.name}</strong>
+                                <strong>{tr(r.program.name)}</strong>
                                 <span className="muted small">
-                                  {facts.filter((f) => f.scope.program === r.program.id).length}{' '}
-                                  evidence records
+                                  {tr(
+                                    `Evidence records: ${facts.filter((f) => f.scope.program === r.program.id).length}`,
+                                  )}
                                 </span>
                                 <ChevronDown size={16} />
                               </summary>
@@ -1595,9 +1698,9 @@ export default function Workspace() {
           )}
           <footer className="footer">
             <Brand />
-            <span>Better questions. Clearer choices.</span>
+            <span>{tr('Better questions. Clearer choices.')}</span>
             <button onClick={() => navigate('sources')}>
-              How decisions are made
+              {tr('How decisions are made ')}
               <ArrowUpRight size={13} />
             </button>
           </footer>
@@ -1606,7 +1709,7 @@ export default function Workspace() {
       <Modal
         open={!!selected}
         onClose={() => setDetail(null)}
-        title={selected?.program.name || 'Program'}
+        title={tr(selected?.program.name || 'Program')}
         description={selected ? selected.program.degree + ' · ' + selected.program.city : ''}
         wide
       >
@@ -1616,55 +1719,57 @@ export default function Workspace() {
               <Badge state={selected.admission_state} />
               <span className="mini-badge">
                 <ShieldCheck size={13} />
-                {friendly(selected.evidence_state)} evidence
+                {tr(friendly(selected.evidence_state))} {tr(' evidence ')}
               </span>
             </div>
-            <p className="detail-structure">{selected.program.structure}</p>
+            <p className="detail-structure">{tr(selected.program.structure)}</p>
             <div className="detail-dimensions">
               <div>
-                <span>Requirements</span>
+                <span>{tr('Requirements')}</span>
                 <strong>
-                  {selected.passed} / {selected.total} satisfied
+                  {selected.passed} / {selected.total} {tr(' satisfied ')}
                 </strong>
               </div>
               <div>
-                <span>Timeline</span>
-                <strong>{friendly(selected.timeline_state)}</strong>
+                <span>{tr('Timeline')}</span>
+                <strong>{tr(friendly(selected.timeline_state))}</strong>
               </div>
               <div>
-                <span>Fall 2027 total cost</span>
-                <strong>Not yet verified</strong>
+                <span>{tr('Fall 2027 total cost')}</span>
+                <strong>{tr('Not yet verified')}</strong>
               </div>
             </div>
-            <h3>Why this result?</h3>
+            <h3>{tr('Why this result?')}</h3>
             {selected.rules.map((r) => (
               <RuleRow key={r.id} rule={r} onProof={setProof} />
             ))}
             <section className="detail-section">
-              <h3>What could change this path?</h3>
+              <h3>{tr('What could change this path?')}</h3>
               {selected.recourse.length ? (
                 selected.recourse.map((r, i) => (
                   <div className="recourse-card" key={i}>
                     <div className="between">
-                      <strong>{r.actions.map(friendly).join(' + ')}</strong>
-                      <span className="mini-badge">{friendly(r.feasibility)}</span>
+                      <strong>{tr(r.actions.map(friendly).join(' + '))}</strong>
+                      <span className="mini-badge">{tr(friendly(r.feasibility))}</span>
                     </div>
                     <p>
-                      {r.improved_rules.length} requirement{' '}
-                      {r.improved_rules.length === 1 ? 'branch' : 'branches'} improved in a
-                      recalculation.{' '}
-                      {r.unlocks
-                        ? 'Removes the remaining direct-route blockers.'
-                        : 'Other conditions may remain.'}
+                      {tr(`Requirement branches improved: ${r.improved_rules.length}.`)}{' '}
+                      {tr(
+                        r.unlocks
+                          ? 'Removes the remaining direct-route blockers.'
+                          : 'Other conditions may remain.',
+                      )}
                     </p>
-                    <p className="small muted">{r.note}</p>
+                    <p className="small muted">{tr(r.note)}</p>
                   </div>
                 ))
               ) : (
                 <p className="muted">
-                  {selected.admission_state === 'READY_TO_APPLY'
-                    ? 'No additional hard requirement change is needed in the evaluated branches. Review the application checklist.'
-                    : 'Review the unsatisfied and unknown conditions above. No fully verified, feasible unlock has been established yet.'}
+                  {tr(
+                    selected.admission_state === 'READY_TO_APPLY'
+                      ? 'No additional hard requirement change is needed in the evaluated branches. Review the application checklist.'
+                      : 'Review the unsatisfied and unknown conditions above. No fully verified, feasible unlock has been established yet.',
+                  )}
                 </p>
               )}
             </section>
@@ -1672,40 +1777,40 @@ export default function Workspace() {
               <div className="notice">
                 <Route size={18} />
                 <div>
-                  <strong>{selected.program.conditional.name}</strong>
-                  <p>{selected.program.conditional.note}</p>
+                  <strong>{tr(selected.program.conditional.name)}</strong>
+                  <p>{tr(selected.program.conditional.note)}</p>
                   <button
                     className="text-button"
                     onClick={() => setProof([selected.program.conditional!.fact])}
                   >
-                    Check pathway source
+                    {tr('Check pathway source ')}
                     <ExternalLink size={13} />
                   </button>
                 </div>
               </div>
             )}
             <section className="detail-section">
-              <h3>Budget & deadlines</h3>
+              <h3>{tr('Budget & deadlines')}</h3>
               <CostText result={selected} />
               {selected.program.cost && (
                 <button
                   className="text-button"
                   onClick={() => setProof([selected.program.cost!.fact])}
                 >
-                  Cost source
+                  {tr('Cost source ')}
                   <ExternalLink size={13} />
                 </button>
               )}
               {selected.program.deadlines.map((d) => (
                 <div className="deadline-row" key={d.type}>
-                  <span>{friendly(d.type)}</span>
-                  <strong>{dateLabel(d.date)}</strong>
+                  <span>{tr(friendly(d.type))}</span>
+                  <strong>{tr(dateLabel(d.date))}</strong>
                   <button className="text-button" onClick={() => setProof([d.fact])}>
-                    Source
+                    {tr('Source ')}
                     <ArrowUpRight size={12} />
                   </button>
                   <small>
-                    {d.time ? `${d.time} · ${d.timezone}` : 'Time / timezone not verified'}
+                    {tr(d.time ? `${d.time} · ${d.timezone}` : 'Time / timezone not verified')}
                   </small>
                 </div>
               ))}
@@ -1720,7 +1825,7 @@ export default function Workspace() {
                 }}
               >
                 <GitCompareArrows size={16} />
-                Compare this path
+                {tr('Compare this path ')}
               </button>
               <button
                 className="btn primary"
@@ -1728,9 +1833,11 @@ export default function Workspace() {
                 onClick={() => shortlist(selected.program.id)}
               >
                 <Bookmark size={16} />
-                {profile.shortlist.includes(selected.program.id)
-                  ? 'Remove from shortlist'
-                  : 'Save to shortlist'}
+                {tr(
+                  profile.shortlist.includes(selected.program.id)
+                    ? 'Remove from shortlist'
+                    : 'Save to shortlist',
+                )}
               </button>
             </div>
           </div>
@@ -1739,7 +1846,7 @@ export default function Workspace() {
       <Modal
         open={proof !== null}
         onClose={() => setProof(null)}
-        title="Source proof"
+        title={tr('Source proof')}
         description="Official evidence behind the calculation."
       >
         {proof && (
@@ -1752,10 +1859,11 @@ export default function Workspace() {
             ) : (
               <div className="empty-state">
                 <Info size={25} />
-                <h3>This is a planning inference.</h3>
+                <h3>{tr('This is a planning inference.')}</h3>
                 <p>
-                  No complete claim-specific evidence is available for this step. It does not
-                  establish an admission fact.
+                  {tr(
+                    'No complete claim-specific evidence is available for this step. It does not establish an admission fact. ',
+                  )}
                 </p>
               </div>
             )}
@@ -1765,7 +1873,7 @@ export default function Workspace() {
       <Modal
         open={diagnosis}
         onClose={() => setDiagnosis(false)}
-        title={`${profile.name}’s starting point`}
+        title={tr(`${profile.name}’s starting point`)}
         description={`${profile.curriculum} · ${profile.major} · ${friendly(profile.intake)}`}
       >
         <div className="diagnosis-content">
@@ -1779,18 +1887,20 @@ export default function Workspace() {
               <section key={String(title)}>
                 <h3>
                   <I size={18} />
-                  {String(title)}
+                  {tr(String(title))}
                 </h3>
                 {(items as string[] | undefined)?.map((t) => (
-                  <p key={t}>{t}</p>
+                  <p key={t}>{tr(t)}</p>
                 ))}
               </section>
             );
           })}
           <div className="notice">
-            {demo
-              ? 'Aruzhan is a synthetic demo applicant. Scores, dates and readiness declarations are illustrative profile inputs. The demo plans its next result / document completion for 20 November 2026.'
-              : 'Your results use the values you provided. Update them as you make progress.'}
+            {tr(
+              demo
+                ? 'Aruzhan is a synthetic demo applicant. Scores, dates and readiness declarations are illustrative profile inputs. The demo plans its next result / document completion for 20 November 2026.'
+                : 'Your results use the values you provided. Update them as you make progress.',
+            )}
           </div>
           <button
             className="btn primary full"
@@ -1799,7 +1909,7 @@ export default function Workspace() {
               navigate('map');
             }}
           >
-            Explore my paths
+            {tr('Explore my paths ')}
             <ArrowRight size={16} />
           </button>
         </div>
@@ -1808,28 +1918,33 @@ export default function Workspace() {
   );
 }
 function CostText({ result: r }: { result: Result }) {
+  const { tr, money } = useLocale();
+
   return (
     <div className="cost-text">
       {r.program.cost ? (
         <>
           <strong>
-            {r.program.cost.currency} {money(r.program.cost.min)}
-            {r.program.cost.max !== r.program.cost.min ? '–' + money(r.program.cost.max) : ''}
+            {tr(r.program.cost.currency)} {tr(money(r.program.cost.min))}
+            {tr(r.program.cost.max !== r.program.cost.min ? '–' + money(r.program.cost.max) : '')}
           </strong>
           <p>
-            {r.program.cost.year} reference ·{' '}
-            {r.program.cost.complete ? 'annual estimate' : 'partial cost / subtotal'}
+            {tr(r.program.cost.year)} {tr(' reference ·')}
+            {tr(' ')}
+            {tr(r.program.cost.complete ? 'annual estimate' : 'partial cost / subtotal')}
           </p>
           <span className={r.reference_cost_state === 'OVER_BUDGET' ? 'amber-text' : 'muted'}>
-            {r.reference_cost_state === 'UNKNOWN'
-              ? 'Full annual affordability not established'
-              : friendly(r.reference_cost_state) + ' against this reference'}
+            {tr(
+              r.reference_cost_state === 'UNKNOWN'
+                ? 'Full annual affordability not established'
+                : friendly(r.reference_cost_state) + ' against this reference',
+            )}
           </span>
         </>
       ) : (
-        <p>Annual cost needs verification.</p>
+        <p>{tr('Annual cost needs verification.')}</p>
       )}
-      <small>Fall 2027 total cost is not yet verified.</small>
+      <small>{tr('Fall 2027 total cost is not yet verified.')}</small>
     </div>
   );
 }
@@ -1852,13 +1967,15 @@ function ProgramCard({
   onCompare: () => void;
   disabled: boolean;
 }) {
+  const { tr, dateLabel } = useLocale();
+
   const id = useId();
   return (
     <article className={`program-card ${changed ? 'changed' : ''}`} aria-labelledby={id}>
       {changed && (
         <span className="changed-label">
           <FlaskConical size={11} />
-          Changed in scenario
+          {tr('Changed in scenario ')}
         </span>
       )}
       <div className="card-top">
@@ -1866,15 +1983,17 @@ function ProgramCard({
           className="school-logo"
           style={{ color: r.program.color, background: r.program.color + '12' }}
         >
-          {r.program.initials}
+          {tr(r.program.initials)}
         </span>
         <span className="card-location">
           <Globe2 size={12} />
-          {r.program.city}, {r.program.country}
+          {tr(r.program.city)}, {tr(r.program.country)}
         </span>
         <button
           className={`icon-button bookmark ${saved ? 'saved' : ''}`}
-          aria-label={`${saved ? 'Remove' : 'Save'} ${r.program.short} ${saved ? 'from' : 'to'} shortlist`}
+          aria-label={tr(
+            `${saved ? 'Remove' : 'Save'} ${r.program.short} ${saved ? 'from' : 'to'} shortlist`,
+          )}
           aria-pressed={saved}
           disabled={disabled}
           onClick={onSave}
@@ -1884,11 +2003,11 @@ function ProgramCard({
       </div>
       <button className="card-title-button" onClick={onOpen}>
         <h3 id={id}>
-          {r.program.short}
+          {tr(r.program.short)}
           <ArrowUpRight size={16} />
         </h3>
       </button>
-      <p className="degree">{r.program.degree}</p>
+      <p className="degree">{tr(r.program.degree)}</p>
       <Badge state={r.admission_state} />
       <div className="card-reason">
         <span className={`reason-icon ${r.blockers.length ? 'amber-text' : ''}`}>
@@ -1901,50 +2020,52 @@ function ProgramCard({
           )}
         </span>
         <p>
-          {r.blockers[0]?.label ||
-            r.unknowns[0]?.label ||
-            'Published requirements satisfied in evaluated branches.'}
+          {tr(
+            r.blockers[0]?.label ||
+              r.unknowns[0]?.label ||
+              'Published requirements satisfied in evaluated branches.',
+          )}
         </p>
       </div>
       <div
         className="branch-progress"
         role="img"
-        aria-label={`${r.passed} of ${r.total} required branches satisfied`}
+        aria-label={tr(`${r.passed} of ${r.total} required branches satisfied`)}
       >
         {Array.from({ length: r.total }, (_, i) => (
           <span className={i < r.passed ? 'passed' : ''} key={i} />
         ))}
       </div>
       <div className="branch-caption">
-        <span>
-          {r.passed}/{r.total} required branches satisfied
-        </span>
+        <span>{tr(`${r.passed} of ${r.total} required branches satisfied`)}</span>
         <button onClick={onOpen}>
-          Why?
+          {tr('Why? ')}
           <ArrowUpRight size={12} />
         </button>
       </div>
       <div className="card-metadata">
         <span>
           <CalendarDays size={13} />
-          {r.deadline ? dateLabel(r.deadline.date).replace(', 2027', '') : 'Date unverified'}
+          {tr(r.deadline ? dateLabel(r.deadline.date).replace(', 2027', '') : 'Date unverified')}
         </span>
         <span className={r.reference_cost_state === 'OVER_BUDGET' ? 'amber-text' : ''}>
           <Wallet size={13} />
-          {r.reference_cost_state === 'OVER_BUDGET'
-            ? 'Above budget · ref.'
-            : r.program.cost
-              ? 'Dated cost available'
-              : 'Cost unverified'}
+          {tr(
+            r.reference_cost_state === 'OVER_BUDGET'
+              ? 'Above budget · ref.'
+              : r.program.cost
+                ? 'Dated cost available'
+                : 'Cost unverified',
+          )}
         </span>
       </div>
       <div className="card-footer">
         <label>
           <input type="checkbox" checked={comparing} onChange={onCompare} />
-          Compare
+          {tr('Compare ')}
         </label>
         <button onClick={onOpen}>
-          Explore path
+          {tr('Explore path ')}
           <ArrowRight size={14} />
         </button>
       </div>

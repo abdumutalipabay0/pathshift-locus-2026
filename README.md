@@ -40,6 +40,10 @@ The initial Django/PostgreSQL architecture was replaced under the user's authori
 
 Modules: `src/lib/engine.ts`, `src/lib/profile.ts`, `src/lib/types.ts`, `src/app/api/v1/[...path]/route.ts`, `src/components/workspace.tsx`, `src/components/profile-wizard.tsx`, `src/app/globals.css`.
 
+## Languages
+
+Use the language selector in the top bar for **Қазақша / Русский / English**. The choice persists after reload and leaves the profile, unsaved form values and active scenario intact. Navigation, forms, explanations, source summaries, roadmap, errors and downloaded plans are localized. See [localization](docs/localization.md). Rebuild translation catalogs with `npm run i18n:build`.
+
 ## Evidence
 
 Both official PDFs and both original research reports are preserved in `docs/`. The [official supplement](docs/research/supplement-2026-09-17.md) is separate. Forum reports were discovery leads only. Critical UNKNOWN remains UNKNOWN. No GPA conversion, admission probability, scholarship guarantee or unverified retrieval timestamp is invented.

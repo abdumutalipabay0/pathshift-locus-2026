@@ -63,7 +63,7 @@ async function handle(request: NextRequest, path: string[]) {
       {
         error:
           error instanceof z.ZodError
-            ? error.issues.map((i) => i.message).join(' ')
+            ? 'Check the profile fields and enter valid values.'
             : error instanceof Error
               ? error.message
               : 'Invalid request',

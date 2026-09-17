@@ -3568,3 +3568,182 @@ h3 {
     padding-bottom: env(safe-area-inset-bottom, 20px);
   }
 }
+
+/* Locale controls and Cyrillic typography retain the original design system. */
+html:lang(ru) body,
+html:lang(kk) body {
+  font-family: 'Noto Sans', 'DM Sans', sans-serif;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.language-picker {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.language-picker select {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid #dfe5ef;
+  border-radius: 8px;
+  min-height: 36px;
+  padding: 6px 9px;
+  font-size: 12px;
+  min-width: 104px;
+  cursor: pointer;
+}
+html:not(:lang(en)) .nav-item {
+  line-height: 1.45;
+}
+html:not(:lang(en)) .stats-grid > button > span:last-child {
+  white-space: normal;
+  line-height: 1.45;
+  min-height: 28px;
+}
+html:not(:lang(en)) .btn {
+  white-space: normal;
+  text-align: center;
+}
+html:not(:lang(en)) .card-metadata {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+html:not(:lang(en)) .journey-copy .between {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+html:not(:lang(en)) .journey-copy {
+  width: 58%;
+}
+html:not(:lang(en)) .journey-copy h2 {
+  font-size: 26px;
+}
+html:not(:lang(en)) .diagram-label {
+  max-width: 155px;
+  line-height: 1.4;
+}
+html:not(:lang(en)) .scenario-heading h2 {
+  font-size: 18px;
+}
+html:not(:lang(en)) .board-caption {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+html:not(:lang(en)) .rule-content .between {
+  align-items: flex-start;
+}
+html:not(:lang(en)) .rule-verdict {
+  white-space: normal;
+  text-align: right;
+  min-width: 70px;
+}
+html:not(:lang(en)) .proof-grid dd {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 900px) {
+  .top-actions {
+    gap: 8px;
+  }
+  .save-status {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .topbar {
+    padding: 0 16px;
+    gap: 8px;
+  }
+  .top-avatar {
+    display: none;
+  }
+  .reset-label {
+    display: none;
+  }
+  .top-actions .small-btn {
+    min-width: 34px;
+    padding: 8px;
+  }
+  .breadcrumb {
+    min-width: 0;
+    font-size: 10px;
+  }
+  .breadcrumb strong {
+    overflow-wrap: anywhere;
+  }
+  .language-picker select {
+    min-width: 98px;
+    font-size: 11px;
+  }
+  .journey-steps {
+    flex-wrap: wrap;
+  }
+  .wizard-footer {
+    flex-wrap: wrap;
+  }
+  .wizard-footer .btn {
+    max-width: 100%;
+    white-space: normal;
+  }
+  .wizard-footer .btn.primary {
+    flex: 1;
+    min-width: 160px;
+  }
+  .modal-actions {
+    flex-wrap: wrap;
+  }
+  .compare-tray > div {
+    min-width: 0;
+  }
+  .compare-tray strong {
+    white-space: normal;
+  }
+  .compare-tray .btn {
+    max-width: 48%;
+    white-space: normal;
+  }
+  .source-group summary {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 480px) {
+  html:not(:lang(en)) .journey-copy {
+    width: 100%;
+  }
+  html:not(:lang(en)) .diagram-label {
+    max-width: 150px;
+  }
+  html:not(:lang(en)) .journey-copy h2 {
+    font-size: 26px;
+  }
+  html:not(:lang(en)) .page-heading h1 {
+    font-size: 25px;
+  }
+  .task-bottom {
+    flex-wrap: wrap;
+  }
+  .stats-grid > button {
+    min-width: 0;
+  }
+  .stats-grid strong {
+    font-size: 23px;
+  }
+  html:not(:lang(en)) .stats-grid > button > span:last-child {
+    font-size: 9px;
+    min-height: 40px;
+  }
+  .form-section .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .score-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
