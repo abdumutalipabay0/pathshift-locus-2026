@@ -25,4 +25,5 @@ Local: Windows, Node 24.17.0, Chrome, Next.js 16.3.5.
 - All 12 browser tests passed locally (31.5 seconds), including the original English golden journey and Russian/Kazakh flows, form/scenario preservation, error messages, source dialogs, localized export, reload and initial server language.
 - Mobile overflow checks passed at 320, 390 and 768 pixels. Desktop and mobile translated screenshots were inspected; untranslated roadmap prerequisites were corrected.
 - Automated WCAG A/AA checks passed on the English, Russian and Kazakh opportunity maps. Language picker is keyboard-operable; document language and accessible names change with the selection.
-- Production build, TypeScript check, lint and formatting checks passed. Public-deployment checks for this update follow below after publishing.
+- Production build, TypeScript check, lint and formatting checks passed. Translation catalog regeneration produced an identical hash.
+- Deployed the three-language update to the existing public Vercel URL. All 12 browser tests passed again against production in 40.1 seconds, including both localized journeys and server-rendered locale selection.
