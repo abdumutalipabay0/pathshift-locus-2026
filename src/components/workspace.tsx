@@ -49,7 +49,8 @@ import ProfileWizard from './profile-wizard';
 import { calendarExport, downloadText, scenarioMutation, type SavedScenario } from '@/lib/journey';
 import { JourneyExtras } from './journey-extras';
 import { PersonalPlanner, ProfileImport } from './personal-tools';
-const focusPrograms = new Set(['uw', 'waterloo', 'gatech']);
+import { ResearchDetails, ResearchComparison, resultCaption } from './research-details';
+const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 type View = 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
   READY_TO_APPLY: 'Ready to apply',
@@ -103,13 +104,13 @@ function Brand() {
     </span>
   );
 }
-function Badge({ state }: { state: State }) {
+function Badge({ state, label }: { state: State; label?: string }) {
   const { tr } = useLocale();
 
   return (
     <span className={`badge state-${state.toLowerCase()}`}>
       <span className="status-dot" />
-      {tr(labels[state])}
+      {tr(label || labels[state])}
     </span>
   );
 }
@@ -433,7 +434,14 @@ export default function Workspace() {
         try {
           const comparison = JSON.parse(localStorage.getItem('pathshift-comparison') || 'null');
           if (Array.isArray(comparison))
-            setComparison(comparison.filter((id) => typeof id === 'string').slice(0, 3));
+            setComparison(
+              [...new Set(comparison)]
+                .filter(
+                  (id): id is string =>
+                    typeof id === 'string' && sources.facts.some((f) => f.scope.program === id),
+                )
+                .slice(0, 3),
+            );
           const saved = JSON.parse(localStorage.getItem('pathshift-scenarios') || '[]');
           if (Array.isArray(saved))
             setSavedScenarios(
@@ -659,6 +667,7 @@ export default function Workspace() {
   const toggleTask = async (task: Task) => {
     if (task.requires_value) {
       edit();
+      if (task.title.startsWith('Complete profile:')) setWizardStep(1);
       setNotice('Enter the completed result or document declaration in your profile.');
       return;
     }
@@ -858,7 +867,11 @@ export default function Workspace() {
           ))}
         </nav>
         <div className="sidebar-divider" />
-        <button className={`nav-item ${view === 'profile' ? 'active' : ''}`} onClick={() => edit()}>
+        <button
+          className={`nav-item ${view === 'profile' ? 'active' : ''}`}
+          disabled={busy}
+          onClick={() => edit()}
+        >
           <UserRound size={18} />
           {tr('My profile ')}
         </button>
@@ -875,7 +888,7 @@ export default function Workspace() {
             <ArrowRight size={15} />
           </button>
         </div>
-        <button className="profile-button" onClick={() => edit()}>
+        <button className="profile-button" disabled={busy} onClick={() => edit()}>
           <span className="avatar">{profile.name.slice(0, 1) || 'A'}</span>
           <span>
             <strong>{profile.name || 'Your profile'}</strong>
@@ -924,7 +937,12 @@ export default function Workspace() {
               <RotateCcw size={14} />
               <span className="reset-label">{tr('Reset demo')}</span>
             </button>
-            <button className="top-avatar" aria-label={tr('Edit profile')} onClick={() => edit()}>
+            <button
+              className="top-avatar"
+              aria-label={tr('Edit profile')}
+              disabled={busy}
+              onClick={() => edit()}
+            >
               {profile.name.slice(0, 1) || 'A'}
             </button>
           </div>
@@ -1119,7 +1137,7 @@ export default function Workspace() {
                     {tr('Export plan ')}
                   </button>
                 ) : (
-                  <button className="btn secondary" onClick={() => edit(true)}>
+                  <button className="btn secondary" disabled={busy} onClick={() => edit(true)}>
                     <Plus size={16} />
                     {tr('Build my profile ')}
                   </button>
@@ -1248,7 +1266,7 @@ export default function Workspace() {
                                   <Info size={17} />
                                 </span>
                                 <strong>{tr(counts.verify.toString().padStart(2, '0'))}</strong>
-                                <span>{tr('Need verification')}</span>
+                                <span>{tr('Details to clarify')}</span>
                               </button>
                             </div>
                             <p className="focus-note">
@@ -1723,21 +1741,28 @@ export default function Workspace() {
                     {view === 'compare' && (
                       <>
                         <div className="compare-picker">
-                          {current.programs.map((r) => (
-                            <button
-                              key={r.program.id}
-                              className={`choice ${comparison.includes(r.program.id) ? 'selected' : ''}`}
-                              onClick={() => compare(r.program.id)}
-                            >
-                              {comparison.includes(r.program.id) ? (
-                                <Check size={14} />
-                              ) : (
-                                <Plus size={14} />
-                              )}
-                              {tr(' ')}
-                              {tr(r.program.short)}
-                            </button>
-                          ))}
+                          {current.programs
+                            .filter(
+                              (r) =>
+                                focusPrograms.has(r.program.id) ||
+                                includeIncomplete ||
+                                comparison.includes(r.program.id),
+                            )
+                            .map((r) => (
+                              <button
+                                key={r.program.id}
+                                className={`choice ${comparison.includes(r.program.id) ? 'selected' : ''}`}
+                                onClick={() => compare(r.program.id)}
+                              >
+                                {comparison.includes(r.program.id) ? (
+                                  <Check size={14} />
+                                ) : (
+                                  <Plus size={14} />
+                                )}
+                                {tr(' ')}
+                                {tr(r.program.short)}
+                              </button>
+                            ))}
                         </div>
                         {comparison.length < 2 ? (
                           <div className="empty-state panel">
@@ -1748,76 +1773,16 @@ export default function Workspace() {
                             </p>
                           </div>
                         ) : (
-                          <div
-                            className="compare-grid"
-                            style={{ '--compare-cols': comparison.length } as React.CSSProperties}
-                          >
-                            {comparison
+                          <ResearchComparison
+                            results={comparison
                               .map((id) => current.programs.find((r) => r.program.id === id))
-                              .filter((r): r is Result => !!r)
-                              .map((r) => (
-                                <article className="compare-card panel" key={r.program.id}>
-                                  <div
-                                    className="school-logo"
-                                    style={{
-                                      color: r.program.color,
-                                      background: r.program.color + '12',
-                                    }}
-                                  >
-                                    {tr(r.program.initials)}
-                                  </div>
-                                  <h2>{tr(r.program.short)}</h2>
-                                  <p className="muted">{tr(r.program.degree)}</p>
-                                  <Badge state={r.admission_state} />
-                                  <div className="compare-section">
-                                    <span className="eyebrow">{tr('FOR YOUR PROFILE')}</span>
-                                    <strong>
-                                      {tr(`${r.passed} of ${r.total} required branches satisfied`)}
-                                    </strong>
-                                    <p>
-                                      {tr(
-                                        r.blockers.length
-                                          ? r.blockers.map((b) => tr(b.label)).join(' · ')
-                                          : 'No known requirement gaps in the evaluated branches.',
-                                      )}
-                                    </p>
-                                    {r.unknowns.length > 0 && (
-                                      <p className="amber-text">
-                                        {tr(`Branches to verify: ${r.unknowns.length}.`)}
-                                      </p>
-                                    )}
-                                  </div>
-                                  <div className="compare-section">
-                                    <span className="eyebrow">{tr('THE ROUTE')}</span>
-                                    <p>{tr(r.program.structure)}</p>
-                                    {r.program.conditional && (
-                                      <p>
-                                        {tr(r.program.conditional.name)}:{' '}
-                                        {tr(r.program.conditional.note)}
-                                      </p>
-                                    )}
-                                  </div>
-                                  <div className="compare-section">
-                                    <span className="eyebrow">{tr('COST & TIMING')}</span>
-                                    <CostText result={r} />
-                                    <p>
-                                      {tr(
-                                        r.deadline
-                                          ? `${dateLabel(r.deadline.date)} · ${friendly(r.timeline_state)}`
-                                          : 'Application deadline needs verification.',
-                                      )}
-                                    </p>
-                                  </div>
-                                  <button
-                                    className="btn secondary full"
-                                    onClick={() => setDetail(r.program.id)}
-                                  >
-                                    {tr('Understand this path ')}
-                                    <ArrowUpRight size={16} />
-                                  </button>
-                                </article>
-                              ))}
-                          </div>
+                              .filter((r): r is Result => !!r)}
+                            onOpen={setDetail}
+                            onProfile={() => {
+                              edit();
+                              setWizardStep(1);
+                            }}
+                          />
                         )}
                       </>
                     )}
@@ -2154,7 +2119,7 @@ export default function Workspace() {
         {selected && (
           <div className="detail-content">
             <div className="detail-top">
-              <Badge state={selected.admission_state} />
+              <Badge state={selected.admission_state} label={resultCaption(selected)} />
               <span className="mini-badge">
                 <ShieldCheck size={13} />
                 {tr(`Evidence status: ${friendly(selected.evidence_state)}`)}
@@ -2173,10 +2138,17 @@ export default function Workspace() {
                 <strong>{tr(friendly(selected.timeline_state))}</strong>
               </div>
               <div>
-                <span>{tr('Fall 2027 total cost')}</span>
-                <strong>{tr('Not yet verified')}</strong>
+                <span>
+                  {tr('Published reference')} · {selected.program.cost?.year}
+                </span>
+                <strong>
+                  {selected.program.cost
+                    ? selected.program.cost.currency + ' ' + money(selected.program.cost.min)
+                    : tr('Not yet verified')}
+                </strong>
               </div>
             </div>
+            <ResearchDetails program={selected.program} />
             <h3>{tr('Why this result?')}</h3>
             {selected.rules.map((r) => (
               <RuleRow key={r.id} rule={r} onProof={setProof} />
@@ -2416,7 +2388,7 @@ function ProgramCard({
   onCompare: () => void;
   disabled: boolean;
 }) {
-  const { tr, dateLabel } = useLocale();
+  const { tr, dateLabel, money } = useLocale();
 
   const id = useId();
   return (
@@ -2457,11 +2429,7 @@ function ProgramCard({
         </h3>
       </button>
       <p className="degree">{tr(r.program.degree)}</p>
-      {r.admission_state === 'INDETERMINATE' && r.unknowns.length === 0 ? (
-        <span className="badge">{tr('Complete remaining steps')}</span>
-      ) : (
-        <Badge state={r.admission_state} />
-      )}
+      <Badge state={r.admission_state} label={resultCaption(r)} />
       <p className="why-fit">
         {tr(
           r.rules.some((rule) => rule.strength === 'HARD' && rule.result === 'PASS')
@@ -2472,8 +2440,9 @@ function ProgramCard({
         )}
       </p>
       <p className="requirement-summary">
-        {tr('Your requirements to resolve')}: {r.blockers.length} ·{' '}
-        {tr('University rules to verify')}: {r.unknowns.length}
+        {tr('Your requirements to resolve')}: {r.blockers.length} · {tr('Profile values to add')}:{' '}
+        {r.unknowns.filter((u) => u.input_needed).length} · {tr('University rules to verify')}:{' '}
+        {r.unknowns.filter((u) => !u.input_needed).length}
       </p>
       <div className="card-reason">
         <span className={`reason-icon ${r.blockers.length ? 'amber-text' : ''}`}>
@@ -2512,16 +2481,20 @@ function ProgramCard({
       <div className="card-metadata">
         <span>
           <CalendarDays size={13} />
-          {tr(r.deadline ? dateLabel(r.deadline.date).replace(', 2027', '') : 'Date unverified')}
+          {tr(
+            r.deadline
+              ? dateLabel(r.deadline.date).replace(', 2027', '')
+              : r.program.research?.some((row) => row.key === 'dates')
+                ? 'See published dates'
+                : 'Date unverified',
+          )}
         </span>
         <span className={r.reference_cost_state === 'OVER_BUDGET' ? 'amber-text' : ''}>
           <Wallet size={13} />
           {tr(
-            r.reference_cost_state === 'OVER_BUDGET'
-              ? 'Above budget · ref.'
-              : r.program.cost
-                ? 'Dated cost available'
-                : 'Cost unverified',
+            r.program.cost
+              ? `${r.program.cost.currency} ${money(r.program.cost.min)} · ${r.program.cost.year}`
+              : 'Cost unverified',
           )}
         </span>
       </div>

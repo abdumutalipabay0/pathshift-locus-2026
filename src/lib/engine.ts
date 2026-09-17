@@ -116,19 +116,25 @@ export function evaluateRule(
         reason: 'Informational only; not an application blocker.',
       };
     if (ev.state !== 'VERIFIED') return base;
-    const input = valueAt(profile, rule.field || '');
+    const input =
+      rule.field === 'ib_subject_total'
+        ? profile.ib_total == null || profile.ib_core_points == null
+          ? null
+          : profile.ib_total - profile.ib_core_points
+        : valueAt(profile, rule.field || '');
     if (rule.field?.startsWith('ielts.')) {
       if (profile.ielts.status !== 'VALID')
         return {
           ...base,
           result: profile.ielts.status === 'MISSING' ? 'FAIL' : 'UNKNOWN',
+          input_needed: profile.ielts.status !== 'MISSING',
           reason:
             profile.ielts.status === 'MISSING'
               ? 'No IELTS result supplied. Other routes may require verification.'
               : 'Planned scores do not satisfy published requirements.',
         };
       if (!profile.ielts.date || profile.ielts.date > now.slice(0, 10))
-        return { ...base, reason: 'A completed test date is required.' };
+        return { ...base, input_needed: true, reason: 'A completed test date is required.' };
       if (
         (rule.id.startsWith('uw.') || rule.id.startsWith('cmu.')) &&
         Date.parse(now) - Date.parse(profile.ielts.date) > 2 * 365.25 * 86400000
@@ -138,10 +144,18 @@ export function evaluateRule(
     if (rule.field?.endsWith('.status') && input === 'VALID') {
       const test = rule.field.startsWith('sat') ? profile.sat : profile.act;
       if (!test.score || !test.date || test.date > now.slice(0, 10))
-        return { ...base, reason: 'A valid score must have a completed test date.' };
+        return {
+          ...base,
+          input_needed: true,
+          reason: 'A valid score must have a completed test date.',
+        };
     }
     if (input === null || input === undefined)
-      return { ...base, reason: 'This profile value has not been supplied.' };
+      return {
+        ...base,
+        input_needed: true,
+        reason: 'The rule is known. Add the missing value in your profile.',
+      };
     const expected =
       rule.value !== undefined
         ? rule.value
@@ -199,6 +213,9 @@ export function evaluateRule(
     return {
       ...base,
       children,
+      input_needed:
+        children.some((c) => c.result === 'UNKNOWN') &&
+        children.filter((c) => c.result === 'UNKNOWN').every((c) => c.input_needed),
       result: combine(
         children.map((c) => c.result),
         true,
@@ -215,6 +232,9 @@ export function evaluateRule(
     return {
       ...base,
       children,
+      input_needed:
+        children.some((c) => c.result === 'UNKNOWN') &&
+        children.filter((c) => c.result === 'UNKNOWN').every((c) => c.input_needed),
       result:
         direct === 'PASS'
           ? 'PASS'
@@ -241,6 +261,9 @@ export function evaluateRule(
   return {
     ...base,
     children,
+    input_needed:
+      children.some((c) => c.result === 'UNKNOWN') &&
+      children.filter((c) => c.result === 'UNKNOWN').every((c) => c.input_needed),
     result,
     reason:
       result === 'PASS'
@@ -337,9 +360,9 @@ function core(program: Program, p: Profile, facts: Fact[], now: string): Result 
   const all = rules.flatMap(flatten);
   const evidence = all.some((r) => resolveFacts(r.facts, facts, p.intake).state === 'CONFLICTING')
     ? 'CONFLICTING'
-    : unknowns.length
+    : unknowns.some((r) => !r.input_needed)
       ? 'PARTIAL'
-      : all.some((r) => r.result === 'UNKNOWN')
+      : all.some((r) => r.result === 'UNKNOWN' && !r.input_needed)
         ? 'PARTIAL'
         : 'VERIFIED';
   let state: Result['admission_state'] = 'INDETERMINATE';
@@ -588,12 +611,15 @@ function roadmap(results: Result[], p: Profile): Task[] {
     for (const u of r.unknowns)
       add(
         `verify-${u.id}`,
-        `Verify: ${u.label}`,
-        `${r.program.short}: ${u.reason} Completing this task records your progress; source evidence still needs an update.`,
+        u.input_needed ? `Complete profile: ${u.label}` : `Verify: ${u.label}`,
+        u.input_needed
+          ? 'The rule is known. Add the missing value in your profile.'
+          : `${r.program.short}: ${u.reason} Completing this task records your progress; source evidence still needs an update.`,
         'VERIFY',
         r,
         u.facts,
         null,
+        u.input_needed === true,
       );
     if (r.reference_cost_state === 'OVER_BUDGET')
       add(

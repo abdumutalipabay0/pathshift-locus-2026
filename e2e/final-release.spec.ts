@@ -7,7 +7,7 @@ for (const locale of ['en', 'ru', 'kk'] as const)
     page,
   }) => {
     await page.goto('/');
-    await expect(page.locator('.program-card')).toHaveCount(3);
+    await expect(page.locator('.program-card')).toHaveCount(6);
     await page.getByRole('combobox', { name: 'Interface language' }).selectOption(locale);
     await page.locator('.sidebar nav button').nth(3).click();
     const panel = page.locator('.personal-planner');
@@ -52,7 +52,7 @@ test('profile import validates, previews, restores a full plan and can be undone
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   await page.locator('.profile-tools > summary').click();
   const file = page.locator('input[type="file"]');
   await file.setInputFiles({

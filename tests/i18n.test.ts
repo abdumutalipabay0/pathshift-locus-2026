@@ -13,6 +13,8 @@ test('all static UI messages are translated, apart from intentional proper names
     'src/components/locale-provider.tsx',
     'src/components/journey-extras.tsx',
     'src/components/personal-tools.tsx',
+    'src/components/research-details.tsx',
+    'src/components/school-fields.tsx',
   ]) {
     const source = ts.createSourceFile(
       file,

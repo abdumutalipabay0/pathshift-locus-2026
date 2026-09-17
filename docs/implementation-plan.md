@@ -39,3 +39,10 @@ Close the remaining product gaps within the frozen 12-program scope: personal st
 ## User-requested simplification
 
 The user reopened the frozen release to remove distraction and reconsider differentiation. Focus the default map on the three evaluated starting programs; retain incomplete research behind an explicit toggle. Collapse file management and optional roadmap helpers. Clarify remaining applicant actions versus unknown university rules without changing engine verdicts. Brainstorm Plan B separately; do not claim it is fully implemented. Validate existing flows and the new focused entry before deployment.
+
+
+## Deep source remediation — six default universities
+
+Rechecked official admissions and bursar pages for UW–Madison, Waterloo, Georgia Tech, Purdue West Lafayette CS, RIT Rochester CS and ASU Tempe CS. Execute the documented supplement in `deep-check-2026-09-17.md`: remove superseded generic research placeholders, expose explicit school inputs, separate missing applicant inputs from missing policies, restore six default choices, align comparison rows and preserve currencies/year/components. Correct Waterloo subject-only IB total and English B alternative, UW course requirements, CS-specific Purdue differential and first-year RIT/UW extras. Recurring Purdue/RIT dates are useful references but not invented cycle timestamps. The demo has explicit synthetic school years; blank profiles do not inherit them. Original frozen documents remain unchanged.
+
+Validation adds source-linked six-program comparison checks, component arithmetic, missing-input distinction, IB boundary cases, conditional academic gates, ASU baseline/aptitude independence, corrupted comparison cache recovery, mobile/table accessibility and three-language coverage. No claim of guaranteed offers or 2027–28 published tuition.

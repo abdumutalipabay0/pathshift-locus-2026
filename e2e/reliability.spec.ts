@@ -4,7 +4,7 @@ test('draft survives navigation and reload, geography locks follow changed selec
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('button', { name: 'Build my profile', exact: true }).click();
   await page.getByLabel('Your name', { exact: true }).fill('Draft student');
   await page.getByLabel('Keep these countries as a hard constraint').check();
@@ -12,7 +12,7 @@ test('draft survives navigation and reload, geography locks follow changed selec
   await page.getByRole('checkbox', { name: 'United Kingdom', exact: true }).check();
   await page.getByRole('button', { name: '2 Academics' }).click();
   await page.reload();
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('button', { name: 'Build my profile', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'Your education, in its own terms.' }),
@@ -40,7 +40,7 @@ test('draft survives navigation and reload, geography locks follow changed selec
 });
 test('comparison limit, reload and browser Back retain usable navigation', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   await page
     .locator('.sidebar')
     .getByRole('button', { name: 'Compare paths', exact: true })
@@ -60,7 +60,7 @@ test('saved scenario remains hypothetical across reload; calendar and verificati
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('switch', { name: /Explore an English result/ }).check();
   await page.getByRole('button', { name: 'Explore this scenario', exact: true }).click();
   await expect(page.locator('.simulation-banner')).toBeVisible();
@@ -69,7 +69,7 @@ test('saved scenario remains hypothetical across reload; calendar and verificati
   await expect(page.getByRole('dialog')).toContainText('English target');
   await page.keyboard.press('Escape');
   await page.reload();
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   await expect(page.locator('.profile-chips')).toContainText('IELTS 6');
   await expect(page.locator('.profile-chips')).not.toContainText('IELTS 6.5');
   await page.getByRole('button', { name: /Saved scenarios/ }).click();
@@ -96,7 +96,7 @@ test('saved scenario remains hypothetical across reload; calendar and verificati
 test('mobile navigation communicates state and closes by Escape', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   const toggle = page.getByRole('button', { name: 'Toggle navigation' });
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await expect(page.locator('.sidebar')).not.toBeVisible();
@@ -111,7 +111,7 @@ test('focused entry separates incomplete research and keeps secondary tools clos
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
   await expect(page.locator('.program-grid')).toContainText('UW–Madison');
   await expect(page.locator('.program-grid')).toContainText('Waterloo');
   await expect(page.locator('.program-grid')).toContainText('Georgia Tech');
@@ -119,5 +119,5 @@ test('focused entry separates incomplete research and keeps secondary tools clos
   await page.getByRole('checkbox', { name: 'Include programs with unverified rules' }).check();
   await expect(page.locator('.program-card')).toHaveCount(11);
   await page.getByRole('checkbox', { name: 'Include programs with unverified rules' }).uncheck();
-  await expect(page.locator('.program-card')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
 });

@@ -46,6 +46,7 @@ export type Deadline = {
   fact: string;
 };
 export type Program = {
+  research?: { key: string; label: string; text: string; fact: string; url: string }[];
   id: string;
   name: string;
   short: string;
@@ -65,10 +66,29 @@ export type Program = {
     year: string;
     complete: boolean;
     fact: string;
+    components?: [string, number][];
+    additional_sources?: string[];
   };
   conditional?: { name: string; fact: string; note: string };
 };
 export type Profile = {
+  school?: {
+    natural_science?: number | null;
+    electives?: number | null;
+    math_sequence?: boolean | null;
+    english?: number | null;
+    math?: number | null;
+    science?: number | null;
+    social?: number | null;
+    language?: number | null;
+    precalculus?: boolean | null;
+    chemistry_physics?: boolean | null;
+    non_english_country?: boolean | null;
+    asu_gpa?: number | null;
+    competency_gpa?: number | null;
+    top_quarter?: boolean | null;
+    purdue_english_evidence?: boolean | null;
+  };
   personal_plan?: {
     id: string;
     title: string;
@@ -91,6 +111,8 @@ export type Profile = {
   curriculum: string;
   raw_grade: string;
   raw_scale: string;
+  ib_core_points?: number | null;
+  english_b_hl?: number | null;
   ib_total: number | null;
   math_aa_hl: number | null;
   english_a: boolean | null;
@@ -127,6 +149,7 @@ export type Profile = {
   completed: string[];
 };
 export type RuleResult = {
+  input_needed?: boolean;
   id: string;
   label: string;
   result: Verdict;

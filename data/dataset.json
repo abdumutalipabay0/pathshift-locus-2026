@@ -1,5 +1,5 @@
 {
-  "version": "freeze-2026-09-17+official-supplement-1",
+  "version": "freeze-2026-09-17+deep-research-2",
   "facts": [
     {
       "id": "cmu.sat_required",
@@ -82,7 +82,7 @@
       "id": "gatech.sat_required",
       "field": "sat_required",
       "value": true,
-      "statement": "First-year applicants must submit SAT or ACT; CMU policy is scoped to SCS.",
+      "statement": "First-year applicants must submit SAT or ACT scores. No guaranteed-admission score is stated.",
       "source_url": "https://admission.gatech.edu/first-year/standardized-tests",
       "page_title": null,
       "retrieved_at": "2026-09-17",
@@ -252,24 +252,6 @@
       "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
     },
     {
-      "id": "purdue.admission_evidence",
-      "field": "admission_evidence",
-      "value": null,
-      "statement": "Complete first-year requirements need verification",
-      "source_url": null,
-      "page_title": null,
-      "retrieved_at": "2026-09-17",
-      "intake": "FALL_2027",
-      "scope": {
-        "institution": "Purdue University",
-        "program": "purdue",
-        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
-      },
-      "evidence": "UNKNOWN",
-      "provenance": "UNKNOWN",
-      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
-    },
-    {
       "id": "uw.sat_optional",
       "field": "sat_optional",
       "value": true,
@@ -388,24 +370,6 @@
       "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
     },
     {
-      "id": "rit.admission_evidence",
-      "field": "admission_evidence",
-      "value": null,
-      "statement": "Complete first-year requirements need verification",
-      "source_url": null,
-      "page_title": null,
-      "retrieved_at": "2026-09-17",
-      "intake": "FALL_2027",
-      "scope": {
-        "institution": "Rochester Institute of Technology",
-        "program": "rit",
-        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
-      },
-      "evidence": "UNKNOWN",
-      "provenance": "UNKNOWN",
-      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
-    },
-    {
       "id": "rit.conditional",
       "field": "conditional",
       "value": "Conditional English route",
@@ -420,24 +384,6 @@
         "applicant_type": "FIRST_YEAR_INTERNATIONAL"
       },
       "evidence": "PARTIAL",
-      "provenance": "UNKNOWN",
-      "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
-    },
-    {
-      "id": "asu.admission_evidence",
-      "field": "admission_evidence",
-      "value": null,
-      "statement": "Complete first-year requirements need verification",
-      "source_url": null,
-      "page_title": null,
-      "retrieved_at": "2026-09-17",
-      "intake": "FALL_2027",
-      "scope": {
-        "institution": "Arizona State University",
-        "program": "asu",
-        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
-      },
-      "evidence": "UNKNOWN",
       "provenance": "UNKNOWN",
       "notes": "Normalized from supplied dataset freeze. Source retrieval date reported by research; exact time and original page title not supplied. Statement is a research paraphrase."
     },
@@ -1102,6 +1048,584 @@
       "evidence": "VERIFIED",
       "provenance": "OFFICIAL_FACT",
       "notes": "Current published policy checked 2026-09-17; recheck before submission. Normalized paraphrase, not a verbatim quotation."
+    },
+    {
+      "id": "purdue.research.academic",
+      "field": "research_academic",
+      "value": "English 4 years; math 4; laboratory science 3; social studies 3; world language 2.",
+      "statement": "English 4 years; math 4; laboratory science 3; social studies 3; world language 2.",
+      "source_url": "https://admissions.purdue.edu/become-student/course-requirements/",
+      "page_title": "Purdue University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "purdue.research.english",
+      "field": "research_english",
+      "value": "IELTS usually 6.5 overall / 6.0 each; DET usually 115 / 110 each. Tests must be within two years. These are published guidelines, not guaranteed admission cutoffs.",
+      "statement": "IELTS usually 6.5 overall / 6.0 each; DET usually 115 / 110 each. Tests must be within two years. These are published guidelines, not guaranteed admission cutoffs.",
+      "source_url": "https://admissions.purdue.edu/become-student/english-proficiency/",
+      "page_title": "Purdue University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "purdue.research.tests",
+      "field": "research_tests",
+      "value": "SAT, ACT or CLT considered if submitted; scores must be within five years. No minimum total is stated on the first-year criteria page.",
+      "statement": "SAT, ACT or CLT considered if submitted; scores must be within five years. No minimum total is stated on the first-year criteria page.",
+      "source_url": "https://admissions.purdue.edu/become-student/first-year-criteria/",
+      "page_title": "Purdue University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "purdue.research.documents",
+      "field": "research_documents",
+      "value": "School records, essay and Purdue questions; English evidence. Kazakhstan: years 8–9 and 10–11 records; graduates also provide the final certificate. Certified English translations. Non-English-speaking countries waive the world-language requirement.",
+      "statement": "School records, essay and Purdue questions; English evidence. Kazakhstan: years 8–9 and 10–11 records; graduates also provide the final certificate. Certified English translations. Non-English-speaking countries waive the world-language requirement.",
+      "source_url": "https://admissions.purdue.edu/become-student/international/",
+      "page_title": "Purdue University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "purdue.research.dates",
+      "field": "research_dates",
+      "value": "November 1: CS priority / Early Action. January 15: regular deadline, only if CS still has space. Published recurring dates; confirm the target cycle in the application portal.",
+      "statement": "November 1: CS priority / Early Action. January 15: regular deadline, only if CS still has space. Published recurring dates; confirm the target cycle in the application portal.",
+      "source_url": "https://admissions.purdue.edu/deadlines/first-year-college-student/",
+      "page_title": "Purdue University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "rit.research.academic",
+      "field": "research_academic",
+      "value": "CS: four years of math through precalculus; chemistry or physics required. General preparation includes four years of English and three of social studies. Diploma by enrolment; holistic selection.",
+      "statement": "CS: four years of math through precalculus; chemistry or physics required. General preparation includes four years of English and three of social studies. Diploma by enrolment; holistic selection.",
+      "source_url": "https://www.rit.edu/admissions/first-year-application",
+      "page_title": "Rochester Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "rit.research.english",
+      "field": "research_english",
+      "value": "Direct: IELTS 6.5 or DET 120. IELTS 6.0 or below may lead to conditional English study; academic requirements still apply.",
+      "statement": "Direct: IELTS 6.5 or DET 120. IELTS 6.0 or below may lead to conditional English study; academic requirements still apply.",
+      "source_url": "https://www.rit.edu/admissions/international",
+      "page_title": "Rochester Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "rit.research.tests",
+      "field": "research_tests",
+      "value": "SAT / ACT optional; the application is reviewed holistically with or without scores.",
+      "statement": "SAT / ACT optional; the application is reviewed holistically with or without scores.",
+      "source_url": "https://www.rit.edu/admissions/first-year-application",
+      "page_title": "Rochester Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "rit.research.documents",
+      "field": "research_documents",
+      "value": "Application, essay, school transcript, recommendation and English evidence; no art portfolio for Computer Science.",
+      "statement": "Application, essay, school transcript, recommendation and English evidence; no art portfolio for Computer Science.",
+      "source_url": "https://www.rit.edu/admissions/first-year-application",
+      "page_title": "Rochester Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "rit.research.dates",
+      "field": "research_dates",
+      "value": "Early Action / ED I: November 1; ED II: January 1; Regular Decision: January 15. Recurring published dates; ED is binding, Early Action is not.",
+      "statement": "Early Action / ED I: November 1; ED II: January 1; Regular Decision: January 15. Recurring published dates; ED is binding, Early Action is not.",
+      "source_url": "https://www.rit.edu/admissions/first-year-application",
+      "page_title": "Rochester Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "asu.research.academic",
+      "field": "research_academic",
+      "value": "International baseline: GPA 3.00 / 4.00. Outside-US schooling: math 4 years and lab science 3. CS aptitude: SAT 1210, ACT 24, competency GPA 3.00 or top 25%; no math/science deficiencies. ASU evaluates equivalency.",
+      "statement": "International baseline: GPA 3.00 / 4.00. Outside-US schooling: math 4 years and lab science 3. CS aptitude: SAT 1210, ACT 24, competency GPA 3.00 or top 25%; no math/science deficiencies. ASU evaluates equivalency.",
+      "source_url": "https://degrees.asu.edu/bachelors/major/ASU00/ESCSEBS/computer-science",
+      "page_title": "Arizona State University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "asu.research.international_baseline",
+      "field": "research_international_baseline",
+      "value": {
+        "gpa": 3,
+        "math": 4,
+        "science": 3
+      },
+      "statement": "International applicants need a secondary-school GPA equivalent to 3.00 / 4.00; no automatic conversion from IB or national grades is applied.",
+      "source_url": "https://admission.asu.edu/apply/international/first-year",
+      "page_title": "Arizona State University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "asu.research.english",
+      "field": "research_english",
+      "value": "Computer Science: IELTS 6.5; DET 105; PTE 58. TOEFL: 79 on the old scale, or 4 overall with 3.5 each on tests from 21 January 2026.",
+      "statement": "Computer Science: IELTS 6.5; DET 105; PTE 58. TOEFL: 79 on the old scale, or 4 overall with 3.5 each on tests from 21 January 2026.",
+      "source_url": "https://degrees.asu.edu/bachelors/major/ASU00/ESCSEBS/computer-science",
+      "page_title": "Arizona State University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "asu.research.tests",
+      "field": "research_tests",
+      "value": "SAT / ACT can meet a CS aptitude alternative; they do not replace the international GPA or subject requirements.",
+      "statement": "SAT / ACT can meet a CS aptitude alternative; they do not replace the international GPA or subject requirements.",
+      "source_url": "https://degrees.asu.edu/bachelors/major/ASU00/ESCSEBS/computer-science",
+      "page_title": "Arizona State University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "asu.research.documents",
+      "field": "research_documents",
+      "value": "Application and fee, three years of school records, certified English translations and official English scores. Final diploma required for enrolment.",
+      "statement": "Application and fee, three years of school records, certified English translations and official English scores. Final diploma required for enrolment.",
+      "source_url": "https://admission.asu.edu/apply/international/first-year",
+      "page_title": "Arizona State University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "asu.research.dates",
+      "field": "research_dates",
+      "value": "Fall 2027: November 1, 2026 priority; January 15, 2027 regular admission date. Apply early for scholarship consideration.",
+      "statement": "Fall 2027: November 1, 2026 priority; January 15, 2027 regular admission date. Apply early for scholarship consideration.",
+      "source_url": "https://admission.asu.edu/apply/first-year/admission",
+      "page_title": "Arizona State University",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "purdue.research.cost",
+      "field": "research_cost",
+      "value": {
+        "amount": 56748,
+        "components": [
+          [
+            "Tuition and fees",
+            36154
+          ],
+          [
+            "Housing and food",
+            16734
+          ],
+          [
+            "Books and supplies",
+            1090
+          ],
+          [
+            "Travel and personal",
+            2770
+          ]
+        ]
+      },
+      "statement": "2026–27 international CS: tuition/fees USD 36,154 (includes USD 4,050 CS differential); housing/food 16,734; books 1,090; travel/personal 2,770. Published total 56,748. Insurance and international flights may add costs.",
+      "source_url": "https://www.purdue.edu/treasurer/finance/bursar-office/tuition/fee-rates-2026-2027/undergraduate-tuition-and-fees-2026-2027/",
+      "page_title": "Purdue University",
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "Purdue University",
+        "program": "purdue",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "rit.research.cost",
+      "field": "research_cost",
+      "value": {
+        "amount": 85298,
+        "components": [
+          [
+            "Tuition and fees",
+            64608
+          ],
+          [
+            "Housing and food",
+            17370
+          ],
+          [
+            "Other expenses",
+            2890
+          ],
+          [
+            "Orientation",
+            430
+          ]
+        ]
+      },
+      "statement": "2026–27: tuition USD 63,508; fees 1,100; housing/food 17,370; other 2,890. Published COA 84,868 plus first-year orientation 430 = 85,298. Health insurance is additional unless waived.",
+      "source_url": "https://www.rit.edu/admissions/tuition-and-fees",
+      "page_title": "Rochester Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "Rochester Institute of Technology",
+        "program": "rit",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "asu.research.cost",
+      "field": "research_cost",
+      "value": {
+        "amount": 69906,
+        "components": [
+          [
+            "Tuition and fees",
+            43009
+          ],
+          [
+            "Housing and food",
+            18819
+          ],
+          [
+            "Books and supplies",
+            1320
+          ],
+          [
+            "Travel and personal",
+            3993
+          ],
+          [
+            "Health insurance",
+            2765
+          ]
+        ]
+      },
+      "statement": "2026–27 published estimate USD 69,906: tuition/fees 43,009; housing/food 18,819; books 1,320; travel/personal 3,993; insurance 2,765. ASU still uses the 2025–26 insurance amount and the highest college fee; your bill may differ.",
+      "source_url": "https://admission.asu.edu/cost-aid/international",
+      "page_title": "Arizona State University",
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "Arizona State University",
+        "program": "asu",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "gatech.research.cost",
+      "field": "research_cost",
+      "value": {
+        "amount": 56520,
+        "components": [
+          [
+            "Tuition and fees",
+            37326
+          ],
+          [
+            "Housing and food",
+            14628
+          ],
+          [
+            "Books and supplies",
+            800
+          ],
+          [
+            "Travel and personal",
+            3766
+          ]
+        ]
+      },
+      "statement": "2026–27 international first year, on campus: tuition/fees USD 37,326; housing/food 14,628; books 800; travel/personal 3,766. Published total 56,520; off campus 60,286. Check health insurance separately.",
+      "source_url": "https://finaid.gatech.edu/costs/undergraduate-costs",
+      "page_title": "Georgia Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "uw.research.cost",
+      "field": "research_cost",
+      "value": {
+        "amount": 66550,
+        "components": [
+          [
+            "Tuition and fees",
+            45518
+          ],
+          [
+            "Housing and food",
+            14994
+          ],
+          [
+            "Books and supplies",
+            1800
+          ],
+          [
+            "Travel and personal",
+            3908
+          ],
+          [
+            "Orientation",
+            330
+          ]
+        ]
+      },
+      "statement": "2026–27 nonresident COA USD 65,120 plus first-year fee 330 and computer allowance 1,100 = 66,550. International fees and insurance are additional. Housing/food 14,994 is included.",
+      "source_url": "https://financialaid.wisc.edu/cost-of-attendance/",
+      "page_title": "University of Wisconsin–Madison",
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "waterloo.research.cost",
+      "field": "research_cost",
+      "value": {
+        "amount": 90794,
+        "components": [
+          [
+            "Tuition and fees",
+            73000
+          ],
+          [
+            "Books and supplies",
+            1500
+          ],
+          [
+            "Housing and food",
+            16294
+          ]
+        ]
+      },
+      "statement": "2026–27, two study terms (8 months): international CS tuition/fees CAD 73,000 + books 1,500 + Village 1 double / meal plan B 16,294 = 90,794. Housing is a selected example; co-op fees, personal costs and travel are additional.",
+      "source_url": "https://uwaterloo.ca/future-students/financing/tuition",
+      "page_title": "University of Waterloo",
+      "retrieved_at": "2026-09-17",
+      "intake": "2026_27",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "uw.research.academic",
+      "field": "research_academic",
+      "value": "Minimum school coursework: English 4 years, math 3, social science 3, natural science 3 and electives 4. Math must include algebra, geometry and advanced math; world language is recommended, not a separate admission gate.",
+      "statement": "Minimum school coursework: English 4 years, math 3, social science 3, natural science 3 and electives 4. Math must include algebra, geometry and advanced math; world language is recommended, not a separate admission gate.",
+      "source_url": "https://admissions.wisc.edu/first-year-academic-requirements/",
+      "page_title": "University of Wisconsin–Madison",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Wisconsin–Madison",
+        "program": "uw",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "gatech.research.academic",
+      "field": "research_academic",
+      "value": "International coursework is reviewed in the context of the school system and available rigor. The USG unit list applies to US-system schooling; it is not automatically imposed on an overseas IB applicant.",
+      "statement": "International coursework is reviewed in the context of the school system and available rigor. The USG unit list applies to US-system schooling; it is not automatically imposed on an overseas IB applicant.",
+      "source_url": "https://admission.gatech.edu/first-year/academic-preparation",
+      "page_title": "Georgia Institute of Technology",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "Georgia Institute of Technology",
+        "program": "gatech",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
+    },
+    {
+      "id": "waterloo.research.academic",
+      "field": "research_academic",
+      "value": "IB: 32 subject points, excluding diploma bonus points; six courses, at least three HL. Math AA HL at least 6. English A HL/SL or English B HL at least 5. Diploma and AIF required.",
+      "statement": "IB: 32 subject points, excluding diploma bonus points; six courses, at least three HL. Math AA HL at least 6. English A HL/SL or English B HL at least 5. Diploma and AIF required.",
+      "source_url": "https://uwaterloo.ca/future-students/admissions/admission-requirements/computer-science/high-school/international-system/ib",
+      "page_title": "University of Waterloo",
+      "retrieved_at": "2026-09-17",
+      "intake": "FALL_2027",
+      "scope": {
+        "institution": "University of Waterloo",
+        "program": "waterloo",
+        "applicant_type": "FIRST_YEAR_INTERNATIONAL"
+      },
+      "evidence": "VERIFIED",
+      "provenance": "OFFICIAL_FACT",
+      "notes": "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision."
     }
   ],
   "programs": [
@@ -1322,7 +1846,77 @@
           "timezone": "APPLICANT_LOCAL",
           "fact": "gatech.deadlines"
         }
-      ]
+      ],
+      "research": [
+        {
+          "key": "academic",
+          "label": "Academic preparation",
+          "text": "International coursework is reviewed in the context of the school system and available rigor. The USG unit list applies to US-system schooling; it is not automatically imposed on an overseas IB applicant.",
+          "fact": "gatech.research.academic",
+          "url": "https://admission.gatech.edu/first-year/academic-preparation"
+        },
+        {
+          "key": "english",
+          "label": "English routes",
+          "text": "IELTS Academic minimum 6 overall.",
+          "fact": "gatech.supplement.ielts",
+          "url": "https://www.usg.edu/international-education/esl-programs/english-proficiency-requirements/"
+        },
+        {
+          "key": "tests",
+          "label": "SAT / ACT policy",
+          "text": "First-year applicants must submit SAT or ACT scores. No guaranteed-admission score is stated.",
+          "fact": "gatech.sat_required",
+          "url": "https://admission.gatech.edu/first-year/standardized-tests"
+        },
+        {
+          "key": "documents",
+          "label": "Application documents",
+          "text": "Secondary academic records are required. The applicant must confirm the curriculum-specific checklist, translations and official delivery.",
+          "fact": "gatech.supplement.secondary_documents",
+          "url": "https://admission.gatech.edu/international/first-year"
+        },
+        {
+          "key": "dates",
+          "label": "Application dates",
+          "text": "Regular application 2027-01-06; supporting materials 2027-01-22. APPLICANT_LOCAL.",
+          "fact": "gatech.deadlines",
+          "url": "https://admission.gatech.edu/first-year/deadlines"
+        },
+        {
+          "key": "cost",
+          "label": "Published cost breakdown",
+          "text": "2026–27 international first year, on campus: tuition/fees USD 37,326; housing/food 14,628; books 800; travel/personal 3,766. Published total 56,520; off campus 60,286. Check health insurance separately.",
+          "fact": "gatech.research.cost",
+          "url": "https://finaid.gatech.edu/costs/undergraduate-costs"
+        }
+      ],
+      "cost": {
+        "min": 56520,
+        "max": 56520,
+        "currency": "USD",
+        "year": "2026–27",
+        "complete": false,
+        "fact": "gatech.research.cost",
+        "components": [
+          [
+            "Tuition and fees",
+            37326
+          ],
+          [
+            "Housing and food",
+            14628
+          ],
+          [
+            "Books and supplies",
+            800
+          ],
+          [
+            "Travel and personal",
+            3766
+          ]
+        ]
+      }
     },
     {
       "id": "uiuc",
@@ -1408,21 +2002,9 @@
       "city": "West Lafayette",
       "initials": "PU",
       "color": "#715F3D",
-      "structure": "Intended-major application; complete rules need verification.",
+      "structure": "Apply to Computer Science at West Lafayette; holistic review of school preparation and application.",
       "tags": [],
       "rules": [
-        {
-          "id": "purdue.admission_evidence",
-          "label": "Complete first-year requirements need verification",
-          "op": "ATOM",
-          "strength": "HARD",
-          "facts": [
-            "purdue.admission_evidence"
-          ],
-          "field": "evidence.admission_evidence",
-          "comparator": "EQ",
-          "unknown": true
-        },
         {
           "id": "purdue.guidance",
           "label": "IELTS guidance: usually 6.5, components 6.0",
@@ -1431,9 +2013,196 @@
           "facts": [
             "purdue.supplement.ielts_guidance"
           ]
+        },
+        {
+          "id": "purdue.research.english",
+          "label": "School English years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "purdue.research.academic"
+          ],
+          "field": "school.english",
+          "comparator": "GTE",
+          "value": 4,
+          "immutable": true
+        },
+        {
+          "id": "purdue.research.math",
+          "label": "School mathematics years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "purdue.research.academic"
+          ],
+          "field": "school.math",
+          "comparator": "GTE",
+          "value": 4,
+          "immutable": true
+        },
+        {
+          "id": "purdue.research.science",
+          "label": "Laboratory science years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "purdue.research.academic"
+          ],
+          "field": "school.science",
+          "comparator": "GTE",
+          "value": 3,
+          "immutable": true
+        },
+        {
+          "id": "purdue.research.social",
+          "label": "Social studies years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "purdue.research.academic"
+          ],
+          "field": "school.social",
+          "comparator": "GTE",
+          "value": 3,
+          "immutable": true
+        },
+        {
+          "id": "purdue.research.language",
+          "label": "World language years",
+          "op": "ANY_OF",
+          "strength": "HARD",
+          "facts": [
+            "purdue.research.academic",
+            "purdue.research.documents"
+          ],
+          "children": [
+            {
+              "id": "purdue.research.language.years",
+              "label": "World language years",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "purdue.research.academic"
+              ],
+              "field": "school.language",
+              "comparator": "GTE",
+              "value": 2,
+              "immutable": true
+            },
+            {
+              "id": "purdue.research.language.exemption",
+              "label": "School in a non-English-speaking country",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "purdue.research.documents"
+              ],
+              "field": "school.non_english_country",
+              "comparator": "EQ",
+              "value": true,
+              "immutable": true
+            }
+          ]
+        },
+        {
+          "id": "purdue.research.documents",
+          "label": "Secondary documents checklist",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "purdue.research.documents"
+          ],
+          "field": "documents_ready",
+          "comparator": "EQ",
+          "value": true,
+          "immutable": false,
+          "action": "documents"
+        },
+        {
+          "id": "purdue.research.english_evidence",
+          "label": "English evidence selected under Purdue policy",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "purdue.research.english"
+          ],
+          "field": "school.purdue_english_evidence",
+          "comparator": "EQ",
+          "value": true,
+          "immutable": false
         }
       ],
-      "deadlines": []
+      "deadlines": [],
+      "research": [
+        {
+          "key": "academic",
+          "label": "Academic preparation",
+          "text": "English 4 years; math 4; laboratory science 3; social studies 3; world language 2.",
+          "fact": "purdue.research.academic",
+          "url": "https://admissions.purdue.edu/become-student/course-requirements/"
+        },
+        {
+          "key": "english",
+          "label": "English routes",
+          "text": "IELTS usually 6.5 overall / 6.0 each; DET usually 115 / 110 each. Tests must be within two years. These are published guidelines, not guaranteed admission cutoffs.",
+          "fact": "purdue.research.english",
+          "url": "https://admissions.purdue.edu/become-student/english-proficiency/"
+        },
+        {
+          "key": "tests",
+          "label": "SAT / ACT policy",
+          "text": "SAT, ACT or CLT considered if submitted; scores must be within five years. No minimum total is stated on the first-year criteria page.",
+          "fact": "purdue.research.tests",
+          "url": "https://admissions.purdue.edu/become-student/first-year-criteria/"
+        },
+        {
+          "key": "documents",
+          "label": "Application documents",
+          "text": "School records, essay and Purdue questions; English evidence. Kazakhstan: years 8–9 and 10–11 records; graduates also provide the final certificate. Certified English translations. Non-English-speaking countries waive the world-language requirement.",
+          "fact": "purdue.research.documents",
+          "url": "https://admissions.purdue.edu/become-student/international/"
+        },
+        {
+          "key": "dates",
+          "label": "Application dates",
+          "text": "November 1: CS priority / Early Action. January 15: regular deadline, only if CS still has space. Published recurring dates; confirm the target cycle in the application portal.",
+          "fact": "purdue.research.dates",
+          "url": "https://admissions.purdue.edu/deadlines/first-year-college-student/"
+        },
+        {
+          "key": "cost",
+          "label": "Published cost breakdown",
+          "text": "2026–27 international CS: tuition/fees USD 36,154 (includes USD 4,050 CS differential); housing/food 16,734; books 1,090; travel/personal 2,770. Published total 56,748. Insurance and international flights may add costs.",
+          "fact": "purdue.research.cost",
+          "url": "https://www.purdue.edu/treasurer/finance/bursar-office/tuition/fee-rates-2026-2027/undergraduate-tuition-and-fees-2026-2027/"
+        }
+      ],
+      "cost": {
+        "min": 56748,
+        "max": 56748,
+        "currency": "USD",
+        "year": "2026–27",
+        "complete": false,
+        "fact": "purdue.research.cost",
+        "components": [
+          [
+            "Tuition and fees",
+            36154
+          ],
+          [
+            "Housing and food",
+            16734
+          ],
+          [
+            "Books and supplies",
+            1090
+          ],
+          [
+            "Travel and personal",
+            2770
+          ]
+        ]
+      }
     },
     {
       "id": "uw",
@@ -1504,6 +2273,84 @@
           "comparator": "EQ",
           "value": true,
           "action": "documents"
+        },
+        {
+          "id": "uw.research.english",
+          "label": "School English years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uw.research.academic"
+          ],
+          "field": "school.english",
+          "comparator": "GTE",
+          "value": 4,
+          "immutable": true
+        },
+        {
+          "id": "uw.research.math",
+          "label": "School mathematics years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uw.research.academic"
+          ],
+          "field": "school.math",
+          "comparator": "GTE",
+          "value": 3,
+          "immutable": true
+        },
+        {
+          "id": "uw.research.social",
+          "label": "Social studies years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uw.research.academic"
+          ],
+          "field": "school.social",
+          "comparator": "GTE",
+          "value": 3,
+          "immutable": true
+        },
+        {
+          "id": "uw.research.natural_science",
+          "label": "Natural science years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uw.research.academic"
+          ],
+          "field": "school.natural_science",
+          "comparator": "GTE",
+          "value": 3,
+          "immutable": true
+        },
+        {
+          "id": "uw.research.electives",
+          "label": "Elective course years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uw.research.academic"
+          ],
+          "field": "school.electives",
+          "comparator": "GTE",
+          "value": 4,
+          "immutable": true
+        },
+        {
+          "id": "uw.research.math_sequence",
+          "label": "Algebra, geometry and advanced math",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "uw.research.academic"
+          ],
+          "field": "school.math_sequence",
+          "comparator": "EQ",
+          "value": true,
+          "immutable": true
         }
       ],
       "deadlines": [
@@ -1525,13 +2372,79 @@
         }
       ],
       "cost": {
-        "min": 65120,
-        "max": 65120,
+        "min": 66550,
+        "max": 66550,
         "currency": "USD",
         "year": "2026–27",
         "complete": false,
-        "fact": "uw.reference_cost"
-      }
+        "fact": "uw.research.cost",
+        "components": [
+          [
+            "Tuition and fees",
+            45518
+          ],
+          [
+            "Housing and food",
+            14994
+          ],
+          [
+            "Books and supplies",
+            1800
+          ],
+          [
+            "Travel and personal",
+            3908
+          ],
+          [
+            "Orientation",
+            330
+          ]
+        ]
+      },
+      "research": [
+        {
+          "key": "academic",
+          "label": "Academic preparation",
+          "text": "Minimum school coursework: English 4 years, math 3, social science 3, natural science 3 and electives 4. Math must include algebra, geometry and advanced math; world language is recommended, not a separate admission gate.",
+          "fact": "uw.research.academic",
+          "url": "https://admissions.wisc.edu/first-year-academic-requirements/"
+        },
+        {
+          "key": "english",
+          "label": "English routes",
+          "text": "IELTS Academic: overall 6.5.",
+          "fact": "uw.ielts",
+          "url": "https://admissions.wisc.edu/international/"
+        },
+        {
+          "key": "tests",
+          "label": "SAT / ACT policy",
+          "text": "SAT/ACT is optional for Fall 2027 first-year applicants.",
+          "fact": "uw.sat_optional",
+          "url": "https://admissions.wisc.edu/apply-as-a-freshman/"
+        },
+        {
+          "key": "documents",
+          "label": "Application documents",
+          "text": "Secondary academic records are required. The applicant must confirm the curriculum-specific checklist, translations and official delivery.",
+          "fact": "uw.supplement.secondary_documents",
+          "url": "https://admissions.wisc.edu/international/"
+        },
+        {
+          "key": "dates",
+          "label": "Application dates",
+          "text": "Regular application 2027-01-15; supporting materials 2027-01-22. America/Los_Angeles.",
+          "fact": "uw.deadlines",
+          "url": "https://admissions.wisc.edu/deadlines/"
+        },
+        {
+          "key": "cost",
+          "label": "Published cost breakdown",
+          "text": "2026–27 nonresident COA USD 65,120 plus first-year fee 330 and computer allowance 1,100 = 66,550. International fees and insurance are additional. Housing/food 14,994 is included.",
+          "fact": "uw.research.cost",
+          "url": "https://financialaid.wisc.edu/cost-of-attendance/"
+        }
+      ]
     },
     {
       "id": "rit",
@@ -1542,21 +2455,9 @@
       "city": "Rochester",
       "initials": "RIT",
       "color": "#984B18",
-      "structure": "Program application; English pathway requires verification.",
+      "structure": "Apply directly to Computer Science; a conditional English route is available.",
       "tags": [],
       "rules": [
-        {
-          "id": "rit.admission_evidence",
-          "label": "Remaining academic / application requirements need verification",
-          "op": "ATOM",
-          "strength": "HARD",
-          "facts": [
-            "rit.admission_evidence"
-          ],
-          "field": "evidence.admission_evidence",
-          "comparator": "EQ",
-          "unknown": true
-        },
         {
           "id": "rit.english",
           "label": "English: direct or conditional route",
@@ -1599,6 +2500,59 @@
             "field": "ielts.overall",
             "comparator": "LTE"
           }
+        },
+        {
+          "id": "rit.research.math",
+          "label": "School mathematics years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "rit.research.academic"
+          ],
+          "field": "school.math",
+          "comparator": "GTE",
+          "value": 4,
+          "immutable": true
+        },
+        {
+          "id": "rit.research.precalculus",
+          "label": "Math through precalculus",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "rit.research.academic"
+          ],
+          "field": "school.precalculus",
+          "comparator": "EQ",
+          "value": true,
+          "immutable": true
+        },
+        {
+          "id": "rit.research.chemistry_physics",
+          "label": "Chemistry or physics studied",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "rit.research.academic"
+          ],
+          "field": "school.chemistry_physics",
+          "comparator": "EQ",
+          "value": true,
+          "immutable": true
+        },
+        {
+          "id": "rit.research.documents",
+          "label": "Secondary documents checklist",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "rit.research.documents"
+          ],
+          "field": "documents_ready",
+          "comparator": "EQ",
+          "value": true,
+          "immutable": false,
+          "action": "documents"
         }
       ],
       "deadlines": [],
@@ -1606,6 +2560,76 @@
         "name": "English Language Center conditional route",
         "fact": "rit.supplement.conditional_ielts",
         "note": "Academic eligibility still needs verification; meeting the English range does not establish admission."
+      },
+      "research": [
+        {
+          "key": "academic",
+          "label": "Academic preparation",
+          "text": "CS: four years of math through precalculus; chemistry or physics required. General preparation includes four years of English and three of social studies. Diploma by enrolment; holistic selection.",
+          "fact": "rit.research.academic",
+          "url": "https://www.rit.edu/admissions/first-year-application"
+        },
+        {
+          "key": "english",
+          "label": "English routes",
+          "text": "Direct: IELTS 6.5 or DET 120. IELTS 6.0 or below may lead to conditional English study; academic requirements still apply.",
+          "fact": "rit.research.english",
+          "url": "https://www.rit.edu/admissions/international"
+        },
+        {
+          "key": "tests",
+          "label": "SAT / ACT policy",
+          "text": "SAT / ACT optional; the application is reviewed holistically with or without scores.",
+          "fact": "rit.research.tests",
+          "url": "https://www.rit.edu/admissions/first-year-application"
+        },
+        {
+          "key": "documents",
+          "label": "Application documents",
+          "text": "Application, essay, school transcript, recommendation and English evidence; no art portfolio for Computer Science.",
+          "fact": "rit.research.documents",
+          "url": "https://www.rit.edu/admissions/first-year-application"
+        },
+        {
+          "key": "dates",
+          "label": "Application dates",
+          "text": "Early Action / ED I: November 1; ED II: January 1; Regular Decision: January 15. Recurring published dates; ED is binding, Early Action is not.",
+          "fact": "rit.research.dates",
+          "url": "https://www.rit.edu/admissions/first-year-application"
+        },
+        {
+          "key": "cost",
+          "label": "Published cost breakdown",
+          "text": "2026–27: tuition USD 63,508; fees 1,100; housing/food 17,370; other 2,890. Published COA 84,868 plus first-year orientation 430 = 85,298. Health insurance is additional unless waived.",
+          "fact": "rit.research.cost",
+          "url": "https://www.rit.edu/admissions/tuition-and-fees"
+        }
+      ],
+      "cost": {
+        "min": 85298,
+        "max": 85298,
+        "currency": "USD",
+        "year": "2026–27",
+        "complete": false,
+        "fact": "rit.research.cost",
+        "components": [
+          [
+            "Tuition and fees",
+            64608
+          ],
+          [
+            "Housing and food",
+            17370
+          ],
+          [
+            "Other expenses",
+            2890
+          ],
+          [
+            "Orientation",
+            430
+          ]
+        ]
       }
     },
     {
@@ -1620,18 +2644,6 @@
       "structure": "CS may set requirements above the university baseline.",
       "tags": [],
       "rules": [
-        {
-          "id": "asu.admission_evidence",
-          "label": "Remaining academic / application requirements need verification",
-          "op": "ATOM",
-          "strength": "HARD",
-          "facts": [
-            "asu.admission_evidence"
-          ],
-          "field": "evidence.admission_evidence",
-          "comparator": "EQ",
-          "unknown": true
-        },
         {
           "id": "asu.english",
           "label": "IELTS Academic requirement",
@@ -1655,9 +2667,256 @@
               "valueKey": "overall"
             }
           ]
+        },
+        {
+          "id": "asu.research.math",
+          "label": "School mathematics years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "asu.research.international_baseline"
+          ],
+          "field": "school.math",
+          "comparator": "GTE",
+          "value": 4,
+          "immutable": true
+        },
+        {
+          "id": "asu.research.science",
+          "label": "Laboratory science years",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "asu.research.international_baseline"
+          ],
+          "field": "school.science",
+          "comparator": "GTE",
+          "value": 3,
+          "immutable": true
+        },
+        {
+          "id": "asu.research.asu_gpa",
+          "label": "ASU-equivalent school GPA / 4",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "asu.research.international_baseline"
+          ],
+          "field": "school.asu_gpa",
+          "comparator": "GTE",
+          "value": 3,
+          "immutable": true
+        },
+        {
+          "id": "asu.research.aptitude",
+          "label": "CS aptitude alternative",
+          "op": "ANY_OF",
+          "strength": "HARD",
+          "facts": [
+            "asu.research.academic"
+          ],
+          "children": [
+            {
+              "id": "asu.research.competency_gpa",
+              "label": "ASU competency-course GPA / 4",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "asu.research.academic"
+              ],
+              "field": "school.competency_gpa",
+              "comparator": "GTE",
+              "value": 3,
+              "immutable": true
+            },
+            {
+              "id": "asu.research.sat",
+              "label": "SAT result",
+              "op": "ALL",
+              "strength": "HARD",
+              "facts": [
+                "asu.research.academic"
+              ],
+              "children": [
+                {
+                  "id": "asu.research.sat.valid",
+                  "label": "SAT result",
+                  "op": "ATOM",
+                  "strength": "HARD",
+                  "facts": [
+                    "asu.research.academic"
+                  ],
+                  "field": "sat.status",
+                  "comparator": "EQ",
+                  "value": "VALID",
+                  "immutable": false
+                },
+                {
+                  "id": "asu.research.sat.score",
+                  "label": "SAT result",
+                  "op": "ATOM",
+                  "strength": "HARD",
+                  "facts": [
+                    "asu.research.academic"
+                  ],
+                  "field": "sat.score",
+                  "comparator": "GTE",
+                  "value": 1210,
+                  "immutable": false
+                }
+              ]
+            },
+            {
+              "id": "asu.research.act",
+              "label": "ACT result",
+              "op": "ALL",
+              "strength": "HARD",
+              "facts": [
+                "asu.research.academic"
+              ],
+              "children": [
+                {
+                  "id": "asu.research.act.valid",
+                  "label": "ACT result",
+                  "op": "ATOM",
+                  "strength": "HARD",
+                  "facts": [
+                    "asu.research.academic"
+                  ],
+                  "field": "act.status",
+                  "comparator": "EQ",
+                  "value": "VALID",
+                  "immutable": false
+                },
+                {
+                  "id": "asu.research.act.score",
+                  "label": "ACT result",
+                  "op": "ATOM",
+                  "strength": "HARD",
+                  "facts": [
+                    "asu.research.academic"
+                  ],
+                  "field": "act.score",
+                  "comparator": "GTE",
+                  "value": 24,
+                  "immutable": false
+                }
+              ]
+            },
+            {
+              "id": "asu.research.rank",
+              "label": "Top quarter of graduating class",
+              "op": "ATOM",
+              "strength": "HARD",
+              "facts": [
+                "asu.research.academic"
+              ],
+              "field": "school.top_quarter",
+              "comparator": "EQ",
+              "value": true,
+              "immutable": true
+            }
+          ]
+        },
+        {
+          "id": "asu.research.documents",
+          "label": "Secondary documents checklist",
+          "op": "ATOM",
+          "strength": "HARD",
+          "facts": [
+            "asu.research.documents"
+          ],
+          "field": "documents_ready",
+          "comparator": "EQ",
+          "value": true,
+          "immutable": false,
+          "action": "documents"
         }
       ],
-      "deadlines": []
+      "deadlines": [
+        {
+          "type": "APPLICATION",
+          "plan": "REGULAR",
+          "date": "2027-01-15",
+          "time": null,
+          "timezone": null,
+          "fact": "asu.research.dates"
+        }
+      ],
+      "research": [
+        {
+          "key": "academic",
+          "label": "Academic preparation",
+          "text": "International baseline: GPA 3.00 / 4.00. Outside-US schooling: math 4 years and lab science 3. CS aptitude: SAT 1210, ACT 24, competency GPA 3.00 or top 25%; no math/science deficiencies. ASU evaluates equivalency.",
+          "fact": "asu.research.academic",
+          "url": "https://degrees.asu.edu/bachelors/major/ASU00/ESCSEBS/computer-science"
+        },
+        {
+          "key": "english",
+          "label": "English routes",
+          "text": "Computer Science: IELTS 6.5; DET 105; PTE 58. TOEFL: 79 on the old scale, or 4 overall with 3.5 each on tests from 21 January 2026.",
+          "fact": "asu.research.english",
+          "url": "https://degrees.asu.edu/bachelors/major/ASU00/ESCSEBS/computer-science"
+        },
+        {
+          "key": "tests",
+          "label": "SAT / ACT policy",
+          "text": "SAT / ACT can meet a CS aptitude alternative; they do not replace the international GPA or subject requirements.",
+          "fact": "asu.research.tests",
+          "url": "https://degrees.asu.edu/bachelors/major/ASU00/ESCSEBS/computer-science"
+        },
+        {
+          "key": "documents",
+          "label": "Application documents",
+          "text": "Application and fee, three years of school records, certified English translations and official English scores. Final diploma required for enrolment.",
+          "fact": "asu.research.documents",
+          "url": "https://admission.asu.edu/apply/international/first-year"
+        },
+        {
+          "key": "dates",
+          "label": "Application dates",
+          "text": "Fall 2027: November 1, 2026 priority; January 15, 2027 regular admission date. Apply early for scholarship consideration.",
+          "fact": "asu.research.dates",
+          "url": "https://admission.asu.edu/apply/first-year/admission"
+        },
+        {
+          "key": "cost",
+          "label": "Published cost breakdown",
+          "text": "2026–27 published estimate USD 69,906: tuition/fees 43,009; housing/food 18,819; books 1,320; travel/personal 3,993; insurance 2,765. ASU still uses the 2025–26 insurance amount and the highest college fee; your bill may differ.",
+          "fact": "asu.research.cost",
+          "url": "https://admission.asu.edu/cost-aid/international"
+        }
+      ],
+      "cost": {
+        "min": 69906,
+        "max": 69906,
+        "currency": "USD",
+        "year": "2026–27",
+        "complete": false,
+        "fact": "asu.research.cost",
+        "components": [
+          [
+            "Tuition and fees",
+            43009
+          ],
+          [
+            "Housing and food",
+            18819
+          ],
+          [
+            "Books and supplies",
+            1320
+          ],
+          [
+            "Travel and personal",
+            3993
+          ],
+          [
+            "Health insurance",
+            2765
+          ]
+        ]
+      }
     },
     {
       "id": "waterloo",
@@ -1694,16 +2953,16 @@
             },
             {
               "id": "waterloo.ib_total",
-              "label": "ib total",
+              "label": "IB subject total excluding bonus points",
               "op": "ATOM",
               "strength": "HARD",
               "facts": [
-                "waterloo.ib"
+                "waterloo.research.academic"
               ],
-              "field": "ib_total",
+              "field": "ib_subject_total",
               "comparator": "GTE",
-              "valueKey": "ib_total",
-              "immutable": true
+              "immutable": true,
+              "value": 32
             },
             {
               "id": "waterloo.math_aa_hl",
@@ -1758,17 +3017,41 @@
               "immutable": true
             },
             {
-              "id": "waterloo.english_a",
-              "label": "english a",
-              "op": "ATOM",
+              "id": "waterloo.research.english_subject",
+              "label": "IB English A or English B HL",
+              "op": "ANY_OF",
               "strength": "HARD",
               "facts": [
-                "waterloo.ib"
+                "waterloo.research.academic"
               ],
-              "field": "english_a",
-              "comparator": "EQ",
-              "valueKey": "english_a",
-              "immutable": true
+              "children": [
+                {
+                  "id": "waterloo.research.english_a",
+                  "label": "english a",
+                  "op": "ATOM",
+                  "strength": "HARD",
+                  "facts": [
+                    "waterloo.research.academic"
+                  ],
+                  "field": "english_a",
+                  "comparator": "EQ",
+                  "value": true,
+                  "immutable": false
+                },
+                {
+                  "id": "waterloo.research.english_b",
+                  "label": "English B HL score",
+                  "op": "ATOM",
+                  "strength": "HARD",
+                  "facts": [
+                    "waterloo.research.academic"
+                  ],
+                  "field": "english_b_hl",
+                  "comparator": "GTE",
+                  "value": 5,
+                  "immutable": false
+                }
+              ]
             }
           ]
         },
@@ -2013,18 +3296,72 @@
         }
       ],
       "cost": {
-        "min": 74500,
-        "max": 74500,
+        "min": 90794,
+        "max": 90794,
         "currency": "CAD",
         "year": "2026–27",
         "complete": false,
-        "fact": "waterloo.reference_cost"
+        "fact": "waterloo.research.cost",
+        "components": [
+          [
+            "Tuition and fees",
+            73000
+          ],
+          [
+            "Books and supplies",
+            1500
+          ],
+          [
+            "Housing and food",
+            16294
+          ]
+        ],
+        "additional_sources": [
+          "https://uwaterloo.ca/campus-housing/fees-contracts/residence"
+        ]
       },
       "conditional": {
         "name": "One-term BASE English pathway",
         "fact": "waterloo.supplement.base_1term",
         "note": "Published English thresholds and academic gates are evaluated. Any offer remains at Waterloo’s discretion. 2027 transition deadlines are not inferred."
-      }
+      },
+      "research": [
+        {
+          "key": "academic",
+          "label": "Academic preparation",
+          "text": "IB: 32 subject points, excluding diploma bonus points; six courses, at least three HL. Math AA HL at least 6. English A HL/SL or English B HL at least 5. Diploma and AIF required.",
+          "fact": "waterloo.research.academic",
+          "url": "https://uwaterloo.ca/future-students/admissions/admission-requirements/computer-science/high-school/international-system/ib"
+        },
+        {
+          "key": "english",
+          "label": "English routes",
+          "text": "IELTS Academic: overall 6.5; reading 6, writing 6.5, listening 6, speaking 6.5.",
+          "fact": "waterloo.ielts",
+          "url": "https://uwaterloo.ca/future-students/admissions/english-language-requirements"
+        },
+        {
+          "key": "documents",
+          "label": "Application documents",
+          "text": "Applicants complete DAE, AIF and the CS Supplementary Information Form and submit required academic records.",
+          "fact": "waterloo.supplement.application_documents",
+          "url": "https://uwaterloo.ca/computer-science/future-undergraduate-students/applying-admissions"
+        },
+        {
+          "key": "dates",
+          "label": "Application dates",
+          "text": "Regular application 2027-02-01; supporting materials 2027-02-15. Timezone not frozen.",
+          "fact": "waterloo.deadlines",
+          "url": "https://uwaterloo.ca/future-students/admissions/application-deadlines"
+        },
+        {
+          "key": "cost",
+          "label": "Published cost breakdown",
+          "text": "2026–27, two study terms (8 months): international CS tuition/fees CAD 73,000 + books 1,500 + Village 1 double / meal plan B 16,294 = 90,794. Housing is a selected example; co-op fees, personal costs and travel are additional.",
+          "fact": "waterloo.research.cost",
+          "url": "https://uwaterloo.ca/future-students/financing/tuition"
+        }
+      ]
     },
     {
       "id": "ubc",

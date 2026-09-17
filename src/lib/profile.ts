@@ -41,6 +41,8 @@ export const profileSchema = z
     curriculum: z.string().max(80),
     raw_grade: z.string().max(40),
     raw_scale: z.string().max(40),
+    ib_core_points: z.number().int().min(0).max(3).nullable().optional(),
+    english_b_hl: z.number().int().min(1).max(7).nullable().optional(),
     ib_total: z.number().min(0).max(45).nullable(),
     math_aa_hl: z.number().min(0).max(7).nullable(),
     english_a: z.boolean().nullable(),
@@ -52,6 +54,26 @@ export const profileSchema = z
     aif: z.boolean(),
     documents_ready: z.boolean().default(false),
     documents_by_program: z.record(z.string().max(60), z.boolean()).optional(),
+    school: z
+      .object({
+        natural_science: z.number().min(0).max(12).nullable().optional(),
+        electives: z.number().min(0).max(12).nullable().optional(),
+        math_sequence: z.boolean().nullable().optional(),
+        english: z.number().min(0).max(12).nullable().optional(),
+        math: z.number().min(0).max(12).nullable().optional(),
+        science: z.number().min(0).max(12).nullable().optional(),
+        social: z.number().min(0).max(12).nullable().optional(),
+        language: z.number().min(0).max(12).nullable().optional(),
+        precalculus: z.boolean().nullable().optional(),
+        chemistry_physics: z.boolean().nullable().optional(),
+        non_english_country: z.boolean().nullable().optional(),
+        asu_gpa: z.number().min(0).max(4).nullable().optional(),
+        competency_gpa: z.number().min(0).max(4).nullable().optional(),
+        top_quarter: z.boolean().nullable().optional(),
+        purdue_english_evidence: z.boolean().nullable().optional(),
+      })
+      .strict()
+      .optional(),
     ielts: z.object({
       status: testStatus,
       overall: score,
@@ -86,6 +108,17 @@ export const profileSchema = z
   })
   .strict()
   .superRefine((p, ctx) => {
+    if (
+      p.curriculum === 'IB' &&
+      p.ib_total !== null &&
+      p.ib_core_points != null &&
+      (p.ib_total - p.ib_core_points > 42 || p.ib_total < p.ib_core_points)
+    )
+      ctx.addIssue({
+        code: 'custom',
+        path: ['ib_core_points'],
+        message: 'IB subject points must be between 0 and 42 after removing bonus points.',
+      });
     const bands = [p.ielts.reading, p.ielts.writing, p.ielts.listening, p.ielts.speaking];
     if (
       p.ielts.overall !== null &&
@@ -137,6 +170,18 @@ export const profileSchema = z
       });
   });
 export const demoProfile: Profile = {
+  // Synthetic demonstration course history; never copied to a new blank profile.
+  school: {
+    english: 4,
+    math: 4,
+    science: 3,
+    natural_science: 3,
+    social: 3,
+    electives: 4,
+    math_sequence: true,
+  },
+  ib_core_points: 3,
+  english_b_hl: null,
   name: 'Aruzhan',
   age: 17,
   citizenship: 'Kazakhstan',
@@ -183,6 +228,9 @@ export const demoProfile: Profile = {
 // Additional profile values (bands/date/course counts) are explicitly synthetic demo assumptions.
 export const blankProfile: Profile = {
   ...demoProfile,
+  school: undefined,
+  ib_core_points: null,
+  english_b_hl: null,
   name: '',
   expected_score_date: null,
   raw_grade: '',

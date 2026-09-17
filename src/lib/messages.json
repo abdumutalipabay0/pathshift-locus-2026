@@ -2678,5 +2678,337 @@
   "Calendar, personal tasks and verification help": {
     "ru": "Дополнительно: календарь, личные задачи и уточнения",
     "kk": "Қосымша: күнтізбе, жеке тапсырмалар және нақтылау"
+  },
+  "Official policy checked 17 September 2026. Published cost years and recurring dates are preserved; admission remains an institutional decision.": {
+    "ru": "Официальные правила проверены 17 сентября 2026. Сохранены годы тарифов и ежегодные даты; решение о приёме принимает вуз.",
+    "kk": "Ресми талаптар 2026 жылғы 17 қыркүйекте тексерілді. Тариф жылдары мен жыл сайынғы күндер сақталған; қабылдау шешімін университет қабылдайды."
+  },
+  "Academic preparation": {
+    "ru": "Школьная подготовка",
+    "kk": "Мектептегі дайындық"
+  },
+  "English routes": {
+    "ru": "Английский: варианты",
+    "kk": "Ағылшын тілі: жолдар"
+  },
+  "SAT / ACT policy": {
+    "ru": "Правила SAT / ACT",
+    "kk": "SAT / ACT талаптары"
+  },
+  "Application documents": {
+    "ru": "Документы для подачи",
+    "kk": "Өтінім құжаттары"
+  },
+  "Application dates": {
+    "ru": "Сроки подачи",
+    "kk": "Өтінім мерзімдері"
+  },
+  "Published cost breakdown": {
+    "ru": "Опубликованные расходы",
+    "kk": "Жарияланған шығындар"
+  },
+  "Apply to Computer Science at West Lafayette; holistic review of school preparation and application.": {
+    "ru": "Подача на Computer Science в West Lafayette; комплексная оценка школьной подготовки и заявки.",
+    "kk": "West Lafayette кампусындағы Computer Science бағдарламасына өтінім; мектеп дайындығы мен өтінім кешенді бағаланады."
+  },
+  "Apply directly to Computer Science; a conditional English route is available.": {
+    "ru": "Подача напрямую на Computer Science; доступен условный маршрут по английскому.",
+    "kk": "Computer Science бағдарламасына тікелей өтінім; ағылшын тілі бойынша шартты жол бар."
+  },
+  "English 4 years; math 4; laboratory science 3; social studies 3; world language 2.": {
+    "ru": "Английский — 4 года; математика — 4; лабораторные науки — 3; обществознание — 3; иностранный язык — 2.",
+    "kk": "Ағылшын тілі — 4 жыл; математика — 4; зертханалық ғылымдар — 3; әлеуметтік пәндер — 3; шет тілі — 2."
+  },
+  "IELTS usually 6.5 overall / 6.0 each; DET usually 115 / 110 each. Tests must be within two years. These are published guidelines, not guaranteed admission cutoffs.": {
+    "ru": "IELTS обычно 6,5 в целом / 6,0 в каждом разделе; DET обычно 115 / 110. Тест не старше двух лет. Это ориентиры вуза, а не гарантия поступления.",
+    "kk": "IELTS әдетте жалпы 6,5 / әр бөлім 6,0; DET әдетте 115 / әр бөлім 110. Тест екі жылдан аспауы тиіс. Бұл қабылдау кепілдігі емес, университет бағдарлары."
+  },
+  "SAT, ACT or CLT considered if submitted; scores must be within five years. No minimum total is stated on the first-year criteria page.": {
+    "ru": "SAT, ACT или CLT учитываются при наличии; результаты не старше пяти лет. На странице критериев нет минимального общего балла.",
+    "kk": "SAT, ACT немесе CLT тапсырылса ескеріледі; нәтижелер бес жылдан аспауы тиіс. Бірінші курс критерийлерінде жалпы ең төменгі ұпай көрсетілмеген."
+  },
+  "School records, essay and Purdue questions; English evidence. Kazakhstan: years 8–9 and 10–11 records; graduates also provide the final certificate. Certified English translations. Non-English-speaking countries waive the world-language requirement.": {
+    "ru": "Табели, эссе и вопросы Purdue; подтверждение английского. Казахстан: табели за 8–9 и 10–11 классы; выпускникам также аттестат. Заверенные переводы. Для неанглоязычных стран требование иностранного языка отменено.",
+    "kk": "Табель, эссе, Purdue сұрақтары және ағылшын дәлелі. Қазақстан: 8–9 және 10–11 сынып табельдері; түлектерге аттестат та қажет. Куәландырылған аударма. Ағылшынтілді емес елдерге шет тілі талабы қолданылмайды."
+  },
+  "November 1: CS priority / Early Action. January 15: regular deadline, only if CS still has space. Published recurring dates; confirm the target cycle in the application portal.": {
+    "ru": "1 ноября: приоритет CS / Early Action. 15 января: обычная подача, если на CS остались места. Ежегодные даты; проверьте нужный набор в личном кабинете.",
+    "kk": "1 қараша: CS басымдығы / Early Action. 15 қаңтар: CS орындары қалса, жалпы мерзім. Жыл сайынғы күндер; қажетті қабылдау кезеңін жеке кабинеттен тексеріңіз."
+  },
+  "CS: four years of math through precalculus; chemistry or physics required. General preparation includes four years of English and three of social studies. Diploma by enrolment; holistic selection.": {
+    "ru": "CS: четыре года математики до precalculus; обязательна химия или физика. Общая подготовка: четыре года английского и три обществознания. Аттестат к зачислению; комплексный отбор.",
+    "kk": "CS: precalculus деңгейіне дейін төрт жыл математика; химия немесе физика міндетті. Жалпы дайындық: төрт жыл ағылшын, үш жыл әлеуметтік пәндер. Оқуға кіріскенде аттестат қажет; іріктеу кешенді."
+  },
+  "Direct: IELTS 6.5 or DET 120. IELTS 6.0 or below may lead to conditional English study; academic requirements still apply.": {
+    "ru": "Напрямую: IELTS 6,5 или DET 120. IELTS 6,0 и ниже — возможен условный маршрут с английским; академические требования сохраняются.",
+    "kk": "Тікелей: IELTS 6,5 немесе DET 120. IELTS 6,0 және төмен болса, ағылшынмен шартты жол мүмкін; академиялық талаптар сақталады."
+  },
+  "SAT / ACT optional; the application is reviewed holistically with or without scores.": {
+    "ru": "SAT / ACT необязательны; заявка оценивается комплексно с баллами или без них.",
+    "kk": "SAT / ACT міндетті емес; өтінім ұпаймен де, ұпайсыз да кешенді қаралады."
+  },
+  "Application, essay, school transcript, recommendation and English evidence; no art portfolio for Computer Science.": {
+    "ru": "Заявка, эссе, школьный табель, рекомендация и подтверждение английского; творческое портфолио для Computer Science не требуется.",
+    "kk": "Өтінім, эссе, мектеп табелі, ұсыным және ағылшын дәлелі; Computer Science үшін өнер портфолиосы қажет емес."
+  },
+  "Early Action / ED I: November 1; ED II: January 1; Regular Decision: January 15. Recurring published dates; ED is binding, Early Action is not.": {
+    "ru": "Early Action / ED I: 1 ноября; ED II: 1 января; Regular Decision: 15 января. Опубликованные ежегодные сроки; ED обязывает принять предложение, Early Action — нет.",
+    "kk": "Early Action / ED I: 1 қараша; ED II: 1 қаңтар; Regular Decision: 15 қаңтар. Жарияланған жыл сайынғы күндер; ED міндеттейді, Early Action міндеттемейді."
+  },
+  "International baseline: GPA 3.00 / 4.00. Outside-US schooling: math 4 years and lab science 3. CS aptitude: SAT 1210, ACT 24, competency GPA 3.00 or top 25%; no math/science deficiencies. ASU evaluates equivalency.": {
+    "ru": "Международный минимум: GPA 3,00 / 4,00. Школа вне США: 4 года математики, 3 лабораторных наук. CS: SAT 1210, ACT 24, GPA по профильным предметам 3,00 или топ-25%; без пробелов в математике и науках. Эквивалентность оценивает ASU.",
+    "kk": "Халықаралық минимум: GPA 3,00 / 4,00. АҚШ-тан тыс мектеп: 4 жыл математика, 3 жыл зертханалық ғылым. CS: SAT 1210, ACT 24, бейіндік GPA 3,00 немесе үздік 25%; математика мен ғылымда тапшылық болмауы тиіс. Баламалылықты ASU бағалайды."
+  },
+  "International applicants need a secondary-school GPA equivalent to 3.00 / 4.00; no automatic conversion from IB or national grades is applied.": {
+    "ru": "Иностранным абитуриентам нужен школьный GPA, эквивалентный 3,00 / 4,00; автоматического перевода IB или национальных оценок нет.",
+    "kk": "Халықаралық талапкердің мектеп GPA көрсеткіші 3,00 / 4,00 баламасына сай болуы тиіс; IB не ұлттық бағалар автоматты түрлендірілмейді."
+  },
+  "Computer Science: IELTS 6.5; DET 105; PTE 58. TOEFL: 79 on the old scale, or 4 overall with 3.5 each on tests from 21 January 2026.": {
+    "ru": "Computer Science: IELTS 6,5; DET 105; PTE 58. TOEFL: 79 по старой шкале или общий 4 и каждый раздел 3,5 для тестов с 21 января 2026.",
+    "kk": "Computer Science: IELTS 6,5; DET 105; PTE 58. TOEFL: ескі шкалада 79 немесе 2026 жылғы 21 қаңтардан бастап жалпы 4, әр бөлім 3,5."
+  },
+  "SAT / ACT can meet a CS aptitude alternative; they do not replace the international GPA or subject requirements.": {
+    "ru": "SAT / ACT могут закрыть один из вариантов критерия CS; они не заменяют международные требования к GPA и предметам.",
+    "kk": "SAT / ACT CS қабілетінің бір нұсқасын өтей алады; халықаралық GPA мен пән талаптарын алмастырмайды."
+  },
+  "Application and fee, three years of school records, certified English translations and official English scores. Final diploma required for enrolment.": {
+    "ru": "Заявка и сбор, табели за три года, заверенные переводы и официальные баллы английского. Итоговый аттестат необходим к зачислению.",
+    "kk": "Өтінім мен алым, үш жылдық табель, куәландырылған аудармалар және ресми ағылшын нәтижесі. Оқуға кіріскенде қорытынды аттестат қажет."
+  },
+  "Fall 2027: November 1, 2026 priority; January 15, 2027 regular admission date. Apply early for scholarship consideration.": {
+    "ru": "Осень 2027: приоритет — 1 ноября 2026; обычная подача — 15 января 2027. Ранняя подача важна для стипендий.",
+    "kk": "2027 күз: басымдық — 2026 жылғы 1 қараша; жалпы мерзім — 2027 жылғы 15 қаңтар. Стипендия үшін ерте өтінім маңызды."
+  },
+  "School English years": {
+    "ru": "Лет школьного английского",
+    "kk": "Мектептегі ағылшын жылдары"
+  },
+  "School mathematics years": {
+    "ru": "Лет школьной математики",
+    "kk": "Мектептегі математика жылдары"
+  },
+  "Laboratory science years": {
+    "ru": "Лет лабораторных наук",
+    "kk": "Зертханалық ғылым жылдары"
+  },
+  "Social studies years": {
+    "ru": "Лет обществознания",
+    "kk": "Әлеуметтік пәндер жылдары"
+  },
+  "World language years": {
+    "ru": "Лет иностранного языка",
+    "kk": "Шет тілі жылдары"
+  },
+  "Math through precalculus": {
+    "ru": "Математика до precalculus",
+    "kk": "Precalculus деңгейіне дейінгі математика"
+  },
+  "Chemistry or physics studied": {
+    "ru": "Изучалась химия или физика",
+    "kk": "Химия немесе физика оқылды"
+  },
+  "ASU-equivalent school GPA / 4": {
+    "ru": "Школьный GPA по шкале ASU / 4",
+    "kk": "ASU шкаласындағы мектеп GPA / 4"
+  },
+  "ASU competency-course GPA / 4": {
+    "ru": "GPA предметов ASU / 4",
+    "kk": "ASU бейіндік пәндер GPA / 4"
+  },
+  "School in a non-English-speaking country": {
+    "ru": "Школа в неанглоязычной стране",
+    "kk": "Ағылшынтілді емес елдегі мектеп"
+  },
+  "CS aptitude alternative": {
+    "ru": "Альтернативы критерия CS",
+    "kk": "CS қабілетінің балама шарттары"
+  },
+  "Top quarter of graduating class": {
+    "ru": "Верхние 25% выпускного класса",
+    "kk": "Бітірушілердің үздік 25%-ы"
+  },
+  "English evidence selected under Purdue policy": {
+    "ru": "Подтверждение английского по правилам Purdue",
+    "kk": "Purdue талабына сай ағылшын дәлелі"
+  },
+  "2026–27 international CS: tuition/fees USD 36,154 (includes USD 4,050 CS differential); housing/food 16,734; books 1,090; travel/personal 2,770. Published total 56,748. Insurance and international flights may add costs.": {
+    "ru": "2026–27, иностранный студент CS: обучение/сборы 36 154 USD (включая доплату CS 4 050); жильё/еда 16 734; книги 1 090; дорога/личные 2 770. Итого 56 748. Страховка и международные перелёты могут увеличить расходы.",
+    "kk": "2026–27, шетелдік CS студенті: оқу/алымдар 36 154 USD (CS үстемесі 4 050 кіреді); тұру/тамақ 16 734; кітап 1 090; жол/жеке шығын 2 770. Барлығы 56 748. Сақтандыру мен халықаралық ұшу қосымша болуы мүмкін."
+  },
+  "2026–27: tuition USD 63,508; fees 1,100; housing/food 17,370; other 2,890. Published COA 84,868 plus first-year orientation 430 = 85,298. Health insurance is additional unless waived.": {
+    "ru": "2026–27: обучение 63 508 USD; сборы 1 100; жильё/еда 17 370; прочее 2 890. Бюджет 84 868 плюс ориентация первокурсника 430 = 85 298. Страховка отдельно, если нет освобождения.",
+    "kk": "2026–27: оқу 63 508 USD; алымдар 1 100; тұру/тамақ 17 370; басқа 2 890. Бюджет 84 868 және бірінші курс таныстыруы 430 = 85 298. Босатылмаса, сақтандыру бөлек."
+  },
+  "2026–27 published estimate USD 69,906: tuition/fees 43,009; housing/food 18,819; books 1,320; travel/personal 3,993; insurance 2,765. ASU still uses the 2025–26 insurance amount and the highest college fee; your bill may differ.": {
+    "ru": "Оценка 2026–27: 69 906 USD — обучение/сборы 43 009; жильё/еда 18 819; книги 1 320; дорога/личные 3 993; страховка 2 765. ASU пока использует страховку 2025–26 и максимальный сбор колледжа; счёт может отличаться.",
+    "kk": "2026–27 бағасы: 69 906 USD — оқу/алымдар 43 009; тұру/тамақ 18 819; кітап 1 320; жол/жеке 3 993; сақтандыру 2 765. ASU әзірге 2025–26 сақтандыруын және ең жоғары колледж алымын қолданады; нақты шот өзгеше болуы мүмкін."
+  },
+  "2026–27 international first year, on campus: tuition/fees USD 37,326; housing/food 14,628; books 800; travel/personal 3,766. Published total 56,520; off campus 60,286. Check health insurance separately.": {
+    "ru": "2026–27, иностранный первокурсник в кампусе: обучение/сборы 37 326 USD; жильё/еда 14 628; книги 800; дорога/личные 3 766. Итого 56 520; вне кампуса 60 286. Страховку проверьте отдельно.",
+    "kk": "2026–27, кампустағы шетелдік бірінші курс: оқу/алымдар 37 326 USD; тұру/тамақ 14 628; кітап 800; жол/жеке 3 766. Барлығы 56 520; кампустан тыс 60 286. Сақтандыруды бөлек тексеріңіз."
+  },
+  "2026–27 nonresident COA USD 65,120 plus first-year fee 330 and computer allowance 1,100 = 66,550. International fees and insurance are additional. Housing/food 14,994 is included.": {
+    "ru": "Бюджет 2026–27 для нерезидента 65 120 USD плюс сбор первокурсника 330 и компьютер 1 100 = 66 550. Международные сборы и страховка отдельно. Жильё/еда 14 994 уже включены.",
+    "kk": "2026–27 резидент емес бюджеті 65 120 USD, бірінші курс алымы 330 және компьютер 1 100 = 66 550. Халықаралық алымдар мен сақтандыру бөлек. Тұру/тамақ 14 994 ішіне кіреді."
+  },
+  "2026–27, two study terms (8 months): international CS tuition/fees CAD 73,000 + books 1,500 + Village 1 double / meal plan B 16,294 = 90,794. Housing is a selected example; co-op fees, personal costs and travel are additional.": {
+    "ru": "2026–27, два учебных семестра (8 месяцев): CS для иностранцев 73 000 CAD + книги 1 500 + двухместная Village 1 с питанием B 16 294 = 90 794. Выбран один вариант жилья; co-op, личные расходы и дорога отдельно.",
+    "kk": "2026–27, екі оқу семестрі (8 ай): шетелдік CS оқуы 73 000 CAD + кітап 1 500 + Village 1 екі орындық бөлме, B тамақтануы 16 294 = 90 794. Бұл бір тұру нұсқасы; co-op, жеке шығын мен жол бөлек."
+  },
+  "Minimum school coursework: English 4 years, math 3, social science 3, natural science 3 and electives 4. Math must include algebra, geometry and advanced math; world language is recommended, not a separate admission gate.": {
+    "ru": "Минимум школьных предметов: английский 4 года, математика 3, обществознание 3, естественные науки 3, предметы по выбору 4. Математика включает алгебру, геометрию и продвинутый курс; иностранный язык рекомендован, но не отдельный барьер при подаче.",
+    "kk": "Мектеп минимумдары: ағылшын 4 жыл, математика 3, әлеуметтік пәндер 3, жаратылыстану 3, таңдау пәндері 4. Математикада алгебра, геометрия және жоғары деңгейлі курс болуы тиіс; шет тілі ұсынылады, бірақ жеке қабылдау шарты емес."
+  },
+  "Natural science years": {
+    "ru": "Лет естественных наук",
+    "kk": "Жаратылыстану жылдары"
+  },
+  "Elective course years": {
+    "ru": "Лет предметов по выбору",
+    "kk": "Таңдау пәндері жылдары"
+  },
+  "Algebra, geometry and advanced math": {
+    "ru": "Алгебра, геометрия и продвинутая математика",
+    "kk": "Алгебра, геометрия және жоғары математика"
+  },
+  "International coursework is reviewed in the context of the school system and available rigor. The USG unit list applies to US-system schooling; it is not automatically imposed on an overseas IB applicant.": {
+    "ru": "Международную программу оценивают с учётом школьной системы и доступной сложности. Список предметных единиц USG относится к американской системе; его нельзя автоматически применять к зарубежному IB.",
+    "kk": "Халықаралық пәндер мектеп жүйесі мен қолжетімді күрделілікке сай бағаланады. USG пән бірліктері АҚШ жүйесіне қатысты; шетелдік IB талапкеріне автоматты қолданылмайды."
+  },
+  "IB: 32 subject points, excluding diploma bonus points; six courses, at least three HL. Math AA HL at least 6. English A HL/SL or English B HL at least 5. Diploma and AIF required.": {
+    "ru": "IB: 32 балла по предметам без бонусных баллов диплома; шесть предметов, минимум три HL. Math AA HL от 6. English A HL/SL или English B HL от 5. Нужны диплом и AIF.",
+    "kk": "IB: дипломның бонус ұпайларынсыз пәндерден 32 ұпай; алты пән, кемінде үшеуі HL. Math AA HL кемінде 6. English A HL/SL немесе English B HL кемінде 5. Диплом мен AIF қажет."
+  },
+  "IB subject total excluding bonus points": {
+    "ru": "Сумма IB без бонусных баллов",
+    "kk": "Бонуссыз IB пән ұпайлары"
+  },
+  "IB English A or English B HL": {
+    "ru": "IB English A или English B HL",
+    "kk": "IB English A немесе English B HL"
+  },
+  "English B HL score": {
+    "ru": "Балл English B HL",
+    "kk": "English B HL ұпайы"
+  },
+  "First-year applicants must submit SAT or ACT scores. No guaranteed-admission score is stated.": {
+    "ru": "Абитуриенты первого курса должны предоставить SAT или ACT. Балл, гарантирующий зачисление, не установлен.",
+    "kk": "Бірінші курс талапкерлері SAT немесе ACT тапсыруы тиіс. Қабылдауға кепіл ұпай белгіленбеген."
+  },
+  "Published requirements, in one place": {
+    "ru": "Опубликованные требования в одном месте",
+    "kk": "Жарияланған талаптар бір жерде"
+  },
+  "Checked 17 September 2026 · international first-year applicants": {
+    "ru": "Проверено 17 сентября 2026 · иностранные абитуриенты первого курса",
+    "kk": "2026 жылғы 17 қыркүйекте тексерілді · халықаралық бірінші курс талапкерлері"
+  },
+  "Housing source": {
+    "ru": "Источник стоимости жилья",
+    "kk": "Тұру бағасының дереккөзі"
+  },
+  "Compare the same criteria side by side. Costs retain their currency and academic year.": {
+    "ru": "Сравните вузы по одинаковым критериям. У расходов указаны исходная валюта и учебный год.",
+    "kk": "Университеттерді бірдей шарттар бойынша салыстырыңыз. Шығындардың бастапқы валютасы мен оқу жылы көрсетілген."
+  },
+  "Swipe the table on a small screen": {
+    "ru": "На маленьком экране листайте таблицу вбок",
+    "kk": "Шағын экранда кестені көлденең сырғытыңыз"
+  },
+  "University comparison": {
+    "ru": "Сравнение университетов",
+    "kk": "Университеттерді салыстыру"
+  },
+  "Criteria": {
+    "ru": "Критерии",
+    "kk": "Шарттар"
+  },
+  "For your profile": {
+    "ru": "Для вашего профиля",
+    "kk": "Сіздің профиліңізге сай"
+  },
+  "The route": {
+    "ru": "Маршрут поступления",
+    "kk": "Түсу жолы"
+  },
+  "Published reference": {
+    "ru": "Опубликованный ориентир",
+    "kk": "Жарияланған бағдар"
+  },
+  "Add profile details": {
+    "ru": "Дополнить профиль",
+    "kk": "Профильді толықтыру"
+  },
+  "The rule is known. Add the missing value in your profile.": {
+    "ru": "Правило известно. Добавьте недостающие сведения в профиль.",
+    "kk": "Талап белгілі. Жетпейтін мәліметті профильге қосыңыз."
+  },
+  "This model evaluates the listed academic and English requirements; no SAT threshold is applied here.": {
+    "ru": "Модель проверяет указанные академические требования и английский; порог SAT здесь не применяется.",
+    "kk": "Модель көрсетілген академиялық және ағылшын талаптарын тексереді; мұнда SAT шегі қолданылмайды."
+  },
+  "Open this path to inspect the available rules and their sources.": {
+    "ru": "Откройте маршрут, чтобы посмотреть доступные правила и источники.",
+    "kk": "Қолда бар талаптар мен дереккөздерді көру үшін жолды ашыңыз."
+  },
+  "Profile values to add": {
+    "ru": "Сведений профиля не хватает",
+    "kk": "Профильде жетпейтін мәліметтер"
+  },
+  "See published dates": {
+    "ru": "См. опубликованные сроки",
+    "kk": "Жарияланған мерзімдерді қараңыз"
+  },
+  "Complete profile: {requirement}": {
+    "ru": "Дополнить профиль: {requirement}",
+    "kk": "Профильді толықтыру: {requirement}"
+  },
+  "School coursework · Purdue, RIT and ASU": {
+    "ru": "Школьные предметы · Purdue, RIT и ASU",
+    "kk": "Мектеп пәндері · Purdue, RIT және ASU"
+  },
+  "Use high-school course years, including current final-year subjects. For math through precalculus, confirm algebra, geometry, algebra II and precalculus. Leave an unknown value blank; it is not a failure.": {
+    "ru": "Укажите годы изучения предметов в старшей школе, включая текущий выпускной год. Для precalculus подтвердите алгебру, геометрию, алгебру II и precalculus. Неизвестное оставьте пустым — это не отказ.",
+    "kk": "Жоғары сыныптағы пән жылдарын, соның ішінде ағымдағы бітіру жылын көрсетіңіз. Precalculus үшін алгебра, геометрия, алгебра II және precalculus барын растаңыз. Белгісізді бос қалдырыңыз — бұл бас тарту емес."
+  },
+  "Only enter GPA already reported on a 4.0 scale or confirmed by ASU. Do not convert IB or national grades yourself. School GPA and competency-course GPA are separate.": {
+    "ru": "Укажите GPA, уже выданный по шкале 4,0 или подтверждённый ASU. Не переводите оценки IB и национальной системы самостоятельно. Общий школьный GPA и GPA по требуемым предметам — разные показатели.",
+    "kk": "Тек 4,0 шкаласында берілген немесе ASU растаған GPA енгізіңіз. IB мен ұлттық бағаларды өзіңіз түрлендірмеңіз. Жалпы мектеп GPA мен қажетті пәндер GPA — бөлек көрсеткіштер."
+  },
+  "Not entered": {
+    "ru": "Не указано",
+    "kk": "Көрсетілмеген"
+  },
+  "Purdue: confirm only after selecting valid English evidence under the official policy. This is your declaration, not confirmation from the university.": {
+    "ru": "Purdue: подтверждайте только после выбора действительного документа по официальным правилам английского. Это ваша декларация, а не подтверждение вуза.",
+    "kk": "Purdue: ресми ағылшын талабына сай жарамды дәлелді таңдаған соң ғана растаңыз. Бұл университет растауы емес, сіздің мәлімдемеңіз."
+  },
+  "Yes": {
+    "ru": "Да",
+    "kk": "Иә"
+  },
+  "No": {
+    "ru": "Нет",
+    "kk": "Жоқ"
+  },
+  "School coursework · US universities": {
+    "ru": "Школьные предметы · вузы США",
+    "kk": "Мектеп пәндері · АҚШ университеттері"
+  },
+  "IB bonus points (TOK / EE)": {
+    "ru": "Бонусные баллы IB (TOK / EE)",
+    "kk": "IB бонус ұпайлары (TOK / EE)"
+  },
+  "Waterloo counts subject points out of 42, excluding up to 3 bonus points. Keep your overall IB total on the original 45-point scale.": {
+    "ru": "Waterloo считает предметные баллы из 42, без бонуса до 3 баллов. Общую сумму IB сохраняйте по исходной шкале 45.",
+    "kk": "Waterloo 3-ке дейінгі бонуссыз пән ұпайларын 42-ден есептейді. Жалпы IB ұпайын бастапқы 45 шкаласында сақтаңыз."
+  },
+  "Details to clarify": {
+    "ru": "Уточнить сведения",
+    "kk": "Мәліметтерді нақтылау"
+  },
+  "IB subject points must be between 0 and 42 after removing bonus points.": {
+    "ru": "После вычета бонусных баллов сумма по предметам IB должна быть от 0 до 42.",
+    "kk": "Бонус ұпайларын шегергеннен кейін IB пән ұпайлары 0–42 аралығында болуы тиіс."
   }
 }

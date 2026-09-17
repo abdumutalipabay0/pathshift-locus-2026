@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import type { Profile } from '@/lib/types';
 import { profileSchema } from '@/lib/profile';
+import { SchoolFields } from './school-fields';
 const steps = ['Your direction', 'Academics', 'Tests & language', 'Budget & readiness'];
 export default function ProfileWizard({
   initial,
@@ -272,6 +273,37 @@ export default function ProfileWizard({
                 />
               </label>
             </div>
+            {p.curriculum === 'IB' && (
+              <div className="form-grid">
+                <label>
+                  {tr('IB bonus points (TOK / EE)')}
+                  <input
+                    type="number"
+                    min={0}
+                    max={3}
+                    step={1}
+                    value={p.ib_core_points ?? ''}
+                    onChange={(e) => set('ib_core_points', numeric(e.target.value))}
+                  />
+                </label>
+                <label>
+                  {tr('English B HL score')}
+                  <input
+                    type="number"
+                    min={1}
+                    max={7}
+                    step={1}
+                    value={p.english_b_hl ?? ''}
+                    onChange={(e) => set('english_b_hl', numeric(e.target.value))}
+                  />
+                </label>
+                <p className="field-note">
+                  {tr(
+                    'Waterloo counts subject points out of 42, excluding up to 3 bonus points. Keep your overall IB total on the original 45-point scale.',
+                  )}
+                </p>
+              </div>
+            )}
             {p.curriculum === 'IB' ? (
               <>
                 <div className="form-grid">
@@ -349,6 +381,7 @@ export default function ProfileWizard({
               />
               {tr('Taking / completed senior academic English ')}
             </label>
+            <SchoolFields value={p.school} onChange={(school) => set('school', school)} />
           </div>
         )}
         {step === 2 && (

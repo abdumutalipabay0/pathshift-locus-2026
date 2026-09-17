@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "test": "tsx --test tests/*.test.ts",
     "test:e2e": "playwright test",
-    "data:build": "node scripts/build-dataset.mjs && node scripts/supplement-dataset.mjs",
+    "data:build": "node scripts/build-dataset.mjs && node scripts/supplement-dataset.mjs && node scripts/deep-research.mjs",
     "format:check": "prettier --check src tests e2e scripts",
     "i18n:build": "node scripts/build-catalog.mjs"
   },

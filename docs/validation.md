@@ -56,3 +56,13 @@ Application facts and original frozen research were not modified in this update.
 - TypeScript, ESLint, production build, formatting and diff whitespace checks passed. Russian desktop screenshot inspected; public header manually confirmed.
 - Production deployment `dpl_AucuLvceFrEZ53aWJpRSAtfEaZcV` READY at the existing public URL.
 - The prior release tag remains unchanged. This user-requested revision reopens the earlier freeze. Plan B is documented as a proposed concept, not a shipped complete workflow.
+
+
+## Deep research and comparison remediation — 17 September 2026
+
+- Dataset version `freeze-2026-09-17+deep-research-2`: six default universities, 25 new research records, 78 evidence records total. Original frozen markdown/PDF sources unchanged. Rebuilding the dataset preserves its SHA-256.
+- 59 unit/domain/localization tests pass. Added arithmetic/source coverage for six cost references, input-vs-policy uncertainty, RIT conditional academic gates, ASU international GPA independence, Waterloo subject points and English B, and immutable simulation inputs.
+- Full local browser run passed 26/27; the new immediate-reload profile test exposed a real initialization race. Profile edit controls now wait for loaded data; all five research browser tests subsequently passed, including that regression. Budget-test expectations now cover eight reference-cost changes instead of four, without academic changes.
+- TypeScript, ESLint (no warnings), Prettier, production build and diff whitespace checks passed. Manual Russian desktop/mobile comparison checked; mobile columns narrowed and university names repeated in cells to keep context while scrolling.
+- Published references preserve USD/CAD and 2026–27, including specific costs and exclusions. Purdue/RIT recurring dates are displayed but not manufactured into calendar timestamps. Other English tests are documented as official alternatives; automatic score evaluation remains focused on the implemented IELTS branches. ASU GPA equivalency is not guessed from IB or national grades.
+- Production verification follows deployment below.

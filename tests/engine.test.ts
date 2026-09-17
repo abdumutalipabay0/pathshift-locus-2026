@@ -203,7 +203,7 @@ test('budget mutation has no effect on academic rule results', () => {
   const s = simulate(ready(), { budgets: { USD: 20000, CAD: 25000, GBP: 15000 } }, now);
   assert.equal(s.diff.changed_rules.length, 0);
   assert.equal(s.diff.changed_states.length, 0);
-  assert.equal(s.diff.changed_costs.length, 4);
+  assert.equal(s.diff.changed_costs.length, 8);
   assert.ok(s.after.programs.every((r) => r.cost_state === 'UNKNOWN'));
 });
 test('subtotal cannot establish full annual affordability', () => {
