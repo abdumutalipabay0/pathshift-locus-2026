@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useSyncExternalStore } from 'react';
 import { ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { authClient } from '@/lib/auth/client';
@@ -54,6 +55,14 @@ export default function AuthScreen({
           <Link href="/demo">
             {tr('Just looking? Explore the demo')} <ArrowRight size={16} />
           </Link>
+          <Image
+            className="auth-illustration"
+            src="/illustrations/starting-point.png"
+            width={1254}
+            height={1254}
+            sizes="(max-width: 650px) 160px, 420px"
+            alt=""
+          />
         </aside>
         <section className="auth-card" aria-labelledby="auth-title">
           <h2 id="auth-title">{tr(title)}</h2>

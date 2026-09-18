@@ -5470,3 +5470,57 @@ fieldset.scenario-body {
 .landing-page .landing-finish p {
   color: #405372;
 }
+
+/* User-supplied editorial artwork; decorative, separate from admissions evidence. */
+.atlas-campus {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin: 18px 0 16px;
+}
+.route-atlas .atlas-branches {
+  padding-top: 0;
+}
+.route-atlas .atlas-detail {
+  min-height: 190px;
+}
+.auth-illustration {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin-top: 28px;
+  border-radius: 20px;
+}
+.planner-introduction.is-empty {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 16px 0;
+}
+.planner-introduction img {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 18px;
+}
+.planner-introduction p {
+  line-height: 1.7;
+}
+@media (max-width: 650px) {
+  .auth-layout aside {
+    position: relative;
+    padding-right: 0;
+  }
+  .auth-illustration {
+    display: none;
+  }
+  .planner-introduction.is-empty {
+    gap: 14px;
+  }
+  .planner-introduction img {
+    width: 96px;
+    height: 96px;
+  }
+}

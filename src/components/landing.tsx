@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import {
   ArrowUpRight,
@@ -75,22 +76,16 @@ export default function Landing() {
               <span className="eyebrow">{tr('HOW A PATH TAKES SHAPE')}</span>
               <GitBranch size={22} />
             </div>
-            <div className="atlas-origin">
-              <span className="atlas-orbit">
-                <ArrowUpRight size={30} />
-              </span>
-              <strong>{tr('Your starting point')}</strong>
-              <p>{tr('Grades · language · budget · preferences')}</p>
-            </div>
+            <Image
+              className="atlas-campus"
+              src="/illustrations/campus-paths.png"
+              width={1536}
+              height={1024}
+              sizes="(max-width: 650px) 90vw, (max-width: 850px) 560px, 44vw"
+              alt=""
+              preload
+            />
             <div className="atlas-branches" role="group" aria-label={tr('Choose a direction')}>
-              <svg
-                className="atlas-lines"
-                viewBox="0 0 360 60"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path d="M180 0 V18 Q180 30 165 30 H72 Q60 30 60 44 V60 M180 0 V60 M180 18 Q180 30 195 30 H288 Q300 30 300 44 V60" />
-              </svg>
               {routes.map((route, index) => (
                 <button
                   key={route.title}

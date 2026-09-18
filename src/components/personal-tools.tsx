@@ -1,5 +1,6 @@
 'use client';
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { profileSchema } from '@/lib/profile';
 import type { Profile } from '@/lib/types';
 import { useLocale } from './locale-provider';
@@ -142,11 +143,22 @@ export function PersonalPlanner({
         <summary>
           {tr('Study and activities')} · {items.filter((t) => t.complete).length}/{items.length}
         </summary>
-        <p>
-          {tr(
-            'Build your preparation plan: subjects to practise, projects and extracurricular activities. These are your goals, not university requirements or an admission guarantee.',
+        <div className={`planner-introduction${items.length === 0 ? ' is-empty' : ''}`}>
+          {items.length === 0 && (
+            <Image
+              src="/illustrations/first-step.png"
+              width={1254}
+              height={1254}
+              sizes="(max-width: 650px) 96px, 140px"
+              alt=""
+            />
           )}
-        </p>
+          <p>
+            {tr(
+              'Build your preparation plan: subjects to practise, projects and extracurricular activities. These are your goals, not university requirements or an admission guarantee.',
+            )}
+          </p>
+        </div>
         {hypothetical && (
           <p role="status">{tr('Discard the scenario to edit your personal plan.')}</p>
         )}

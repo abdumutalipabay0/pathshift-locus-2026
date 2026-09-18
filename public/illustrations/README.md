@@ -1,0 +1,1 @@
+User-supplied AI-generated illustrations, received 2026-09-18. Decorative editorial artwork, not photographs of real universities or admission evidence. Original PNGs preserved; Next Image supplies responsive optimized variants. campus-paths: landing; starting-point: account entry; first-step: empty personal plan.
