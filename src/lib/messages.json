@@ -3502,5 +3502,317 @@
   "OVER BUDGET": {
     "ru": "Выше указанного бюджета",
     "kk": "Көрсетілген бюджеттен жоғары"
+  },
+  "YOUR NEXT CHAPTER, WITH A PLAN": {
+    "ru": "НОВАЯ ГЛАВА НАЧИНАЕТСЯ С ПЛАНА",
+    "kk": "ЖАҢА КЕЗЕҢ ЖОСПАРДАН БАСТАЛАДЫ"
+  },
+  "A university goal.": {
+    "ru": "Мечта о вузе.",
+    "kk": "Мақсатың — университет."
+  },
+  "More than one way forward.": {
+    "ru": "Не один путь к цели.",
+    "kk": "Мақсатқа жетудің жолы көп."
+  },
+  "Turn your grades, budget and ambitions into a clear admission plan. See what fits today — and what could change tomorrow.": {
+    "ru": "Преврати свои оценки, бюджет и цели в понятный план поступления. Узнай, что подходит сейчас и что можно изменить завтра.",
+    "kk": "Бағаларыңды, бюджетіңді және мақсаттарыңды түсінікті түсу жоспарына айналдыр. Қазір не сәйкес келетінін және ертең нені өзгертуге болатынын көр."
+  },
+  "Create my profile": {
+    "ru": "Создать свой профиль",
+    "kk": "Өз профилімді жасау"
+  },
+  "Explore the demo": {
+    "ru": "Посмотреть демо",
+    "kk": "Демоны көру"
+  },
+  "Your account. Your own profile. No borrowed scores.": {
+    "ru": "Твой аккаунт. Твой профиль. Только твои результаты.",
+    "kk": "Өз аккаунтың. Өз профилің. Тек өз нәтижелерің."
+  },
+  "HOW A PATH TAKES SHAPE": {
+    "ru": "КАК ПОЯВЛЯЕТСЯ ПЛАН",
+    "kk": "ЖОСПАР ҚАЛАЙ ҚҰРЫЛАДЫ"
+  },
+  "Your starting point": {
+    "ru": "Твоя отправная точка",
+    "kk": "Сенің бастапқы жағдайың"
+  },
+  "Grades · language · budget · preferences": {
+    "ru": "Оценки · язык · бюджет · предпочтения",
+    "kk": "Бағалар · тіл · бюджет · қалаулар"
+  },
+  "TODAY": {
+    "ru": "СЕГОДНЯ",
+    "kk": "БҮГІН"
+  },
+  "Understand your options": {
+    "ru": "Пойми свои возможности",
+    "kk": "Мүмкіндіктеріңді түсін"
+  },
+  "See requirements you meet and the details still needed.": {
+    "ru": "Узнай, какие требования выполнены и что ещё нужно уточнить.",
+    "kk": "Қай талаптарға сай келетініңді және нені нақтылау керектігін біл."
+  },
+  "WHAT IF?": {
+    "ru": "А ЧТО ЕСЛИ?",
+    "kk": "АЛ ЕГЕР ШЕ?"
+  },
+  "Try a different future": {
+    "ru": "Попробуй другой сценарий",
+    "kk": "Басқа сценарийді байқап көр"
+  },
+  "Change a planned score or budget. Compare the effect before committing.": {
+    "ru": "Измени будущий балл или бюджет. Сравни результат, прежде чем действовать.",
+    "kk": "Жоспарланған балды не бюджетті өзгерт. Әрекет етпес бұрын нәтижесін салыстыр."
+  },
+  "One clear next action": {
+    "ru": "Понятный следующий шаг",
+    "kk": "Түсінікті келесі қадам"
+  },
+  "A roadmap with deadlines and reasons you can inspect.": {
+    "ru": "План со сроками и объяснениями, которые можно проверить.",
+    "kk": "Мерзімдері мен тексеруге болатын түсіндірмелері бар жоспар."
+  },
+  "An illustration of the journey, not an admission prediction.": {
+    "ru": "Пример работы сервиса, а не прогноз зачисления.",
+    "kk": "Бұл — сервистің жұмыс үлгісі, қабылдану болжамы емес."
+  },
+  "Built around Computer Science, international first-year entry and Fall 2027. Start with six featured universities; inspect the evidence behind every result.": {
+    "ru": "Фокус — Computer Science, поступление иностранных абитуриентов на первый курс осенью 2027 года. Начни с шести основных вузов и проверь источники каждого вывода.",
+    "kk": "Бағыты — Computer Science, шетелдік талапкерлердің 2027 жылдың күзінде бірінші курсқа түсуі. Алты негізгі университеттен бастап, әр қорытындының дереккөзін тексер."
+  },
+  "FROM QUESTION TO NEXT STEP": {
+    "ru": "ОТ ВОПРОСА К ДЕЙСТВИЮ",
+    "kk": "СҰРАҚТАН ӘРЕКЕТКЕ"
+  },
+  "Make the plan yours.": {
+    "ru": "Построй план под себя.",
+    "kk": "Жоспарды өзіңе бейімде."
+  },
+  "Create your account": {
+    "ru": "Создай свой аккаунт",
+    "kk": "Өз аккаунтыңды жаса"
+  },
+  "Keep your admission profile linked to your account.": {
+    "ru": "Сохрани профиль поступления в своём аккаунте.",
+    "kk": "Оқуға түсу профиліңді өз аккаунтыңда сақта."
+  },
+  "Tell us where you are": {
+    "ru": "Расскажи о своей ситуации",
+    "kk": "Қазіргі жағдайыңды көрсет"
+  },
+  "Add your actual results and preferences. Leave unfinished tests unanswered.": {
+    "ru": "Укажи реальные результаты и предпочтения. Если тест ещё не сдан, оставь балл пустым.",
+    "kk": "Нақты нәтижелерің мен қалауларыңды енгіз. Тест әлі тапсырылмаса, балын бос қалдыр."
+  },
+  "Explore, compare, act": {
+    "ru": "Изучай, сравнивай, действуй",
+    "kk": "Зертте, салыстыр, әрекет ет"
+  },
+  "Test possible futures, choose alternatives and follow your roadmap.": {
+    "ru": "Проверяй сценарии, выбирай альтернативы и следуй своему плану.",
+    "kk": "Сценарийлерді тексер, баламаларды таңда және жоспарыңмен жүр."
+  },
+  "Start with your reality. Explore your possibilities.": {
+    "ru": "Начни со своей ситуации. Узнай свои возможности.",
+    "kk": "Өз жағдайыңнан баста. Мүмкіндіктеріңді зертте."
+  },
+  "PathShift explains requirements and possible actions. Universities make the admission decisions.": {
+    "ru": "PathShift объясняет требования и возможные действия. Решение о зачислении принимает университет.",
+    "kk": "PathShift талаптар мен ықтимал әрекеттерді түсіндіреді. Қабылдау туралы шешімді университет қабылдайды."
+  },
+  "Privacy": {
+    "ru": "Конфиденциальность",
+    "kk": "Құпиялық"
+  },
+  "Account navigation": {
+    "ru": "Навигация аккаунта",
+    "kk": "Аккаунт навигациясы"
+  },
+  "Sign in": {
+    "ru": "Войти",
+    "kk": "Кіру"
+  },
+  "Sign out": {
+    "ru": "Выйти",
+    "kk": "Шығу"
+  },
+  "Could not sign out. Please try again.": {
+    "ru": "Не удалось выйти. Попробуй ещё раз.",
+    "kk": "Шығу мүмкін болмады. Қайталап көр."
+  },
+  "YOUR ADMISSION JOURNEY": {
+    "ru": "ТВОЙ ПУТЬ К ПОСТУПЛЕНИЮ",
+    "kk": "ОҚУҒА ТҮСУ ЖОЛЫҢ"
+  },
+  "Your starting point. Your way forward.": {
+    "ru": "Твоя ситуация. Твой путь к цели.",
+    "kk": "Өз жағдайың. Мақсатқа өз жолың."
+  },
+  "First create an account. Then add your own profile to unlock your personal workspace.": {
+    "ru": "Сначала создай аккаунт. Затем заполни свой профиль, чтобы открыть личный кабинет.",
+    "kk": "Алдымен аккаунт жаса. Содан кейін жеке кабинетке өту үшін профиліңді толтыр."
+  },
+  "Just looking? Explore the demo": {
+    "ru": "Пока присматриваешься? Открой демо",
+    "kk": "Әзірге танысқың келе ме? Демоны аш"
+  },
+  "Reset your password": {
+    "ru": "Восстановить пароль",
+    "kk": "Құпиясөзді қалпына келтіру"
+  },
+  "Choose a new password": {
+    "ru": "Выбери новый пароль",
+    "kk": "Жаңа құпиясөзді таңда"
+  },
+  "Welcome back": {
+    "ru": "С возвращением",
+    "kk": "Қайта оралуыңмен"
+  },
+  "Use an email address you can access.": {
+    "ru": "Укажи почту, к которой у тебя есть доступ.",
+    "kk": "Өзің кіре алатын электрондық поштаны көрсет."
+  },
+  "Continue your admission journey.": {
+    "ru": "Продолжи свой путь к поступлению.",
+    "kk": "Оқуға түсу жолыңды жалғастыр."
+  },
+  "Registration is not open yet. Account setup is being completed. You can explore the demo meanwhile.": {
+    "ru": "Регистрация ещё не открыта: подключение аккаунтов завершается. Пока можно посмотреть демо.",
+    "kk": "Тіркелу әлі ашылған жоқ: аккаунттарды қосу аяқталуда. Әзірге демоны көруге болады."
+  },
+  "If an account exists for this email, password reset instructions will arrive shortly.": {
+    "ru": "Если аккаунт с такой почтой существует, скоро придёт письмо для восстановления пароля.",
+    "kk": "Осы поштаға тіркелген аккаунт болса, құпиясөзді қалпына келтіру нұсқаулығы жақында келеді."
+  },
+  "This reset link is incomplete. Request a new one.": {
+    "ru": "Ссылка восстановления неполная. Запроси новую.",
+    "kk": "Қалпына келтіру сілтемесі толық емес. Жаңасын сұрат."
+  },
+  "This reset link has expired or is invalid. Request a new one.": {
+    "ru": "Ссылка восстановления недействительна или устарела. Запроси новую.",
+    "kk": "Қалпына келтіру сілтемесі жарамсыз немесе мерзімі өткен. Жаңасын сұрат."
+  },
+  "Could not create the account. Check your details, or sign in if you already have an account.": {
+    "ru": "Не удалось создать аккаунт. Проверь данные или войди, если уже зарегистрирован.",
+    "kk": "Аккаунт жасау мүмкін болмады. Деректерді тексер немесе бұрын тіркелсең, кір."
+  },
+  "Could not sign in. Check your email and password, and verify your email if requested.": {
+    "ru": "Не удалось войти. Проверь почту и пароль. Если пришло письмо подтверждения, подтверди почту.",
+    "kk": "Кіру мүмкін болмады. Пошта мен құпиясөзді тексер. Растау хаты келсе, поштаңды раста."
+  },
+  "Check your inbox to verify your email, then sign in.": {
+    "ru": "Подтверди почту по ссылке в письме, затем войди.",
+    "kk": "Хаттағы сілтемемен поштаңды растап, содан кейін кір."
+  },
+  "The account service could not be reached. Please try again.": {
+    "ru": "Сервис аккаунтов недоступен. Попробуй ещё раз.",
+    "kk": "Аккаунттар сервисі қолжетімсіз. Қайталап көр."
+  },
+  "Email address": {
+    "ru": "Электронная почта",
+    "kk": "Электрондық пошта"
+  },
+  "Password": {
+    "ru": "Пароль",
+    "kk": "Құпиясөз"
+  },
+  "Hide password": {
+    "ru": "Скрыть пароль",
+    "kk": "Құпиясөзді жасыру"
+  },
+  "Show password": {
+    "ru": "Показать пароль",
+    "kk": "Құпиясөзді көрсету"
+  },
+  "Use at least 8 characters. A longer, unique password is better.": {
+    "ru": "Не менее 8 символов. Лучше использовать длинный уникальный пароль.",
+    "kk": "Кемінде 8 таңба. Ұзын әрі бірегей құпиясөзді қолданған дұрыс."
+  },
+  "Your admission profile is stored with your account.": {
+    "ru": "Профиль поступления хранится в твоём аккаунте.",
+    "kk": "Оқуға түсу профилің аккаунтыңда сақталады."
+  },
+  "Please wait…": {
+    "ru": "Подожди…",
+    "kk": "Күте тұр…"
+  },
+  "Create account": {
+    "ru": "Создать аккаунт",
+    "kk": "Аккаунт жасау"
+  },
+  "Send reset instructions": {
+    "ru": "Отправить письмо восстановления",
+    "kk": "Қалпына келтіру хатын жіберу"
+  },
+  "Save new password": {
+    "ru": "Сохранить новый пароль",
+    "kk": "Жаңа құпиясөзді сақтау"
+  },
+  "Already have an account? Sign in": {
+    "ru": "Уже есть аккаунт? Войти",
+    "kk": "Аккаунтың бар ма? Кіру"
+  },
+  "New here? Create an account": {
+    "ru": "Первый раз? Создать аккаунт",
+    "kk": "Алғаш рет келдің бе? Аккаунт жасау"
+  },
+  "Forgot your password?": {
+    "ru": "Забыл пароль?",
+    "kk": "Құпиясөзіңді ұмыттың ба?"
+  },
+  "ACCOUNT CREATED · NEXT: YOUR PROFILE": {
+    "ru": "АККАУНТ СОЗДАН · ТЕПЕРЬ ПРОФИЛЬ",
+    "kk": "АККАУНТ ЖАСАЛДЫ · ЕНДІ ПРОФИЛЬ"
+  },
+  "Complete these steps to open your personal workspace. Missing scores can stay unanswered.": {
+    "ru": "Пройди эти шаги, чтобы открыть личный кабинет. Баллы ещё не сданных тестов можно не указывать.",
+    "kk": "Жеке кабинетке өту үшін осы қадамдарды аяқта. Әлі тапсырылмаған тесттердің балдарын бос қалдыруға болады."
+  },
+  "Your profile could not be saved. Please try again.": {
+    "ru": "Не удалось сохранить профиль. Попробуй ещё раз.",
+    "kk": "Профильді сақтау мүмкін болмады. Қайталап көр."
+  },
+  "Saving your profile…": {
+    "ru": "Сохраняем профиль…",
+    "kk": "Профиль сақталуда…"
+  },
+  "Profile saved to your account": {
+    "ru": "Профиль сохранён в аккаунте",
+    "kk": "Профиль аккаунтта сақталды"
+  },
+  "Demo workspace · example data, not your personal account": {
+    "ru": "Деморежим · пример с вымышленными данными",
+    "kk": "Деморежим · ойдан алынған деректер үлгісі"
+  },
+  "Enter your age and citizenship to continue.": {
+    "ru": "Укажи возраст и гражданство, чтобы продолжить.",
+    "kk": "Жалғастыру үшін жасыңды және азаматтығыңды көрсет."
+  },
+  "Your data in PathShift": {
+    "ru": "Твои данные в PathShift",
+    "kk": "PathShift ішіндегі деректерің"
+  },
+  "Accounts use Neon Auth. Your email and sign-in credentials are handled by the authentication provider; your admission profile is stored in Neon Postgres and is accessible through your signed-in account.": {
+    "ru": "Для аккаунтов используется Neon Auth: сервис обрабатывает почту и данные входа. Профиль поступления хранится в Neon Postgres и доступен после входа в твой аккаунт.",
+    "kk": "Аккаунттар Neon Auth арқылы жұмыс істейді: сервис пошта мен кіру деректерін өңдейді. Оқуға түсу профилі Neon Postgres базасында сақталады және аккаунтыңа кіргеннен кейін қолжетімді болады."
+  },
+  "Profile drafts, comparison choices and saved scenarios are kept on this browser, separated by account. They do not automatically follow you to another device. The demo uses separate browser storage.": {
+    "ru": "Черновики, выбранные сравнения и сохранённые сценарии хранятся в этом браузере отдельно для каждого аккаунта. Они не переносятся автоматически на другое устройство. У демо отдельное хранилище в браузере.",
+    "kk": "Жоба нұсқалары, салыстыру таңдаулары және сақталған сценарийлер осы браузерде әр аккаунт үшін бөлек сақталады. Олар басқа құрылғыға автоматты түрде көшірілмейді. Демоның браузерде бөлек сақтау орны бар."
+  },
+  "The optional AI scenario composer sends the text you enter to CloseRouter. Your full admission profile is not included in that request. Do not enter identity documents or sensitive personal details in the composer.": {
+    "ru": "Необязательный ИИ-конструктор сценариев отправляет введённый текст в CloseRouter. Полный профиль поступления в этот запрос не включается. Не вводи документы, удостоверяющие личность, или чувствительные личные сведения.",
+    "kk": "Қосымша ЖИ сценарий құрастырушысы енгізген мәтінді CloseRouter сервисіне жібереді. Сұрауға толық түсу профилің қосылмайды. Жеке бас құжаттарын немесе құпия жеке мәліметтерді енгізбе."
+  },
+  "This is a hackathon prototype. Only provide information you are comfortable using in a prototype. You can edit your profile and export it from the workspace.": {
+    "ru": "Это прототип для хакатона. Указывай только те сведения, которые готов использовать в прототипе. Профиль можно изменить и экспортировать из личного кабинета.",
+    "kk": "Бұл — хакатонға арналған прототип. Прототипте пайдалануға дайын мәліметтеріңді ғана енгіз. Профильді жеке кабинетте өзгертуге және экспорттауға болады."
+  },
+  "Select your curriculum": {
+    "ru": "Выбери школьную программу",
+    "kk": "Мектеп бағдарламасын таңда"
   }
 }

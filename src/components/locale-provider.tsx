@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react';
 import { formatDate, formatNumber, translateText, type Locale } from '@/lib/i18n';
 const Context = createContext<{ locale: Locale; setLocale: (locale: Locale) => void }>({
   locale: 'en',
@@ -36,12 +36,19 @@ export function useLocale() {
     money: (value: number) => formatNumber(value, locale),
   };
 }
+const subscribeToHydration = () => () => {};
 export function LanguagePicker() {
+  const hydrated = useSyncExternalStore(
+    subscribeToHydration,
+    () => true,
+    () => false,
+  );
   const { locale, setLocale, tr } = useLocale();
   return (
     <label className="language-picker">
       <span className="sr-only">{tr('Interface language')}</span>
       <select
+        disabled={!hydrated}
         aria-label={tr('Interface language')}
         value={locale}
         onChange={(e) => setLocale(e.target.value as Locale)}

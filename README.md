@@ -19,7 +19,7 @@ Open http://localhost:3000. Production: `npm run build`, then `npm start`.
 
 ## Three-minute golden demo
 
-1. **Reset demo → View diagnosis.** Aruzhan has a strong synthetic IB profile, IELTS 6.0, SAT planned, documents and AIF incomplete.
+1. Open `/demo?view=map`, then **Reset demo → View diagnosis.** Aruzhan has a strong synthetic IB profile, IELTS 6.0, SAT planned, documents and AIF incomplete.
 2. **Waterloo → Explore path → Source proof.** Show academic, English, AIF and document branches separately. Close the dialogs.
 3. **What if?** Enable English, use overall **6.5**, reading/listening **6.0**, writing/speaking **6.5**. Explore, name and **Save scenario**. Actual results remain unchanged.
 4. **Compare paths:** Waterloo versus Georgia Tech. Explain direct English versus the required SAT/ACT. Up to three programs can be compared without silently replacing a selection.
@@ -80,7 +80,7 @@ Built under the user's direction with OpenAI Codex assistance for research follo
 
 ## Future Lab — 18 September 2026
 
-The root URL now opens Future Lab. The existing map remains at `/?view=map`.
+The root URL opens the multilingual landing page. The explicitly labelled demo opens Future Lab at `/demo`; the map is `/demo?view=map`. Personal accounts enter through `/auth/sign-up` → `/onboarding` → `/app`. Account activation status and setup are documented in [account-entry.md](docs/account-entry.md).
 
 - Adaptive questions rank supported missing student inputs by simulated rule/program changes.
 - Up to three paths with at most two actions, explicit conditional outcomes and source-backed timing. Unknown timing stays separate; verified conditional admissions routes remain distinct from direct entry.

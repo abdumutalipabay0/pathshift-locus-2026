@@ -51,3 +51,10 @@ Validation adds source-linked six-program comparison checks, component arithmeti
 ## Future Lab P0 — 18 September 2026
 
 The user approved the attached Decision Graph/Future Lab contract. Execute `future-lab-plan.md`: preserve evaluator and original sources; add bounded graph/path/question services, evidence receipts, saved-scenario action impact and explicit-preview AI composer. Future Lab becomes the root hero surface; original supporting routes stay available. User supplied CloseRouter access during implementation; live provider integration replaces the initial unavailable-key status. Original competitive submission artifacts remain a separate task.
+
+
+## Account entry journey — 18 September 2026
+
+User-requested scope: public multilingual landing → real email/password account → mandatory profile onboarding → private workspace. Explicit /demo retains the synthetic applicant for judging. Use Neon Auth session verification on the server and Neon Postgres for account profiles. Anonymous and per-account browser caches remain isolated; scenario/draft caches remain device-local and are labelled accordingly. Missing infrastructure fails closed; never fabricate an authenticated session. Vercel native Neon free_v3 provisioning currently requires owner acceptance of marketplace terms. Prepare and test the implementation without pretending this external activation has happened. Preserve all admissions rules. Validate landing, route guards, onboarding validation, localization, demo regression, typecheck, lint and production build; verify real account lifecycle once the provider is activated.
+
+Design: retain slate #18243a, blue #3559db, pale blue #edf2ff, paper #fff, muted #596b85. Manrope headlines, DM Sans body. A branching admission decision sheet is the hero signature; a quiet navigation and actual three-step journey explain the product without invented success metrics.

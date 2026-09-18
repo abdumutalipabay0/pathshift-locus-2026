@@ -8,7 +8,7 @@ for (const locale of ['ru', 'kk'] as const) {
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
     const t = (text: string) => translateText(text, locale);
-    await page.goto('/?view=map');
+    await page.goto('/demo?view=map');
     await expect(page.locator('.program-card')).toHaveCount(6);
     await page.locator('.language-picker select').selectOption(locale);
     await expect(page.locator('html')).toHaveAttribute('lang', locale);
@@ -85,7 +85,7 @@ for (const locale of ['ru', 'kk'] as const) {
   });
   test(`${locale}: mobile layout and keyboard language selector`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/?view=map');
+    await page.goto('/demo?view=map');
     await expect(page.locator('.program-card')).toHaveCount(6);
     await page.locator('.language-picker select').selectOption(locale);
     await expect(page.locator('.language-picker select')).toBeVisible();

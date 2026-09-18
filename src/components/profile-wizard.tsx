@@ -20,6 +20,7 @@ export default function ProfileWizard({
   onSave,
   onCancel,
   initialStep = 0,
+  requireAllSteps = false,
   onDraft,
   programs = [],
 }: {
@@ -27,6 +28,7 @@ export default function ProfileWizard({
   onSave: (p: Profile) => void;
   onCancel: () => void;
   initialStep?: number;
+  requireAllSteps?: boolean;
   onDraft?: (p: Profile, step: number) => void;
   programs?: { id: string; short: string }[];
 }) {
@@ -34,6 +36,7 @@ export default function ProfileWizard({
 
   const [p, setP] = useState(() => structuredClone(initial));
   const [step, setStep] = useState(initialStep);
+  const [furthest, setFurthest] = useState(initialStep);
   const [error, setError] = useState('');
   const errorRef = useRef<HTMLParagraphElement>(null);
   useEffect(() => {
@@ -89,7 +92,11 @@ export default function ProfileWizard({
       <ol className="wizard-steps">
         {steps.map((s, i) => (
           <li key={s} className={i === step ? 'active' : i < step ? 'done' : ''}>
-            <button onClick={() => setStep(i)} aria-current={i === step ? 'step' : undefined}>
+            <button
+              disabled={requireAllSteps && i > furthest}
+              onClick={() => setStep(i)}
+              aria-current={i === step ? 'step' : undefined}
+            >
               <span>{i < step ? <Check size={14} /> : i + 1}</span>
               {tr(s)}
             </button>
@@ -104,7 +111,12 @@ export default function ProfileWizard({
               setError('Enter your name to continue.');
               return;
             }
+            if (step === 0 && (!p.citizenship.trim() || p.age < 10 || p.age > 100)) {
+              setError('Enter your age and citizenship to continue.');
+              return;
+            }
             setError('');
+            setFurthest(Math.max(furthest, step + 1));
             setStep(step + 1);
           } else save();
         }}
@@ -132,7 +144,8 @@ export default function ProfileWizard({
                   type="number"
                   min="10"
                   max="100"
-                  value={p.age}
+                  required
+                  value={p.age || ''}
                   onChange={(e) => set('age', Number(e.target.value))}
                 />
               </label>
@@ -140,6 +153,7 @@ export default function ProfileWizard({
                 {tr('Citizenship ')}
                 <input
                   value={p.citizenship}
+                  required
                   onChange={(e) => set('citizenship', e.target.value)}
                   autoComplete="country-name"
                 />
@@ -238,7 +252,14 @@ export default function ProfileWizard({
             <div className="form-grid">
               <label>
                 {tr('School curriculum ')}
-                <select value={p.curriculum} onChange={(e) => set('curriculum', e.target.value)}>
+                <select
+                  required
+                  value={p.curriculum}
+                  onChange={(e) => set('curriculum', e.target.value)}
+                >
+                  <option value="" disabled>
+                    {tr('Select your curriculum')}
+                  </option>
                   <option value="IB">{tr('IB')}</option>
                   <option value="Kazakhstan national">{tr('Kazakhstan national')}</option>
                   <option value="A-Level">{tr('A-Level')}</option>

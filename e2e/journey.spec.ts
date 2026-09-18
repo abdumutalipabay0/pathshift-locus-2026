@@ -5,7 +5,7 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
 }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.getByRole('heading', { name: 'Your opportunity map.' })).toBeVisible();
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page
@@ -84,7 +84,7 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
 test('budget-only scenario changes cost comparisons without changing academic rules', async ({
   page,
 }) => {
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('switch', { name: /Explore an English result/ }).uncheck();
   await page.getByRole('switch', { name: /Explore a different budget/ }).check();
@@ -98,7 +98,7 @@ test('budget-only scenario changes cost comparisons without changing academic ru
 });
 test('mobile layout, navigation and profile form remain usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -135,7 +135,7 @@ test('desktop layout is captured after evaluation with no horizontal overflow', 
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -143,7 +143,7 @@ test('desktop layout is captured after evaluation with no horizontal overflow', 
   await page.screenshot({ path: 'test-results/desktop-map.png', fullPage: true });
 });
 test('unsupported field and empty filters explain how to recover', async ({ page }) => {
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('textbox', { name: 'Search programs' }).fill('NoSuchInstitution');
   await expect(

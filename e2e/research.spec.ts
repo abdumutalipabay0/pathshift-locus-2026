@@ -6,7 +6,7 @@ test('six researched choices and comparison survive invalid saved selections', a
   await page.addInitScript(() =>
     localStorage.setItem('pathshift-comparison', JSON.stringify(['rit', 'rit', 'invalid', 'asu'])),
   );
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   for (const name of ['UW–Madison', 'Waterloo', 'Georgia Tech', 'Purdue', 'RIT', 'Arizona State'])
     await expect(
@@ -29,7 +29,7 @@ for (const locale of ['ru', 'kk', 'en'])
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/?view=compare');
+    await page.goto('/demo?view=compare');
     await expect(page.locator('.compare-card')).toHaveCount(2);
     await page.getByRole('combobox', { name: 'Interface language' }).selectOption(locale);
     const table = page.locator('.comparison-table');
@@ -51,7 +51,7 @@ for (const locale of ['ru', 'kk', 'en'])
 test('IB bonus and school input persist as profile data, without changing the original grading scale', async ({
   page,
 }) => {
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('button', { name: 'Edit profile', exact: true }).click();
   await page.getByRole('button', { name: '2 Academics' }).click();
@@ -79,7 +79,7 @@ test('legacy synthetic demo gains new fields without losing its saved state', as
     (p) => localStorage.setItem('pathshift-v1', JSON.stringify({ profile: p, demo: true })),
     legacy,
   );
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('button', { name: 'Edit profile', exact: true }).click();
   await page.getByRole('button', { name: '2 Academics' }).click();
@@ -97,7 +97,7 @@ test('real profiles never inherit synthetic school history or IB bonus points', 
     (p) => localStorage.setItem('pathshift-v1', JSON.stringify({ profile: p, demo: false })),
     legacy,
   );
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.getByRole('button', { name: 'Edit profile', exact: true }).click();
   await page.getByRole('button', { name: '2 Academics' }).click();

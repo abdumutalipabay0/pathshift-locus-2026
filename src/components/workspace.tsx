@@ -1,6 +1,6 @@
 'use client';
 import { useLocale, LanguagePicker } from './locale-provider';
-import { useEffect, useRef, useState, useId, useCallback } from 'react';
+import { useEffect, useRef, useState, useId, useCallback, useMemo } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import {
   ArrowUpRight,
@@ -51,6 +51,8 @@ import { JourneyExtras } from './journey-extras';
 import { PersonalPlanner, ProfileImport } from './personal-tools';
 import { ResearchDetails, ResearchComparison, resultCaption } from './research-details';
 import FutureLab from './future-lab';
+import Link from 'next/link';
+import { SignOut } from './entry-header';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 type View = 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
@@ -286,22 +288,48 @@ function PathGraphic() {
     </div>
   );
 }
-export default function Workspace() {
+export default function Workspace({
+  accountId,
+  initialProfile,
+}: {
+  accountId?: string;
+  initialProfile?: Profile;
+}) {
+  const storage = useMemo(
+    () => ({
+      getItem: (key: string) =>
+        localStorage.getItem(accountId ? `${key}:account:${accountId}` : key),
+      setItem: (key: string, value: string) =>
+        localStorage.setItem(accountId ? `${key}:account:${accountId}` : key, value),
+      removeItem: (key: string) =>
+        localStorage.removeItem(accountId ? `${key}:account:${accountId}` : key),
+    }),
+    [accountId],
+  );
+  const saveAccount = async (profile: Profile) => {
+    if (!accountId) return;
+    const response = await fetch('/api/account/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ profile }),
+    });
+    if (!response.ok) throw new Error('Your profile could not be saved. Please try again.');
+  };
   const { tr, dateLabel, money } = useLocale();
 
   const [view, setView] = useState<View>('lab');
-  const [profile, setProfile] = useState<Profile>(demoProfile);
+  const [profile, setProfile] = useState<Profile>(initialProfile ?? demoProfile);
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
   const [facts, setFacts] = useState<Fact[]>([]);
   const [busy, setBusy] = useState(true);
   const [error, setError] = useState('');
-  const [demo, setDemo] = useState(true);
+  const [demo, setDemo] = useState(!accountId);
   const [menu, setMenu] = useState(false);
-  const [wizard, setWizard] = useState<Profile>(demoProfile);
+  const [wizard, setWizard] = useState<Profile>(initialProfile ?? demoProfile);
   const [detail, setDetail] = useState<string | null>(null);
   const [proof, setProof] = useState<string[] | null>(null);
   const [diagnosis, setDiagnosis] = useState(false);
-  const [comparison, setComparison] = useState<string[]>(['waterloo', 'gatech']);
+  const [comparison, setComparison] = useState<string[]>(accountId ? [] : ['waterloo', 'gatech']);
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
   const [allCountries, setAllCountries] = useState(false);
@@ -318,14 +346,17 @@ export default function Workspace() {
   const [savedOpen, setSavedOpen] = useState(false);
   const sidebarRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLButtonElement>(null);
-  const draftChange = useCallback((p: Profile, step: number) => {
-    try {
-      localStorage.setItem('pathshift-draft', JSON.stringify({ profile: p, step }));
-      setSaveState('Draft saved on this device');
-    } catch {
-      setSaveState('Changes could not be saved');
-    }
-  }, []);
+  const draftChange = useCallback(
+    (p: Profile, step: number) => {
+      try {
+        storage.setItem('pathshift-draft', JSON.stringify({ profile: p, step }));
+        setSaveState('Draft saved on this device');
+      } catch {
+        setSaveState('Changes could not be saved');
+      }
+    },
+    [storage],
+  );
   useEffect(() => {
     const readView = () => {
       const value = new URL(window.location.href).searchParams.get('view');
@@ -387,17 +418,15 @@ export default function Workspace() {
     try {
       const e = await api<Evaluation>('evaluate', { profile: p });
       if (token !== generation.current) return;
+      if (persist) await saveAccount(e.profile);
       setProfile(e.profile);
-      setDemo(demoValue);
+      setDemo(accountId ? false : demoValue);
       setEvaluation(e);
       setSimulation(null);
       if (persist)
         try {
-          localStorage.setItem(
-            'pathshift-v1',
-            JSON.stringify({ profile: e.profile, demo: demoValue }),
-          );
-          setSaveState('Saved on this device');
+          storage.setItem('pathshift-v1', JSON.stringify({ profile: e.profile, demo: demoValue }));
+          setSaveState(accountId ? 'Profile saved to your account' : 'Saved on this device');
         } catch {
           setNotice('Your browser could not save changes. Keep this tab open.');
           setSaveState('Changes could not be saved');
@@ -414,11 +443,11 @@ export default function Workspace() {
     async function load() {
       try {
         const sources = await api<{ facts: Fact[] }>('programs');
-        let p = structuredClone(demoProfile),
-          isDemo = true;
+        let p = structuredClone(initialProfile ?? demoProfile),
+          isDemo = !accountId;
         try {
-          const saved = localStorage.getItem('pathshift-v1');
-          if (saved) {
+          const saved = storage.getItem('pathshift-v1');
+          if (saved && !accountId) {
             const parsed = JSON.parse(saved);
             const valid = profileSchema.safeParse(parsed.profile);
             if (valid.success) {
@@ -445,7 +474,7 @@ export default function Workspace() {
             p.shortlist.map((id) => [id, p.documents_ready]),
           );
         try {
-          const comparison = JSON.parse(localStorage.getItem('pathshift-comparison') || 'null');
+          const comparison = JSON.parse(storage.getItem('pathshift-comparison') || 'null');
           if (Array.isArray(comparison))
             setComparison(
               [...new Set(comparison)]
@@ -455,7 +484,7 @@ export default function Workspace() {
                 )
                 .slice(0, 3),
             );
-          const saved = JSON.parse(localStorage.getItem('pathshift-scenarios') || '[]');
+          const saved = JSON.parse(storage.getItem('pathshift-scenarios') || '[]');
           if (Array.isArray(saved))
             setSavedScenarios(
               saved
@@ -477,7 +506,13 @@ export default function Workspace() {
           setProfile(p);
           setWizard(p);
           setDemo(isDemo);
-          setSaveState(isDemo ? 'Demo profile' : 'Saved on this device');
+          setSaveState(
+            accountId
+              ? 'Profile saved to your account'
+              : isDemo
+                ? 'Demo profile'
+                : 'Saved on this device',
+          );
           setEvaluation(result);
           setBusy(false);
         }
@@ -492,7 +527,7 @@ export default function Workspace() {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [accountId, initialProfile, storage]);
   const navigate = (v: View) => {
     setView(v);
     const url = new URL(window.location.href);
@@ -504,8 +539,8 @@ export default function Workspace() {
   };
   const reset = async () => {
     try {
-      if (!demo || !localStorage.getItem('pathshift-backup'))
-        localStorage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
+      if (!demo || !storage.getItem('pathshift-backup'))
+        storage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
     } catch {
       setNotice('Changes could not be saved');
       return;
@@ -531,7 +566,7 @@ export default function Workspace() {
     setComparison(['waterloo', 'gatech']);
     navigate('map');
     try {
-      localStorage.setItem('pathshift-comparison', JSON.stringify(['waterloo', 'gatech']));
+      storage.setItem('pathshift-comparison', JSON.stringify(['waterloo', 'gatech']));
     } catch {
       /* Evaluation remains usable without storage. */
     }
@@ -541,7 +576,7 @@ export default function Workspace() {
     let next = structuredClone(fresh ? { ...blankProfile, documents_by_program: {} } : profile),
       step = 0;
     try {
-      const draft = JSON.parse(localStorage.getItem('pathshift-draft') || 'null');
+      const draft = JSON.parse(storage.getItem('pathshift-draft') || 'null');
       if (
         draft &&
         typeof draft.profile?.name === 'string' &&
@@ -581,14 +616,14 @@ export default function Workspace() {
       : [...comparison, id];
     setComparison(next);
     try {
-      localStorage.setItem('pathshift-comparison', JSON.stringify(next));
+      storage.setItem('pathshift-comparison', JSON.stringify(next));
     } catch {
       setNotice('Changes could not be saved');
     }
   };
   const storeScenarios = (items: SavedScenario[]) => {
     try {
-      localStorage.setItem('pathshift-scenarios', JSON.stringify(items));
+      storage.setItem('pathshift-scenarios', JSON.stringify(items));
       setSavedScenarios(items);
       return true;
     } catch {
@@ -691,11 +726,12 @@ export default function Workspace() {
         { profile, complete: !task.complete },
         'PATCH',
       );
+      await saveAccount(e.profile);
       setProfile(e.profile);
       setEvaluation(e);
       setSimulation(null);
       try {
-        localStorage.setItem('pathshift-v1', JSON.stringify({ profile: e.profile, demo }));
+        storage.setItem('pathshift-v1', JSON.stringify({ profile: e.profile, demo }));
       } catch {}
       setNotice(task.complete ? 'Task reopened.' : 'Progress saved.');
     } catch (e) {
@@ -912,6 +948,12 @@ export default function Workspace() {
         </button>
       </aside>
       <div className="main-shell">
+        {!accountId && (
+          <div className="entry-demo-banner">
+            <span>{tr('Demo workspace · example data, not your personal account')}</span>
+            <Link href="/auth/sign-up">{tr('Create my profile')} →</Link>
+          </div>
+        )}
         <header className="topbar">
           <div className="breadcrumb">
             <button
@@ -942,15 +984,19 @@ export default function Workspace() {
                       : saveState,
               )}
             </span>
-            <button
-              className="btn small-btn secondary"
-              onClick={() => setResetOpen(true)}
-              disabled={busy}
-              aria-label={tr('Reset demo')}
-            >
-              <RotateCcw size={14} />
-              <span className="reset-label">{tr('Reset demo')}</span>
-            </button>
+            {accountId ? (
+              <SignOut />
+            ) : (
+              <button
+                className="btn small-btn secondary"
+                onClick={() => setResetOpen(true)}
+                disabled={busy}
+                aria-label={tr('Reset demo')}
+              >
+                <RotateCcw size={14} />
+                <span className="reset-label">{tr('Reset demo')}</span>
+              </button>
+            )}
             <button
               className="top-avatar"
               aria-label={tr('Edit profile')}
@@ -1015,14 +1061,14 @@ export default function Workspace() {
                     busy={busy}
                     onRestore={async (imported) => {
                       try {
-                        localStorage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
+                        storage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
                       } catch {
                         setNotice('Changes could not be saved');
                         return false;
                       }
                       if (await compute(imported, true, false)) {
                         try {
-                          localStorage.removeItem('pathshift-draft');
+                          storage.removeItem('pathshift-draft');
                         } catch {}
                         setNotice(
                           'Profile imported. Your previous profile is available through Undo demo reset.',
@@ -1038,9 +1084,7 @@ export default function Workspace() {
                     disabled={busy}
                     onClick={async () => {
                       try {
-                        const backup = JSON.parse(
-                          localStorage.getItem('pathshift-backup') || 'null',
-                        );
+                        const backup = JSON.parse(storage.getItem('pathshift-backup') || 'null');
                         const valid = profileSchema.safeParse(backup?.profile);
                         if (valid.success) {
                           if (await compute(valid.data, true, backup.demo === true))
@@ -1113,7 +1157,7 @@ export default function Workspace() {
                 if (await compute(p, true, false)) {
                   setDemo(false);
                   try {
-                    localStorage.removeItem('pathshift-draft');
+                    storage.removeItem('pathshift-draft');
                   } catch {
                     /* Keep a recoverable draft. */
                   }

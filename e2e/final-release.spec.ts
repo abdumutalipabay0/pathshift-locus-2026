@@ -6,7 +6,7 @@ for (const locale of ['en', 'ru', 'kk'] as const)
   test(`${locale}: personal study and activity plan survives edits, reload and export`, async ({
     page,
   }) => {
-    await page.goto('/?view=map');
+    await page.goto('/demo?view=map');
     await expect(page.locator('.program-card')).toHaveCount(6);
     await page.getByRole('combobox', { name: 'Interface language' }).selectOption(locale);
     await page.locator('.sidebar nav button[data-view=roadmap]').click();
@@ -51,7 +51,7 @@ for (const locale of ['en', 'ru', 'kk'] as const)
 test('profile import validates, previews, restores a full plan and can be undone', async ({
   page,
 }) => {
-  await page.goto('/?view=map');
+  await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page.locator('.profile-tools > summary').click();
   const file = page.locator('input[type="file"]');
