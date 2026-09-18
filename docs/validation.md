@@ -128,3 +128,14 @@ Production deployment dpl_8ahoEm3pXxqynA9tjyLLiQazWQZq: targeted published-site 
 - Live production model configuration confirmed `google/gemini-3.7-flash`. Actual assistant request returned HTTP 200 in 10.392 seconds with university overview/deadline citations and a canonical university action. Actual scenario request returned HTTP 200 in 7.522 seconds and correctly decoded IELTS overall 7, CAD budget +5000 and SAT willingness false. Existing financial-flexibility gating remained active; parsing did not modify the real profile.
 - Browser assistant tests use controlled responses; the live-provider checks above are separate evidence. Latency is a small sample, not an SLA. Targeted guards and canonical references do not prove every generated sentence correct.
 - 1183 complete catalog entries in Russian and Kazakh alongside English. Frozen admissions policy unchanged. See university-discovery-release.md for official sources, design decisions, model comparison and reliability limits.
+
+
+## Applicant story, official university identities and personal receipts — 19 September 2026
+
+Application commits `23a28b8` and `3b34b68`; production deployment `dpl_GDW7xv2J7tRV8JscWPEo9R8gAqJj` READY, with the primary alias https://pathshift-locus-2026.vercel.app assigned and verified.
+
+99/99 unit tests passed. TypeScript, ESLint, Prettier, local production build and Vercel build passed. Full local browser suite: 67/67 in 3.3 minutes. Full production browser suite: **67/67 in 5.3 minutes**, including real registration, interests and experience persistence, logout/fresh-browser login, account isolation and QA cleanup. Tests include EN/RU/KK, 320px, automated accessibility, print-media resume layout, source-quote review, preservation of approved resume during note edits, AI failure/cancellation and all twelve university media/history profiles.
+
+Live production resume-coach request: HTTP 200 in 11.25 seconds, Russian bullet with a literal source quote from synthetic applicant notes. Other live English/Kazakh resume and Russian interview checks succeeded; one earlier interview failed. Controlled browser responses are distinct from these live checks. Exact source quotes and targeted response guards do not establish full semantic correctness; applicants review drafts before saving.
+
+Vercel's deployment-triggering incident temporarily delayed publication. A superseded queued deployment was cancelled; the final deployment succeeded. Manual published Russian desktop review and local 390px university/profile-fit review passed. Temporary tabs closed and viewport override reset. Official sources and implementation decisions: applicant-story-release.md. Frozen admissions policy remains unchanged.
