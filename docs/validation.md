@@ -76,3 +76,13 @@ Application facts and original frozen research were not modified in this update.
 ## Future Lab production — 18 September 2026
 
 71 unit/domain/localization tests, TypeScript, ESLint, Prettier and build passed. Production deployment dpl_ACeGfUB9HymPBZZmCneRGzT69uno (code d2d8c94): 36/36 browser tests passed in 2.8m. Genuine CloseRouter GPT-5.5 extraction passed RU/KK/EN schema checks; production parse → explicit preview → simulation returned 200 and preserved the actual baseline. See future-lab-release.md for scope, fixes and limits.
+
+
+## Product consistency and UX audit — 18 September 2026
+
+- Release code `17b8baf`, production deployment `dpl_5Q3fW2KJ1WDx4VVNAKpGfuh27mUs` READY at the existing public URL.
+- 74 unit/domain/localization tests passed. TypeScript, ESLint, Prettier, diff whitespace and production build passed.
+- Full production Playwright suite: **49/49 passed in 4.5 minutes**, with RUN_ACCOUNT_E2E=1. Includes reserved-account signup/onboarding/persistence/logout/login/isolation and automatic QA cleanup.
+- Added five browser regressions for shortlist-country independence, safe draft editing, accurate status counters, empty calendar feedback, and stale scenario response isolation. Added task-editor routing cases and corrupt onboarding-draft checks.
+- Local full pass exposed a 320 px Kazakh status overflow; wrapping fixed and confirmed both by browser inspection and the final production suite.
+- See product-audit-2026-09-18.md for changes and explicit verification limits.
