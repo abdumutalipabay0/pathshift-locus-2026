@@ -53,6 +53,14 @@ for (const locale of ['en', 'ru', 'kk'] as const)
     const download = page.waitForEvent('download');
     await page.getByRole('button', { name: t('Download my resume') }).click();
     expect((await download).suggestedFilename()).toBe('pathshift-resume.txt');
+    await page
+      .locator('#experience-answer')
+      .fill('I built a website for our school club. I wrote the form and improved navigation.');
+    await expect(page.locator('.resume-preview')).toContainText('Built a school club website.');
+    await page.getByRole('button', { name: t('Save my story'), exact: true }).click();
+    await expect(page.locator('.success-box')).toBeVisible();
+    await page.reload();
+    await expect(page.locator('.resume-preview')).toContainText('Built a school club website.');
     await page.emulateMedia({ media: 'print' });
     await expect(page.locator('.resume-paper')).toBeVisible();
     await expect(page.locator('.sidebar')).toBeHidden();

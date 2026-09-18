@@ -34,7 +34,6 @@ export function InterestPicker({
             onClick={() =>
               onChange({
                 ...value,
-                resume: undefined,
                 interests: value.interests.includes(interest)
                   ? value.interests.filter((i) => i !== interest)
                   : [...value.interests, interest],
@@ -54,7 +53,7 @@ export function InterestPicker({
           placeholder={tr(
             'For example: building games, explaining maths to friends, drawing or exploring how things work.',
           )}
-          onChange={(e) => onChange({ ...value, enjoys: e.target.value, resume: undefined })}
+          onChange={(e) => onChange({ ...value, enjoys: e.target.value })}
         />
       </label>
     </div>
@@ -136,7 +135,6 @@ export default function ApplicantPortfolio({
   const setAnswer = (text: string) =>
     change({
       ...background,
-      resume: undefined,
       answers: [...background.answers.filter((a) => a.topic !== topic), { topic, text }],
     });
   async function ask(mode: 'interview' | 'resume') {
