@@ -1,13 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import {
-  ArrowRight,
-  CornerDownLeft,
-  LoaderCircle,
-  MessageCircle,
-  RotateCcw,
-  ShieldCheck,
-} from 'lucide-react';
+import { ArrowRight, CornerDownLeft, LoaderCircle, RotateCcw, ShieldCheck } from 'lucide-react';
 import type { AssistantAnswer } from '@/lib/admission-assistant';
 import type { Evaluation } from '@/lib/types';
 import { useLocale } from './locale-provider';
@@ -106,15 +99,8 @@ export default function AdmissionAssistant({
     <section className="admission-assistant" aria-label={tr('AI admission assistant')}>
       <header className="assistant-heading">
         <div>
-          <div className="eyebrow">
-            <MessageCircle size={16} /> {tr('AI admission assistant')}
-          </div>
           <h1>{tr('Turn your questions into a next step.')}</h1>
-          <p>
-            {tr(
-              'Ask about your profile, university requirements or preparation. Get an explanation and a place to act.',
-            )}
-          </p>
+          <p>{tr('Your profile is included. Ask one question to get started.')}</p>
         </div>
         {turns.length > 0 && (
           <button
@@ -137,7 +123,6 @@ export default function AdmissionAssistant({
         <div className="assistant-conversation panel">
           {!turns.length && (
             <div className="assistant-welcome">
-              <h2>{tr('Where would you like to start?')}</h2>
               <div className="assistant-starters">
                 {starters.map((s) => (
                   <button key={s} disabled={!!pending} onClick={() => void send(tr(s))}>
@@ -270,12 +255,10 @@ export default function AdmissionAssistant({
               id="assistant-question"
               value={question}
               maxLength={1600}
-              rows={3}
+              rows={2}
               disabled={!!pending}
               onChange={(e) => setQuestion(e.target.value)}
-              placeholder={tr(
-                'For example: why is Waterloo not ready yet, and what should I do first?',
-              )}
+              placeholder={tr('Ask about a university, a requirement or your next step.')}
             />
             <div className="between">
               <span className="small muted">{question.length}/1600</span>
@@ -290,36 +273,24 @@ export default function AdmissionAssistant({
             </div>
             <p className="small muted">
               {tr(
-                'Sending shares your question, recent conversation and selected academic profile data with CloseRouter. Your account email, name and personal notes are not sent automatically. Do not include private documents.',
+                'Your question and academic profile are sent to AI. Verify sources before applying.',
               )}
             </p>
+            <details className="assistant-disclosure">
+              <summary>{tr('Privacy and conversation')}</summary>
+              <p>
+                {tr(
+                  'Sending shares your question, recent conversation and selected academic profile data with CloseRouter. Your account email, name and personal notes are not sent automatically. Do not include private documents.',
+                )}
+              </p>
+              <p>
+                {tr(
+                  'AI explanations can be mistaken. Check the linked evidence before applying. Conversation stays in this page and resets when you leave, change language or update your profile.',
+                )}
+              </p>
+            </details>
           </form>
         </div>
-        <aside className="assistant-context panel">
-          <span className="eyebrow">{tr('Based on your saved profile')}</span>
-          <h2>{tr('A plan you can check')}</h2>
-          <p>
-            {tr(evaluation.profile.major)} ·{' '}
-            {evaluation.profile.countries.map((c) => tr(c)).join(' / ')}
-          </p>
-          <p>
-            {tr(
-              'The assistant explains existing checks. It cannot guarantee admission or change your profile.',
-            )}
-          </p>
-          <h3>{tr('Your next move')}</h3>
-          <p>{tr(evaluation.next_action?.title || 'Choose a university to start your plan.')}</p>
-          <button className="text-button" onClick={() => onAction('roadmap', null)}>
-            {tr('Open my roadmap')}
-            <ArrowRight size={15} />
-          </button>
-          <hr />
-          <p className="small muted">
-            {tr(
-              'AI explanations can be mistaken. Check the linked evidence before applying. Conversation stays in this page and resets when you leave, change language or update your profile.',
-            )}
-          </p>
-        </aside>
       </div>
     </section>
   );

@@ -47,7 +47,8 @@
 }
 .assistant-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 270px;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 880px;
   gap: 24px;
   align-items: start;
 }
@@ -5539,4 +5540,43 @@ fieldset.scenario-body {
   padding: 0;
   box-shadow: none;
   background: transparent;
+}
+
+/* Secondary explanations stay available without competing with the task. */
+.profile-check-details {
+  margin: 20px 0;
+  border-block: 1px solid var(--line);
+  padding: 14px 0;
+}
+.profile-check-details summary,
+.assistant-disclosure summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 14px;
+}
+.profile-check-details[open] .diagnostic-columns {
+  margin-top: 18px;
+}
+.assistant-disclosure {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.assistant-disclosure p {
+  margin-top: 12px;
+}
+
+.compact-profile-banner {
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  margin-bottom: 20px;
+}
+.compact-profile-copy .between {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.compact-profile-copy .profile-chips {
+  margin-top: 12px;
 }

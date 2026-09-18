@@ -244,36 +244,6 @@ function RuleRow({
     </div>
   );
 }
-function PathGraphic() {
-  const { tr } = useLocale();
-
-  return (
-    <div className="path-graphic" aria-hidden="true">
-      <div className="path-grid" />
-      <svg viewBox="0 0 400 150" fill="none">
-        <path
-          className="path-line base"
-          d="M25 75H105C160 75 140 30 200 30H360M105 75H360M105 75C160 75 140 120 200 120H360"
-        />
-        <path className="path-line bright" d="M25 75H105C160 75 140 30 200 30H360" />
-        <circle cx="28" cy="75" r="7" fill="#3559DB" />
-        <circle cx="355" cy="30" r="6" fill="#137B69" />
-        <circle cx="355" cy="75" r="6" fill="#B29CDB" />
-        <circle cx="355" cy="120" r="6" fill="#A9B4C5" />
-      </svg>
-      <span className="diagram-label origin">{tr('You, today')}</span>
-      <span className="diagram-label top">
-        {tr('A new possibility ')}
-        <ArrowUpRight size={13} />
-      </span>
-      <span className="diagram-label middle">{tr('An alternative route')}</span>
-      <span className="diagram-label bottom">{tr('A question to resolve')}</span>
-      <span className="diagram-pivot">
-        <SlidersHorizontal size={13} /> {tr(' One change ')}
-      </span>
-    </div>
-  );
-}
 export default function Workspace({
   accountId,
   initialProfile,
@@ -1055,70 +1025,71 @@ export default function Workspace({
               </div>
             ),
           )}
-          {evaluation && view !== 'profile' && (
-            <div className="journey-toolbar">
-              <button className="btn secondary small-btn" onClick={() => setSavedOpen(true)}>
-                {tr('Saved scenarios')} · {savedScenarios.length}
-              </button>
-              <details className="profile-tools">
-                <summary>{tr('Profile tools')}</summary>
-                <div className="profile-tools-body">
-                  <button
-                    className="btn ghost small-btn"
-                    onClick={() =>
-                      downloadText(
-                        JSON.stringify({ version: 1, profile }, null, 2),
-                        'pathshift-profile.json',
-                        'application/json',
-                      )
-                    }
-                  >
-                    {tr('Back up my profile')}
-                  </button>
-                  <ProfileImport
-                    busy={busy}
-                    onRestore={async (imported) => {
-                      try {
-                        storage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
-                      } catch {
-                        setNotice('Changes could not be saved');
-                        return false;
+          {evaluation &&
+            (view === 'map' || view === 'lab' || view === 'profile' || view === 'roadmap') && (
+              <div className="journey-toolbar">
+                <button className="btn secondary small-btn" onClick={() => setSavedOpen(true)}>
+                  {tr('Saved scenarios')} · {savedScenarios.length}
+                </button>
+                <details className="profile-tools">
+                  <summary>{tr('Profile tools')}</summary>
+                  <div className="profile-tools-body">
+                    <button
+                      className="btn ghost small-btn"
+                      onClick={() =>
+                        downloadText(
+                          JSON.stringify({ version: 1, profile }, null, 2),
+                          'pathshift-profile.json',
+                          'application/json',
+                        )
                       }
-                      if (await compute(imported, true, false)) {
+                    >
+                      {tr('Back up my profile')}
+                    </button>
+                    <ProfileImport
+                      busy={busy}
+                      onRestore={async (imported) => {
                         try {
-                          storage.removeItem('pathshift-draft');
-                        } catch {}
-                        setNotice(
-                          'Profile imported. Your previous profile is available through Undo demo reset.',
-                        );
-                        navigate('map');
-                        return true;
-                      }
-                      return false;
-                    }}
-                  />
-                  <button
-                    className="btn ghost small-btn"
-                    disabled={busy}
-                    onClick={async () => {
-                      try {
-                        const backup = JSON.parse(storage.getItem('pathshift-backup') || 'null');
-                        const valid = profileSchema.safeParse(backup?.profile);
-                        if (valid.success) {
-                          if (await compute(valid.data, true, backup.demo === true))
-                            setNotice('Previous profile restored.');
-                        } else setNotice('No previous profile backup is available.');
-                      } catch {
-                        setNotice('No previous profile backup is available.');
-                      }
-                    }}
-                  >
-                    {tr('Undo demo reset')}
-                  </button>
-                </div>
-              </details>
-            </div>
-          )}
+                          storage.setItem('pathshift-backup', JSON.stringify({ profile, demo }));
+                        } catch {
+                          setNotice('Changes could not be saved');
+                          return false;
+                        }
+                        if (await compute(imported, true, false)) {
+                          try {
+                            storage.removeItem('pathshift-draft');
+                          } catch {}
+                          setNotice(
+                            'Profile imported. Your previous profile is available through Undo demo reset.',
+                          );
+                          navigate('map');
+                          return true;
+                        }
+                        return false;
+                      }}
+                    />
+                    <button
+                      className="btn ghost small-btn"
+                      disabled={busy}
+                      onClick={async () => {
+                        try {
+                          const backup = JSON.parse(storage.getItem('pathshift-backup') || 'null');
+                          const valid = profileSchema.safeParse(backup?.profile);
+                          if (valid.success) {
+                            if (await compute(valid.data, true, backup.demo === true))
+                              setNotice('Previous profile restored.');
+                          } else setNotice('No previous profile backup is available.');
+                        } catch {
+                          setNotice('No previous profile backup is available.');
+                        }
+                      }}
+                    >
+                      {tr('Undo demo reset')}
+                    </button>
+                  </div>
+                </details>
+              </div>
+            )}
           {evaluation && view === 'assistant' && (
             <AdmissionAssistant
               key={JSON.stringify(profile) + locale}
@@ -1208,17 +1179,6 @@ export default function Workspace({
               {view !== 'lab' && view !== 'assistant' && (
                 <div className="page-heading">
                   <div>
-                    <div className="eyebrow">
-                      {tr(
-                        view === 'map'
-                          ? 'YOUR NEXT CHAPTER'
-                          : view === 'roadmap'
-                            ? 'FROM POSSIBILITIES TO PROGRESS'
-                            : view === 'sources'
-                              ? 'CLARITY YOU CAN CHECK'
-                              : 'YOUR ADMISSION WORKSPACE',
-                      )}
-                    </div>
                     <h1>
                       {tr(
                         view === 'map'
@@ -1241,7 +1201,7 @@ export default function Workspace({
                             : view === 'compare'
                               ? 'Compare the requirements that matter to your profile.'
                               : view === 'roadmap'
-                                ? 'Complete these tasks for your saved universities. Enter real scores in your profile; checking a task does not change admission requirements.'
+                                ? 'Your saved universities → tasks and deadlines. Update real scores in your profile.'
                                 : 'Official requirements, transparent reasoning, and clearly marked gaps.',
                       )}
                     </p>
@@ -1278,8 +1238,8 @@ export default function Workspace({
                   ) : (
                     <>
                       {' '}
-                      <section className="journey-banner">
-                        <div className="journey-copy">
+                      <section className="compact-profile-banner">
+                        <div className="compact-profile-copy">
                           <div className="between">
                             <span className="eyebrow">
                               {tr(demo ? 'MEET ARUZHAN · DEMO PROFILE' : 'YOUR STARTING POINT')}
@@ -1289,12 +1249,6 @@ export default function Workspace({
                               <ArrowUpRight size={14} />
                             </button>
                           </div>
-                          <h2>{tr('See how a higher score changes the requirements you meet')}</h2>
-                          <p>
-                            {tr('Try a different test score in the scenario panel. ')}
-                            <br />
-                            {tr('Your actual results stay unchanged. ')}
-                          </p>
                           <div className="profile-chips">
                             <span>
                               <GraduationCap size={14} />
@@ -1316,31 +1270,9 @@ export default function Workspace({
                             </span>
                           </div>
                         </div>
-                        <PathGraphic />
                       </section>
                     </>
                   )}
-                  <div className="journey-steps">
-                    <span>
-                      <UserRound size={16} />
-                      {tr('Your profile ')}
-                    </span>
-                    <i />
-                    <span className="current">
-                      <Compass size={16} />
-                      {tr('Explore paths ')}
-                    </span>
-                    <i />
-                    <button onClick={() => navigate('compare')}>
-                      <GitCompareArrows size={16} />
-                      {tr('Compare ')}
-                    </button>
-                    <i />
-                    <button onClick={() => navigate('roadmap')}>
-                      <Route size={16} />
-                      {tr('Take your next step ')}
-                    </button>
-                  </div>
                 </>
               )}
               {!current && !error ? (

@@ -3,12 +3,17 @@ const focus = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 export function applicantGuidance(profile: Profile, results: Result[]) {
   const scoped = results.filter((r) => r.in_scope && focus.has(r.program.id));
   const knownGrades =
-    !!profile.curriculum && (profile.ib_total !== null || !!profile.raw_grade.trim());
+    !!profile.curriculum &&
+    (profile.curriculum === 'IB' ? profile.ib_total !== null : !!profile.raw_grade.trim());
   const missing: string[] = [];
   if (!knownGrades) missing.push('Add your school results to check academic requirements.');
   if (!Object.values(profile.budgets).some((v) => v !== null))
     missing.push('Add an annual budget to compare published costs.');
-  if (profile.ielts.overall === null && profile.toefl.score === null && profile.det === null)
+  if (
+    !(profile.ielts.status === 'VALID' && profile.ielts.overall !== null) &&
+    profile.toefl.score === null &&
+    profile.det === null
+  )
     missing.push('Add your English results or review the published exemption rules.');
   const strengths = scoped
     .flatMap((r) =>
@@ -55,11 +60,13 @@ export function applicantGuidance(profile: Profile, results: Result[]) {
     recommendations: candidates.map((r) => ({
       id: r.program.id,
       reasons: [
-        'Matches your selected country and Computer Science goal.',
         ...r.rules
           .filter((x) => x.strength === 'HARD' && x.result === 'PASS')
           .slice(0, 2)
           .map((x) => `Meets checked requirement: ${x.label}`),
+        ...(!r.rules.some((x) => x.strength === 'HARD' && x.result === 'PASS')
+          ? ['Matches your selected country and Computer Science goal.']
+          : []),
         ...(r.reference_cost_state === 'WITHIN_BUDGET'
           ? [
               'The dated cost reference fits your budget; the final cost for your intake is not confirmed.',

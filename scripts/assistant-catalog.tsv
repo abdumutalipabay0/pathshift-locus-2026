@@ -26,3 +26,12 @@ The assistant could not answer. Try again or open your plan.	Помощник н
 The request stopped. You can ask again.	Запрос остановлен. Можно спросить ещё раз.	Сұрау тоқтатылды. Қайта сұрауға болады.
 Test a what-if scenario	Проверить сценарий «что если»	«Егер» сценарийін тексеру
 Explore universities	Посмотреть университеты	Университеттерді қарау
+Profile checks	Проверки профиля	Профильді тексеру
+Your profile is included. Ask one question to get started.	Помощник учитывает твой профиль. Спроси, что хочешь узнать.	Көмекші профиліңді ескереді. Білгің келгенін сұра.
+Ask about a university, a requirement or your next step.	Спроси о вузе, требованиях или следующем шаге.	Университет, талаптар немесе келесі қадам туралы сұра.
+Your question and academic profile are sent to AI. Verify sources before applying.	Вопрос и учебные данные отправляются ИИ. Перед подачей проверь источники.	Сұрағың мен оқу деректерің ЖИ-ге жіберіледі. Өтініш берерде дереккөздерді тексер.
+Privacy and conversation	Данные и история разговора	Деректер мен әңгіме тарихы
+Find suitable universities and what you need to apply. Computer Science · US and Canada.	Найди подходящие вузы и узнай, что нужно для поступления. Computer Science · США и Канада.	Сәйкес университеттерді тауып, түсуге не қажет екенін біл. Computer Science · АҚШ пен Канада.
+Start with your country. Add grades and budget at your own pace.	Начни с выбора страны. Оценки и бюджет можно добавить позже.	Алдымен елді таңда. Бағаларың мен бюджетіңді кейін қоса аласың.
+Your saved universities → tasks and deadlines. Update real scores in your profile.	Задачи и сроки для сохранённых вузов. Новые баллы добавляй в профиль.	Сақталған университеттерге арналған тапсырмалар мен мерзімдер. Жаңа балдарды профиліңе енгіз.
+Change a score or budget to see what would improve. Your saved profile stays unchanged.	Измени балл или бюджет и посмотри результат. Сохранённый профиль не изменится.	Балды немесе бюджетті өзгертіп, нәтижені көр. Сақталған профилің өзгермейді.

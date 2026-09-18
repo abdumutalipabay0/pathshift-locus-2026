@@ -55,25 +55,28 @@ export default function ApplicantSummary({
             </span>
           ))}
       </div>
-      <div className="diagnostic-columns">
-        {[
-          ['Already confirmed', diagnosis.strengths],
-          ['What needs attention', diagnosis.constraints],
-          ['Details still needed', diagnosis.gaps],
-        ].map(([title, items]) => (
-          <div key={String(title)}>
-            <h3>{tr(String(title))}</h3>
-            <ul>
-              {(items as string[]).map((x) => (
-                <li key={x}>{tr(x)}</li>
-              ))}
-            </ul>
-            {!(items as string[]).length && (
-              <p>{tr('No additional gaps identified in the checked data.')}</p>
-            )}
-          </div>
-        ))}
-      </div>
+      <details className="profile-check-details">
+        <summary>{tr('Profile checks')}</summary>
+        <div className="diagnostic-columns">
+          {[
+            ['Already confirmed', diagnosis.strengths],
+            ['What needs attention', diagnosis.constraints],
+            ['Details still needed', diagnosis.gaps],
+          ].map(([title, items]) => (
+            <div key={String(title)}>
+              <h3>{tr(String(title))}</h3>
+              <ul>
+                {(items as string[]).map((x) => (
+                  <li key={x}>{tr(x)}</li>
+                ))}
+              </ul>
+              {!(items as string[]).length && (
+                <p>{tr('No additional gaps identified in the checked data.')}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </details>
       <h3>
         {tr(
           guidance.personalized
@@ -81,11 +84,6 @@ export default function ApplicantSummary({
             : 'Explore first, personalize with your results',
         )}
       </h3>
-      <p className="small muted">
-        {tr(
-          'We prioritize your country, checked requirements and budget. These are candidates to investigate, not admission predictions or a global ranking.',
-        )}
-      </p>
       {!guidance.personalized && (
         <button className="btn secondary" onClick={onEdit}>
           {tr('Add my grades and budget')}
@@ -98,7 +96,7 @@ export default function ApplicantSummary({
             <article key={item.id}>
               <h4>{result.program.short}</h4>
               <ul>
-                {item.reasons.map((x) => (
+                {item.reasons.slice(0, 2).map((x) => (
                   <li key={x}>{tr(x)}</li>
                 ))}
               </ul>

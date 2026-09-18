@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   assistantContext,
+  conversationTargets,
   assistantTargets,
   validateAssistantAnswer,
   askAssistant,
@@ -148,4 +149,29 @@ test('provider request carries selected context, structured schema and a bounded
     if (original === undefined) delete process.env.CLOSEROUTER_API_KEY;
     else process.env.CLOSEROUTER_API_KEY = original;
   }
+});
+
+test('follow-up references retain the requested universities without contaminating a new topic', () => {
+  const history = [{ role: 'user', content: 'Compare Waterloo and Purdue' }];
+  assert.deepEqual(
+    new Set(conversationTargets('What documents do I need there?', history)),
+    new Set(['waterloo', 'purdue']),
+  );
+  assert.deepEqual(
+    new Set(conversationTargets('А какие сроки у них?', history)),
+    new Set(['waterloo', 'purdue']),
+  );
+  assert.deepEqual(conversationTargets('What about RIT?', history), ['rit']);
+  assert.deepEqual(conversationTargets('What should I do first?', history), []);
+  assert.deepEqual(
+    conversationTargets('What about there?', [{ role: 'assistant', content: 'RIT' }]),
+    [],
+  );
+});
+test('assistant sees alternative English scores rather than treating everyone as an IELTS applicant', () => {
+  const p = structuredClone(demoProfile);
+  p.det = 125;
+  const context = assistantContext(p);
+  assert.equal(context.profile.det, 125);
+  assert.deepEqual(context.profile.toefl, p.toefl);
 });

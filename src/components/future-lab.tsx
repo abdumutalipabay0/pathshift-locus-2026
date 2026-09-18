@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import {
   ArrowRight,
-  GitBranch,
   ScanLine,
   Sparkles,
   ShieldCheck,
@@ -289,12 +288,12 @@ export default function FutureLab({
     <section className="future-lab" aria-busy={loading}>
       <div className="lab-heading">
         <div>
-          <div className="eyebrow">
-            <GitBranch size={15} />
-            {tr('ADMISSION DECISION LAB')}
-          </div>
           <h1>{tr('Explore your possible futures.')}</h1>
-          <p>{tr('Find the answer that matters. See which actions change your paths.')}</p>
+          <p>
+            {tr(
+              'Change a score or budget to see what would improve. Your saved profile stays unchanged.',
+            )}
+          </p>
         </div>
       </div>
       {error && (

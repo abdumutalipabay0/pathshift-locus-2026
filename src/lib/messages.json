@@ -4386,5 +4386,41 @@
   "Explore universities": {
     "ru": "Посмотреть университеты",
     "kk": "Университеттерді қарау"
+  },
+  "Profile checks": {
+    "ru": "Проверки профиля",
+    "kk": "Профильді тексеру"
+  },
+  "Your profile is included. Ask one question to get started.": {
+    "ru": "Помощник учитывает твой профиль. Спроси, что хочешь узнать.",
+    "kk": "Көмекші профиліңді ескереді. Білгің келгенін сұра."
+  },
+  "Ask about a university, a requirement or your next step.": {
+    "ru": "Спроси о вузе, требованиях или следующем шаге.",
+    "kk": "Университет, талаптар немесе келесі қадам туралы сұра."
+  },
+  "Your question and academic profile are sent to AI. Verify sources before applying.": {
+    "ru": "Вопрос и учебные данные отправляются ИИ. Перед подачей проверь источники.",
+    "kk": "Сұрағың мен оқу деректерің ЖИ-ге жіберіледі. Өтініш берерде дереккөздерді тексер."
+  },
+  "Privacy and conversation": {
+    "ru": "Данные и история разговора",
+    "kk": "Деректер мен әңгіме тарихы"
+  },
+  "Find suitable universities and what you need to apply. Computer Science · US and Canada.": {
+    "ru": "Найди подходящие вузы и узнай, что нужно для поступления. Computer Science · США и Канада.",
+    "kk": "Сәйкес университеттерді тауып, түсуге не қажет екенін біл. Computer Science · АҚШ пен Канада."
+  },
+  "Start with your country. Add grades and budget at your own pace.": {
+    "ru": "Начни с выбора страны. Оценки и бюджет можно добавить позже.",
+    "kk": "Алдымен елді таңда. Бағаларың мен бюджетіңді кейін қоса аласың."
+  },
+  "Your saved universities → tasks and deadlines. Update real scores in your profile.": {
+    "ru": "Задачи и сроки для сохранённых вузов. Новые баллы добавляй в профиль.",
+    "kk": "Сақталған университеттерге арналған тапсырмалар мен мерзімдер. Жаңа балдарды профиліңе енгіз."
+  },
+  "Change a score or budget to see what would improve. Your saved profile stays unchanged.": {
+    "ru": "Измени балл или бюджет и посмотри результат. Сохранённый профиль не изменится.",
+    "kk": "Балды немесе бюджетті өзгертіп, нәтижені көр. Сақталған профилің өзгермейді."
   }
 }

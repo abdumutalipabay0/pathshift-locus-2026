@@ -54,7 +54,7 @@ export default function Landing() {
             </h1>
             <p className="landing-lead">
               {tr(
-                'Compare universities, find the requirements you still need to meet, and get a list of next steps. Start with Computer Science in the US and Canada.',
+                'Find suitable universities and what you need to apply. Computer Science · US and Canada.',
               )}
             </p>
             <div className="landing-actions">
@@ -68,9 +68,7 @@ export default function Landing() {
               </Link>
             </div>
             <p className="landing-note">
-              {tr(
-                'Create an account, choose a country, and explore. Add scores and budget when you are ready.',
-              )}
+              {tr('Start with your country. Add grades and budget at your own pace.')}
             </p>
           </div>
           <div className="landing-art">
@@ -84,9 +82,6 @@ export default function Landing() {
               alt=""
               preload
             />
-            <p className="landing-caption">
-              {tr('An illustration of the journey, not an admission prediction.')}
-            </p>
           </div>
         </section>
         <section className="landing-problem">
@@ -136,34 +131,6 @@ export default function Landing() {
               'Built around Computer Science, international first-year entry and Fall 2027. Start with six featured universities; inspect the evidence behind every result.',
             )}
           </p>
-        </section>
-        <section className="landing-process" aria-labelledby="journey-heading">
-          <div>
-            <p className="eyebrow">{tr('FROM QUESTION TO NEXT STEP')}</p>
-            <h2 id="journey-heading">{tr('From university search to a to-do list.')}</h2>
-          </div>
-          <ol>
-            {[
-              [
-                'Choose universities',
-                'Compare requirements, published costs and application dates in one place.',
-              ],
-              [
-                'Find what is missing',
-                'Add your grades and test results. See which requirements you meet and what you need to improve.',
-              ],
-              [
-                'Know what to do next',
-                'Save universities to get tasks for tests, documents and deadlines. Mark your own progress.',
-              ],
-            ].map(([title, body], i) => (
-              <li key={title}>
-                <span>{i + 1}</span>
-                <h3>{tr(title)}</h3>
-                <p>{tr(body)}</p>
-              </li>
-            ))}
-          </ol>
         </section>
         <section className="landing-finish">
           <div>

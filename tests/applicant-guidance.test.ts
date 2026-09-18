@@ -88,3 +88,13 @@ test('guidance and preparation text translate in both languages', () => {
         assert.notEqual(translateText(text, locale), text, `${locale}: ${text}`);
   }
 });
+
+test('changing curriculum does not reuse an unrelated IB total for personalization', () => {
+  const profile = {
+    ...structuredClone(demoProfile),
+    curriculum: 'Other',
+    raw_grade: '',
+    raw_scale: '',
+  };
+  assert.equal(evaluate(profile, now).guidance.personalized, false);
+});
