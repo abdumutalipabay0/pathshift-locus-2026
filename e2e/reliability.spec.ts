@@ -5,7 +5,7 @@ test('draft survives navigation and reload, geography locks follow changed selec
 }) => {
   await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
-  await page.getByRole('button', { name: 'Build my profile', exact: true }).click();
+  await page.getByRole('button', { name: 'Edit your details', exact: true }).click();
   await page.getByLabel('Your name', { exact: true }).fill('Draft student');
   await page.getByLabel('Keep these countries as a hard constraint').check();
   await page.getByRole('checkbox', { name: 'United States', exact: true }).uncheck();
@@ -13,7 +13,7 @@ test('draft survives navigation and reload, geography locks follow changed selec
   await page.getByRole('button', { name: '2 Academics' }).click();
   await page.reload();
   await expect(page.locator('.program-card')).toHaveCount(6);
-  await page.getByRole('button', { name: 'Build my profile', exact: true }).click();
+  await page.getByRole('button', { name: 'Edit your details', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'Your education, in its own terms.' }),
   ).toBeVisible();

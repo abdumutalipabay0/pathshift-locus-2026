@@ -16,11 +16,20 @@ export function restoreOnboardingDraft(raw: string | null, fallback: Profile): P
     if (
       profile &&
       typeof profile.name === 'string' &&
+      profile.name.length <= 60 &&
       typeof profile.age === 'number' &&
+      Number.isInteger(profile.age) &&
+      (profile.age === 0 || (profile.age >= 10 && profile.age <= 100)) &&
       typeof profile.citizenship === 'string' &&
+      profile.citizenship.length <= 80 &&
       profileSchema.safeParse({ ...profile, name: 'Draft', age: 17, citizenship: 'Draft' }).success
     )
-      return profile;
+      return {
+        ...profile,
+        countries: profile.countries.filter((country: string) =>
+          ['US', 'Canada'].includes(country),
+        ),
+      };
   } catch {
     /* Invalid local data never blocks a new account. */
   }

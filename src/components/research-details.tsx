@@ -6,6 +6,7 @@ import { ArrowUpRight, ExternalLink } from 'lucide-react';
 
 export function resultCaption(r: Result) {
   if (r.admission_state === 'INDETERMINATE') {
+    if (r.blockers.length && r.unknowns.length) return 'Requirements and details to complete';
     if (r.unknowns.length && r.unknowns.every((x) => x.input_needed)) return 'Add profile details';
     if (!r.unknowns.length) return 'Complete remaining steps';
   }

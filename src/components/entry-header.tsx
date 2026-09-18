@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import Brand from './brand';
 import { LanguagePicker, useLocale } from './locale-provider';
 import { authClient } from '@/lib/auth/client';
 export function SignOut() {
@@ -31,11 +31,8 @@ export default function EntryHeader({ account = false }: { account?: boolean }) 
       <a className="skip-link" href="#main">
         {tr('Skip to main content')}
       </a>
-      <Link href="/" className="brand">
-        <span className="brand-symbol">
-          <ArrowUpRight />
-        </span>
-        pathshift<span className="brand-dot">.</span>
+      <Link href="/" className="brand-link" aria-label="PathShift">
+        <Brand />
       </Link>
       <nav aria-label={tr('Account navigation')}>
         <LanguagePicker />

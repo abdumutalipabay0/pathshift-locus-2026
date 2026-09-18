@@ -5172,3 +5172,46 @@ fieldset.scenario-body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Shared identity: a single continuous path through a P. */
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+}
+.brand-symbol {
+  background: #263f78;
+  border-radius: 12px;
+  box-shadow: none;
+}
+.brand-dot {
+  color: #d4774f;
+}
+
+.scenario-disclosure {
+  padding: 18px;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.scenario-disclosure:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -4px;
+}
+
+.scope-note {
+  padding: 10px 12px;
+  border-left: 3px solid #c1784a;
+  background: #fff6ec;
+  color: #68452d;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Localized statuses must wrap inside narrow cards and comparison cells. */
+.badge {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}

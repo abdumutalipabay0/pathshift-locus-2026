@@ -27,6 +27,9 @@ test('onboarding restores unfinished drafts, rejecting corrupt and invalid acade
   for (const raw of [
     'invalid',
     '{}',
+    JSON.stringify({ profile: { ...draft, age: -4 } }),
+    JSON.stringify({ profile: { ...draft, name: 'x'.repeat(61) } }),
+    JSON.stringify({ profile: { ...draft, citizenship: 'x'.repeat(81) } }),
     JSON.stringify({ profile: { ...draft, ielts: { ...draft.ielts, overall: 500 } } }),
   ]) {
     assert.deepEqual(restoreOnboardingDraft(raw, fallback), fallback);

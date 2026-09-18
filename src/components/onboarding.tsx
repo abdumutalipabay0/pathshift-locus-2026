@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useState, useSyncExternalStore, useRef } from 'react';
 import { newAccountProfile, restoreOnboardingDraft } from '@/lib/onboarding';
 import { profileSchema } from '@/lib/profile';
 import EntryHeader from './entry-header';
@@ -30,6 +30,10 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
   const { tr } = useLocale();
   const [busy, setBusy] = useState(false),
     [error, setError] = useState('');
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
   const [profile, setProfile] = useState<Profile>(() => {
     const fallback = newAccountProfile(name);
     try {
@@ -58,14 +62,14 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
           <h1>{tr('Where would you like to study?')}</h1>
           <p className="muted">
             {tr(
-              'Start with three details. Add grades and budget later to check your eligibility and costs.',
+              'Choose your study destination. Add grades and budget later to check requirements and costs.',
             )}
           </p>
           <p className="small muted">
             {tr('Current focus: Computer Science in the US and Canada, Fall 2027.')}
           </p>
           {error && (
-            <p role="alert" className="error-box">
+            <p ref={errorRef} tabIndex={-1} role="alert" className="error-box">
               {tr(error)}
             </p>
           )}

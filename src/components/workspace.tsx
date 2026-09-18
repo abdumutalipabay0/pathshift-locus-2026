@@ -44,7 +44,7 @@ import type {
   State,
   Task,
 } from '@/lib/types';
-import { blankProfile, demoProfile, profileSchema } from '@/lib/profile';
+import { demoProfile, profileSchema } from '@/lib/profile';
 import ProfileWizard from './profile-wizard';
 import { calendarExport, downloadText, scenarioMutation, type SavedScenario } from '@/lib/journey';
 import { JourneyExtras } from './journey-extras';
@@ -53,6 +53,8 @@ import { ResearchDetails, ResearchComparison, resultCaption } from './research-d
 import FutureLab from './future-lab';
 import Link from 'next/link';
 import { SignOut } from './entry-header';
+import Brand from './brand';
+import { taskProfileStep } from '@/lib/workspace-ux';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 type View = 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
@@ -69,11 +71,11 @@ const friendly = (s: string) =>
     .replaceAll('_', ' ')
     .replace(/^./, (c) => c.toUpperCase());
 const navItems = [
-  { id: 'lab', label: 'What can I improve?', icon: FlaskConical },
   { id: 'map', label: 'Universities', icon: Compass },
   { id: 'shortlist', label: 'My shortlist', icon: Bookmark },
   { id: 'compare', label: 'Compare paths', icon: GitCompareArrows },
   { id: 'roadmap', label: 'My application tasks', icon: Route },
+  { id: 'lab', label: 'What can I improve?', icon: FlaskConical },
   { id: 'sources', label: 'Sources & evidence', icon: ShieldCheck },
 ] as const;
 async function api<T>(path: string, body?: unknown, method = 'POST'): Promise<T> {
@@ -86,27 +88,6 @@ async function api<T>(path: string, body?: unknown, method = 'POST'): Promise<T>
   const value = await response.json();
   if (!response.ok) throw new Error(value.error || 'Unable to reach the decision engine.');
   return value;
-}
-function Brand() {
-  const { tr } = useLocale();
-
-  return (
-    <span className="brand">
-      <span className="brand-symbol">
-        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <path
-            d="M8 25V13a6 6 0 0 1 12 0c0 6-12 4-12 12M9 22l16-13M17 9h8v8"
-            stroke="currentColor"
-            strokeWidth="2.7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      {tr('pathshift')}
-      <span className="brand-dot">.</span>
-    </span>
-  );
 }
 function Badge({ state, label }: { state: State; label?: string }) {
   const { tr } = useLocale();
@@ -395,6 +376,8 @@ export default function Workspace({
     return () => window.removeEventListener('keydown', onKey);
   }, [menu]);
   const generation = useRef(0);
+  const mutationLock = useRef(false);
+  const scenarioGeneration = useRef(0);
   const [scenario, setScenario] = useState({
     english: false,
     ielts: 6.5,
@@ -409,9 +392,19 @@ export default function Workspace({
     CAD: 25000,
     GBP: 15000,
     country: 'keep',
+    testDate: '',
   });
+  const clearSimulation = () => {
+    scenarioGeneration.current++;
+    setSimulation(null);
+    setSimBusy(false);
+  };
   const current = simulation?.after || evaluation;
   const compute = async (p: Profile, persist = true, demoValue = demo) => {
+    if (mutationLock.current) return;
+    mutationLock.current = true;
+    scenarioGeneration.current++;
+    setSimBusy(false);
     const token = ++generation.current;
     setBusy(true);
     setError('');
@@ -419,6 +412,7 @@ export default function Workspace({
       const e = await api<Evaluation>('evaluate', { profile: p });
       if (token !== generation.current) return;
       if (persist) await saveAccount(e.profile);
+      if (token !== generation.current) return;
       setProfile(e.profile);
       setDemo(accountId ? false : demoValue);
       setEvaluation(e);
@@ -435,6 +429,7 @@ export default function Workspace({
     } catch (e) {
       if (token === generation.current) setError((e as Error).message);
     } finally {
+      mutationLock.current = false;
       if (token === generation.current) setBusy(false);
     }
   };
@@ -529,7 +524,10 @@ export default function Workspace({
     };
   }, [accountId, initialProfile, storage]);
   const navigate = (v: View) => {
+    if (v === 'lab' || v === 'profile') clearSimulation();
     setView(v);
+    setFilter('all');
+    setSearch('');
     const url = new URL(window.location.href);
     url.searchParams.set('view', v === 'profile' ? 'map' : v);
     url.hash = '';
@@ -562,6 +560,7 @@ export default function Workspace({
       CAD: 25000,
       GBP: 15000,
       country: 'keep',
+      testDate: '',
     });
     setComparison(['waterloo', 'gatech']);
     navigate('map');
@@ -572,8 +571,8 @@ export default function Workspace({
     }
     setNotice('Demo reset to Aruzhan’s starting profile.');
   };
-  const edit = (fresh = false) => {
-    let next = structuredClone(fresh ? { ...blankProfile, documents_by_program: {} } : profile),
+  const edit = () => {
+    let next = structuredClone(profile),
       step = 0;
     try {
       const draft = JSON.parse(storage.getItem('pathshift-draft') || 'null');
@@ -585,9 +584,18 @@ export default function Workspace({
         Array.isArray(draft.profile?.countries) &&
         Array.isArray(draft.profile?.shortlist)
       ) {
-        next = { ...next, ...draft.profile };
-        step = Math.max(0, Math.min(3, Number(draft.step) || 0));
-        setNotice('Your unfinished profile has been restored.');
+        const restored = profileSchema.safeParse({ ...next, ...draft.profile });
+        if (restored.success) {
+          next = {
+            ...restored.data,
+            shortlist: profile.shortlist,
+            completed: profile.completed,
+            personal_plan: profile.personal_plan,
+            documents_by_program: profile.documents_by_program,
+          };
+          step = Math.max(0, Math.min(3, Number(draft.step) || 0));
+          setNotice('Your unfinished profile has been restored.');
+        }
       }
     } catch {
       /* Recover with current profile if draft is unreadable. */
@@ -664,20 +672,22 @@ export default function Workspace({
     setSavedOpen(false);
     setSimBusy(true);
     const token = generation.current;
+    const request = ++scenarioGeneration.current;
     try {
       const next = await api<Simulation>('simulate', { profile, mutation: item.mutation });
-      if (token === generation.current) {
+      if (token === generation.current && request === scenarioGeneration.current) {
         setSimulation(next);
         navigate('map');
       }
     } catch (e) {
       setNotice((e as Error).message);
     } finally {
-      setSimBusy(false);
+      if (request === scenarioGeneration.current) setSimBusy(false);
     }
   };
   const runScenario = async () => {
     const token = generation.current;
+    const request = ++scenarioGeneration.current;
     setSimBusy(true);
     setSimError('');
     try {
@@ -691,7 +701,7 @@ export default function Workspace({
               writing: scenario.writing,
               listening: scenario.listening,
               speaking: scenario.speaking,
-              date: profile.ielts.date || new Date().toISOString().slice(0, 10),
+              date: scenario.testDate || profile.ielts.date,
             },
           }
         : {};
@@ -699,26 +709,32 @@ export default function Workspace({
         mutation.sat = {
           status: 'VALID',
           score: scenario.satScore,
-          date: profile.sat.date || new Date().toISOString().slice(0, 10),
+          date: scenario.testDate || profile.sat.date,
         };
       if (scenario.budget)
         mutation.budgets = { USD: scenario.USD, CAD: scenario.CAD, GBP: scenario.GBP };
       if (scenario.country !== 'keep') mutation.countries = [scenario.country];
       const result = await api<Simulation>('simulate', { profile, mutation });
-      if (token === generation.current) setSimulation(result);
+      if (token === generation.current && request === scenarioGeneration.current)
+        setSimulation(result);
     } catch (e) {
       setSimError((e as Error).message);
     } finally {
-      setSimBusy(false);
+      if (request === scenarioGeneration.current) setSimBusy(false);
     }
   };
   const toggleTask = async (task: Task) => {
     if (task.requires_value) {
       edit();
-      if (task.title.startsWith('Complete profile:')) setWizardStep(1);
+      setWizardStep(taskProfileStep(task));
       setNotice('Enter the completed result or document declaration in your profile.');
       return;
     }
+    if (mutationLock.current) return;
+    mutationLock.current = true;
+    generation.current++;
+    scenarioGeneration.current++;
+    setSimBusy(false);
     setBusy(true);
     try {
       const e = await api<Evaluation>(
@@ -737,6 +753,7 @@ export default function Workspace({
     } catch (e) {
       setError((e as Error).message);
     } finally {
+      mutationLock.current = false;
       setBusy(false);
     }
   };
@@ -768,8 +785,10 @@ export default function Workspace({
   };
   const selected = current?.programs.find((r) => r.program.id === detail);
   const inScope =
-    current?.programs.filter(
-      (r) => r.in_scope && (includeIncomplete || focusPrograms.has(r.program.id)),
+    current?.programs.filter((r) =>
+      view === 'shortlist'
+        ? profile.shortlist.includes(r.program.id)
+        : (allCountries || r.in_scope) && (includeIncomplete || focusPrograms.has(r.program.id)),
     ) || [];
   const counts = {
     ready: inScope.filter((r) => r.admission_state === 'READY_TO_APPLY').length,
@@ -779,12 +798,13 @@ export default function Workspace({
         r.admission_state === 'CONDITIONAL_PATH' ||
         (r.admission_state === 'INDETERMINATE' && r.unknowns.length === 0),
     ).length,
-    verify: inScope.filter((r) => r.unknowns.length > 0).length,
+    verify: inScope.filter((r) => r.admission_state === 'INDETERMINATE' && r.unknowns.length > 0)
+      .length,
     blocked: inScope.filter((r) => r.admission_state === 'BLOCKED').length,
   };
   const shown = (current?.programs || []).filter(
     (r) =>
-      (allCountries || r.in_scope) &&
+      (view === 'shortlist' || allCountries || r.in_scope) &&
       (view === 'shortlist' || includeIncomplete || focusPrograms.has(r.program.id)) &&
       (view !== 'shortlist' || profile.shortlist.includes(r.program.id)) &&
       (filter === 'all' ||
@@ -792,7 +812,8 @@ export default function Workspace({
           ? r.admission_state === 'WITHIN_REACH' ||
             r.admission_state === 'CONDITIONAL_PATH' ||
             (r.admission_state === 'INDETERMINATE' && r.unknowns.length === 0)
-          : r.admission_state === filter)) &&
+          : r.admission_state === filter &&
+            (filter !== 'INDETERMINATE' || r.unknowns.length > 0))) &&
       `${r.program.name} ${r.program.short} ${r.program.degree} ${tr(r.program.degree)} ${tr(r.program.city)}`
         .toLowerCase()
         .includes(search.toLowerCase()),
@@ -1124,7 +1145,7 @@ export default function Workspace({
                   />
                 </label>
               </div>
-              <button className="btn ghost" onClick={() => setSimulation(null)}>
+              <button className="btn ghost" onClick={clearSimulation}>
                 {tr('Discard ')}
               </button>
               <button className="btn primary" onClick={saveScenario}>
@@ -1175,11 +1196,11 @@ export default function Workspace({
                         view === 'map'
                           ? 'Choose universities to compare.'
                           : view === 'shortlist'
-                            ? 'The paths you’re keeping close.'
+                            ? 'Your saved universities'
                             : view === 'compare'
-                              ? 'Different paths. A clearer choice.'
+                              ? 'Compare universities side by side'
                               : view === 'roadmap'
-                                ? 'Small steps. Real progress.'
+                                ? 'Your application checklist'
                                 : 'Every decision has a source.',
                       )}
                     </h1>
@@ -1188,11 +1209,11 @@ export default function Workspace({
                         view === 'map'
                           ? 'See where you stand — and what could change your options.'
                           : view === 'shortlist'
-                            ? 'Your saved programs shape your personal roadmap.'
+                            ? 'Save universities here to get their application tasks. Compare selections are separate.'
                             : view === 'compare'
                               ? 'Compare the requirements that matter to your profile.'
                               : view === 'roadmap'
-                                ? 'A living plan, built from your shortlist and the requirements ahead.'
+                                ? 'Complete these tasks for your saved universities. Enter real scores in your profile; checking a task does not change admission requirements.'
                                 : 'Official requirements, transparent reasoning, and clearly marked gaps.',
                       )}
                     </p>
@@ -1203,9 +1224,9 @@ export default function Workspace({
                       {tr('Export plan ')}
                     </button>
                   ) : (
-                    <button className="btn secondary" disabled={busy} onClick={() => edit(true)}>
-                      <Plus size={16} />
-                      {tr('Build my profile ')}
+                    <button className="btn secondary" disabled={busy} onClick={() => edit()}>
+                      <UserRound size={16} />
+                      {tr('Edit your details')}
                     </button>
                   )}
                 </div>
@@ -1331,7 +1352,7 @@ export default function Workspace({
                                   <CheckCircle2 size={17} />
                                 </span>
                                 <strong>{tr(counts.ready.toString().padStart(2, '0'))}</strong>
-                                <span>{tr('Ready to apply')}</span>
+                                <span>{tr('Checked requirements met')}</span>
                               </button>
                               <button
                                 className={filter === 'actionable' ? 'selected' : ''}
@@ -1358,19 +1379,23 @@ export default function Workspace({
                                 <span>{tr('Details to clarify')}</span>
                               </button>
                             </div>
-                            <p className="focus-note">
-                              {tr(
-                                'Start with programs whose evaluated requirements can be explained. Incomplete research stays separate; costs and admission outcomes are never guaranteed.',
-                              )}
-                            </p>
-                            <label className="research-toggle">
-                              <input
-                                type="checkbox"
-                                checked={includeIncomplete}
-                                onChange={(e) => setIncludeIncomplete(e.target.checked)}
-                              />
-                              {tr('Include programs with unverified rules')}
-                            </label>
+                            {view === 'map' && (
+                              <p className="focus-note">
+                                {tr(
+                                  'Open a university to check requirements. Use Compare to see differences, or save it to get application tasks.',
+                                )}
+                              </p>
+                            )}
+                            {view === 'map' && (
+                              <label className="research-toggle">
+                                <input
+                                  type="checkbox"
+                                  checked={includeIncomplete}
+                                  onChange={(e) => setIncludeIncomplete(e.target.checked)}
+                                />
+                                {tr('Include programs with unverified rules')}
+                              </label>
+                            )}
                             <div className="board-toolbar">
                               <div className="board-tabs">
                                 <button
@@ -1409,14 +1434,16 @@ export default function Workspace({
                                 {current.programs.length} {tr(' programs evaluated · ')}
                                 {shown.length} {tr(' shown ')}
                               </span>
-                              <label>
-                                <input
-                                  type="checkbox"
-                                  checked={allCountries}
-                                  onChange={(e) => setAllCountries(e.target.checked)}
-                                />
-                                {tr('Include other countries ')}
-                              </label>
+                              {view === 'map' && (
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    checked={allCountries}
+                                    onChange={(e) => setAllCountries(e.target.checked)}
+                                  />
+                                  {tr('Include other countries ')}
+                                </label>
+                              )}
                             </div>
                             {!shown.length ? (
                               <div className="empty-state panel">
@@ -1501,7 +1528,10 @@ export default function Workspace({
                             )}
                           </div>
                           <aside className="scenario-rail" id="scenario-lab">
-                            <section className="scenario-panel panel">
+                            <details className="scenario-panel panel" open={!accountId}>
+                              <summary className="scenario-disclosure">
+                                {tr('Explore a different score or budget')}
+                              </summary>
                               <div className="scenario-heading">
                                 <span className="scenario-icon">
                                   <SlidersHorizontal size={20} />
@@ -1524,7 +1554,7 @@ export default function Workspace({
                                     checked={scenario.english}
                                     onChange={(e) => {
                                       setScenario({ ...scenario, english: e.target.checked });
-                                      setSimulation(null);
+                                      clearSimulation();
                                     }}
                                   />
                                 </label>
@@ -1554,7 +1584,7 @@ export default function Workspace({
                                         ...scenario,
                                         ielts: Number(e.target.value),
                                       });
-                                      setSimulation(null);
+                                      clearSimulation();
                                     }}
                                   />
                                   <div className="range-labels">
@@ -1584,7 +1614,7 @@ export default function Workspace({
                                                 ...scenario,
                                                 [k]: Number(e.target.value),
                                               });
-                                              setSimulation(null);
+                                              clearSimulation();
                                             }}
                                           />
                                         </label>
@@ -1609,7 +1639,7 @@ export default function Workspace({
                                     checked={scenario.sat}
                                     onChange={(e) => {
                                       setScenario({ ...scenario, sat: e.target.checked });
-                                      setSimulation(null);
+                                      clearSimulation();
                                     }}
                                   />
                                 </label>
@@ -1627,7 +1657,7 @@ export default function Workspace({
                                           ...scenario,
                                           satScore: Number(e.target.value),
                                         });
-                                        setSimulation(null);
+                                        clearSimulation();
                                       }}
                                     />
                                   </label>
@@ -1643,7 +1673,7 @@ export default function Workspace({
                                     checked={scenario.budget}
                                     onChange={(e) => {
                                       setScenario({ ...scenario, budget: e.target.checked });
-                                      setSimulation(null);
+                                      clearSimulation();
                                     }}
                                   />
                                 </label>
@@ -1662,7 +1692,7 @@ export default function Workspace({
                                               ...scenario,
                                               [c]: Number(e.target.value),
                                             });
-                                            setSimulation(null);
+                                            clearSimulation();
                                           }}
                                         />
                                       </label>
@@ -1678,7 +1708,7 @@ export default function Workspace({
                                     value={scenario.country}
                                     onChange={(e) => {
                                       setScenario({ ...scenario, country: e.target.value });
-                                      setSimulation(null);
+                                      clearSimulation();
                                     }}
                                   >
                                     <option value="keep">{tr('Keep my countries')}</option>
@@ -1687,6 +1717,24 @@ export default function Workspace({
                                     <option value="UK">{tr('United Kingdom')}</option>
                                   </select>
                                 </label>
+                                {(scenario.english || scenario.sat) && (
+                                  <label className="field-label">
+                                    {tr('Assumed test date (optional)')}
+                                    <input
+                                      type="date"
+                                      value={scenario.testDate}
+                                      onChange={(e) => {
+                                        setScenario({ ...scenario, testDate: e.target.value });
+                                        clearSimulation();
+                                      }}
+                                    />
+                                    <small>
+                                      {tr(
+                                        'Used only for this scenario. Leave blank to keep your recorded date; missing dates remain unknown.',
+                                      )}
+                                    </small>
+                                  </label>
+                                )}
                                 {tr(
                                   simError && (
                                     <p className="error-text" role="alert">
@@ -1781,15 +1829,12 @@ export default function Workspace({
                                     {tr('Save scenario ')}
                                     <Check size={16} />
                                   </button>
-                                  <button
-                                    className="text-button full"
-                                    onClick={() => setSimulation(null)}
-                                  >
+                                  <button className="text-button full" onClick={clearSimulation}>
                                     {tr('Discard changes ')}
                                   </button>
                                 </div>
                               )}
-                            </section>
+                            </details>
                             <section className="next-preview">
                               <span className="eyebrow">
                                 <Route size={13} /> {tr(' YOUR NEXT MOVE ')}
@@ -2105,13 +2150,20 @@ export default function Workspace({
                           </p>
                           <button
                             className="btn secondary full"
-                            onClick={() =>
+                            onClick={() => {
+                              const calendar = calendarExport(current, tr, facts);
+                              if (!calendar.includes('BEGIN:VEVENT')) {
+                                setNotice(
+                                  'No verified dates to export. Save a university with published deadlines first.',
+                                );
+                                return;
+                              }
                               downloadText(
-                                calendarExport(current, tr, facts),
+                                calendar,
                                 'pathshift-deadlines.ics',
                                 'text/calendar;charset=utf-8',
-                              )
-                            }
+                              );
+                            }}
                           >
                             <CalendarDays size={15} />
                             {tr('Export calendar')}
@@ -2519,6 +2571,13 @@ function ProgramCard({
       </button>
       <p className="degree">{tr(r.program.degree)}</p>
       <Badge state={r.admission_state} label={resultCaption(r)} />
+      {!r.in_scope && (
+        <p className="scope-note">
+          {tr(
+            'Outside your study preferences. Update your profile to include this university in your task plan.',
+          )}
+        </p>
+      )}
       <p className="why-fit">
         {tr(
           r.rules.some((rule) => rule.strength === 'HARD' && rule.result === 'PASS')

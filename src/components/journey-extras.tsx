@@ -78,27 +78,29 @@ export function JourneyExtras({
           )}
         </p>
         {shortlisted.flatMap((r) =>
-          r.unknowns.map((rule) => (
-            <div className="verification-row" key={`${r.program.id}-${rule.id}`}>
-              <strong>{r.program.short}</strong>
-              <p>{tr(rule.label)}</p>
-              <button
-                className="btn secondary small-btn"
-                onClick={() =>
-                  setQuestion(
-                    `${tr('Hello, I am considering your program for')} ${tr(evaluation.profile.intake === 'FALL_2027' ? 'Fall 2027' : 'Fall 2028 · not yet verified')}.\n${r.program.name} · ${r.program.degree}\n${tr('School curriculum')}: ${evaluation.profile.curriculum}\n${tr('Could you confirm the requirement below and send the official page for my curriculum and entry year?')}\n${tr(rule.label)}\n${tr('Thank you.')}`,
-                  )
-                }
-              >
-                {tr('Prepare a question')}
-              </button>{' '}
-              <button className="text-button" onClick={() => onProof(rule.facts)}>
-                {tr('View evidence')}
-              </button>
-            </div>
-          )),
+          r.unknowns
+            .filter((rule) => !rule.input_needed)
+            .map((rule) => (
+              <div className="verification-row" key={`${r.program.id}-${rule.id}`}>
+                <strong>{r.program.short}</strong>
+                <p>{tr(rule.label)}</p>
+                <button
+                  className="btn secondary small-btn"
+                  onClick={() =>
+                    setQuestion(
+                      `${tr('Hello, I am considering your program for')} ${tr(evaluation.profile.intake === 'FALL_2027' ? 'Fall 2027' : 'Fall 2028 · not yet verified')}.\n${r.program.name} · ${r.program.degree}\n${tr('School curriculum')}: ${evaluation.profile.curriculum}\n${tr('Could you confirm the requirement below and send the official page for my curriculum and entry year?')}\n${tr(rule.label)}\n${tr('Thank you.')}`,
+                    )
+                  }
+                >
+                  {tr('Prepare a question')}
+                </button>{' '}
+                <button className="text-button" onClick={() => onProof(rule.facts)}>
+                  {tr('View evidence')}
+                </button>
+              </div>
+            )),
         )}
-        {!shortlisted.some((r) => r.unknowns.length) && (
+        {!shortlisted.some((r) => r.unknowns.some((rule) => !rule.input_needed)) && (
           <p>{tr('No unresolved rule questions in your current shortlist.')}</p>
         )}
         {question && (
