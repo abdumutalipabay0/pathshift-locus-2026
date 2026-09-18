@@ -26,6 +26,16 @@ try {
   await page.getByRole('link', { name: 'Explore the demo', exact: true }).first().click();
   await page.locator('.program-card').first().waitFor();
   await hold(3500);
+  await page.locator('.context-navigation').getByRole('button', { name: 'My shortlist' }).click();
+  await page.getByRole('button', { name: 'Remove UBC Vancouver from shortlist' }).click();
+  await page.waitForFunction(
+    () => !document.querySelector('.save-status')?.textContent?.includes('Recalculating'),
+  );
+  await hold(1800);
+  await page
+    .locator('.context-navigation')
+    .getByRole('button', { name: 'Universities', exact: true })
+    .click();
 
   await page.locator('.sidebar').getByRole('button', { name: 'My story and resume' }).click();
   await page.getByRole('button', { name: 'Building apps', exact: true }).click();

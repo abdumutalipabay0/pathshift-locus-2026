@@ -35,6 +35,11 @@ try {
     .fill('I built a website for our school club and worked on its application form.');
   await capture('02-student-story', '.portfolio-page');
 
+  await page.goto(`${origin}/demo?view=shortlist`, { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'Remove UBC Vancouver from shortlist' }).click();
+  await page.waitForFunction(
+    () => !document.querySelector('.save-status')?.textContent?.includes('Recalculating'),
+  );
   await page.goto(`${origin}/demo?view=map`, { waitUntil: 'networkidle' });
   await page.locator('.program-card').first().waitFor();
   await capture('03-university-discovery', '.program-card');
