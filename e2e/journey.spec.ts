@@ -6,7 +6,9 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/demo?view=map');
-  await expect(page.getByRole('heading', { name: 'Your opportunity map.' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Choose universities to compare.' }),
+  ).toBeVisible();
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page
     .locator('.program-card')
@@ -58,7 +60,10 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.getByRole('button', { name: 'Explore my paths' }).click();
   await expect(page.locator('.stats-grid button').first()).toContainText('03');
-  await page.locator('.sidebar').getByRole('button', { name: 'My roadmap', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'My application tasks', exact: true })
+    .click();
   await expect(page.locator('.task-card')).not.toHaveCount(0);
   await page
     .locator('.next-action-hero')
@@ -67,14 +72,14 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   await expect(page.locator('.task-card.completed')).toHaveCount(1);
   await page.reload();
   await expect(page.locator('.task-card.completed')).toHaveCount(1);
-  await page
-    .locator('.sidebar')
-    .getByRole('button', { name: 'Opportunity map', exact: true })
-    .click();
+  await page.locator('.sidebar').getByRole('button', { name: 'Universities', exact: true }).click();
   await expect(page.locator('.program-card')).toHaveCount(6);
   await expect(page.locator('.profile-chips')).toContainText('IELTS 6.5');
   await expect(page.locator('.profile-button')).toContainText('Your admission journey');
-  await page.locator('.sidebar').getByRole('button', { name: 'My roadmap', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'My application tasks', exact: true })
+    .click();
   await expect(page.locator('.task-card.completed')).toHaveCount(1);
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export my plan' }).click();
@@ -105,7 +110,10 @@ test('mobile layout, navigation and profile form remain usable', async ({ page }
   );
   await page.screenshot({ path: 'test-results/mobile-map.png', fullPage: true });
   await page.getByRole('button', { name: 'Toggle navigation' }).click();
-  await page.locator('.sidebar').getByRole('button', { name: 'My roadmap', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'My application tasks', exact: true })
+    .click();
   await expect(page.locator('.next-action-hero')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,

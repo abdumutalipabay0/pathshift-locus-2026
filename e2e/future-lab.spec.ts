@@ -3,12 +3,12 @@ import AxeBuilder from '@axe-core/playwright';
 import { demoProfile } from '../src/lib/profile';
 test.use({ actionTimeout: 15000 });
 
-test('Future Lab is the hero: conditional path, X-ray, receipt, saved future and actual-profile isolation', async ({
+test('What can I improve? is the hero: conditional path, X-ray, receipt, saved future and actual-profile isolation', async ({
   page,
 }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/demo');
+  await page.goto('/demo?view=lab');
   await expect(page.getByRole('heading', { name: 'Explore your possible futures.' })).toBeVisible({
     timeout: 15000,
   });
@@ -42,7 +42,7 @@ test('Future Lab is the hero: conditional path, X-ray, receipt, saved future and
 test('answer updates actual profile, questions adapt and refusal removes retake paths', async ({
   page,
 }) => {
-  await page.goto('/demo');
+  await page.goto('/demo?view=lab');
   await expect(page.locator('.lab-answer')).toBeVisible({ timeout: 15000 });
   await page.getByLabel('Your actual answer').fill('3.5');
   await page.getByRole('button', { name: 'Save answer and update graph' }).click();
@@ -65,7 +65,7 @@ test('answer updates actual profile, questions adapt and refusal removes retake 
 });
 
 for (const locale of ['en', 'ru', 'kk'])
-  test(`Future Lab ${locale}: mobile fit, sources, keyboard controls and accessibility`, async ({
+  test(`What can I improve? ${locale}: mobile fit, sources, keyboard controls and accessibility`, async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -75,7 +75,7 @@ for (const locale of ['en', 'ru', 'kk'])
         url: process.env.PLAYWRIGHT_BASE_URL || c.url,
       })),
     );
-    await page.goto('/demo');
+    await page.goto('/demo?view=lab');
     await expect(page.locator('.lab-path').first()).toBeVisible({ timeout: 15000 });
     await page.locator('.lab-path').first().focus();
     await page.keyboard.press('Enter');
@@ -129,7 +129,7 @@ test('composer preview needs confirmation, null bands stay unknown, invalid acti
       await route.fulfill({ json: { composer: true, model: 'test-provider' } });
     else await route.continue();
   });
-  await page.goto('/demo');
+  await page.goto('/demo?view=lab');
   await expect(page.locator('.lab-path').first()).toBeVisible({ timeout: 15000 });
   await page.getByLabel('Describe your scenario').fill('IELTS 6.5');
   await page.getByRole('button', { name: 'Preview changes' }).click();
@@ -148,9 +148,11 @@ test('composer preview needs confirmation, null bands stay unknown, invalid acti
   expect(res.status()).toBe(400);
 });
 
-test('desktop Future Lab board renders with no page errors or overflow', async ({ page }) => {
+test('desktop What can I improve? board renders with no page errors or overflow', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('/demo');
+  await page.goto('/demo?view=lab');
   await expect(page.locator('.lab-path').first()).toBeVisible({ timeout: 15000 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: 'test-results/future-lab-desktop.png', fullPage: true });

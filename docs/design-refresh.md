@@ -17,3 +17,7 @@ Production deployment `dpl_6FZDHY3UpvwNdZSbgdX96MCGe7ag` from commit `539c8c9`. 
 ## Landing correction after user review
 
 Separate the campus artwork from the interactive explainer: compact two-column hero, primary actions above the fold, a dedicated explainer below. Remove nested illustration frames and retired landing CSS. Correct Compare destination to the comparison view and align its copy in all locales. Disable interactive selectors until hydrated and show a generated blur placeholder during hero image loading. Add 320/768/1440-width checks across all locales for primary-action visibility and page overflow.
+
+## Product clarity and short onboarding
+
+Reframe the landing around university comparison, unmet requirements and application tasks. Replace mandatory four-step account onboarding with one screen (age, citizenship, destination), preserving blank scores, grades and budgets. Both demo and accounts open university exploration by default; advanced scenarios remain explicitly reachable. Explain the next action above account results, remove misleading profile-complete decoration and card branch-progress/count clutter, and use plain-language status labels without modifying evaluator states. Account lifecycle test verifies missing grades/curriculum/budget stay empty and the university list is reachable immediately.

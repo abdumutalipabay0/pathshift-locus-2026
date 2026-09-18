@@ -4,10 +4,10 @@ import AxeBuilder from '@axe-core/playwright';
 test('new visitors see landing, enter registration or explicitly choose demo', async ({ page }) => {
   await page.goto('/?view=lab');
   await expect(
-    page.getByRole('heading', { name: 'A university goal. More than one way forward.' }),
+    page.getByRole('heading', { name: 'Which universities fit your grades and budget?' }),
   ).toBeVisible();
   await expect(page.locator('.future-lab')).toHaveCount(0);
-  await page.getByRole('link', { name: 'Create my profile' }).first().click();
+  await page.getByRole('link', { name: 'Find universities' }).first().click();
   await expect(page).toHaveURL(/auth\/sign-up/);
   await expect(page.getByLabel('Email address')).toBeVisible();
   await expect(page.getByLabel('Password', { exact: true })).toHaveAttribute('type', 'password');
@@ -16,7 +16,7 @@ test('new visitors see landing, enter registration or explicitly choose demo', a
   await page.getByRole('link', { name: 'Explore the demo', exact: true }).click();
   await expect(page).toHaveURL(/\/demo/);
   await expect(page.locator('.entry-demo-banner')).toContainText('example data');
-  await expect(page.locator('.lab-path')).toHaveCount(3);
+  await expect(page.locator('.program-card')).toHaveCount(6);
 });
 
 test('private routes and profile storage cannot be reached anonymously or with a forged cookie', async ({
@@ -95,7 +95,7 @@ test('route atlas responds to keyboard, links to real tools and respects reduced
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe('none');
   await atlas.getByRole('button', { name: 'Plan', exact: true }).press('Space');
-  await expect(atlas.getByRole('heading')).toHaveText('One clear next action');
+  await expect(atlas.getByRole('heading')).toHaveText('Get an application checklist');
   await atlas.getByRole('link').click();
   await expect(page).toHaveURL(/demo\?view=roadmap/);
 });

@@ -38,15 +38,11 @@ test.describe('live account lifecycle', () => {
     await page.goto('/app?view=map');
     await expect(page).toHaveURL(/\/onboarding$/);
     await expect(page.getByLabel('Age', { exact: true })).toHaveValue('');
-    await expect(page.getByRole('button', { name: /Budget & readiness/ })).toBeDisabled();
+    await expect(page.locator('.wizard-steps')).toHaveCount(0);
     await page.getByLabel('Age', { exact: true }).fill('18');
     await page.getByLabel('Citizenship', { exact: true }).fill('Kazakhstan');
     await page.getByLabel('Canada', { exact: true }).check();
-    await page.getByRole('button', { name: 'Continue', exact: true }).click();
-    await page.getByLabel('School curriculum').selectOption('IB');
-    await page.getByRole('button', { name: 'Continue', exact: true }).click();
-    await page.getByRole('button', { name: 'Continue', exact: true }).click();
-    await page.getByRole('button', { name: 'Build my opportunity map', exact: true }).click();
+    await page.getByRole('button', { name: 'Show universities', exact: true }).click();
     await expect(page).toHaveURL(/\/app$/, { timeout: 20000 });
     await expect(page.locator('.profile-button')).toContainText('QA Applicant');
     await expect(page.locator('.entry-demo-banner')).toHaveCount(0);
@@ -54,6 +50,9 @@ test.describe('live account lifecycle', () => {
     expect(persisted.profile.name).toBe('QA Applicant');
     expect(persisted.profile.ielts.overall).toBeNull();
     expect(persisted.profile.ib_total).toBeNull();
+    expect(persisted.profile.curriculum).toBe('');
+    expect(persisted.profile.budgets.USD).toBeNull();
+    await expect(page.locator('.program-card').first()).toBeVisible();
     await page.getByRole('button', { name: 'My profile', exact: true }).click();
     await page.getByLabel('Your name', { exact: true }).fill('QA Updated');
     await page.getByRole('button', { name: /Budget & readiness/ }).click();

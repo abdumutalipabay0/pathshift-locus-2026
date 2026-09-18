@@ -12,7 +12,9 @@ for (const locale of ['ru', 'kk'] as const) {
     await expect(page.locator('.program-card')).toHaveCount(6);
     await page.locator('.language-picker select').selectOption(locale);
     await expect(page.locator('html')).toHaveAttribute('lang', locale);
-    await expect(page.getByRole('heading', { name: t('Your opportunity map.') })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: t('Choose universities to compare.') }),
+    ).toBeVisible();
     await page
       .locator('.program-card')
       .filter({ has: page.getByRole('heading', { name: 'Waterloo', exact: true }) })
@@ -59,7 +61,7 @@ for (const locale of ['ru', 'kk'] as const) {
     await page.getByRole('button', { name: t('Discard'), exact: true }).click();
     await page
       .locator('.sidebar')
-      .getByRole('button', { name: t('My roadmap'), exact: true })
+      .getByRole('button', { name: t('My application tasks'), exact: true })
       .click();
     await expect(page.locator('.task-list')).toContainText(t('Prepare your application records'));
     const downloadPromise = page.waitForEvent('download');

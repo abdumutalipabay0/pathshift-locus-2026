@@ -56,11 +56,11 @@ import { SignOut } from './entry-header';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 type View = 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
-  READY_TO_APPLY: 'Ready to apply',
-  WITHIN_REACH: 'Within reach',
-  CONDITIONAL_PATH: 'Conditional path',
+  READY_TO_APPLY: 'Checked requirements met',
+  WITHIN_REACH: 'A result needs improvement',
+  CONDITIONAL_PATH: 'An alternative entry route exists',
   BLOCKED: 'Blocked for this intake',
-  INDETERMINATE: 'Needs verification',
+  INDETERMINATE: 'Some requirements need clarification',
 };
 const symbols = { PASS: '✓', FAIL: '−', UNKNOWN: '?', NOT_APPLICABLE: '↗' };
 const friendly = (s: string) =>
@@ -69,11 +69,11 @@ const friendly = (s: string) =>
     .replaceAll('_', ' ')
     .replace(/^./, (c) => c.toUpperCase());
 const navItems = [
-  { id: 'lab', label: 'Future Lab', icon: FlaskConical },
-  { id: 'map', label: 'Opportunity map', icon: Compass },
+  { id: 'lab', label: 'What can I improve?', icon: FlaskConical },
+  { id: 'map', label: 'Universities', icon: Compass },
   { id: 'shortlist', label: 'My shortlist', icon: Bookmark },
   { id: 'compare', label: 'Compare paths', icon: GitCompareArrows },
-  { id: 'roadmap', label: 'My roadmap', icon: Route },
+  { id: 'roadmap', label: 'My application tasks', icon: Route },
   { id: 'sources', label: 'Sources & evidence', icon: ShieldCheck },
 ] as const;
 async function api<T>(path: string, body?: unknown, method = 'POST'): Promise<T> {
@@ -317,7 +317,7 @@ export default function Workspace({
   };
   const { tr, dateLabel, money } = useLocale();
 
-  const [view, setView] = useState<View>('lab');
+  const [view, setView] = useState<View>('map');
   const [profile, setProfile] = useState<Profile>(initialProfile ?? demoProfile);
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
   const [facts, setFacts] = useState<Fact[]>([]);
@@ -362,12 +362,12 @@ export default function Workspace({
       const value = new URL(window.location.href).searchParams.get('view');
       if (['lab', 'map', 'shortlist', 'compare', 'roadmap', 'sources'].includes(value || ''))
         setView(value as View);
-      else setView('lab');
+      else setView('map');
     };
     readView();
     window.addEventListener('popstate', readView);
     return () => window.removeEventListener('popstate', readView);
-  }, []);
+  }, [accountId]);
   useEffect(() => {
     if (!menu) return;
     const onKey = (event: KeyboardEvent) => {
@@ -1173,7 +1173,7 @@ export default function Workspace({
                     <h1>
                       {tr(
                         view === 'map'
-                          ? 'Your opportunity map.'
+                          ? 'Choose universities to compare.'
                           : view === 'shortlist'
                             ? 'The paths you’re keeping close.'
                             : view === 'compare'
@@ -1212,49 +1212,71 @@ export default function Workspace({
               )}
               {view === 'map' && (
                 <>
-                  <section className="journey-banner">
-                    <div className="journey-copy">
-                      <div className="between">
-                        <span className="eyebrow">
-                          {tr(demo ? 'MEET ARUZHAN · DEMO PROFILE' : 'YOUR STARTING POINT')}
-                        </span>
-                        <button className="text-button" onClick={() => setDiagnosis(true)}>
-                          {tr('View diagnosis ')}
-                          <ArrowUpRight size={14} />
-                        </button>
-                      </div>
-                      <h2>{tr('Which change opens your next path?')}</h2>
+                  {accountId ? (
+                    <section className="account-start panel">
+                      <h2>{tr('Start by choosing two universities')}</h2>
                       <p>
-                        {tr('Change an input. See what opens up. ')}
-                        <br />
-                        {tr('Make your next move with a reason. ')}
+                        {tr(
+                          'Open a university to read its requirements. Select two to compare costs and deadlines, then save the ones you like to build your plan.',
+                        )}
                       </p>
-                      <div className="profile-chips">
-                        <span>
-                          <GraduationCap size={14} />
-                          {tr(profile.curriculum)}
-                          {tr(
-                            profile.ib_total !== null && profile.curriculum === 'IB'
-                              ? ` ${profile.ib_total}/45`
-                              : '',
-                          )}
-                        </span>
-                        <span>
-                          <Languages size={14} />
-                          {tr('IELTS ')}
-                          {profile.ielts.overall === null ? '—' : money(profile.ielts.overall)}
-                        </span>
-                        <span>
-                          <Globe2 size={14} />
-                          {tr(profile.countries.join(' + ') || 'No country selected')}
-                        </span>
-                      </div>
-                    </div>
-                    <PathGraphic />
-                  </section>
+                      <p className="small muted">
+                        {tr(
+                          'Missing grades are not a rejection. Add your results when you want a personal requirements check.',
+                        )}
+                      </p>
+                      <button className="btn secondary" onClick={() => edit()}>
+                        {tr('Add my grades and budget')}
+                      </button>
+                    </section>
+                  ) : (
+                    <>
+                      {' '}
+                      <section className="journey-banner">
+                        <div className="journey-copy">
+                          <div className="between">
+                            <span className="eyebrow">
+                              {tr(demo ? 'MEET ARUZHAN · DEMO PROFILE' : 'YOUR STARTING POINT')}
+                            </span>
+                            <button className="text-button" onClick={() => setDiagnosis(true)}>
+                              {tr('View diagnosis ')}
+                              <ArrowUpRight size={14} />
+                            </button>
+                          </div>
+                          <h2>{tr('See how a higher score changes the requirements you meet')}</h2>
+                          <p>
+                            {tr('Try a different test score in the scenario panel. ')}
+                            <br />
+                            {tr('Your actual results stay unchanged. ')}
+                          </p>
+                          <div className="profile-chips">
+                            <span>
+                              <GraduationCap size={14} />
+                              {tr(profile.curriculum)}
+                              {tr(
+                                profile.ib_total !== null && profile.curriculum === 'IB'
+                                  ? ` ${profile.ib_total}/45`
+                                  : '',
+                              )}
+                            </span>
+                            <span>
+                              <Languages size={14} />
+                              {tr('IELTS ')}
+                              {profile.ielts.overall === null ? '—' : money(profile.ielts.overall)}
+                            </span>
+                            <span>
+                              <Globe2 size={14} />
+                              {tr(profile.countries.join(' + ') || 'No country selected')}
+                            </span>
+                          </div>
+                        </div>
+                        <PathGraphic />
+                      </section>
+                    </>
+                  )}
                   <div className="journey-steps">
-                    <span className="complete">
-                      <CheckCircle2 size={16} />
+                    <span>
+                      <UserRound size={16} />
                       {tr('Your profile ')}
                     </span>
                     <i />
@@ -2506,11 +2528,6 @@ function ProgramCard({
               : 'Outside your current preferences; review before adding.',
         )}
       </p>
-      <p className="requirement-summary">
-        {tr('Your requirements to resolve')}: {r.blockers.length} · {tr('Profile values to add')}:{' '}
-        {r.unknowns.filter((u) => u.input_needed).length} · {tr('University rules to verify')}:{' '}
-        {r.unknowns.filter((u) => !u.input_needed).length}
-      </p>
       <div className="card-reason">
         <span className={`reason-icon ${r.blockers.length ? 'amber-text' : ''}`}>
           {r.blockers.length ? (
@@ -2529,22 +2546,9 @@ function ProgramCard({
           )}
         </p>
       </div>
-      <div
-        className="branch-progress"
-        role="img"
-        aria-label={tr(`${r.passed} of ${r.total} required branches satisfied`)}
-      >
-        {Array.from({ length: r.total }, (_, i) => (
-          <span className={i < r.passed ? 'passed' : ''} key={i} />
-        ))}
-      </div>
-      <div className="branch-caption">
-        <span>{tr(`${r.passed} of ${r.total} required branches satisfied`)}</span>
-        <button onClick={onOpen}>
-          {tr('Why? ')}
-          <ArrowUpRight size={12} />
-        </button>
-      </div>
+      <button className="text-button card-next" onClick={onOpen}>
+        {tr('See requirements and next steps')} <ArrowUpRight size={14} />
+      </button>
       <div className="card-metadata">
         <span>
           <CalendarDays size={13} />

@@ -10,11 +10,11 @@ export function resultCaption(r: Result) {
     if (!r.unknowns.length) return 'Complete remaining steps';
   }
   return {
-    READY_TO_APPLY: 'Ready to apply',
-    WITHIN_REACH: 'Within reach',
-    CONDITIONAL_PATH: 'Conditional path',
+    READY_TO_APPLY: 'Checked requirements met',
+    WITHIN_REACH: 'A result needs improvement',
+    CONDITIONAL_PATH: 'An alternative entry route exists',
     BLOCKED: 'Blocked for this intake',
-    INDETERMINATE: 'Needs verification',
+    INDETERMINATE: 'Some requirements need clarification',
   }[r.admission_state];
 }
 export function ResearchDetails({ program }: { program: Program }) {

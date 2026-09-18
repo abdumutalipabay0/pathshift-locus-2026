@@ -17,11 +17,11 @@ import type { DecisionGraph, DecisionReceipt, LabAnalysis } from '@/lib/lab-type
 import type { ComposerDraft } from '@/lib/scenario-composer';
 import type { SavedScenario } from '@/lib/journey';
 const stateLabels: Record<string, string> = {
-  READY_TO_APPLY: 'Ready to apply',
-  WITHIN_REACH: 'Within reach',
-  CONDITIONAL_PATH: 'Conditional path',
+  READY_TO_APPLY: 'Checked requirements met',
+  WITHIN_REACH: 'A result needs improvement',
+  CONDITIONAL_PATH: 'An alternative entry route exists',
   BLOCKED: 'Blocked for this intake',
-  INDETERMINATE: 'Needs verification',
+  INDETERMINATE: 'Some requirements need clarification',
 };
 const fieldLabels: Record<string, string> = {
   curriculum: 'School curriculum',
@@ -278,7 +278,7 @@ export default function FutureLab({
     if (
       onSave({
         id: crypto.randomUUID(),
-        name: `${tr('Future Lab')} · ${names([target])}`,
+        name: `${tr('What can I improve?')} · ${names([target])}`,
         mutation,
         savedAt: new Date().toISOString(),
       })

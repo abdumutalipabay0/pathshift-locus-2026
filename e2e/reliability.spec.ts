@@ -52,7 +52,10 @@ test('comparison limit, reload and browser Back retain usable navigation', async
   await expect(page.locator('.compare-card').first()).toContainText('Waterloo');
   await page.reload();
   await expect(page.locator('.compare-card')).toHaveCount(3);
-  await page.locator('.sidebar').getByRole('button', { name: 'My roadmap', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'My application tasks', exact: true })
+    .click();
   await page.goBack();
   await expect(page.locator('.compare-card')).toHaveCount(3);
 });
@@ -76,7 +79,10 @@ test('saved scenario remains hypothetical across reload; calendar and verificati
   await page.getByRole('button', { name: 'Compare with my current profile' }).click();
   await expect(page.locator('.causal-diff')).toContainText('requirement gaps removed');
   await page.getByRole('button', { name: 'Discard', exact: true }).click();
-  await page.locator('.sidebar').getByRole('button', { name: 'My roadmap', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'My application tasks', exact: true })
+    .click();
   const downloaded = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Export calendar', exact: true }).click();
   expect((await downloaded).suggestedFilename()).toBe('pathshift-deadlines.ics');

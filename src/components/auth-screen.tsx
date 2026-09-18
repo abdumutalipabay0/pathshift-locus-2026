@@ -46,10 +46,10 @@ export default function AuthScreen({
       <main id="main" className="auth-layout">
         <aside>
           <p className="eyebrow">{tr('YOUR ADMISSION JOURNEY')}</p>
-          <h1>{tr('Your starting point. Your way forward.')}</h1>
+          <h1>{tr('Keep your university choices and tasks together.')}</h1>
           <p>
             {tr(
-              'First create an account. Then add your own profile to unlock your personal workspace.',
+              'Create an account, answer three short questions, and start comparing universities. You can add grades later.',
             )}
           </p>
           <Link href="/demo">

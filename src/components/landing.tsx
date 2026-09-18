@@ -20,7 +20,7 @@ export default function Landing() {
     {
       title: 'Explore',
       icon: Compass,
-      heading: 'Understand your options',
+      heading: 'Read university requirements',
       body: 'See requirements you meet and the details still needed.',
       view: 'map',
     },
@@ -34,7 +34,7 @@ export default function Landing() {
     {
       title: 'Plan',
       icon: Route,
-      heading: 'One clear next action',
+      heading: 'Get an application checklist',
       body: 'A roadmap with deadlines and reasons you can inspect.',
       view: 'roadmap',
     },
@@ -46,20 +46,20 @@ export default function Landing() {
       <main id="main" className="landing-main">
         <section className="landing-hero">
           <div className="landing-intro">
-            <p className="eyebrow">{tr('YOUR NEXT CHAPTER, WITH A PLAN')}</p>
+            <p className="eyebrow">{tr('PLAN YOUR UNIVERSITY APPLICATION')}</p>
             <h1>
-              {tr('A university goal.')}
+              {tr('Which universities fit')}
               <br />
-              <span>{tr('More than one way forward.')}</span>
+              <span>{tr('your grades and budget?')}</span>
             </h1>
             <p className="landing-lead">
               {tr(
-                'Turn your grades, budget and ambitions into a clear admission plan. See what fits today — and what could change tomorrow.',
+                'Compare universities, find the requirements you still need to meet, and get a list of next steps. Start with Computer Science in the US and Canada.',
               )}
             </p>
             <div className="landing-actions">
               <Link href="/auth/sign-up" className="btn primary">
-                {tr('Create my profile')}
+                {tr('Find universities')}
                 <ArrowRight size={18} />
               </Link>
               <Link href="/demo" className="btn secondary">
@@ -68,7 +68,9 @@ export default function Landing() {
               </Link>
             </div>
             <p className="landing-note">
-              {tr('Your account. Your own profile. No borrowed scores.')}
+              {tr(
+                'Create an account, choose a country, and explore. Add scores and budget when you are ready.',
+              )}
             </p>
           </div>
           <div className="landing-art">
@@ -86,6 +88,14 @@ export default function Landing() {
               {tr('An illustration of the journey, not an admission prediction.')}
             </p>
           </div>
+        </section>
+        <section className="landing-problem">
+          <h2>{tr('Too many university tabs. Still no clear plan?')}</h2>
+          <p>
+            {tr(
+              'One website lists test scores, another explains tuition, and deadlines are somewhere else. PathShift brings them together and connects them to your own situation.',
+            )}
+          </p>
         </section>
         <section className="route-atlas" aria-labelledby="atlas-heading">
           <div className="atlas-selector">
@@ -113,7 +123,7 @@ export default function Landing() {
               <h2>{tr(selected.heading)}</h2>
               <p>{tr(selected.body)}</p>
               <Link href={`/demo?view=${selected.view}`}>
-                {tr('Try this in the demo')}
+                {tr('See an example')}
                 <ArrowUpRight size={18} />
               </Link>
             </div>
@@ -130,18 +140,21 @@ export default function Landing() {
         <section className="landing-process" aria-labelledby="journey-heading">
           <div>
             <p className="eyebrow">{tr('FROM QUESTION TO NEXT STEP')}</p>
-            <h2 id="journey-heading">{tr('Make the plan yours.')}</h2>
+            <h2 id="journey-heading">{tr('From university search to a to-do list.')}</h2>
           </div>
           <ol>
             {[
-              ['Create your account', 'Keep your admission profile linked to your account.'],
               [
-                'Tell us where you are',
-                'Add your actual results and preferences. Leave unfinished tests unanswered.',
+                'Choose universities',
+                'Compare requirements, published costs and application dates in one place.',
               ],
               [
-                'Explore, compare, act',
-                'Test possible futures, choose alternatives and follow your roadmap.',
+                'Find what is missing',
+                'Add your grades and test results. See which requirements you meet and what you need to improve.',
+              ],
+              [
+                'Know what to do next',
+                'Save universities to get tasks for tests, documents and deadlines. Mark your own progress.',
               ],
             ].map(([title, body], i) => (
               <li key={title}>
@@ -154,7 +167,7 @@ export default function Landing() {
         </section>
         <section className="landing-finish">
           <div>
-            <h2>{tr('Start with your reality. Explore your possibilities.')}</h2>
+            <h2>{tr('Choose your first university. See your next step.')}</h2>
             <p>
               {tr(
                 'PathShift explains requirements and possible actions. Universities make the admission decisions.',
@@ -162,7 +175,7 @@ export default function Landing() {
             </p>
           </div>
           <Link className="btn primary" href="/auth/sign-up">
-            {tr('Create my profile')}
+            {tr('Find universities')}
             <ArrowRight size={18} />
           </Link>
         </section>
