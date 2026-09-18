@@ -63,9 +63,9 @@ for (const locale of ['en', 'ru', 'kk'])
     await expect(page.locator('html')).toHaveAttribute('lang', locale);
     for (const path of ['/', '/auth/sign-up', '/auth/sign-in', '/privacy']) {
       await page.goto(path);
-      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
-        true,
-      );
+      await expect
+        .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth))
+        .toBe(true);
       const audit = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
         .analyze();
@@ -111,9 +111,9 @@ test('landing keeps primary actions above the fold across languages and narrow b
       const action = await page.locator('.landing-actions a').first().boundingBox();
       expect(action).not.toBeNull();
       expect(action!.y + action!.height).toBeLessThan(900);
-      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
-        true,
-      );
+      await expect
+        .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth))
+        .toBe(true);
       await expect(page.locator('.atlas-campus')).toBeVisible();
     }
   }

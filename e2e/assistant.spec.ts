@@ -34,7 +34,9 @@ test('assistant comparison action opens the pair discussed and preserves it on r
     await page.evaluate(() => JSON.parse(localStorage.getItem('pathshift-comparison') || '[]')),
   ).toEqual(['purdue', 'rit']);
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Compare universities side by side' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Compare universities side by side' }),
+  ).toBeVisible();
   await expect(page.locator('main')).toContainText('Purdue');
   await expect(page.locator('main')).toContainText('RIT');
 });
