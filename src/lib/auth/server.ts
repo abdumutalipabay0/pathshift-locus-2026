@@ -11,7 +11,7 @@ export function getAuth() {
   if (!accountsConfigured()) throw new Error('Account service is not configured');
   return createNeonAuth({
     baseUrl: process.env.NEON_AUTH_BASE_URL!,
-    cookies: { secret: process.env.NEON_AUTH_COOKIE_SECRET!, sessionDataTtl: 0 },
+    cookies: { secret: process.env.NEON_AUTH_COOKIE_SECRET!, sessionDataTtl: 60 },
   });
 }
 export async function currentUser() {

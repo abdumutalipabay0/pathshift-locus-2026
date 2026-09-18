@@ -39,3 +39,9 @@ Without configured infrastructure, forms are visibly disabled and APIs fail clos
 ## Published verification
 
 Code commit `697bbac` deployed successfully as `dpl_DudyrQbdAA8d4Ri4hHRn5fyXVqq3` and aliased to https://pathshift-locus-2026.vercel.app/. All six production smoke tests passed: public entry, anonymous route/API protection, mobile accessibility in English/Russian/Kazakh, and the full golden demo journey. Real registration remains disabled pending the documented Neon owner-acceptance step.
+
+## Activation — 18 September 2026
+
+Owner accepted Neon terms. Provisioned `pathshift-accounts` on `free_v3` in Frankfurt with Neon Auth and connected the project. Initialized `pathshift_profiles`; DATABASE_URL and NEON_AUTH_BASE_URL are integration-managed; the cookie signing secret is server-only. Fixed SDK validation: sessionDataTtl must be positive (60 seconds). Local real-provider lifecycle passed, including profile creation, fresh-browser login, logout denial and second-account isolation. Email/password registration currently starts a session without mandatory email verification; do not present email addresses as verified. Email delivery itself has not been verified with a real mailbox.
+
+`RUN_ACCOUNT_E2E=1` opts into `e2e/accounts.spec.ts`. It creates reserved example.com QA accounts with random credentials, disables traces/videos and removes only those test accounts and profiles afterward.

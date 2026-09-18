@@ -39,6 +39,15 @@ export default function ProfileWizard({
   const [furthest, setFurthest] = useState(initialStep);
   const [error, setError] = useState('');
   const errorRef = useRef<HTMLParagraphElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const previousStep = useRef(step);
+  useEffect(() => {
+    if (previousStep.current !== step) {
+      previousStep.current = step;
+      headingRef.current?.focus({ preventScroll: true });
+      headingRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
+    }
+  }, [step]);
   useEffect(() => {
     onDraft?.(p, step);
   }, [p, step, onDraft]);
@@ -77,7 +86,9 @@ export default function ProfileWizard({
   return (
     <section className="wizard panel">
       <div className="eyebrow">{tr('YOUR ADMISSION PROFILE')}</div>
-      <h1>{tr('Start with where you are.')}</h1>
+      <h1 ref={headingRef} tabIndex={-1}>
+        {tr('Start with where you are.')}
+      </h1>
       <p className="muted">
         {tr('A few details help us turn requirements into a plan that belongs to you. ')}
       </p>
