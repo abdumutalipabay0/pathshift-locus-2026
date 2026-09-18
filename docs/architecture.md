@@ -1,4 +1,10 @@
-# Architecture decision, 2026-09-17
+# Current architecture and decision history
+
+**Current implementation, 19 September 2026:** Next.js/React interface; server-side TypeScript rules and scenario engine; Zod validation; Neon Auth sessions and Postgres account profiles; optional CloseRouter assistant, scenario composer and applicant resume coach. Default provider model identifier: `google/gemini-3.7-flash`. Browser drafts are account-scoped; synthetic demo data remains separate. See [README](../README.md#architecture-and-technical-disclosure) and [the latest release](applicant-story-release.md).
+
+The dated entries below record historical decisions. Earlier descriptions of no authentication and earlier model selections describe those releases, not the current deployment.
+
+## Architecture decision, 2026-09-17
 
 The user authorized independent engineering choices and requested Vercel deployment. Use Next.js App Router + a pure TypeScript server decision engine, Zod validation, Radix Dialog and Lucide. This supersedes the original Django/PostgreSQL scaffold plan. The official Case 2 explicitly permits local persistence when the full journey works. Version-controlled JSON is the evidence store; browser localStorage persists anonymous profiles, shortlist and progress. No authentication, shared server state or external AI service is needed. Server Route Handlers are the only evaluation authority. The client imports types, never the engine.
 
@@ -15,7 +21,6 @@ Timeline uses date/time/timezone facts. If time or timezone is missing, dates we
 Design: white/slate workspace (#F6F8FB), ink (#18243A), cobalt (#3559DB), pale blue (#EDF2FF), teal (#137B69), amber (#936A17). Manrope for headings, DM Sans for reading and controls, tabular numerals for inputs. The signature is a branching path diagram and a live causal comparison, not a decorative hero photograph. Dashboard: quiet left navigation, wide opportunity workspace, compact scenario rail. Mobile: top navigation, stacked cards, sheet dialogs.
 
 Technical references consulted: https://nextjs.org/docs/app/getting-started/server-and-client-components ; https://nextjs.org/docs/app/getting-started/deploying ; https://vercel.com/docs/frameworks/full-stack/nextjs ; https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md .
-
 
 ## Future Lab and optional AI, 18 September 2026
 
