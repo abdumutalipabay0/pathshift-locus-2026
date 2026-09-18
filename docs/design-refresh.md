@@ -13,3 +13,7 @@ Validation: run existing unit, localization, accessibility, browser and account 
 ## Verified release
 
 Production deployment `dpl_6FZDHY3UpvwNdZSbgdX96MCGe7ag` from commit `539c8c9`. All 73 unit/localization/data tests and all 43 browser tests passed; the complete browser suite ran against the production domain, including the real account lifecycle and account isolation. Typecheck, lint, format check and production build passed. Desktop and mobile renders were visually inspected. One development-server import-navigation timeout did not reproduce in three isolated repeats or the full production suite.
+
+## Landing correction after user review
+
+Separate the campus artwork from the interactive explainer: compact two-column hero, primary actions above the fold, a dedicated explainer below. Remove nested illustration frames and retired landing CSS. Correct Compare destination to the comparison view and align its copy in all locales. Disable interactive selectors until hydrated and show a generated blur placeholder during hero image loading. Add 320/768/1440-width checks across all locales for primary-action visibility and page overflow.

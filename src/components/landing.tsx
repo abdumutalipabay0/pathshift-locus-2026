@@ -1,19 +1,19 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
-import {
-  ArrowUpRight,
-  ArrowRight,
-  GitBranch,
-  ShieldCheck,
-  Route,
-  Compass,
-  Columns3,
-} from 'lucide-react';
+import campus from '../../public/illustrations/campus-paths.png';
+import { useState, useSyncExternalStore } from 'react';
+import './landing.css';
+import { ArrowUpRight, ArrowRight, ShieldCheck, Route, Compass, Columns3 } from 'lucide-react';
 import EntryHeader from './entry-header';
 import { useLocale } from './locale-provider';
+const subscribe = () => () => {};
 export default function Landing() {
+  const hydrated = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
   const { tr } = useLocale();
   const [stage, setStage] = useState(0);
   const routes = [
@@ -27,9 +27,9 @@ export default function Landing() {
     {
       title: 'Compare',
       icon: Columns3,
-      heading: 'Try a different future',
-      body: 'Change a planned score or budget. Compare the effect before committing.',
-      view: 'lab',
+      heading: 'Compare paths',
+      body: 'Compare requirements, costs and deadlines side by side.',
+      view: 'compare',
     },
     {
       title: 'Plan',
@@ -71,50 +71,52 @@ export default function Landing() {
               {tr('Your account. Your own profile. No borrowed scores.')}
             </p>
           </div>
-          <div className="route-atlas">
-            <div className="atlas-label">
-              <span className="eyebrow">{tr('HOW A PATH TAKES SHAPE')}</span>
-              <GitBranch size={22} />
-            </div>
+          <div className="landing-art">
             <Image
               className="atlas-campus"
-              src="/illustrations/campus-paths.png"
+              src={campus}
+              placeholder="blur"
               width={1536}
               height={1024}
-              sizes="(max-width: 650px) 90vw, (max-width: 850px) 560px, 44vw"
+              sizes="(max-width: 760px) 100vw, 60vw"
               alt=""
               preload
             />
+            <p className="landing-caption">
+              {tr('An illustration of the journey, not an admission prediction.')}
+            </p>
+          </div>
+        </section>
+        <section className="route-atlas" aria-labelledby="atlas-heading">
+          <div className="atlas-selector">
+            <p className="eyebrow" id="atlas-heading">
+              {tr('HOW A PATH TAKES SHAPE')}
+            </p>
             <div className="atlas-branches" role="group" aria-label={tr('Choose a direction')}>
               {routes.map((route, index) => (
                 <button
                   key={route.title}
                   type="button"
+                  disabled={!hydrated}
                   aria-pressed={stage === index}
                   onClick={() => setStage(index)}
                 >
                   <route.icon size={22} />
                   <span>{tr(route.title)}</span>
-                  <span className="atlas-step" aria-hidden="true">
-                    0{index + 1}
-                  </span>
                 </button>
               ))}
             </div>
-            <div className="atlas-detail" aria-live="polite" aria-atomic="true">
-              <div key={stage} className={`atlas-detail-content${stage ? ' atlas-switched' : ''}`}>
-                <span className="eyebrow">{tr('YOUR NEXT MOVE')}</span>
-                <h2>{tr(selected.heading)}</h2>
-                <p>{tr(selected.body)}</p>
-                <Link href={`/demo?view=${selected.view}`}>
-                  {tr('Try this in the demo')}
-                  <ArrowUpRight size={18} />
-                </Link>
-              </div>
+          </div>
+          <div className="atlas-detail" aria-live="polite" aria-atomic="true">
+            <div key={stage} className={`atlas-detail-content${stage ? ' atlas-switched' : ''}`}>
+              <span className="eyebrow">{tr('YOUR NEXT MOVE')}</span>
+              <h2>{tr(selected.heading)}</h2>
+              <p>{tr(selected.body)}</p>
+              <Link href={`/demo?view=${selected.view}`}>
+                {tr('Try this in the demo')}
+                <ArrowUpRight size={18} />
+              </Link>
             </div>
-            <p className="landing-caption">
-              {tr('An illustration of the journey, not an admission prediction.')}
-            </p>
           </div>
         </section>
         <section className="landing-scope">

@@ -87,8 +87,8 @@ test('route atlas responds to keyboard, links to real tools and respects reduced
     'aria-pressed',
     'true',
   );
-  await expect(atlas.getByRole('heading')).toHaveText('Try a different future');
-  await expect(atlas.getByRole('link')).toHaveAttribute('href', '/demo?view=lab');
+  await expect(atlas.getByRole('heading')).toHaveText('Compare paths');
+  await expect(atlas.getByRole('link')).toHaveAttribute('href', '/demo?view=compare');
   expect(
     await atlas
       .locator('.atlas-detail-content')
@@ -98,4 +98,26 @@ test('route atlas responds to keyboard, links to real tools and respects reduced
   await expect(atlas.getByRole('heading')).toHaveText('One clear next action');
   await atlas.getByRole('link').click();
   await expect(page).toHaveURL(/demo\?view=roadmap/);
+});
+
+test('landing keeps primary actions above the fold across languages and narrow breakpoints', async ({
+  page,
+}) => {
+  for (const locale of ['en', 'ru', 'kk']) {
+    await page.goto('/');
+    await page.locator('.language-picker select').selectOption(locale);
+    for (const width of [320, 768, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      const action = await page.locator('.landing-actions a').first().boundingBox();
+      expect(action).not.toBeNull();
+      expect(action!.y + action!.height).toBeLessThan(900);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true,
+      );
+      await expect(page.locator('.atlas-campus')).toBeVisible();
+    }
+  }
+  await page.locator('.atlas-branches button').nth(1).click();
+  await page.locator('.atlas-detail a').click();
+  await expect(page).toHaveURL(/demo\?view=compare/);
 });

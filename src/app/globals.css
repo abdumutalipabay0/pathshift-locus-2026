@@ -17,7 +17,6 @@
   --shadow: 0 4px 22px #22365a05;
 }
 
-/* Future Lab: connected states, with one inspectable branch board. */
 .future-lab {
   display: grid;
   gap: 24px;
@@ -4429,7 +4428,6 @@ h3 {
   }
 }
 
-/* Locale controls and Cyrillic typography retain the original design system. */
 html:lang(ru) body,
 html:lang(kk) body {
   font-family: 'Noto Sans', 'DM Sans', sans-serif;
@@ -4771,7 +4769,6 @@ fieldset.scenario-body {
   }
 }
 
-/* Public entry: a branching admission sheet, separate from personal workspace. */
 .entry-page {
   min-height: 100vh;
   background: var(--paper);
@@ -4791,115 +4788,7 @@ fieldset.scenario-body {
   align-items: center;
   gap: 18px;
 }
-.landing-main {
-  max-width: 1240px;
-  margin: auto;
-  padding: 0 36px;
-}
-.landing-hero {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  align-items: center;
-  gap: 70px;
-  padding: 88px 0 70px;
-}
-.landing-intro h1 {
-  font-size: clamp(38px, 4.1vw, 59px);
-  letter-spacing: -0.055em;
-  line-height: 1.13;
-  margin: 20px 0 24px;
-}
-.landing-intro h1 span {
-  color: var(--blue);
-}
-.landing-lead {
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.8;
-  max-width: 510px;
-}
-.landing-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 30px 0 14px;
-}
-.landing-note,
-.landing-caption {
-  font-size: 12px;
-  color: var(--muted);
-}
-.landing-scope {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 22px 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
-.landing-scope svg {
-  flex-shrink: 0;
-  color: var(--green);
-}
-.landing-process {
-  padding: 70px 0;
-}
-.landing-process h2 {
-  font-size: 34px;
-  margin-top: 12px;
-  letter-spacing: -0.04em;
-}
-.landing-process ol {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 38px;
-  margin-top: 32px;
-}
-.landing-process li {
-  border-top: 1px solid var(--line);
-  padding-top: 22px;
-}
-.landing-process li > span {
-  font-size: 12px;
-  color: var(--blue);
-  font-weight: 800;
-}
-.landing-process h3 {
-  margin: 14px 0 10px;
-  font-size: 18px;
-}
-.landing-process li p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
-.landing-finish {
-  background: var(--blue-soft);
-  border-radius: 18px;
-  padding: 32px;
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  margin-bottom: 45px;
-}
-.landing-finish > div {
-  flex: 1;
-}
-.landing-finish h2 {
-  font-size: 23px;
-  line-height: 1.4;
-}
-.landing-finish p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-  margin-top: 10px;
-}
+
 .entry-footer {
   border-top: 1px solid var(--line);
   font-size: 12px;
@@ -5039,14 +4928,6 @@ fieldset.scenario-body {
   font-weight: 700;
 }
 @media (max-width: 850px) {
-  .landing-hero {
-    gap: 35px;
-    padding-top: 45px;
-  }
-  .landing-intro h1 {
-    font-size: 38px;
-  }
-
   .auth-layout {
     gap: 35px;
   }
@@ -5068,31 +4949,7 @@ fieldset.scenario-body {
   .entry-header .language-picker select {
     max-width: 96px;
   }
-  .landing-main {
-    padding: 0 22px;
-  }
-  .landing-hero {
-    grid-template-columns: 1fr;
-    padding: 35px 0 42px;
-    gap: 32px;
-  }
-  .landing-intro h1 {
-    font-size: 39px;
-  }
 
-  .landing-process {
-    padding: 40px 0;
-  }
-  .landing-process ol {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  .landing-finish {
-    flex-direction: column;
-    align-items: start;
-    padding: 24px;
-    gap: 22px;
-  }
   .auth-layout {
     grid-template-columns: 1fr;
     margin: 15px auto;
@@ -5130,213 +4987,6 @@ fieldset.scenario-body {
   color: var(--ink);
 }
 
-/* Route atlas: interactive product illustration, with finite, optional motion. */
-.landing-page {
-  background: #f5f7fc;
-}
-.landing-page .landing-main {
-  max-width: 1440px;
-  padding: 0 28px;
-}
-.landing-page .landing-hero {
-  background: #182e63;
-  color: #fff;
-  border-radius: 28px;
-  padding: 64px 48px;
-  gap: 48px;
-  position: relative;
-  overflow: hidden;
-}
-.landing-page .landing-intro {
-  min-width: 0;
-}
-.landing-page .landing-intro h1 {
-  font-size: clamp(38px, 4.4vw, 65px);
-  line-height: 1.08;
-  text-wrap: balance;
-}
-.landing-page .landing-intro h1 span {
-  color: #a9c7ff;
-}
-.landing-page .landing-intro .eyebrow {
-  color: #e1eaff;
-}
-.landing-page .landing-lead {
-  color: #d4def2;
-  line-height: 1.7;
-}
-.landing-page .landing-note {
-  color: #c0cfea;
-  line-height: 1.6;
-}
-.landing-page .landing-actions a.primary {
-  background: #fca580;
-  color: #202d4a;
-  border-color: #fca580;
-}
-.landing-page .landing-actions .secondary {
-  background: #fff;
-  color: #182e63;
-}
-.route-atlas {
-  min-width: 0;
-  background: #243e77;
-  border: 1px solid #5471a3;
-  border-radius: 22px;
-  padding: 26px;
-  box-shadow: 0 24px 48px #07173838;
-}
-.atlas-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  color: #d7e5ff;
-}
-.atlas-label .eyebrow {
-  color: #d7e5ff;
-  font-size: 10px;
-}
-.atlas-origin {
-  text-align: center;
-  padding: 22px 0 0;
-}
-.atlas-orbit {
-  display: grid;
-  place-items: center;
-  width: 62px;
-  height: 62px;
-  margin: 0 auto 12px;
-  border: 1px solid #a9c7ff;
-  border-radius: 20px;
-  background: #182e63;
-  box-shadow: 0 0 0 6px #a9c7ff12;
-}
-.atlas-origin strong {
-  font-size: 16px;
-}
-.atlas-origin p {
-  color: #d4def2;
-  font-size: 12px;
-  margin-top: 7px;
-  line-height: 1.5;
-}
-.atlas-branches {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  padding-top: 58px;
-  position: relative;
-}
-.atlas-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  fill: none;
-  stroke: #9bb7e8;
-  stroke-width: 1.5;
-}
-.atlas-branches button {
-  position: relative;
-  border: 1px solid #7893be;
-  background: #182e63;
-  color: #e9f0ff;
-  border-radius: 13px;
-  padding: 18px 8px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 9px;
-  min-width: 0;
-  transition:
-    transform 0.2s,
-    background 0.2s;
-}
-.atlas-branches button span:not(.atlas-step) {
-  font-weight: 700;
-  font-size: 12px;
-  overflow-wrap: anywhere;
-}
-.atlas-branches button[aria-pressed='true'] {
-  background: #fca580;
-  color: #18243a;
-  border-color: #fca580;
-  transform: translateY(-5px);
-}
-.atlas-step {
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  font-size: 9px;
-  opacity: 0.8;
-}
-.atlas-detail {
-  background: #fff;
-  color: var(--ink);
-  border-radius: 14px;
-  margin-top: 18px;
-  padding: 22px;
-  min-height: 230px;
-}
-.atlas-detail h2 {
-  font-size: 23px;
-  margin: 10px 0;
-  line-height: 1.25;
-  text-wrap: balance;
-}
-.atlas-detail p {
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-.atlas-detail a {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  color: #2748c0;
-  font-size: 13px;
-  font-weight: 800;
-  margin-top: 16px;
-}
-.atlas-detail-content.atlas-switched {
-  animation: atlas-reveal 0.28s ease-out;
-}
-.route-atlas .landing-caption {
-  font-size: 11px;
-  color: #d4def2;
-  line-height: 1.6;
-  margin-top: 16px;
-}
-.landing-page .landing-scope {
-  margin: 26px 20px 0;
-  border-top: 0;
-}
-.landing-page .landing-process {
-  padding: 56px 20px;
-}
-.landing-page .landing-process li {
-  padding: 24px;
-  border: 1px solid #dae2ee;
-  border-radius: 16px;
-  background: white;
-}
-.landing-page .landing-process li > span {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  background: #eaf0ff;
-}
-.landing-page .landing-process ol {
-  gap: 18px;
-}
-.landing-page .landing-finish {
-  background: #dae8ff;
-  margin: 0 20px 40px;
-}
 .lab-heading {
   padding: 26px 30px;
   border-radius: 20px;
@@ -5391,100 +5041,25 @@ fieldset.scenario-body {
   }
 }
 @media (hover: hover) {
-  .atlas-branches button:hover {
-    transform: translateY(-5px);
-  }
   .lab-path:hover {
     transform: translateY(-3px);
   }
 }
-@media (max-width: 1100px) {
-  .landing-page .landing-hero {
-    gap: 26px;
-    padding: 40px 28px;
-  }
-  .route-atlas {
-    padding: 18px;
-  }
-}
-@media (max-width: 850px) {
-  .landing-page .landing-hero {
-    grid-template-columns: 1fr;
-  }
-  .landing-page .landing-intro h1 {
-    max-width: 680px;
-  }
-  .route-atlas {
-    max-width: 600px;
-    width: 100%;
-    justify-self: center;
-  }
-}
+
 @media (max-width: 650px) {
-  .landing-page .landing-main {
-    padding: 0 12px;
-  }
-  .landing-page .landing-hero {
-    padding: 30px 20px;
-    border-radius: 20px;
-  }
-  .landing-page .landing-intro h1 {
-    font-size: 37px;
-  }
-  .landing-page .landing-process {
-    padding: 36px 8px;
-  }
-  .landing-page .landing-scope,
-  .landing-page .landing-finish {
-    margin-left: 8px;
-    margin-right: 8px;
-  }
-  .route-atlas {
-    padding: 16px;
-  }
-  .atlas-detail {
-    padding: 18px;
-    min-height: 220px;
-  }
-  .atlas-branches {
-    gap: 6px;
-  }
   .lab-heading {
     padding: 22px 18px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .atlas-detail-content.atlas-switched {
-    animation: none;
-  }
-  .atlas-branches button,
   .lab-path {
     transition: none;
   }
-  .atlas-branches button:hover,
   .lab-path:hover {
     transform: none;
   }
 }
 
-.landing-page .landing-finish p {
-  color: #405372;
-}
-
-/* User-supplied editorial artwork; decorative, separate from admissions evidence. */
-.atlas-campus {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
-  margin: 18px 0 16px;
-}
-.route-atlas .atlas-branches {
-  padding-top: 0;
-}
-.route-atlas .atlas-detail {
-  min-height: 190px;
-}
 .auth-illustration {
   display: block;
   width: 100%;
