@@ -5580,3 +5580,248 @@ fieldset.scenario-body {
 .compact-profile-copy .profile-chips {
   margin-top: 12px;
 }
+/* University discovery: identity first, evidence and actions one step away. */
+.university-sections {
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+.university-sections button {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.university-sections button[aria-current] {
+  background: var(--paper);
+  color: var(--blue-dark);
+  box-shadow: 0 2px 7px #18243a0d;
+  font-weight: 700;
+}
+.university-identity {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 28px;
+  border-radius: 18px;
+  background: var(--blue-soft);
+}
+.university-monogram {
+  display: grid;
+  place-items: center;
+  flex: 0 0 76px;
+  height: 76px;
+  background: var(--ink);
+  color: white;
+  font:
+    700 26px var(--font-manrope),
+    sans-serif;
+  border-radius: 20px 20px 20px 5px;
+}
+.university-place {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.university-identity h3 {
+  font-size: clamp(22px, 2.5vw, 30px);
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+  margin: 0 0 12px;
+}
+.university-identity p:not(.university-place) {
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+.university-highlights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.university-highlights article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.university-highlights article > svg {
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+.university-highlights h4,
+.university-consider h4 {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+.university-highlights p,
+.university-consider p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+.university-overview a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--blue-dark);
+  font-size: 13px;
+  text-underline-offset: 3px;
+}
+.university-consider {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 8px 4px 20px;
+}
+.university-consider .eyebrow {
+  display: block;
+  margin-bottom: 10px;
+}
+.university-next {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+.university-next p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+.university-next .btn {
+  flex-shrink: 0;
+}
+.university-overview-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.university-card-intro {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 10px 0 16px;
+}
+.university-research {
+  margin: 20px 0;
+}
+.university-research summary {
+  cursor: pointer;
+  color: var(--muted);
+  padding: 10px 0;
+}
+.university-application-steps ol {
+  padding: 0;
+  list-style: none;
+  counter-reset: application-step;
+}
+.university-application-steps li {
+  position: relative;
+  counter-increment: application-step;
+  padding: 16px 0 16px 42px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 8px;
+}
+.university-application-steps li::before {
+  content: counter(application-step);
+  position: absolute;
+  top: 16px;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+  font-size: 13px;
+}
+.university-application-steps p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+.university-detail [hidden] {
+  display: none !important;
+}
+@media (max-width: 600px) {
+  .university-sections {
+    gap: 2px;
+  }
+  .university-sections button {
+    font-size: 12px;
+    padding: 10px 5px;
+    overflow-wrap: anywhere;
+  }
+  .university-identity {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+  }
+  .university-monogram {
+    flex-basis: auto;
+    width: 54px;
+    height: 54px;
+    font-size: 20px;
+    border-radius: 14px 14px 14px 4px;
+  }
+  .university-highlights,
+  .university-consider {
+    grid-template-columns: 1fr;
+  }
+  .university-next {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .university-overview-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.assistant-checks {
+  margin: 18px 0;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.assistant-checks summary {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted);
+}
+.assistant-checks > div {
+  margin-top: 14px;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+.assistant-checks p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 8px;
+}

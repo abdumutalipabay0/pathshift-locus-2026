@@ -13,7 +13,7 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   await page
     .locator('.program-card')
     .filter({ has: page.getByRole('heading', { name: 'Waterloo', exact: true }) })
-    .getByRole('button', { name: 'Explore path' })
+    .getByRole('button', { name: 'See requirements and next steps' })
     .click();
   await expect(
     page.getByRole('dialog').getByRole('heading', { name: 'University of Waterloo', exact: true }),

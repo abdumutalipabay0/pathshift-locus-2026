@@ -56,6 +56,8 @@ import Link from 'next/link';
 import { SignOut } from './entry-header';
 import Brand from './brand';
 import ApplicantSummary from './applicant-summary';
+import UniversityOverview from './university-overview';
+import { universityStories } from '@/lib/university-stories';
 import AdmissionAssistant from './admission-assistant';
 import { taskProfileStep } from '@/lib/workspace-ux';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
@@ -282,7 +284,47 @@ export default function Workspace({
   const [demo, setDemo] = useState(!accountId);
   const [menu, setMenu] = useState(false);
   const [wizard, setWizard] = useState<Profile>(initialProfile ?? demoProfile);
-  const [detail, setDetail] = useState<string | null>(null);
+  const [detail, setDetailId] = useState<string | null>(null);
+  const [detailTab, setDetailTab] = useState<'about' | 'profile' | 'apply'>('about');
+  const [assistantQuestion, setAssistantQuestion] = useState('');
+  function setDetail(id: string | null, tab: 'about' | 'profile' | 'apply' = 'about') {
+    setDetailId(id);
+    setDetailTab(id && universityStories[id] ? tab : 'profile');
+  }
+  function changeDetailTab(tab: 'about' | 'profile' | 'apply') {
+    setDetailTab(tab);
+    requestAnimationFrame(() => {
+      const content = document.querySelector('.university-detail');
+      content?.querySelector<HTMLButtonElement>('[aria-current="page"]')?.focus();
+      content?.closest('[role="dialog"]')?.scrollTo({ top: 0, behavior: 'instant' });
+    });
+  }
+  async function planUniversity(id: string) {
+    if (busy || simulation) return;
+    const result = evaluation?.programs.find((r) => r.program.id === id);
+    if (!result?.in_scope) {
+      setDetail(null);
+      edit();
+      return;
+    }
+    if (
+      !profile.shortlist.includes(id) &&
+      !(await compute({ ...profile, shortlist: [...profile.shortlist, id] }))
+    )
+      return;
+    setDetail(null);
+    navigate('roadmap');
+  }
+  function askAboutUniversity(id: string) {
+    const name = evaluation?.programs.find((r) => r.program.id === id)?.program.short || id;
+    setAssistantQuestion(
+      tr(
+        'Help me understand {university}: what makes it distinctive, and what should I check for my profile?',
+      ).replace('{university}', name),
+    );
+    setDetail(null);
+    navigate('assistant');
+  }
   const [proof, setProof] = useState<string[] | null>(null);
   const [diagnosis, setDiagnosis] = useState(false);
   const [comparison, setComparison] = useState<string[]>(accountId ? [] : ['waterloo', 'gatech']);
@@ -503,6 +545,7 @@ export default function Workspace({
     };
   }, [accountId, initialProfile, storage]);
   const navigate = (v: View) => {
+    if (v !== 'assistant') setAssistantQuestion('');
     if (v === 'lab' || v === 'profile' || v === 'assistant') clearSimulation();
     setView(v);
     setFilter('all');
@@ -1092,8 +1135,10 @@ export default function Workspace({
             )}
           {evaluation && view === 'assistant' && (
             <AdmissionAssistant
-              key={JSON.stringify(profile) + locale}
+              key={JSON.stringify(profile) + locale + assistantQuestion}
               evaluation={evaluation}
+              initialQuestion={assistantQuestion}
+              onQuestionUsed={() => setAssistantQuestion('')}
               onAction={(action, id, compareIds) => {
                 if (action === 'compare' && compareIds && compareIds.length >= 2) {
                   setComparison(compareIds);
@@ -1448,6 +1493,7 @@ export default function Workspace({
                                       )
                                     }
                                     onOpen={() => setDetail(r.program.id)}
+                                    onRequirements={() => setDetail(r.program.id, 'profile')}
                                     onSave={() => shortlist(r.program.id)}
                                     onCompare={() => compare(r.program.id)}
                                     disabled={busy || !!simulation}
@@ -2219,130 +2265,216 @@ export default function Workspace({
         wide
       >
         {selected && (
-          <div className="detail-content">
-            <div className="detail-top">
-              <Badge state={selected.admission_state} label={resultCaption(selected)} />
-              <span className="mini-badge">
-                <ShieldCheck size={13} />
-                {tr(`Evidence status: ${friendly(selected.evidence_state)}`)}
-              </span>
-            </div>
-            <p className="detail-structure">{tr(selected.program.structure)}</p>
-            <div className="detail-dimensions">
-              <div>
-                <span>{tr('Requirements')}</span>
-                <strong>
-                  {selected.passed} / {selected.total} {tr(' satisfied ')}
-                </strong>
-              </div>
-              <div>
-                <span>{tr('Timeline')}</span>
-                <strong>{tr(friendly(selected.timeline_state))}</strong>
-              </div>
-              <div>
-                <span>
-                  {tr('Published reference')} · {selected.program.cost?.year}
-                </span>
-                <strong>
-                  {selected.program.cost
-                    ? selected.program.cost.currency + ' ' + money(selected.program.cost.min)
-                    : tr('Not yet verified')}
-                </strong>
-              </div>
-            </div>
-            <ResearchDetails program={selected.program} />
-            <h3>{tr('Why this result?')}</h3>
-            {selected.rules.map((r) => (
-              <RuleRow key={r.id} rule={r} onProof={setProof} />
-            ))}
-            <section className="detail-section">
-              <h3>{tr('What could change this path?')}</h3>
-              {selected.recourse.length ? (
-                selected.recourse.map((r, i) => (
-                  <div className="recourse-card" key={i}>
-                    <div className="between">
-                      <strong>{tr(r.actions.map(friendly).join(' + '))}</strong>
-                      <span className="mini-badge">{tr(friendly(r.feasibility))}</span>
-                    </div>
-                    <p>
-                      {tr(`Requirement branches improved: ${r.improved_rules.length}.`)}{' '}
-                      {tr(
-                        r.unlocks
-                          ? 'Removes the remaining direct-route blockers.'
-                          : 'Other conditions may remain.',
-                      )}
-                    </p>
-                    <p className="small muted">{tr(r.note)}</p>
-                  </div>
-                ))
-              ) : (
-                <p className="muted">
+          <div className="detail-content university-detail">
+            <nav className="university-sections" aria-label={tr('University sections')}>
+              {(universityStories[selected.program.id]
+                ? (['about', 'profile', 'apply'] as const)
+                : (['profile', 'apply'] as const)
+              ).map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  aria-current={detailTab === tab ? 'page' : undefined}
+                  onClick={() => changeDetailTab(tab)}
+                >
                   {tr(
-                    selected.admission_state === 'READY_TO_APPLY'
-                      ? 'No additional hard requirement change is needed in the evaluated branches. Review the application checklist.'
-                      : 'Review the unsatisfied and unknown conditions above. No fully verified, feasible unlock has been established yet.',
+                    tab === 'about'
+                      ? 'About the university'
+                      : tab === 'profile'
+                        ? 'My profile fit'
+                        : 'Applying',
                   )}
-                </p>
-              )}
-            </section>
-            {selected.program.conditional && (
-              <div className="notice">
-                <Route size={18} />
+                </button>
+              ))}
+            </nav>
+            {detailTab === 'about' && (
+              <UniversityOverview
+                result={selected}
+                onCheck={() => changeDetailTab('profile')}
+                onAsk={() => askAboutUniversity(selected.program.id)}
+              />
+            )}
+            <div hidden={detailTab !== 'profile'}>
+              <div className="detail-top">
+                <Badge state={selected.admission_state} label={resultCaption(selected)} />
+                <span className="mini-badge">
+                  <ShieldCheck size={13} />
+                  {tr(`Evidence status: ${friendly(selected.evidence_state)}`)}
+                </span>
+              </div>
+              <p className="detail-structure">{tr(selected.program.structure)}</p>
+              <div className="detail-dimensions">
                 <div>
-                  <strong>{tr(selected.program.conditional.name)}</strong>
-                  <p>{tr(selected.program.conditional.note)}</p>
-                  <button
-                    className="text-button"
-                    onClick={() => setProof([selected.program.conditional!.fact])}
-                  >
-                    {tr('Check pathway source ')}
-                    <ExternalLink size={13} />
-                  </button>
+                  <span>{tr('Requirements')}</span>
+                  <strong>
+                    {selected.passed} / {selected.total} {tr(' satisfied ')}
+                  </strong>
+                </div>
+                <div>
+                  <span>{tr('Timeline')}</span>
+                  <strong>{tr(friendly(selected.timeline_state))}</strong>
+                </div>
+                <div>
+                  <span>
+                    {tr('Published reference')} · {selected.program.cost?.year}
+                  </span>
+                  <strong>
+                    {selected.program.cost
+                      ? selected.program.cost.currency + ' ' + money(selected.program.cost.min)
+                      : tr('Not yet verified')}
+                  </strong>
                 </div>
               </div>
-            )}
-            <section className="detail-section">
-              <h3>{tr('Budget & deadlines')}</h3>
-              <CostText result={selected} />
-              {selected.program.cost && (
-                <button
-                  className="text-button"
-                  onClick={() => setProof([selected.program.cost!.fact])}
-                >
-                  {tr('Cost source ')}
-                  <ExternalLink size={13} />
-                </button>
-              )}
-              {selected.program.deadlines
-                .filter((d) =>
-                  facts.some(
-                    (f) =>
-                      f.id === d.fact && f.intake === profile.intake && f.evidence === 'VERIFIED',
-                  ),
-                )
-                .map((d) => (
-                  <div className="deadline-row" key={d.type}>
-                    <span>{tr(friendly(d.type))}</span>
-                    <strong>{tr(dateLabel(d.date))}</strong>
-                    <button className="text-button" onClick={() => setProof([d.fact])}>
-                      {tr('Source ')}
-                      <ArrowUpRight size={12} />
+
+              <h3>{tr('Why this result?')}</h3>
+              {selected.rules.map((r) => (
+                <RuleRow key={r.id} rule={r} onProof={setProof} />
+              ))}
+              <section className="detail-section">
+                <h3>{tr('What could change this path?')}</h3>
+                {selected.recourse.length ? (
+                  selected.recourse.map((r, i) => (
+                    <div className="recourse-card" key={i}>
+                      <div className="between">
+                        <strong>{tr(r.actions.map(friendly).join(' + '))}</strong>
+                        <span className="mini-badge">{tr(friendly(r.feasibility))}</span>
+                      </div>
+                      <p>
+                        {tr(`Requirement branches improved: ${r.improved_rules.length}.`)}{' '}
+                        {tr(
+                          r.unlocks
+                            ? 'Removes the remaining direct-route blockers.'
+                            : 'Other conditions may remain.',
+                        )}
+                      </p>
+                      <p className="small muted">{tr(r.note)}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="muted">
+                    {tr(
+                      selected.admission_state === 'READY_TO_APPLY'
+                        ? 'No additional hard requirement change is needed in the evaluated branches. Review the application checklist.'
+                        : 'Review the unsatisfied and unknown conditions above. No fully verified, feasible unlock has been established yet.',
+                    )}
+                  </p>
+                )}
+              </section>
+              {selected.program.conditional && (
+                <div className="notice">
+                  <Route size={18} />
+                  <div>
+                    <strong>{tr(selected.program.conditional.name)}</strong>
+                    <p>{tr(selected.program.conditional.note)}</p>
+                    <button
+                      className="text-button"
+                      onClick={() => setProof([selected.program.conditional!.fact])}
+                    >
+                      {tr('Check pathway source ')}
+                      <ExternalLink size={13} />
                     </button>
-                    <small>
-                      {tr(
-                        d.time
-                          ? `${d.time} · ${d.timezone === 'APPLICANT_LOCAL' ? tr('Your local timezone') : d.timezone || tr('Time / timezone not verified')}`
-                          : 'Time / timezone not verified',
-                      )}
-                    </small>
                   </div>
-                ))}
-            </section>
+                </div>
+              )}
+              <div className="university-next">
+                <strong>{tr('Ready to plan your application?')}</strong>
+                <button className="btn primary" onClick={() => changeDetailTab('apply')}>
+                  {tr('See costs and next steps')}
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+            <div hidden={detailTab !== 'apply'}>
+              <section className="detail-section">
+                <h3>{tr('Budget & deadlines')}</h3>
+                <CostText result={selected} />
+                {selected.program.cost && (
+                  <button
+                    className="text-button"
+                    onClick={() => setProof([selected.program.cost!.fact])}
+                  >
+                    {tr('Cost source ')}
+                    <ExternalLink size={13} />
+                  </button>
+                )}
+                {selected.program.deadlines
+                  .filter((d) =>
+                    facts.some(
+                      (f) =>
+                        f.id === d.fact && f.intake === profile.intake && f.evidence === 'VERIFIED',
+                    ),
+                  )
+                  .map((d) => (
+                    <div className="deadline-row" key={d.type}>
+                      <span>{tr(friendly(d.type))}</span>
+                      <strong>{tr(dateLabel(d.date))}</strong>
+                      <button className="text-button" onClick={() => setProof([d.fact])}>
+                        {tr('Source ')}
+                        <ArrowUpRight size={12} />
+                      </button>
+                      <small>
+                        {tr(
+                          d.time
+                            ? `${d.time} · ${d.timezone === 'APPLICANT_LOCAL' ? tr('Your local timezone') : d.timezone || tr('Time / timezone not verified')}`
+                            : 'Time / timezone not verified',
+                        )}
+                      </small>
+                    </div>
+                  ))}
+              </section>
+              <details className="university-research">
+                <summary>{tr('Detailed programme evidence')}</summary>
+                <ResearchDetails program={selected.program} />
+              </details>
+              <section className="university-application-steps">
+                <h3>{tr('Your application route')}</h3>
+                <ol>
+                  <li>
+                    <strong>{tr('Review your requirements')}</strong>
+                    <button className="text-button" onClick={() => changeDetailTab('profile')}>
+                      {tr('Check my profile')}
+                    </button>
+                  </li>
+                  <li>
+                    <strong>{tr('Save the university')}</strong>
+                    <p>{tr('Saving adds its relevant tasks to your plan.')}</p>
+                  </li>
+                  <li>
+                    <strong>{tr('Prepare and track your tasks')}</strong>
+                    <button
+                      className="text-button"
+                      disabled={busy || !!simulation}
+                      onClick={() => void planUniversity(selected.program.id)}
+                    >
+                      {tr(
+                        !selected.in_scope
+                          ? 'Edit your details'
+                          : profile.shortlist.includes(selected.program.id)
+                            ? 'Open my roadmap'
+                            : 'Save and open my plan',
+                      )}
+                    </button>
+                  </li>
+                </ol>
+              </section>
+            </div>
             <div className="modal-actions">
               <button
                 className="btn secondary"
                 onClick={() => {
-                  compare(selected.program.id);
+                  if (!comparison.includes(selected.program.id)) {
+                    if (comparison.length >= 3) {
+                      setNotice('Compare up to 3 programs. Remove one first.');
+                      return;
+                    }
+                    compare(selected.program.id);
+                  } else {
+                    try {
+                      storage.setItem('pathshift-comparison', JSON.stringify(comparison));
+                    } catch {
+                      setNotice('Changes could not be saved');
+                    }
+                  }
                   setDetail(null);
                   navigate('compare');
                 }}
@@ -2353,12 +2485,16 @@ export default function Workspace({
               <button
                 className="btn primary"
                 disabled={busy || !!simulation}
-                onClick={() => shortlist(selected.program.id)}
+                onClick={() =>
+                  profile.shortlist.includes(selected.program.id)
+                    ? void planUniversity(selected.program.id)
+                    : shortlist(selected.program.id)
+                }
               >
                 <Bookmark size={16} />
                 {tr(
                   profile.shortlist.includes(selected.program.id)
-                    ? 'Remove from shortlist'
+                    ? 'Open my roadmap'
                     : 'Save to shortlist',
                 )}
               </button>
@@ -2479,6 +2615,7 @@ function ProgramCard({
   comparing,
   changed,
   onOpen,
+  onRequirements,
   onSave,
   onCompare,
   disabled,
@@ -2488,6 +2625,7 @@ function ProgramCard({
   comparing: boolean;
   changed: boolean;
   onOpen: () => void;
+  onRequirements: () => void;
   onSave: () => void;
   onCompare: () => void;
   disabled: boolean;
@@ -2533,6 +2671,9 @@ function ProgramCard({
         </h3>
       </button>
       <p className="degree">{tr(r.program.degree)}</p>
+      {universityStories[r.program.id] && (
+        <p className="university-card-intro">{tr(universityStories[r.program.id].tagline)}</p>
+      )}
       <Badge state={r.admission_state} label={resultCaption(r)} />
       {!r.in_scope && (
         <p className="scope-note">
@@ -2568,7 +2709,7 @@ function ProgramCard({
           )}
         </p>
       </div>
-      <button className="text-button card-next" onClick={onOpen}>
+      <button className="text-button card-next" onClick={onRequirements}>
         {tr('See requirements and next steps')} <ArrowUpRight size={14} />
       </button>
       <div className="card-metadata">
@@ -2597,7 +2738,7 @@ function ProgramCard({
           {tr('Compare ')}
         </label>
         <button onClick={onOpen}>
-          {tr('Explore path ')}
+          {tr('Meet the university')}
           <ArrowRight size={14} />
         </button>
       </div>

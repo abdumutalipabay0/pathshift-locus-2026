@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   if ((limit?.count ?? 0) >= 6 || limits.size > 2000) return reply({ error: 'RATE_LIMIT' }, 429);
   limits.set(key, { count: (limit?.count ?? 0) + 1, until: limit?.until ?? now + 60000 });
   try {
-    return reply(await askAssistant(profile, input));
+    return reply(await askAssistant(profile, input, fetch, { signal: request.signal }));
   } catch {
     return reply({ error: 'ASSISTANT_UNAVAILABLE' }, 503);
   }

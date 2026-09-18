@@ -247,7 +247,7 @@ test('AI transport sends text only and rejects malformed provider output', async
               }),
             ),
         ),
-      /invalid draft/,
+      /temporarily unavailable/,
     );
   } finally {
     if (original === undefined) delete process.env.CLOSEROUTER_API_KEY;

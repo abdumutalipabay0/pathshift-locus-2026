@@ -4,6 +4,7 @@ import { ArrowRight, CornerDownLeft, LoaderCircle, RotateCcw, ShieldCheck } from
 import type { AssistantAnswer } from '@/lib/admission-assistant';
 import type { Evaluation } from '@/lib/types';
 import { useLocale } from './locale-provider';
+import { resultCaption } from './research-details';
 const starters = [
   'What should I do first, and why?',
   'Which three universities should I consider?',
@@ -20,9 +21,13 @@ const actionLabels = {
 };
 export default function AdmissionAssistant({
   evaluation,
+  initialQuestion = '',
+  onQuestionUsed,
   onAction,
 }: {
   evaluation: Evaluation;
+  initialQuestion?: string;
+  onQuestionUsed?: () => void;
   onAction: (
     action: AssistantAnswer['action'],
     program: string | null,
@@ -30,10 +35,11 @@ export default function AdmissionAssistant({
   ) => void;
 }) {
   const { tr, locale } = useLocale();
-  const [question, setQuestion] = useState('');
+  const [question, setQuestion] = useState(initialQuestion);
   const [turns, setTurns] = useState<{ question: string; answer: AssistantAnswer }[]>([]);
   const [pending, setPending] = useState('');
   const [error, setError] = useState('');
+  const [retryQuestion, setRetryQuestion] = useState('');
   const controller = useRef<AbortController | null>(null);
   const result = useRef<HTMLDivElement>(null);
   useEffect(() => () => controller.current?.abort(), []);
@@ -42,6 +48,7 @@ export default function AdmissionAssistant({
     const request = new AbortController();
     controller.current = request;
     setPending(text.trim());
+    setRetryQuestion(text.trim());
     setError('');
     const timeout = setTimeout(() => request.abort(), 45000);
     try {
@@ -110,6 +117,7 @@ export default function AdmissionAssistant({
               controller.current = null;
               setPending('');
               setTurns([]);
+              onQuestionUsed?.();
               setQuestion('');
               setError('');
             }}
@@ -121,7 +129,7 @@ export default function AdmissionAssistant({
       </header>
       <div className="assistant-layout">
         <div className="assistant-conversation panel">
-          {!turns.length && (
+          {!turns.length && !initialQuestion && (
             <div className="assistant-welcome">
               <div className="assistant-starters">
                 {starters.map((s) => (
@@ -189,6 +197,30 @@ export default function AdmissionAssistant({
                       <ArrowRight size={16} />
                     </button>
                   </div>
+                  {!!turn.answer.program_ids?.length && (
+                    <details className="assistant-checks">
+                      <summary>{tr('Profile checks')}</summary>
+                      <p className="small muted">
+                        {tr(
+                          'Calculated from your saved profile, separately from the AI explanation.',
+                        )}
+                      </p>
+                      {turn.answer.program_ids.map((id) => {
+                        const checked = evaluation.programs.find((r) => r.program.id === id);
+                        return checked ? (
+                          <div key={id}>
+                            <button className="text-button" onClick={() => onAction('program', id)}>
+                              {checked.program.short}
+                            </button>
+                            <p>{tr(resultCaption(checked))}</p>
+                            {checked.program.conditional && (
+                              <p className="small muted">{tr(checked.program.conditional.note)}</p>
+                            )}
+                          </div>
+                        ) : null;
+                      })}
+                    </details>
+                  )}
                   {!!turn.answer.sources.length && (
                     <details className="assistant-sources">
                       <summary>
@@ -198,7 +230,7 @@ export default function AdmissionAssistant({
                       {turn.answer.sources.map((s, j) => (
                         <div key={s.id} id={`assistant-source-${i}-${s.id}`}>
                           <strong>
-                            [{j + 1}] {s.title}
+                            [{j + 1}] {tr(s.title)}
                           </strong>
                           <p>{tr(s.statement)}</p>
                           <span className="small muted">
@@ -229,6 +261,13 @@ export default function AdmissionAssistant({
           {error && (
             <p role="alert" className="assistant-error">
               {tr(error)}{' '}
+              <button
+                className="text-button"
+                disabled={!!pending}
+                onClick={() => void send(retryQuestion)}
+              >
+                {tr('Retry question')}
+              </button>{' '}
               <button className="text-button" onClick={() => onAction('roadmap', null)}>
                 {tr('Open my roadmap')}
               </button>

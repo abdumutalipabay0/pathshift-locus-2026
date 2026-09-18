@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { defaultAdvisorModel } from '@/lib/ai-provider';
 import { z } from 'zod';
 import { profileSchema } from '@/lib/profile';
 import { analyseLab, answerQuestion, simulateFuture, receipts } from '@/lib/future-lab';
@@ -15,7 +16,7 @@ const requests = new Map<string, { count: number; until: number }>();
 export async function GET() {
   return reply({
     composer: !!process.env.CLOSEROUTER_API_KEY,
-    model: process.env.SCENARIO_MODEL || 'openai/gpt-5.5',
+    model: process.env.SCENARIO_MODEL || defaultAdvisorModel,
   });
 }
 export async function POST(request: NextRequest) {

@@ -18,7 +18,7 @@ for (const locale of ['ru', 'kk'] as const) {
     await page
       .locator('.program-card')
       .filter({ has: page.getByRole('heading', { name: 'Waterloo', exact: true }) })
-      .getByRole('button', { name: t('Explore path') })
+      .getByRole('button', { name: t('See requirements and next steps') })
       .click();
     await expect(page.getByRole('dialog')).toContainText(t('IB academic prerequisites'));
     await expect(page.getByRole('dialog')).toContainText(t('Why this result?'));
