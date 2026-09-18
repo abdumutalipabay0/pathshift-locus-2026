@@ -117,3 +117,14 @@ Executed: 88/88 unit tests; typecheck, ESLint, Prettier and production build pas
 Live provider: first call timed out; repeat completed in RU/KK/EN with canonical citations and comparison targets. The model still sometimes repeats explanations, uses English terms in translated replies and overstates conditional/readiness language despite instructions. These are unresolved generative quality limitations; source-ID validation is not semantic fact verification. Do not describe the assistant as infallible or the entire product as bug-free.
 
 Production deployment dpl_8ahoEm3pXxqynA9tjyLLiQazWQZq: targeted published-site suite passed 21/21, including real account lifecycle, assistant actions, entry, three-language mobile/accessibility and profile diagnosis. Manual published assistant inspection confirmed updated layout. App commit 6fedbcc.
+
+
+## University discovery and AI release — 19 September 2026
+
+- Application commit `821da40`; production deployment `dpl_H14nzX2dhSU5FhnC7JNCTCVo2sHY` READY and aliased to https://pathshift-locus-2026.vercel.app.
+- 94 unit/domain/localization tests passed. TypeScript, ESLint, Prettier and local production build passed; Vercel build also passed.
+- Final full production browser suite: **62/62 passed in 4.1 minutes**, with `RUN_ACCOUNT_E2E=1`. Includes real registration, mandatory onboarding, server persistence, fresh-browser login, isolation and QA-account cleanup; EN/RU/KK, 320 px layouts, automated accessibility, golden journey, scenarios, comparison and all five new university-discovery tests.
+- Manual Russian desktop and 390 px review confirmed the university identity panel, fact cards, tabs and next actions. Temporary browser tab closed and viewport reset.
+- Live production model configuration confirmed `google/gemini-3.7-flash`. Actual assistant request returned HTTP 200 in 10.392 seconds with university overview/deadline citations and a canonical university action. Actual scenario request returned HTTP 200 in 7.522 seconds and correctly decoded IELTS overall 7, CAD budget +5000 and SAT willingness false. Existing financial-flexibility gating remained active; parsing did not modify the real profile.
+- Browser assistant tests use controlled responses; the live-provider checks above are separate evidence. Latency is a small sample, not an SLA. Targeted guards and canonical references do not prove every generated sentence correct.
+- 1183 complete catalog entries in Russian and Kazakh alongside English. Frozen admissions policy unchanged. See university-discovery-release.md for official sources, design decisions, model comparison and reliability limits.
