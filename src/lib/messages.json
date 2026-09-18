@@ -4274,5 +4274,117 @@
   "Annual budget": {
     "ru": "Годовой бюджет",
     "kk": "Жылдық бюджет"
+  },
+  "AI admission assistant": {
+    "ru": "ИИ-помощник по поступлению",
+    "kk": "Оқуға түсуге арналған ЖИ-көмекші"
+  },
+  "Your next move": {
+    "ru": "Твой следующий шаг",
+    "kk": "Келесі қадамың"
+  },
+  "Turn your questions into a next step.": {
+    "ru": "Разберёмся, что делать дальше.",
+    "kk": "Келесі қадамыңды бірге анықтайық."
+  },
+  "Ask about your profile, university requirements or preparation. Get an explanation and a place to act.": {
+    "ru": "Спроси о своём профиле, требованиях вуза или подготовке. Получи объяснение и перейди к действию.",
+    "kk": "Профилің, университет талаптары немесе дайындық туралы сұра. Жауап алып, іске көш."
+  },
+  "New conversation": {
+    "ru": "Новый разговор",
+    "kk": "Жаңа әңгіме"
+  },
+  "Where would you like to start?": {
+    "ru": "С чего начнём?",
+    "kk": "Неден бастаймыз?"
+  },
+  "What should I do first, and why?": {
+    "ru": "Что мне сделать первым и почему?",
+    "kk": "Алдымен не істеуім керек және неліктен?"
+  },
+  "Which three universities should I consider?": {
+    "ru": "Какие три университета мне рассмотреть?",
+    "kk": "Қай үш университетті қарастырғаным жөн?"
+  },
+  "What is missing from my application?": {
+    "ru": "Чего не хватает для моей заявки?",
+    "kk": "Өтініміме не жетіспейді?"
+  },
+  "How can I prepare for my area of interest?": {
+    "ru": "Как подготовиться к интересующему меня направлению?",
+    "kk": "Мені қызықтыратын бағытқа қалай дайындалуға болады?"
+  },
+  "Conversation": {
+    "ru": "Разговор",
+    "kk": "Әңгіме"
+  },
+  "Your question": {
+    "ru": "Твой вопрос",
+    "kk": "Сенің сұрағың"
+  },
+  "Sources used in this answer": {
+    "ru": "Источники этого ответа",
+    "kk": "Осы жауаптың дереккөздері"
+  },
+  "Checking your profile and sources…": {
+    "ru": "Сопоставляю профиль и источники…",
+    "kk": "Профиль мен дереккөздерді салыстырып жатырмын…"
+  },
+  "Stop response": {
+    "ru": "Остановить ответ",
+    "kk": "Жауапты тоқтату"
+  },
+  "Ask about your next step": {
+    "ru": "Спроси о следующем шаге",
+    "kk": "Келесі қадамың туралы сұра"
+  },
+  "For example: why is Waterloo not ready yet, and what should I do first?": {
+    "ru": "Например: почему я ещё не готов к подаче в Waterloo и что сделать сначала?",
+    "kk": "Мысалы: неге Waterloo-ға өтінім беруге әлі дайын емеспін және алдымен не істеуім керек?"
+  },
+  "Ask assistant": {
+    "ru": "Спросить помощника",
+    "kk": "Көмекшіден сұрау"
+  },
+  "Sending shares your question, recent conversation and selected academic profile data with CloseRouter. Your account email, name and personal notes are not sent automatically. Do not include private documents.": {
+    "ru": "При отправке CloseRouter получает твой вопрос, последние сообщения и выбранные учебные данные профиля. Имя, почта аккаунта и личные заметки автоматически не передаются. Не добавляй личные документы.",
+    "kk": "Жібергенде CloseRouter сұрағыңды, соңғы хабарламаларды және профильдегі таңдалған оқу деректерін алады. Атың, аккаунт поштасы және жеке жазбалар автоматты түрде жіберілмейді. Жеке құжаттарды қоспа."
+  },
+  "Based on your saved profile": {
+    "ru": "По сохранённому профилю",
+    "kk": "Сақталған профилің бойынша"
+  },
+  "A plan you can check": {
+    "ru": "План, который можно проверить",
+    "kk": "Тексеруге болатын жоспар"
+  },
+  "The assistant explains existing checks. It cannot guarantee admission or change your profile.": {
+    "ru": "Помощник объясняет результаты проверок. Он не гарантирует поступление и не меняет твой профиль.",
+    "kk": "Көмекші тексеру нәтижелерін түсіндіреді. Ол оқуға түсуге кепілдік бермейді және профиліңді өзгертпейді."
+  },
+  "Choose a university to start your plan.": {
+    "ru": "Выбери университет, чтобы начать план.",
+    "kk": "Жоспарды бастау үшін университетті таңда."
+  },
+  "AI explanations can be mistaken. Check the linked evidence before applying. Conversation stays in this page and resets when you leave, change language or update your profile.": {
+    "ru": "ИИ может ошибаться: перед подачей проверь источники. Разговор хранится на этой странице и сбрасывается при выходе из раздела, смене языка или изменении профиля.",
+    "kk": "ЖИ қателесуі мүмкін: өтінім берер алдында дереккөздерді тексер. Әңгіме осы бетте сақталып, бөлімнен шыққанда, тілді немесе профильді өзгерткенде өшеді."
+  },
+  "The assistant could not answer. Try again or open your plan.": {
+    "ru": "Помощник не смог ответить. Попробуй ещё раз или открой свой план.",
+    "kk": "Көмекші жауап бере алмады. Қайта сұра немесе жоспарыңды аш."
+  },
+  "The request stopped. You can ask again.": {
+    "ru": "Запрос остановлен. Можно спросить ещё раз.",
+    "kk": "Сұрау тоқтатылды. Қайта сұрауға болады."
+  },
+  "Test a what-if scenario": {
+    "ru": "Проверить сценарий «что если»",
+    "kk": "«Егер» сценарийін тексеру"
+  },
+  "Explore universities": {
+    "ru": "Посмотреть университеты",
+    "kk": "Университеттерді қарау"
   }
 }

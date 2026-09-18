@@ -9,6 +9,8 @@ test('all static UI messages are translated, apart from intentional proper names
   const preserved = new Set(['pathshift', 'IB', 'IELTS', 'A-Level']);
   for (const file of [
     'src/components/workspace.tsx',
+    'src/components/admission-assistant.tsx',
+    'src/components/applicant-summary.tsx',
     'src/components/profile-wizard.tsx',
     'src/components/locale-provider.tsx',
     'src/components/journey-extras.tsx',

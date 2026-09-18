@@ -33,6 +33,7 @@ import {
   LoaderCircle,
   Menu,
   Languages,
+  MessageCircle,
 } from 'lucide-react';
 import type {
   Evaluation,
@@ -55,9 +56,11 @@ import Link from 'next/link';
 import { SignOut } from './entry-header';
 import Brand from './brand';
 import ApplicantSummary from './applicant-summary';
+import AdmissionAssistant from './admission-assistant';
 import { taskProfileStep } from '@/lib/workspace-ux';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
-type View = 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
+type View =
+  'assistant' | 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
 const labels: Record<State, string> = {
   READY_TO_APPLY: 'Checked requirements met',
   WITHIN_REACH: 'A result needs improvement',
@@ -76,6 +79,7 @@ const navItems = [
   { id: 'shortlist', label: 'My shortlist', icon: Bookmark },
   { id: 'compare', label: 'Compare paths', icon: GitCompareArrows },
   { id: 'roadmap', label: 'My application tasks', icon: Route },
+  { id: 'assistant', label: 'AI admission assistant', icon: MessageCircle },
   { id: 'lab', label: 'What can I improve?', icon: FlaskConical },
   { id: 'sources', label: 'Sources & evidence', icon: ShieldCheck },
 ] as const;
@@ -297,7 +301,7 @@ export default function Workspace({
     });
     if (!response.ok) throw new Error('Your profile could not be saved. Please try again.');
   };
-  const { tr, dateLabel, money } = useLocale();
+  const { tr, dateLabel, money, locale } = useLocale();
 
   const [view, setView] = useState<View>('map');
   const [profile, setProfile] = useState<Profile>(initialProfile ?? demoProfile);
@@ -342,7 +346,11 @@ export default function Workspace({
   useEffect(() => {
     const readView = () => {
       const value = new URL(window.location.href).searchParams.get('view');
-      if (['lab', 'map', 'shortlist', 'compare', 'roadmap', 'sources'].includes(value || ''))
+      if (
+        ['assistant', 'lab', 'map', 'shortlist', 'compare', 'roadmap', 'sources'].includes(
+          value || '',
+        )
+      )
         setView(value as View);
       else setView('map');
     };
@@ -525,7 +533,7 @@ export default function Workspace({
     };
   }, [accountId, initialProfile, storage]);
   const navigate = (v: View) => {
-    if (v === 'lab' || v === 'profile') clearSimulation();
+    if (v === 'lab' || v === 'profile' || v === 'assistant') clearSimulation();
     setView(v);
     setFilter('all');
     setSearch('');
@@ -1111,6 +1119,25 @@ export default function Workspace({
               </details>
             </div>
           )}
+          {evaluation && view === 'assistant' && (
+            <AdmissionAssistant
+              key={JSON.stringify(profile) + locale}
+              evaluation={evaluation}
+              onAction={(action, id, compareIds) => {
+                if (action === 'compare' && compareIds && compareIds.length >= 2) {
+                  setComparison(compareIds);
+                  try {
+                    storage.setItem('pathshift-comparison', JSON.stringify(compareIds));
+                  } catch {
+                    setNotice('Changes could not be saved');
+                  }
+                }
+                if (action === 'profile') edit();
+                else if (action === 'program' && id) setDetail(id);
+                else if (action !== 'program') navigate(action);
+              }}
+            />
+          )}
           {evaluation && view === 'lab' && (
             <FutureLab
               profile={profile}
@@ -1178,7 +1205,7 @@ export default function Workspace({
             />
           ) : (
             <>
-              {view !== 'lab' && (
+              {view !== 'lab' && view !== 'assistant' && (
                 <div className="page-heading">
                   <div>
                     <div className="eyebrow">

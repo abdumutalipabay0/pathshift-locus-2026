@@ -28,6 +28,11 @@ export default function Privacy() {
             'This is a hackathon prototype. Only provide information you are comfortable using in a prototype. You can edit your profile and export it from the workspace.',
           )}
         </p>
+        <p>
+          {tr(
+            'Sending shares your question, recent conversation and selected academic profile data with CloseRouter. Your account email, name and personal notes are not sent automatically. Do not include private documents.',
+          )}
+        </p>
       </main>
     </div>
   );
