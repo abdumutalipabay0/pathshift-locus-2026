@@ -59,6 +59,7 @@ test.describe('live account lifecycle', () => {
     await page.getByRole('button', { name: /Budget & readiness/ }).click();
     await page.getByRole('button', { name: 'Build my opportunity map', exact: true }).click();
     await expect(page.locator('.profile-button')).toContainText('QA Updated');
+    await page.getByRole('button', { name: 'Close dialog', exact: true }).click();
     await page.getByRole('button', { name: 'Sign out', exact: true }).click();
     await expect(page).toHaveURL(baseURL! + '/');
     expect((await page.request.get('/api/account/profile')).status()).toBe(401);

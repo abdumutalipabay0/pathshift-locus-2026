@@ -11,9 +11,9 @@
 - Existing admissions evaluation APIs remain stateless and public for the explicit demo. They expose no account records.
 - Actual account profile updates are persisted before showing success. Drafts/scenarios/comparison selections remain per-account browser data, with existing local-save labels. Demo browser state cannot populate an account profile.
 
-## Infrastructure activation blocker
+## Initial activation blocker (resolved)
 
-Attempted Vercel native Neon provisioning with `--plan free_v3`, region `fra1`, auth enabled, no env-file overwrite. CLI returned `integration_terms_acceptance_required`, `userActionRequired: true`. No database or live account provider was created.
+Attempted Vercel native Neon provisioning with `--plan free_v3`, region `fra1`, auth enabled, no env-file overwrite. CLI returned `integration_terms_acceptance_required`, `userActionRequired: true`. At that stage no database or live account provider had been created; activation is recorded below.
 
 Owner acceptance URL: https://vercel.com/mutalip-s-projects/~/integrations/accept-terms/neon?source=cli
 
@@ -38,10 +38,16 @@ Without configured infrastructure, forms are visibly disabled and APIs fail clos
 
 ## Published verification
 
-Code commit `697bbac` deployed successfully as `dpl_DudyrQbdAA8d4Ri4hHRn5fyXVqq3` and aliased to https://pathshift-locus-2026.vercel.app/. All six production smoke tests passed: public entry, anonymous route/API protection, mobile accessibility in English/Russian/Kazakh, and the full golden demo journey. Real registration remains disabled pending the documented Neon owner-acceptance step.
+Code commit `697bbac` deployed successfully as `dpl_DudyrQbdAA8d4Ri4hHRn5fyXVqq3` and aliased to https://pathshift-locus-2026.vercel.app/. All six production smoke tests passed: public entry, anonymous route/API protection, mobile accessibility in English/Russian/Kazakh, and the full golden demo journey. At that deployment registration remained disabled pending Neon owner acceptance; the activation release below supersedes it.
 
 ## Activation — 18 September 2026
 
 Owner accepted Neon terms. Provisioned `pathshift-accounts` on `free_v3` in Frankfurt with Neon Auth and connected the project. Initialized `pathshift_profiles`; DATABASE_URL and NEON_AUTH_BASE_URL are integration-managed; the cookie signing secret is server-only. Fixed SDK validation: sessionDataTtl must be positive (60 seconds). Local real-provider lifecycle passed, including profile creation, fresh-browser login, logout denial and second-account isolation. Email/password registration currently starts a session without mandatory email verification; do not present email addresses as verified. Email delivery itself has not been verified with a real mailbox.
 
 `RUN_ACCOUNT_E2E=1` opts into `e2e/accounts.spec.ts`. It creates reserved example.com QA accounts with random credentials, disables traces/videos and removes only those test accounts and profiles afterward.
+
+## Production activation verified
+
+Deployment `dpl_2W2qzmqmyecYDGyoFBPmwyfT4EUX` (application commit `332622f`) is live at https://pathshift-locus-2026.vercel.app/. Native integration left `neon_auth.project_config.trusted_origins` empty, causing INVALID_CALLBACK_URL only in production. Added exactly `https://pathshift-locus-2026.vercel.app` to that existing JSONB list with a parameterized SQL update, preserving other settings and updating updated_at; no wildcard trust was added.
+
+All 41 existing production browser checks passed. The real account lifecycle then passed on production after the origin fix: registration, mandatory blank onboarding, profile creation, profile editing, logout access denial, fresh-browser sign-in, reload persistence and separate-account isolation. Reserved QA accounts and their profile rows were removed. 73 unit tests, TypeScript/build, ESLint and formatting passed. Registration is now enabled; the historical setup blocker above is closed.
