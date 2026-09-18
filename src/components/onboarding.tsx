@@ -110,6 +110,7 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
                 <label>
                   {tr('Your name ')}
                   <input
+                    name="name"
                     required
                     maxLength={60}
                     autoComplete="given-name"
@@ -122,8 +123,10 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
                 <label>
                   {tr('Age ')}
                   <input
+                    name="age"
                     required
                     type="number"
+                    autoComplete="off"
                     min={10}
                     max={100}
                     value={profile.age || ''}
@@ -133,9 +136,10 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
                 <label>
                   {tr('Citizenship ')}
                   <input
+                    name="citizenship"
                     required
                     maxLength={80}
-                    autoComplete="country-name"
+                    autoComplete="off"
                     value={profile.citizenship}
                     onChange={(e) => setProfile({ ...profile, citizenship: e.target.value })}
                   />
@@ -146,7 +150,9 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
                 {['US', 'Canada'].map((country) => (
                   <label key={country}>
                     <input
+                      name="study-country"
                       type="checkbox"
+                      value={country}
                       checked={profile.countries.includes(country)}
                       onChange={(e) =>
                         setProfile({
