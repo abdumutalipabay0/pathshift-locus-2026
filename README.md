@@ -1,96 +1,90 @@
 # PathShift
 
-**Change an input. See what opens up. Make your next move with a reason.**
+A personal admissions route: understand your starting point, review supported university options, compare requirements and costs, and follow a concrete next action.
 
-LOCUS Startup Hackathon 2026, Case 2. PathShift connects a student's profile to explicit requirements, explains the gaps, calculates the effect of a change and builds a next-action roadmap.
+**LOCUS Hackathon 2026 — Case 2 (`LOCUSCASE2`).**
 
-**Live:** https://pathshift-locus-2026.vercel.app · **Repository:** https://github.com/abdumutalipabay0/pathshift-locus-2026 (private).
+- Product: https://pathshift-locus-2026.vercel.app/
+- Explicit synthetic demo: https://pathshift-locus-2026.vercel.app/demo
+- Repository: https://github.com/abdumutalipabay0/pathshift-locus-2026
+- Audience: international first-year applicants exploring Computer Science in the US and Canada, Fall 2027. The strongest automated academic mapping is IB. Other credentials can retain unresolved checks.
 
-## Run
+## User journey
 
-Node.js 22+ and npm. No API key, database or paid service required.
+1. Read the landing page, then register or explicitly explore the synthetic demo.
+2. Registration uses Neon Auth. Initial setup asks age, citizenship and destinations; grades and budget can be added later.
+3. The account home shows a diagnosis grounded in evaluated rules: confirmed requirements, known gaps and missing information. An incomplete profile is labelled exploration.
+4. Review up to three candidates from the six supported universities, with reasons and cautions. Selection follows the existing server ordering and respects country constraints, missed deadlines and hard reference-budget limits. The app does not invent matches to fill three slots.
+5. Compare up to three universities. Saving a university to the shortlist creates its application tasks; comparison selection is separate.
+6. Follow exam, document, date, academic-preparation and interest-based activity tasks. One next task is highlighted. Completion records progress and never supplies a test score or verifies a university fact.
+7. Try hypothetical changes without overwriting actual results. Return to the real profile to record achieved results.
+
+The supported cohort is UW–Madison, Waterloo, Georgia Tech, Purdue, RIT and Arizona State. Six additional research programs are opt-in. These are not a global ranking. The interface supports English, Russian and Kazakh.
+
+## Run locally
+
+Node.js 22+ and npm; browser tests use installed Google Chrome.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. Production: `npm run build`, then `npm start`.
+The public landing and `/demo` work without an account database or LLM key. For **real accounts**, copy `.env.example` to `.env.local` and configure `DATABASE_URL`, `NEON_AUTH_BASE_URL`, and `NEON_AUTH_COOKIE_SECRET`. Initialize storage with `node --env-file=.env.local scripts/init-accounts.mjs`. Configure localhost and the production origin in Neon Auth. The deployed service is already configured.
 
-## Three-minute golden demo
+For the optional AI Scenario Composer, set server-only `CLOSEROUTER_API_KEY`; `SCENARIO_MODEL` selects the model (tested: `openai/gpt-5.5`). Without it, deterministic evaluation and scenario controls still work. Never put secrets in `NEXT_PUBLIC_*`, source files or Git.
 
-1. Open `/demo?view=map`, then **Reset demo → View diagnosis.** Aruzhan has a strong synthetic IB profile, IELTS 6.0, SAT planned, documents and AIF incomplete.
-2. **Waterloo → Explore path → Source proof.** Show academic, English, AIF and document branches separately. Close the dialogs.
-3. **What if?** Enable English, use overall **6.5**, reading/listening **6.0**, writing/speaking **6.5**. Explore, name and **Save scenario**. Actual results remain unchanged.
-4. **Compare paths:** Waterloo versus Georgia Tech. Explain direct English versus the required SAT/ACT. Up to three programs can be compared without silently replacing a selection.
-5. Discard the scenario. **My profile → Tests & language:** for this synthetic demo, enter IELTS overall **6.5** with the bands above, SAT **VALID / 1450 / 2026-08-15**. Confirm AIF and documents for the shortlisted demo institutions, including Georgia Tech, then save. Three supported routes are ready: Waterloo, UW–Madison and Georgia Tech. 1450 is illustrative, not an admission cutoff. Only enter achieved results in a real profile.
-6. **My roadmap:** complete the next review task, reload and show retained progress. Expand verified deadlines, export the calendar, and prepare an editable UBC verification question.
-7. **Saved scenarios:** reopen the named scenario against the current profile. Show that it never changes actual results. Reset demo, confirm, then demonstrate Undo demo reset.
-8. Bonus: explore a budget-only change. Historical cost comparisons change; academic rules do not.
+Production commands: `npm run build`, then `npm start`. Deploy with Vercel after setting the server environment. Git push alone does not publish this project; its deployment uses the Vercel CLI.
 
-The demo's component scores, dates, course counts and expected completion date (20 November 2026) are synthetic profile inputs, not university facts. Documents/AIF are not pre-assumed complete. Saved scenarios retain only hypothetical changes and are re-evaluated against the latest actual profile.
+## Architecture and technical disclosure
 
-## Product focus
+Next.js App Router, React, TypeScript and a pure server-side rules engine. Zod validates profile updates and AI operations. Versioned JSON separates source facts, rules and UI. The browser never imports the admissions engine. Evaluation and simulations use the same pipeline.
 
-The default map focuses on UW–Madison, Waterloo, Georgia Tech, Purdue, RIT and Arizona State. Other research programs can be included explicitly; the full dataset still has 12 programs. This is a supported starting cohort, not a personalized global ranking. Program-specific missing inputs, uncertain costs and sources remain visible. File tools and optional roadmap helpers are collapsed by default. See [product focus and concept brainstorm](docs/product-focus.md).
+Neon Auth manages email/password sessions. Neon Postgres stores profiles by verified session user ID. Actual profiles, shortlisted universities and task progress are account-backed; unfinished drafts, saved scenarios and comparison selections remain browser-local and scoped per account. The explicit demo uses local browser storage and never populates a real account.
 
-## Features and architecture
+CloseRouter/GPT-5.5 parses only explicitly submitted scenario text. The server validates an operation allowlist and requires user preview/confirmation. The model does not decide admission eligibility, invent requirements or receive the full stored profile. Core admissions checks are deterministic.
 
-Four-step profile, diagnosis, 12 CS programs, nested requirement explanations, source sheets, independent admission/evidence/timeline/cost states, conditional routes, bounded recourse, causal What-if, three named saved scenarios, shortlist, comparison, deterministic next action, task dependencies and export. Profiles, drafts, comparison selections and progress persist on this browser/device. Verified-deadline calendar export and editable verification questions connect uncertainty to practical next steps. A personal study/activity planner supports dates, notes, editing, completion and export. Versioned profile backups can be imported after validation and preview; the prior profile remains recoverable. IELTS overall and complete component sets are checked for consistency.
+Components and tools: Radix Dialog, Lucide icons, self-hosted Manrope/DM Sans/Noto Sans, Playwright, axe-core, ESLint and Prettier. Neon is a managed external auth/database service; Vercel hosts the application. OpenAI Codex assisted research follow-up, implementation, design and testing under the project owner's direction. User-supplied research is preserved. Generated campus illustrations are decorative, not photos or evidence about actual universities. University initials are interface marks, not official crests.
 
-Next.js App Router, React, TypeScript, Zod and a pure server decision engine. The client never imports the engine. Facts/rule trees are versioned JSON. Radix manages dialogs; Lucide supplies icons. Manrope and DM Sans are self-hosted. Core evaluation requires no LLM or scraping. The optional Scenario Composer uses GPT-5.5 through CloseRouter, followed by strict server-side validation and explicit preview confirmation.
+## Three-minute demo
 
-The initial Django/PostgreSQL architecture was replaced under the user's authorization to improve engineering decisions; the case permits local persistence. See [architecture](docs/architecture.md), [validated plan](docs/implementation-plan.md), [limitations](docs/limitations.md).
+See [the timed script](docs/submission-demo.md). All applicant values below are **synthetic demo data**.
 
-Modules: `src/lib/engine.ts`, `src/lib/profile.ts`, `src/lib/types.ts`, `src/app/api/v1/[...path]/route.ts`, `src/components/workspace.tsx`, `src/components/profile-wizard.tsx`, `src/app/globals.css`.
+1. Open `/demo?view=map`, reset the demo, then open profile diagnosis. Explain confirmed checks, known requirements and missing evidence.
+2. Inspect a suggested university and its official source, then compare Waterloo with Georgia Tech.
+3. In the real **demo** profile, enter IELTS overall 6.5 with reading/listening 6 and writing/speaking 6.5; SAT VALID, 1450, 2026-08-15. Confirm AIF and documents for Waterloo, UW–Madison and Georgia Tech after selecting those institutions. These three routes pass the implemented checks. 1450 is not an admissions cutoff.
+4. Save the universities, open tasks and complete one review step. Reload to show persistence. Show an optional study/activity task and its planning-only label.
+5. Demonstrate a hypothetical budget or test change; explain that actual data and admissions rules remain separate.
 
-## Languages
+For a fresh-user walkthrough: sign up → short setup → initial diagnosis → add grades/budget → explained candidates → save → tasks. If using a shared judge account, use only synthetic data. Credentials must be shared privately in the submission form, never committed.
 
-Use the language selector in the top bar for **Қазақша / Русский / English**. The choice persists after reload and leaves the profile, unsaved form values and active scenario intact. Navigation, forms, explanations, source summaries, roadmap, errors and downloaded plans are localized. See [localization](docs/localization.md). Rebuild translation catalogs with `npm run i18n:build`.
+## Sources and honest limitations
 
-## Evidence
+Four authoritative documents are in `docs/case/` and `docs/research/`. Supplements preserve source URLs and provenance. Forum reports were discovery leads, not admissions evidence. Unknown facts remain unknown. No admission probabilities, GPA conversions, guaranteed aid or invented deadline dates.
 
-Both official PDFs and both original research reports are preserved in `docs/`. The [official supplement](docs/research/supplement-2026-09-17.md) is separate. Forum reports were discovery leads only. Critical UNKNOWN remains UNKNOWN. No GPA conversion, admission probability, scholarship guarantee or unverified retrieval timestamp is invented.
+Published 2026–27 cost references are separate from unconfirmed Fall 2027 totals. Not all credentials, TOEFL/DET branches or academic equivalencies are automated. Matching is limited to the supported cohort; interests inform preparation activities rather than unverified claims about university specializations. Reference affordability is not a confirmed all-in cost for the intended intake.
 
-Rebuild predictably: `npm run data:build` runs the normalizer followed by the supplement. Do not run the supplement alone repeatedly. Tests check uniqueness and references.
+The app does not submit applications, send admission-office questions or deliver automatic deadline reminders. Calendar export includes sourced dates. Email verification is not enforced; mailbox delivery and password-recovery delivery are not verified. Concurrent editing across multiple devices has no conflict-resolution UI.
 
-Some complete academic mappings remain unresolved. All Fall 2027 annual totals remain unknown; six dated 2026–27 references are shown separately. See [fixture contract](docs/fixture-contract.md).
-
-## Checks
+## Verification
 
 ```sh
 npm test
 npm run typecheck
 npm run lint
+npm run format:check
 npm run build
 npm run test:e2e
 ```
 
-Browser tests use installed Google Chrome (`channel: chrome`). Set `PLAYWRIGHT_BASE_URL` to test a deployment. See [executed checks](docs/validation.md).
+`PLAYWRIGHT_BASE_URL` targets a deployment. `RUN_ACCOUNT_E2E=1` enables real-provider QA signup/login/isolation tests; these remove only their reserved test accounts. See [validation](docs/validation.md) for executed results. Rebuild translations using `npm run i18n:build`; regenerate the dataset using `npm run data:build`.
 
-## Deployment and hackathon submission
+## Team, access and submission
 
-Vercel detects Next.js; no environment variables are needed. CLI: `npx vercel --prod`. `.vercelignore` excludes PDFs/research and test artifacts from deployment uploads. The public UI/API exposes normalized evidence, not the original files or private profiles.
+The repository is currently private. The captain must grant access to the organizer/jury or explicitly authorize publication. No repository visibility was changed automatically.
 
-The actual team must supply its name/member roles, organizer-required repository access, its own demo video (up to three minutes) and slides (up to eight, PDF), following the supplied regulations. These personal/team materials are not fabricated here; the walkthrough above is ready to record.
+**Owner-provided information pending:** registered team name, actual participants and roles, and intended jury GitHub identities. These are intentionally not fabricated. Add the confirmed information before submission.
 
-## Credits / AI disclosure
+The captain submits through AIstartify with code **LOCUSCASE2**. According to the supplied case, the deadline is **19 September 2026, 12:00 Astana time**. Required materials include a working URL, accessible GitHub/history, this README, a demo video up to three minutes, and a PDF presentation up to eight slides. The source documents remain authoritative; check organizer announcements for changes.
 
-Built under the user's direction with OpenAI Codex assistance for research follow-up, architecture, code, design and tests. The supplied Deep Research reports are preserved inputs. Runtime decisions are deterministic. Libraries: Next.js, React, Zod, Radix UI, Lucide, TypeScript, Playwright, axe-core, ESLint, Prettier; fonts Manrope/DM Sans. Initials are interface marks, not university crests.
-
-## Future Lab — 18 September 2026
-
-The root URL opens the multilingual landing page. The explicitly labelled demo opens Future Lab at `/demo`; the map is `/demo?view=map`. Personal accounts enter through `/auth/sign-up` → `/onboarding` → `/app`. Account activation status and setup are documented in [account-entry.md](docs/account-entry.md).
-
-- Adaptive questions rank supported missing student inputs by simulated rule/program changes.
-- Up to three paths with at most two actions, explicit conditional outcomes and source-backed timing. Unknown timing stays separate; verified conditional admissions routes remain distinct from direct entry.
-- Dependency X-ray follows evaluated inputs, nested rules, programs and generated tasks. Receipts show inputs, facts, predicates and outcomes.
-- Keep Doors Open counts verified failed checks improved across current and valid saved scenarios. Test refusals, geographic and financial locks are respected.
-- AI composer parses text into a discriminated Zod operation union. Only scenario text is sent to the provider. Users preview and confirm before simulation; actual results never change automatically.
-- RU/KK/EN, keyboard controls and mobile stacked paths.
-
-Server-only setup: copy `.env.example` to `.env.local`, provide `CLOSEROUTER_API_KEY`, and optionally override `SCENARIO_MODEL` (tested `openai/gpt-5.5`). Never put the key in NEXT_PUBLIC or a tracked file. Production configuration lives in Vercel environment variables. No credential is required for deterministic paths.
-
-Hero demo: open Future Lab → inspect the next question → select Waterloo → compare the supported conditional route with the 6.5 IELTS branch → inspect IELTS dependencies and source receipt → save the hypothetical route. Show that the actual score remains unchanged. Composer example: “IELTS 6.5, no SAT”. Unspecified bands stay unknown. Budget increases require financial flexibility to be enabled in the real profile.
-
-See `docs/future-lab-plan.md` and `docs/future-lab-release.md` for design, validation and limitations.
+See [submission checklist and material outline](docs/submission-demo.md). Working software is not evidence that the project has been officially submitted.

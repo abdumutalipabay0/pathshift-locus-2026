@@ -54,6 +54,7 @@ import FutureLab from './future-lab';
 import Link from 'next/link';
 import { SignOut } from './entry-header';
 import Brand from './brand';
+import ApplicantSummary from './applicant-summary';
 import { taskProfileStep } from '@/lib/workspace-ux';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 type View = 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
@@ -1234,22 +1235,19 @@ export default function Workspace({
               {view === 'map' && (
                 <>
                   {accountId ? (
-                    <section className="account-start panel">
-                      <h2>{tr('Start by choosing two universities')}</h2>
-                      <p>
-                        {tr(
-                          'Open a university to read its requirements. Select two to compare costs and deadlines, then save the ones you like to build your plan.',
-                        )}
-                      </p>
-                      <p className="small muted">
-                        {tr(
-                          'Missing grades are not a rejection. Add your results when you want a personal requirements check.',
-                        )}
-                      </p>
-                      <button className="btn secondary" onClick={() => edit()}>
-                        {tr('Add my grades and budget')}
-                      </button>
-                    </section>
+                    current && (
+                      <ApplicantSummary
+                        evaluation={current}
+                        onEdit={edit}
+                        onOpen={setDetail}
+                        onSave={shortlist}
+                        onPlan={() => {
+                          setDiagnosis(false);
+                          navigate('roadmap');
+                        }}
+                        busy={busy || !!simulation}
+                      />
+                    )
                   ) : (
                     <>
                       {' '}
@@ -2030,13 +2028,17 @@ export default function Workspace({
                                     <div className="between">
                                       <span className="eyebrow">
                                         {tr(
-                                          t.type === 'VERIFY'
-                                            ? 'CHECK & CONFIRM'
-                                            : t.type === 'SCORE'
-                                              ? 'TESTS & LANGUAGE'
-                                              : t.type === 'BUDGET'
-                                                ? 'FINANCIAL PLANNING'
-                                                : 'APPLICATION MATERIALS',
+                                          t.type === 'STUDY'
+                                            ? 'STUDY PREPARATION'
+                                            : t.type === 'ACTIVITY'
+                                              ? 'PERSONAL ACTIVITY'
+                                              : t.type === 'VERIFY'
+                                                ? 'CHECK & CONFIRM'
+                                                : t.type === 'SCORE'
+                                                  ? 'TESTS & LANGUAGE'
+                                                  : t.type === 'BUDGET'
+                                                    ? 'FINANCIAL PLANNING'
+                                                    : 'APPLICATION MATERIALS',
                                         )}
                                       </span>
                                       {tr(
@@ -2434,29 +2436,31 @@ export default function Workspace({
       </Modal>
       <Modal
         open={diagnosis}
+        wide
         onClose={() => setDiagnosis(false)}
         title={tr(`${profile.name}’s starting point`)}
         description={`${profile.curriculum} · ${profile.major} · ${friendly(profile.intake)}`}
       >
         <div className="diagnosis-content">
-          {[
-            ['Your strengths', current?.diagnosis.strengths, CheckCircle2],
-            ['What needs attention', current?.diagnosis.constraints, SlidersHorizontal],
-            ['Evidence to clarify', current?.diagnosis.gaps, ShieldCheck],
-          ].map(([title, items, Icon]) => {
-            const I = Icon as typeof CheckCircle2;
-            return (
-              <section key={String(title)}>
-                <h3>
-                  <I size={18} />
-                  {tr(String(title))}
-                </h3>
-                {(items as string[] | undefined)?.map((t) => (
-                  <p key={t}>{tr(t)}</p>
-                ))}
-              </section>
-            );
-          })}
+          {current && (
+            <ApplicantSummary
+              evaluation={current}
+              onEdit={() => {
+                setDiagnosis(false);
+                edit();
+              }}
+              onOpen={(id) => {
+                setDiagnosis(false);
+                setDetail(id);
+              }}
+              onSave={shortlist}
+              onPlan={() => {
+                setDiagnosis(false);
+                navigate('roadmap');
+              }}
+              busy={busy || !!simulation}
+            />
+          )}
           <div className="notice">
             {tr(
               demo

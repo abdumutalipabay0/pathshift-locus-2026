@@ -5215,3 +5215,89 @@ fieldset.scenario-body {
   overflow-wrap: anywhere;
   line-height: 1.5;
 }
+
+.applicant-summary {
+  padding: 24px;
+  margin: 24px 0;
+  border-top: 4px solid #263f78;
+}
+.applicant-summary h2 {
+  font-size: 24px;
+}
+.applicant-goal {
+  margin: 16px 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.diagnostic-columns,
+.suggested-universities {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 20px 0;
+}
+.diagnostic-columns > div {
+  padding: 16px;
+  background: #f5f7fc;
+  border-radius: 12px;
+}
+.applicant-summary h3 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.applicant-summary ul {
+  padding-left: 18px;
+  margin: 10px 0;
+}
+.applicant-summary li {
+  font-size: 13px;
+  line-height: 1.65;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+.suggested-universities article {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.suggested-universities h4 {
+  font-size: 20px;
+}
+.suggested-actions {
+  margin-top: auto;
+  display: grid;
+  gap: 12px;
+  padding-top: 12px;
+}
+@media (max-width: 900px) {
+  .diagnostic-columns,
+  .suggested-universities {
+    grid-template-columns: 1fr;
+  }
+  .applicant-summary {
+    padding: 18px;
+  }
+}
+
+.applicant-profile-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.applicant-profile-facts span {
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.diagnosis-content .applicant-summary {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  background: transparent;
+}

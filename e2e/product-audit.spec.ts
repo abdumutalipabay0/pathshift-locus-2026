@@ -1,3 +1,5 @@
+import AxeBuilder from '@axe-core/playwright';
+import { translateText } from '../src/lib/i18n';
 import { test, expect } from '@playwright/test';
 import { demoProfile } from '../src/lib/profile';
 
@@ -108,3 +110,31 @@ test('leaving a pending scenario cannot restore a stale hypothetical profile', a
   await expect(page.getByLabel('Your name', { exact: true })).toHaveValue(demoProfile.name);
   await expect(page.locator('.simulation-banner')).toHaveCount(0);
 });
+
+for (const locale of ['en', 'ru', 'kk'] as const)
+  test(`${locale}: diagnosis explains candidates and remains usable at 320px`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto('/demo?view=map');
+    await expect(page.locator('.program-card')).toHaveCount(6);
+    await page.locator('.language-picker select').selectOption(locale);
+    await page
+      .getByRole('button', { name: translateText('View diagnosis', locale), exact: true })
+      .click();
+    const summary = page.getByRole('dialog').locator('.applicant-summary');
+    await expect(summary.locator('.suggested-universities article')).toHaveCount(3);
+    await expect(summary).toContainText('IELTS');
+    for (const width of [1280, 320]) {
+      await page.setViewportSize({ width, height: 900 });
+      expect(await summary.evaluate((e) => e.scrollWidth <= e.clientWidth + 1)).toBe(true);
+    }
+    expect(
+      (
+        await new AxeBuilder({ page })
+          .include('.applicant-summary')
+          .withTags(['wcag2a', 'wcag2aa'])
+          .analyze()
+      ).violations,
+    ).toEqual([]);
+    expect(errors).toEqual([]);
+  });

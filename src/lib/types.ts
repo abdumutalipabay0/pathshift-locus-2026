@@ -191,7 +191,7 @@ export type Task = {
   id: string;
   title: string;
   description: string;
-  type: 'SCORE' | 'DOCUMENT' | 'VERIFY' | 'BUDGET';
+  type: 'SCORE' | 'DOCUMENT' | 'VERIFY' | 'BUDGET' | 'STUDY' | 'ACTIVITY';
   programs: string[];
   facts: string[];
   deadline: string | null;
@@ -205,6 +205,11 @@ export type Evaluation = {
   programs: Result[];
   roadmap: Task[];
   next_action: Task | null;
+  guidance: {
+    personalized: boolean;
+    missing: string[];
+    recommendations: { id: string; reasons: string[]; cautions: string[] }[];
+  };
   diagnosis: { strengths: string[]; constraints: string[]; gaps: string[] };
   evaluated_at: string;
   dataset_version: string;

@@ -53,6 +53,11 @@ test.describe('live account lifecycle', () => {
     expect(persisted.profile.curriculum).toBe('');
     expect(persisted.profile.budgets.USD).toBeNull();
     await expect(page.locator('.program-card').first()).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Explore first, personalize with your results' }),
+    ).toBeVisible();
+    await expect(page.locator('.suggested-universities article')).toHaveCount(1);
+    await expect(page.locator('.suggested-universities')).toContainText('Waterloo');
     await page.getByRole('button', { name: 'My profile', exact: true }).click();
     await page.getByLabel('Your name', { exact: true }).fill('QA Updated');
     await page.getByRole('button', { name: /Budget & readiness/ }).click();

@@ -1,3 +1,4 @@
+import { applicantGuidance, preparationTasks } from './applicant-guidance';
 import raw from '../../data/dataset.json';
 import { profileSchema } from './profile';
 import type {
@@ -668,6 +669,30 @@ function roadmap(results: Result[], p: Profile): Task[] {
       tasks.get(`application-${r.program.id}`)!.dependencies = [dep];
     }
   }
+  if (chosen.length) {
+    const r = chosen[0];
+    if (!p.academics_completed)
+      add(
+        'prepare-school',
+        'Plan your next study session',
+        'Use the academic gaps above to choose one topic, schedule a study session, and check your progress. This preparation suggestion does not certify a grade.',
+        'STUDY',
+        r,
+        [],
+        null,
+      );
+    const [title, description] = preparationTasks(p.interest);
+    add(
+      `prepare-interest-${p.interest.toLowerCase().replaceAll(' ', '-')}`,
+      title,
+      description +
+        ' This is an optional preparation activity, not a university admission requirement.',
+      'ACTIVITY',
+      r,
+      [],
+      null,
+    );
+  }
   return [...tasks.values()].sort(
     (a, b) =>
       Number(a.complete) - Number(b.complete) ||
@@ -707,6 +732,7 @@ export function evaluate(
         Number(b.reference_cost_state === 'OVER_BUDGET') ||
       a.program.name.localeCompare(b.program.name),
   );
+  const guidance = applicantGuidance(p, results);
   const tasks = roadmap(results, p);
   const next =
     tasks.find(
@@ -717,22 +743,8 @@ export function evaluate(
     programs: results,
     roadmap: tasks,
     next_action: next,
-    diagnosis: {
-      strengths: [
-        p.curriculum === 'IB'
-          ? `IB profile${p.ib_total !== null ? `: ${p.ib_total}/45` : ''}; subject rules are evaluated separately.`
-          : 'Original grades retained without GPA conversion.',
-        `${results.filter((r) => r.in_scope).length} programs in your selected countries.`,
-      ],
-      constraints: [
-        `${results.filter((r) => r.in_scope).reduce((n, r) => n + r.blockers.length, 0)} known requirement gaps across your selected countries.`,
-        `${results.filter((r) => r.in_scope && r.reference_cost_state === 'OVER_BUDGET').length} dated cost references exceed your budget.`,
-      ],
-      gaps: [
-        'Fall 2027 total costs are not frozen.',
-        'Missing academic mappings and conditional-route predicates remain needs verification.',
-      ],
-    },
+    guidance,
+    diagnosis: guidance.diagnosis,
     evaluated_at: now,
     dataset_version: data.version,
   };

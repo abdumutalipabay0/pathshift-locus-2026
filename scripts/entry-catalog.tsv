@@ -151,3 +151,43 @@ Requirements and details to complete	Есть невыполненные тре�
 Assumed test date (optional)	Дата экзамена в сценарии (необязательно)	Сценарийдегі емтихан күні (міндетті емес)
 Used only for this scenario. Leave blank to keep your recorded date; missing dates remain unknown.	Только для сценария. Оставь пустым, чтобы использовать дату из профиля. Если её нет, срок останется неизвестным.	Тек осы сценарий үшін. Профильдегі күнді сақтау үшін бос қалдыр. Күн көрсетілмесе, мерзім белгісіз болып қалады.
 Open a university to check requirements. Use Compare to see differences, or save it to get application tasks.	Открой вуз, чтобы посмотреть требования. Сравни варианты или сохрани вуз, чтобы получить задачи для поступления.	Талаптарды көру үшін университетті аш. Нұсқаларды салыстыр немесе оқуға түсу тапсырмаларын алу үшін университетті сақта.
+Your profile and suggested universities	Твой профиль и варианты вузов	Профилің және университет нұсқалары
+Your goal	Твоя цель	Мақсатың
+Already confirmed	Что уже подтверждено	Не расталды
+Details still needed	Что ещё нужно узнать	Нені әлі анықтау керек
+No additional gaps identified in the checked data.	В проверенных данных дополнительных пробелов не найдено.	Тексерілген деректерде қосымша олқылықтар табылмады.
+Options to review for your profile	Варианты для твоего профиля	Профиліңе қарай қарастыратын нұсқалар
+Explore first, personalize with your results	Сначала изучи варианты, затем добавь свои результаты	Алдымен нұсқаларды зертте, кейін нәтижелеріңді қос
+We prioritize your country, checked requirements and budget. These are candidates to investigate, not admission predictions or a global ranking.	Учитываем выбранную страну, проверенные требования и бюджет. Это варианты для изучения, а не прогноз поступления или мировой рейтинг.	Таңдалған елді, тексерілген талаптар мен бюджетті ескереміз. Бұл зерттеуге арналған нұсқалар, қабылдау болжамы немесе әлемдік рейтинг емес.
+Before applying	Перед подачей	Өтінім берер алдында
+Saved to your plan	Уже в твоём плане	Жоспарыңда сақталған
+Save and build my tasks	Сохранить и получить задачи	Сақтап, тапсырмалар алу
+No candidates under your current constraints. Review your country, budget or intake instead of treating an unsuitable university as a match.	Под текущие ограничения варианты не найдены. Проверь выбранную страну, бюджет и год поступления.	Қазіргі шектеулерге сай нұсқалар табылмады. Елді, бюджетті және қабылдау жылын тексер.
+Add your school results to check academic requirements.	Добавь школьные результаты для проверки академических требований.	Академиялық талаптарды тексеру үшін мектеп нәтижелерін қос.
+Add an annual budget to compare published costs.	Укажи годовой бюджет для сравнения опубликованных расходов.	Жарияланған шығындарды салыстыру үшін жылдық бюджетті көрсет.
+Add your English results or review the published exemption rules.	Добавь результаты по английскому или проверь условия освобождения от экзамена.	Ағылшын нәтижелерін қос немесе емтиханнан босату шарттарын тексер.
+For {school}: {requirement}	{school}: {requirement}	{school}: {requirement}
+Some published cost references exceed your annual budget.	Некоторые опубликованные оценки расходов превышают твой годовой бюджет.	Кейбір жарияланған шығын бағалары жылдық бюджетіңнен асады.
+Some university requirements still need confirmation from official sources.	Некоторые требования вузов ещё нужно подтвердить официальными источниками.	Кейбір университет талаптарын ресми дереккөздермен растау қажет.
+Full costs for your intake are not confirmed; dated estimates are shown separately.	Полные расходы для твоего года поступления не подтверждены; оценки за другие годы указаны отдельно.	Қабылдау жылыңның толық шығындары расталмаған; басқа жылдардың бағалары бөлек көрсетілген.
+Add your results to identify requirements you already meet.	Добавь результаты, чтобы увидеть уже выполненные требования.	Орындалған талаптарды көру үшін нәтижелеріңді қос.
+No known failed checks in the available data. Missing information can still change the result.	По имеющимся данным невыполненных проверок нет. Недостающие сведения могут изменить результат.	Қолда бар деректер бойынша орындалмаған тексерулер жоқ. Жетіспейтін мәліметтер нәтижені өзгертуі мүмкін.
+Matches your selected country and Computer Science goal.	Соответствует выбранной стране и направлению Computer Science.	Таңдалған елге және Computer Science бағытына сай.
+Meets checked requirement: {requirement}	Выполнено проверенное требование: {requirement}	Тексерілген талап орындалған: {requirement}
+The dated cost reference fits your budget; the final cost for your intake is not confirmed.	Опубликованная оценка расходов укладывается в бюджет; окончательная стоимость для твоего набора не подтверждена.	Жарияланған шығын бағасы бюджетке сай; қабылдау жылыңның түпкілікті құны расталмаған.
+Plan your next study session	Запланируй следующее занятие	Келесі оқу сабағын жоспарла
+Use the academic gaps above to choose one topic, schedule a study session, and check your progress. This preparation suggestion does not certify a grade.	Выбери тему по академическим пробелам выше, запланируй занятие и проверь свой прогресс. Это совет по подготовке, а не подтверждение оценки.	Жоғарыдағы академиялық олқылықтарға қарай бір тақырыпты таңда, оқу сабағын жоспарлап, ілгерілеуіңді тексер. Бұл дайындық кеңесі, бағаны растау емес.
+STUDY PREPARATION	УЧЕБНАЯ ПОДГОТОВКА	ОҚУҒА ДАЙЫНДЫҚ
+PERSONAL ACTIVITY	ЛИЧНЫЙ ПРОЕКТ	ЖЕКЕ ЖОБА
+Build a small data project	Сделай небольшой проект с данными	Деректермен шағын жоба жаса
+Build and test a small application	Создай и протестируй небольшое приложение	Шағын қосымша жасап, тексер
+Write up a mathematical problem	Разбери математическую задачу письменно	Математикалық есептің шешімін жаз
+Test a prototype with a volunteer	Проверь прототип с добровольцем	Прототипті еріктімен тексер
+Try two areas of Computer Science	Попробуй два направления Computer Science	Computer Science саласының екі бағытын байқап көр
+Choose a public dataset, compare a simple baseline with one model, and document its limitations. This is an optional preparation activity, not a university admission requirement.	Выбери открытый набор данных, сравни простой базовый метод с одной моделью и опиши её ограничения. Это необязательная подготовка, а не требование вуза.	Ашық деректер жиынын таңдап, қарапайым әдісті бір модельмен салыстыр және оның шектеулерін жаз. Бұл міндетті емес дайындық, университеттің қабылдау талабы емес.
+Solve one real problem, add a test, and write a short README explaining your decisions. This is an optional preparation activity, not a university admission requirement.	Реши одну реальную задачу, добавь тест и короткий README с объяснением решений. Это необязательная подготовка, а не требование вуза.	Бір нақты мәселені шеш, тест және шешімдеріңді түсіндіретін қысқа README қос. Бұл міндетті емес дайындық, университеттің қабылдау талабы емес.
+Choose a problem, explain your reasoning step by step, and ask someone to review it. This is an optional preparation activity, not a university admission requirement.	Выбери задачу, распиши решение по шагам и попроси кого-нибудь проверить его. Это необязательная подготовка, а не требование вуза.	Есепті таңдап, шешіміңді қадамдап түсіндір және біреуден тексеруді сұра. Бұл міндетті емес дайындық, университеттің қабылдау талабы емес.
+Create a simple prototype, observe one consenting volunteer using it, and record what you would improve. This is an optional preparation activity, not a university admission requirement.	Создай простой прототип, понаблюдай за согласившимся участником и запиши, что нужно улучшить. Это необязательная подготовка, а не требование вуза.	Қарапайым прототип жаса, келісім берген еріктінің оны қолдануын бақылап, жақсартатын тұстарды жаз. Бұл міндетті емес дайындық, университеттің қабылдау талабы емес.
+Try a small coding exercise and a design or mathematics activity. Record which you enjoyed and why. This is an optional preparation activity, not a university admission requirement.	Попробуй небольшую задачу по программированию и занятие по дизайну или математике. Запиши, что понравилось и почему. Это необязательная подготовка, а не требование вуза.	Бағдарламалаудан шағын тапсырманы және дизайн не математика жұмысын орында. Не ұнағанын және неліктен екенін жаз. Бұл міндетті емес дайындық, университеттің қабылдау талабы емес.
+School results not added	Школьные результаты не добавлены	Мектеп нәтижелері қосылмаған
+Annual budget	Годовой бюджет	Жылдық бюджет

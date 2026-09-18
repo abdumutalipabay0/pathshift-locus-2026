@@ -6,7 +6,7 @@
 - `/demo`: explicitly labelled synthetic applicant; existing admissions features remain available for judging.
 - `/auth/sign-up`, `/auth/sign-in`: Neon Auth email/password forms, verification response, show/hide password. Password recovery pages included.
 - `/app`: verified server session required, then a persisted profile required.
-- `/onboarding`: verified session required; four sequential steps, no inherited age, citizenship, scores or country selections. Missing test scores remain unanswered.
+- `/onboarding`: verified session required; one short setup screen followed by optional profile editing, no inherited age, citizenship, scores or country selections. Missing test scores remain unanswered.
 - `/api/account/profile`: server-only Postgres access keyed exclusively by verified session user ID. No client-supplied user ID. PUT validates origin, size and full profile schema.
 - Existing admissions evaluation APIs remain stateless and public for the explicit demo. They expose no account records.
 - Actual account profile updates are persisted before showing success. Drafts/scenarios/comparison selections remain per-account browser data, with existing local-save labels. Demo browser state cannot populate an account profile.
