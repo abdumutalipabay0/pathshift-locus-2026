@@ -13,7 +13,7 @@ test('six researched choices and comparison survive invalid saved selections', a
       page.locator('.program-card').getByRole('heading', { name, exact: true }),
     ).toBeVisible();
   await page
-    .locator('.sidebar')
+    .locator('.context-navigation')
     .getByRole('button', { name: 'Compare paths', exact: true })
     .click();
   await expect(page.locator('.compare-card')).toHaveCount(2);

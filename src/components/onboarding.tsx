@@ -5,6 +5,8 @@ import { newAccountProfile, restoreOnboardingDraft } from '@/lib/onboarding';
 import { profileSchema } from '@/lib/profile';
 import EntryHeader from './entry-header';
 import { useLocale } from './locale-provider';
+import { InterestPicker } from './applicant-portfolio';
+import { emptyBackground, planningInterest } from '@/lib/background';
 import type { Profile } from '@/lib/types';
 const subscribe = () => () => {};
 export default function Onboarding(props: { userId: string; name: string }) {
@@ -96,7 +98,7 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
                 });
                 if (!response.ok) throw new Error();
                 sessionStorage.removeItem('pathshift-onboarding:' + userId);
-                navigate('/app');
+                navigate('/app?view=portfolio');
               } catch {
                 setError('Your profile could not be saved. Please try again.');
                 setBusy(false);
@@ -159,8 +161,18 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
                   </label>
                 ))}
               </fieldset>
+              <InterestPicker
+                value={profile.background || emptyBackground}
+                onChange={(background) =>
+                  setProfile({
+                    ...profile,
+                    background,
+                    interest: planningInterest(background, profile.interest),
+                  })
+                }
+              />
               <button className="btn primary" type="submit">
-                {tr(busy ? 'Saving your profile…' : 'Show universities')}
+                {tr(busy ? 'Saving your profile…' : 'Build my profile')}
               </button>
               <p className="small muted">
                 {tr(

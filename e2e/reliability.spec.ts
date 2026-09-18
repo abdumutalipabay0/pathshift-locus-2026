@@ -42,7 +42,7 @@ test('comparison limit, reload and browser Back retain usable navigation', async
   await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page
-    .locator('.sidebar')
+    .locator('.context-navigation')
     .getByRole('button', { name: 'Compare paths', exact: true })
     .click();
   await page.getByRole('button', { name: 'UW–Madison', exact: true }).click();

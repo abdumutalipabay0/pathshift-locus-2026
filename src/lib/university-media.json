@@ -1,0 +1,110 @@
+{
+  "uw": {
+    "cover": "/universities/uw-cover.jpg",
+    "logoSource": "https://www.wisc.edu/about/",
+    "logo": "/universities/uw-logo.svg",
+    "coverSource": "https://www.wisc.edu/images/about/about-hero-2.jpg",
+    "sourcePage": "https://www.wisc.edu/about/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  },
+  "waterloo": {
+    "logo": "/universities/waterloo-logo.svg",
+    "cover": "/universities/waterloo-cover.jpg",
+    "logoSource": "https://uwaterloo.ca/about/profiles/uw_base_profile/modules/custom/uw_wcms_ohana/dist/images/uwaterloo-logo.svg",
+    "coverSource": "https://uwaterloo.ca/about/sites/default/files/uploads/images/about-banner-entrance_0.jpg",
+    "sourcePage": "https://uwaterloo.ca/about/",
+    "checkedAt": "2026-09-19",
+    "dark": true
+  },
+  "gatech": {
+    "logo": "/universities/gatech-logo.svg",
+    "cover": "/universities/gatech-cover.jpg",
+    "logoSource": "https://www.gatech.edu/themes/contrib/gt_theme/logo.svg",
+    "coverSource": "https://www.gatech.edu/sites/default/files/inline-images/Tech-tower-wreck.jpg",
+    "sourcePage": "https://www.gatech.edu/about",
+    "checkedAt": "2026-09-19",
+    "dark": true
+  },
+  "purdue": {
+    "logo": "/universities/purdue-logo.svg",
+    "cover": "/universities/purdue-cover.jpg",
+    "logoSource": "https://www.purdue.edu/home/wp-content/themes/purdue-home-theme-beta/imgs/PU-H.svg",
+    "coverSource": "https://www.purdue.edu/home/wp-content/uploads/2024/10/Hero-PMU-7R0A0670-552x311-1.jpg",
+    "sourcePage": "https://www.purdue.edu/",
+    "checkedAt": "2026-09-19",
+    "dark": true
+  },
+  "rit": {
+    "cover": "/universities/rit-cover.jpg",
+    "logoSource": "https://www.rit.edu/",
+    "logo": "/universities/rit-logo.svg",
+    "coverSource": "https://www.rit.edu/sites/rit.edu/files/images/jumbotron/aerial-view-of-rit.jpg",
+    "sourcePage": "https://www.rit.edu/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  },
+  "asu": {
+    "logo": "/universities/asu-logo.png",
+    "cover": "/universities/asu-cover.jpg",
+    "logoSource": "https://www.asu.edu/profiles/contrib/webspark/modules/asu_brand/dist/assets/img/arizona-state-university-logo-vertical.png",
+    "coverSource": "https://www.asu.edu/sites/default/files/2022-03/HomepageLocations-Tempe.jpeg",
+    "sourcePage": "https://www.asu.edu/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  },
+  "cmu": {
+    "cover": "/universities/cmu-cover.webp",
+    "logoSource": "https://www.cmu.edu/",
+    "logo": "/universities/cmu-logo.svg",
+    "coverSource": "https://www.cmu.edu/sites/default/files/styles/max_325x325/public/images/MC-200609-Campus%20Stockn_-0779.jpg.webp?itok=e2MEa0My",
+    "sourcePage": "https://www.cmu.edu/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  },
+  "uiuc": {
+    "logo": "/universities/uiuc-logo.png",
+    "cover": "/universities/uiuc-cover.webp",
+    "logoSource": "https://illinois.edu/wp-content/uploads/2025/10/Illinois_logo_fullcolor_rgb.png",
+    "coverSource": "https://illinois.edu/wp-content/themes/illinois/assets/campus.webp",
+    "sourcePage": "https://illinois.edu/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  },
+  "ubc": {
+    "logo": "/universities/ubc-logo.png",
+    "cover": "/universities/ubc-cover.jpg",
+    "logoSource": "https://cdn.ubc.ca/clf/7.0.5/img/touch-icon-ipad-retina.png",
+    "coverSource": "https://www.ubc.ca/_assets/img/about-ubc/facts_campus_vancouver-720x720_scale,w_720.jpg",
+    "sourcePage": "https://www.ubc.ca/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  },
+  "uoft": {
+    "logo": "/universities/uoft-logo.svg",
+    "cover": "/universities/uoft-cover.jpg",
+    "logoSource": "https://easi.its.utoronto.ca/wp-content/themes/easi_twentysvt_child_merge/_inc/img/U-of-T-logo.svg",
+    "coverSource": "https://campusevents.utoronto.ca/wp-content/uploads/2025/09/aerial-convocation-hall-1080x720.jpg",
+    "sourcePage": "https://www.utoronto.ca/",
+    "checkedAt": "2026-09-19",
+    "dark": true
+  },
+  "utsc": {
+    "logo": "/universities/utsc-logo.svg",
+    "cover": "/universities/utsc-cover.jpg",
+    "logoSource": "https://www.utsc.utoronto.ca/home/themes/custom/barriodepartments_v1_2flex/images/utsc-logo.svg",
+    "coverSource": "https://www.utsc.utoronto.ca/home/sites/utsc.utoronto.ca.home/files/styles/cta_wide/public/images/cta/AcademicDepartments.jpeg?h=77b2bf82&itok=sxI5j7Jh",
+    "sourcePage": "https://www.utsc.utoronto.ca/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  },
+  "manchester": {
+    "logo": "/universities/manchester-logo.png",
+    "cover": "/universities/manchester-cover.webp",
+    "logoSource": "https://assets.manchester.ac.uk/corporate/images/design/logo-university-of-manchester.png",
+    "coverSource": "https://www.manchester.ac.uk/uom-buildings-740.webp",
+    "sourcePage": "https://www.manchester.ac.uk/",
+    "checkedAt": "2026-09-19",
+    "dark": false
+  }
+}

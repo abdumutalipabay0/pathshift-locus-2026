@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { dataset, evaluate } from './engine';
 import type { Profile } from './types';
+import identities from './university-profiles.json';
+import { interestOptions } from './background';
 import { universityStories, storyCheckedAt } from './university-stories';
 import { defaultAdvisorModel, structuredCompletion } from './ai-provider';
 
@@ -84,6 +86,31 @@ export function assistantContext(
       page_title: h.title,
     })),
   );
+  const identityFacts = programs.flatMap((r) => {
+    const identity = identities[r.program.id as keyof typeof identities];
+    return identity
+      ? [
+          {
+            id: `history.${r.program.id}`,
+            statement: identity.history,
+            evidence: 'VERIFIED',
+            intake: storyCheckedAt,
+            notes: 'University history, not an admission requirement.',
+            source_url: identity.historySource,
+            page_title: 'The story behind the name',
+          },
+          {
+            id: `milestone.${r.program.id}`,
+            statement: identity.milestone,
+            evidence: 'VERIFIED',
+            intake: storyCheckedAt,
+            notes: 'Descriptive university information, not an admission requirement.',
+            source_url: identity.milestoneSource,
+            page_title: 'Known for',
+          },
+        ]
+      : [];
+  });
   const roadmap = e.roadmap.filter(
     (task) => !targetIds.length || task.programs.some((id) => targetIds.includes(id)),
   );
@@ -96,6 +123,10 @@ export function assistantContext(
       countries: profile.countries,
       curriculum: profile.curriculum,
       interest: profile.interest,
+      interests:
+        profile.background?.interests.filter((i) =>
+          interestOptions.some((option) => option === i),
+        ) || [],
       ib_total_including_core_bonus: profile.ib_total,
       ib_core_bonus: profile.ib_core_points ?? null,
       ib_subject_points:
@@ -140,7 +171,7 @@ export function assistantContext(
       ? (roadmap.find((task) => !task.complete) ?? null)
       : e.next_action,
     roadmap: roadmap.slice(0, 12),
-    facts: [...facts, ...storyFacts].map((f) => ({
+    facts: [...facts, ...storyFacts, ...identityFacts].map((f) => ({
       id: f.id,
       statement: f.statement,
       evidence: f.evidence,

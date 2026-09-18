@@ -42,8 +42,10 @@ test.describe('live account lifecycle', () => {
     await page.getByLabel('Age', { exact: true }).fill('18');
     await page.getByLabel('Citizenship', { exact: true }).fill('Kazakhstan');
     await page.getByLabel('Canada', { exact: true }).check();
-    await page.getByRole('button', { name: 'Show universities', exact: true }).click();
-    await expect(page).toHaveURL(/\/app$/, { timeout: 20000 });
+    await page.getByRole('button', { name: 'Building apps', exact: true }).click();
+    await page.getByLabel('What do you enjoy doing?').fill('I enjoy creating useful websites.');
+    await page.getByRole('button', { name: 'Build my profile', exact: true }).click();
+    await expect(page).toHaveURL(/\/app\?view=portfolio$/, { timeout: 20000 });
     await expect(page.locator('.profile-button')).toContainText('QA Applicant');
     await expect(page.locator('.entry-demo-banner')).toHaveCount(0);
     const persisted = await (await page.request.get('/api/account/profile')).json();
@@ -52,13 +54,19 @@ test.describe('live account lifecycle', () => {
     expect(persisted.profile.ib_total).toBeNull();
     expect(persisted.profile.curriculum).toBe('');
     expect(persisted.profile.budgets.USD).toBeNull();
+    expect(persisted.profile.background.interests).toEqual(['Building apps']);
+    await page.locator('#experience-answer').fill('I made a website for a school club.');
+    await page.getByRole('button', { name: 'Save my story', exact: true }).click();
+    await expect(page.locator('.success-box')).toContainText('Your story is saved.');
+    await expect(page.getByRole('heading', { name: 'More than your test scores.' })).toBeVisible();
+    await page.getByRole('button', { name: 'Explore universities', exact: true }).click();
     await expect(page.locator('.program-card').first()).toBeVisible();
     await expect(
       page.getByRole('heading', { name: 'Explore first, personalize with your results' }),
     ).toBeVisible();
     await expect(page.locator('.suggested-universities article')).toHaveCount(1);
     await expect(page.locator('.suggested-universities')).toContainText('Waterloo');
-    await page.getByRole('button', { name: 'My profile', exact: true }).click();
+    await page.getByRole('button', { name: 'Grades, tests and budget', exact: true }).click();
     await page.getByLabel('Your name', { exact: true }).fill('QA Updated');
     await page.getByRole('button', { name: /Budget & readiness/ }).click();
     await page.getByRole('button', { name: 'Build my opportunity map', exact: true }).click();
@@ -76,6 +84,10 @@ test.describe('live account lifecycle', () => {
       await tab.getByRole('button', { name: 'Sign in', exact: true }).click();
       await expect(tab).toHaveURL(/\/app$/, { timeout: 20000 });
       await expect(tab.locator('.profile-button')).toContainText('QA Updated');
+      const savedStory = await (await tab.request.get('/api/account/profile')).json();
+      expect(savedStory.profile.background.answers[0].text).toBe(
+        'I made a website for a school club.',
+      );
       await tab.reload();
       await expect(tab.locator('.profile-button')).toContainText('QA Updated');
     } finally {

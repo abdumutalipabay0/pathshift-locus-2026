@@ -316,6 +316,91 @@ export function referenceCost(program: Program, p: Profile, facts = dataset.fact
 function flatten(rule: RuleResult): RuleResult[] {
   return [rule, ...rule.children.flatMap(flatten)];
 }
+/** Presentation receipt from the evaluated tree; never a second eligibility engine. */
+export function scoreChecks(
+  program: Program,
+  profile: Profile,
+  results: RuleResult[],
+  facts: Fact[],
+) {
+  const definitions = new Map<string, Rule>();
+  const collect = (r: Rule) => {
+    definitions.set(r.id, r);
+    [...(r.children || []), r.requirement, r.exemption, r.direct, r.alternative]
+      .filter(Boolean)
+      .forEach((x) => collect(x!));
+  };
+  program.rules.forEach(collect);
+  const rows: NonNullable<Result['score_checks']> = [];
+  const walk = (r: RuleResult, alternative = false, conditionalRoute = false, route = r.label) => {
+    const definition = definitions.get(r.id);
+    const conditional = conditionalRoute || !!r.conditional;
+    const covered =
+      alternative ||
+      (!!definition &&
+        ['EXEMPTION', 'ANY_OF', 'CONDITIONAL_PATH'].includes(definition.op) &&
+        r.result === 'PASS');
+    if (
+      r.field &&
+      (profile.curriculum === 'IB' || !['ib_total', 'math_aa_hl'].includes(r.field)) &&
+      /^(ielts\.(overall|reading|writing|listening|speaking)|sat\.(score|status)|act\.(score|status)|ib_total|math_aa_hl)$/.test(
+        r.field,
+      ) &&
+      definition
+    ) {
+      const resolved = resolveFacts(r.facts, facts, profile.intake);
+      const raw =
+        definition.value !== undefined
+          ? definition.value
+          : definition.valueKey
+            ? valueAt(resolved.facts[0]?.value, definition.valueKey)
+            : resolved.facts[0]?.value;
+      const required =
+        resolved.state === 'VERIFIED' && definition.comparator === 'GTE' && typeof raw === 'number'
+          ? raw
+          : null;
+      const current = valueAt(profile, r.field.replace(/\.status$/, '.score'));
+      const numeric = typeof current === 'number' ? current : null;
+      const statusCheck = /^(sat|act)\.score$/.test(r.field)
+        ? results.flatMap(flatten).find((x) => x.field === r.field!.replace('.score', '.status'))
+        : undefined;
+      const checked = statusCheck && statusCheck.result !== 'PASS' ? statusCheck : r;
+      rows.push({
+        id: r.id,
+        label: r.label,
+        field: r.field,
+        current: numeric,
+        required,
+        gap:
+          required !== null &&
+          numeric !== null &&
+          checked.result === 'FAIL' &&
+          !alternative &&
+          checked.reason.includes('published requirement')
+            ? Math.max(0, Math.round((required - numeric) * 10) / 10)
+            : null,
+        verdict: checked.result,
+        alternative: alternative && checked.result !== 'PASS',
+        conditional_route: conditional,
+        route,
+        reason: checked.reason,
+        facts: [...new Set([...r.facts, ...(statusCheck?.facts || [])])],
+      });
+    }
+    r.children.forEach((child) =>
+      walk(
+        child,
+        covered,
+        conditional,
+        definition && ['ANY_OF', 'CONDITIONAL_PATH', 'EXEMPTION'].includes(definition.op)
+          ? child.label
+          : route,
+      ),
+    );
+  };
+  results.forEach((r) => walk(r));
+  return rows;
+}
 function core(program: Program, p: Profile, facts: Fact[], now: string): Result {
   if (p.documents_by_program)
     p = { ...p, documents_ready: p.documents_by_program[program.id] === true };
@@ -380,6 +465,7 @@ function core(program: Program, p: Profile, facts: Fact[], now: string): Result 
   const hard = rules.filter((r) => r.strength === 'HARD');
   return {
     program,
+    score_checks: supported ? scoreChecks(program, p, rules, facts) : [],
     admission_state: state,
     evidence_state: evidence,
     timeline_state: t,

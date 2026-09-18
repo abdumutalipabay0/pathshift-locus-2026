@@ -13,7 +13,7 @@ for (const locale of ['ru', 'kk'] as const) {
     await page.locator('.language-picker select').selectOption(locale);
     await expect(page.locator('html')).toHaveAttribute('lang', locale);
     await expect(
-      page.getByRole('heading', { name: t('Choose universities to compare.') }),
+      page.getByRole('heading', { name: t('Get to know your future university.') }),
     ).toBeVisible();
     await page
       .locator('.program-card')
@@ -32,7 +32,7 @@ for (const locale of ['ru', 'kk'] as const) {
     await page.keyboard.press('Escape');
     await page
       .locator('.sidebar')
-      .getByRole('button', { name: t('My profile'), exact: true })
+      .getByRole('button', { name: t('Grades, tests and budget'), exact: true })
       .click();
     await page.getByLabel(t('Your name'), { exact: true }).fill('Әлихан');
     await page.locator('.language-picker select').selectOption(locale === 'kk' ? 'ru' : 'kk');
@@ -105,7 +105,7 @@ for (const locale of ['ru', 'kk'] as const) {
     await page.getByRole('button', { name: translateText('Toggle navigation', locale) }).click();
     await page
       .locator('.sidebar')
-      .getByRole('button', { name: translateText('My profile', locale), exact: true })
+      .getByRole('button', { name: translateText('Grades, tests and budget', locale), exact: true })
       .click();
     for (let step = 0; step < 4; step++) {
       await page.locator('.wizard-steps button').nth(step).click();

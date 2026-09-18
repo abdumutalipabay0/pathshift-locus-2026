@@ -1,0 +1,86 @@
+{
+  "uw": {
+    "year": "1848",
+    "history": "Founded in 1848, UW–Madison grew into a public university guided by the Wisconsin Idea: knowledge should improve life beyond the campus.",
+    "historySource": "https://www.wisc.edu/about/",
+    "milestone": "Its CS degree connects classroom learning with project courses, faculty research and a possible senior thesis.",
+    "milestoneSource": "https://www.cs.wisc.edu/undergraduate/undergrad-program-cs/"
+  },
+  "waterloo": {
+    "year": "1957",
+    "history": "Waterloo opened in 1957 with 74 engineering students. Alternating study and work was part of its identity from the beginning.",
+    "historySource": "https://uwaterloo.ca/about",
+    "milestone": "Hack the North brings builders together on campus. For a student who enjoys making things, it is a concrete example of the local project community.",
+    "milestoneSource": "https://uwaterloo.ca/future-students/programs/computer-science"
+  },
+  "gatech": {
+    "year": "1885",
+    "history": "Founded in 1885 to support industrial development, Georgia Tech has grown alongside Atlanta into a technological research university.",
+    "historySource": "https://www.gatech.edu/about/vision",
+    "milestone": "Its Threads approach connects computing to themes such as people, media, intelligence and systems, so students can shape a coherent area of study.",
+    "milestoneSource": "https://www.cc.gatech.edu/threads-better-way-learn-computing"
+  },
+  "purdue": {
+    "year": "1962 · CS",
+    "history": "Purdue established the first computer science department in the United States in October 1962. The department helped define CS as its own academic discipline.",
+    "historySource": "https://www.cs.purdue.edu/history/",
+    "milestone": "Today, a six-course core leads to specialized tracks. This combines a common technical foundation with room to choose advanced areas.",
+    "milestoneSource": "https://www.cs.purdue.edu/undergraduate/curriculum/bachelor.html"
+  },
+  "rit": {
+    "year": "1829",
+    "history": "RIT traces its roots to the Rochester Athenaeum of 1829 and the Mechanics Institute of 1885. Its current Henrietta campus opened in 1968.",
+    "historySource": "https://www.rit.edu/history-rit",
+    "milestone": "Its computing co-op model makes workplace experience part of the degree. CS is described as a five-year programme with three required co-op blocks.",
+    "milestoneSource": "https://www.rit.edu/computing-co-op"
+  },
+  "asu": {
+    "year": "1885",
+    "history": "ASU began in 1885 as a school for teacher training, agriculture and mechanical arts. Its history reflects the growth of Arizona and its educational needs.",
+    "historySource": "https://www.asu.edu/about/university-history-and-milestones",
+    "milestone": "The Tempe CS BS sits within the Fulton engineering schools and offers cybersecurity and software engineering concentrations.",
+    "milestoneSource": "https://scai.engineering.asu.edu/computer-science-bs/"
+  },
+  "cmu": {
+    "year": "1900",
+    "history": "Andrew Carnegie funded technical schools in Pittsburgh in 1900. In 1967, Carnegie Tech and the Mellon Institute merged to become Carnegie Mellon University.",
+    "historySource": "https://www.cmu.edu/about/history",
+    "milestone": "CMU’s history connects computing and artificial intelligence with interdisciplinary work by Allen Newell and Herbert Simon.",
+    "milestoneSource": "https://www.cmu.edu/about/history"
+  },
+  "uiuc": {
+    "year": "1867",
+    "history": "Illinois was founded in 1867 as a land-grant university. Its campus developed around a public mission of education and practical knowledge.",
+    "historySource": "https://iopn.library.illinois.edu/pressbooks/designbuiltenvironment/part/part-2-the-making-of-place-and-the-university-plan/",
+    "milestone": "NCSA Mosaic, released in 1993, helped bring the Web to a wider public. It is one of Illinois’s tangible contributions to computing history.",
+    "milestoneSource": "https://www.ncsa.illinois.edu/research/project-highlights/ncsa-mosaic/"
+  },
+  "ubc": {
+    "year": "1922 · Great Trek",
+    "history": "In 1922, UBC students organised the Great Trek to call for better facilities. The campaign is an important part of the university’s campus history.",
+    "historySource": "https://archives.library.ubc.ca/general-history/ubc-history-faq/",
+    "milestone": "The Vancouver campus sits at Point Grey. This profile refers to the Vancouver route; UBC Okanagan is a different campus.",
+    "milestoneSource": "https://www.ubc.ca/about/"
+  },
+  "uoft": {
+    "year": "1921 · Insulin",
+    "history": "The University of Toronto was central to the discovery and early development of insulin. Its library preserves records of the work from 1920–1925.",
+    "historySource": "https://collections.library.utoronto.ca/explore/insulin/about",
+    "milestone": "St. George is the downtown campus, close to research hospitals and entrepreneurship hubs. Scarborough has its own campus and programme route.",
+    "milestoneSource": "https://www.utoronto.ca/news/which-u-t-campus-best-you-quick-look-what-makes-each-one-unique"
+  },
+  "utsc": {
+    "year": "1964",
+    "history": "Toronto Scarborough was founded in 1964. It moved to its present site when the original buildings opened in January 1966.",
+    "historySource": "https://www.utsc.utoronto.ca/home/history",
+    "milestone": "Its park-like campus is on Toronto’s eastern edge. Studying here is a different campus experience from downtown St. George.",
+    "milestoneSource": "https://www.utsc.utoronto.ca/home/history"
+  },
+  "manchester": {
+    "year": "1948 · Baby",
+    "history": "On 21 June 1948, the Manchester Baby ran a program stored electronically in its memory. It was a landmark in the history of modern computing.",
+    "historySource": "https://www.manchester.ac.uk/about/news/university-celebrates-babys-65th-birthday/",
+    "milestone": "The Baby was followed by the Manchester Mark I and the Ferranti Mark I, connecting experimental computing with practical machines.",
+    "milestoneSource": "https://www.manchester.ac.uk/about/news/the-moment-computing-became-real/"
+  }
+}

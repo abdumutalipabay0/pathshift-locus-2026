@@ -4730,5 +4730,421 @@
   "Save and open my plan": {
     "ru": "Сохранить и открыть мой план",
     "kk": "Сақтап, жоспарымды ашу"
+  },
+  "Founded in 1848, UW–Madison grew into a public university guided by the Wisconsin Idea: knowledge should improve life beyond the campus.": {
+    "ru": "Университет основан в 1848 году. Его принцип Wisconsin Idea — знания должны улучшать жизнь людей за пределами кампуса.",
+    "kk": "Университет 1848 жылы құрылған. Wisconsin Idea қағидасы бойынша білім кампустан тыс адамдардың өмірін де жақсартуы керек."
+  },
+  "Its CS degree connects classroom learning with project courses, faculty research and a possible senior thesis.": {
+    "ru": "Программа CS связывает занятия с проектами, работой с исследователями и возможностью написать выпускную исследовательскую работу.",
+    "kk": "CS бағдарламасы сабақтарды жобалармен, оқытушылармен зерттеу жүргізумен және дипломдық зерттеу мүмкіндігімен байланыстырады."
+  },
+  "Waterloo opened in 1957 with 74 engineering students. Alternating study and work was part of its identity from the beginning.": {
+    "ru": "Waterloo открылся в 1957 году с 74 студентами инженерного направления. Чередование учёбы и работы было частью его идеи с самого начала.",
+    "kk": "Waterloo 1957 жылы 74 инженерлік бағыт студентімен ашылды. Оқу мен жұмысты кезектестіру бастапқы кезден оның негізгі идеясы болды."
+  },
+  "Hack the North brings builders together on campus. For a student who enjoys making things, it is a concrete example of the local project community.": {
+    "ru": "Хакатон Hack the North собирает на кампусе участников, создающих проекты. Это конкретный пример среды для тех, кому нравится делать что-то своими руками.",
+    "kk": "Hack the North хакатоны кампуста жоба жасаушыларды біріктіреді. Бұл өз идеясын іске асыруды ұнататындарға арналған ортаның нақты мысалы."
+  },
+  "Founded in 1885 to support industrial development, Georgia Tech has grown alongside Atlanta into a technological research university.": {
+    "ru": "Georgia Tech основали в 1885 году для развития промышленности. Вместе с Атлантой он вырос в технологический исследовательский университет.",
+    "kk": "Georgia Tech 1885 жылы өнеркәсіпті дамыту үшін құрылған. Атлантамен бірге ол технологиялық зерттеу университетіне айналды."
+  },
+  "Its Threads approach connects computing to themes such as people, media, intelligence and systems, so students can shape a coherent area of study.": {
+    "ru": "Подход Threads связывает информатику с темами людей, медиа, интеллекта и систем: студент выстраивает связное направление обучения.",
+    "kk": "Threads тәсілі информатиканы адамдар, медиа, интеллект және жүйелер тақырыптарымен байланыстырып, бірізді оқу бағытын құруға көмектеседі."
+  },
+  "Purdue established the first computer science department in the United States in October 1962. The department helped define CS as its own academic discipline.": {
+    "ru": "В октябре 1962 года Purdue открыл первую в США кафедру computer science. Она участвовала в становлении информатики как самостоятельной академической дисциплины.",
+    "kk": "1962 жылғы қазанда Purdue АҚШ-тағы алғашқы computer science кафедрасын ашты. Ол информатиканың жеке академиялық пән ретінде қалыптасуына үлес қосты."
+  },
+  "Today, a six-course core leads to specialized tracks. This combines a common technical foundation with room to choose advanced areas.": {
+    "ru": "Сегодня шесть базовых курсов ведут к специализированным трекам. Общая техническая база сочетается с выбором углублённых направлений.",
+    "kk": "Қазір алты негізгі курс мамандандырылған тректерге жол ашады. Ортақ техникалық негізді тереңдетілген бағыттарды таңдаумен ұштастыруға болады."
+  },
+  "RIT traces its roots to the Rochester Athenaeum of 1829 and the Mechanics Institute of 1885. Its current Henrietta campus opened in 1968.": {
+    "ru": "Истоки RIT — Rochester Athenaeum 1829 года и Mechanics Institute 1885 года. Нынешний кампус в Henrietta открылся в 1968 году.",
+    "kk": "RIT тарихы 1829 жылғы Rochester Athenaeum және 1885 жылғы Mechanics Institute ұйымдарынан басталады. Қазіргі Henrietta кампусы 1968 жылы ашылған."
+  },
+  "Its computing co-op model makes workplace experience part of the degree. CS is described as a five-year programme with three required co-op blocks.": {
+    "ru": "В computing co-op рабочий опыт становится частью дипломной программы. CS описан как пятилетняя программа с тремя обязательными блоками co-op.",
+    "kk": "Computing co-op үлгісінде жұмыс тәжірибесі оқу бағдарламасының бөлігі болады. CS үш міндетті co-op кезеңі бар бесжылдық бағдарлама ретінде сипатталған."
+  },
+  "ASU began in 1885 as a school for teacher training, agriculture and mechanical arts. Its history reflects the growth of Arizona and its educational needs.": {
+    "ru": "ASU начинался в 1885 году как школа подготовки учителей, сельского хозяйства и механических искусств. Его история связана с развитием Аризоны.",
+    "kk": "ASU 1885 жылы мұғалім даярлау, ауыл шаруашылығы және механикалық өнер мектебі ретінде басталды. Оның тарихы Аризонаның дамуымен байланысты."
+  },
+  "The Tempe CS BS sits within the Fulton engineering schools and offers cybersecurity and software engineering concentrations.": {
+    "ru": "CS BS в Tempe входит в инженерные школы Fulton и предлагает специализации по кибербезопасности и программной инженерии.",
+    "kk": "Tempe кампусындағы CS BS Fulton инженерлік мектептеріне кіреді және киберқауіпсіздік пен бағдарламалық инженерия мамандануын ұсынады."
+  },
+  "Andrew Carnegie funded technical schools in Pittsburgh in 1900. In 1967, Carnegie Tech and the Mellon Institute merged to become Carnegie Mellon University.": {
+    "ru": "В 1900 году Эндрю Карнеги профинансировал технические школы в Питтсбурге. В 1967 году Carnegie Tech и Mellon Institute объединились в Carnegie Mellon University.",
+    "kk": "1900 жылы Эндрю Карнеги Питтсбургтегі техникалық мектептерді қаржыландырды. 1967 жылы Carnegie Tech пен Mellon Institute бірігіп, Carnegie Mellon University болды."
+  },
+  "CMU’s history connects computing and artificial intelligence with interdisciplinary work by Allen Newell and Herbert Simon.": {
+    "ru": "История CMU связывает развитие вычислений и ИИ с междисциплинарной работой Аллена Ньюэлла и Герберта Саймона.",
+    "kk": "CMU тарихы есептеу техникасы мен жасанды интеллект дамуын Аллен Ньюэлл мен Герберт Саймонның пәнаралық еңбектерімен байланыстырады."
+  },
+  "Illinois was founded in 1867 as a land-grant university. Its campus developed around a public mission of education and practical knowledge.": {
+    "ru": "Illinois основан в 1867 году как land-grant университет — с общественной задачей развивать образование и практические знания.",
+    "kk": "Illinois 1867 жылы білім мен практикалық дағдыларды дамытуға бағытталған land-grant университеті ретінде құрылған."
+  },
+  "NCSA Mosaic, released in 1993, helped bring the Web to a wider public. It is one of Illinois’s tangible contributions to computing history.": {
+    "ru": "Браузер NCSA Mosaic, выпущенный в 1993 году, помог сделать Web доступнее широкой аудитории. Это один из конкретных вкладов Illinois в историю вычислений.",
+    "kk": "1993 жылы шыққан NCSA Mosaic браузері Web-ті кең аудиторияға жеткізуге көмектесті. Бұл Illinois университетінің есептеу тарихына қосқан нақты үлестерінің бірі."
+  },
+  "In 1922, UBC students organised the Great Trek to call for better facilities. The campaign is an important part of the university’s campus history.": {
+    "ru": "В 1922 году студенты UBC организовали Great Trek — кампанию за улучшение учебных условий. Она стала важной частью истории кампуса.",
+    "kk": "1922 жылы UBC студенттері оқу жағдайларын жақсарту үшін Great Trek науқанын ұйымдастырды. Ол кампус тарихының маңызды бөлігіне айналды."
+  },
+  "The Vancouver campus sits at Point Grey. This profile refers to the Vancouver route; UBC Okanagan is a different campus.": {
+    "ru": "Ванкуверский кампус находится в Point Grey. Здесь рассматривается маршрут Vancouver; UBC Okanagan — другой кампус.",
+    "kk": "Ванкувер кампусы Point Grey аймағында орналасқан. Бұл профиль Vancouver бағытына арналған; UBC Okanagan — бөлек кампус."
+  },
+  "The University of Toronto was central to the discovery and early development of insulin. Its library preserves records of the work from 1920–1925.": {
+    "ru": "Университет Торонто сыграл ключевую роль в открытии и ранней разработке инсулина. Его библиотека хранит материалы исследований 1920–1925 годов.",
+    "kk": "Торонто университеті инсулиннің ашылуы мен алғашқы әзірленуінде маңызды рөл атқарды. Кітапханасында 1920–1925 жылдардағы зерттеу материалдары сақталған."
+  },
+  "St. George is the downtown campus, close to research hospitals and entrepreneurship hubs. Scarborough has its own campus and programme route.": {
+    "ru": "St. George — кампус в центре города, рядом с исследовательскими больницами и предпринимательскими центрами. У Scarborough отдельный кампус и маршрут поступления.",
+    "kk": "St. George — қала орталығындағы, зерттеу ауруханалары мен кәсіпкерлік орталықтарына жақын кампус. Scarborough кампусының оқу және түсу жолы бөлек."
+  },
+  "Toronto Scarborough was founded in 1964. It moved to its present site when the original buildings opened in January 1966.": {
+    "ru": "Toronto Scarborough основан в 1964 году. Он переехал на нынешнее место после открытия первых зданий в январе 1966 года.",
+    "kk": "Toronto Scarborough 1964 жылы құрылған. Алғашқы ғимараттар 1966 жылғы қаңтарда ашылған соң қазіргі орнына көшті."
+  },
+  "Its park-like campus is on Toronto’s eastern edge. Studying here is a different campus experience from downtown St. George.": {
+    "ru": "Его зелёный кампус расположен на восточной окраине Торонто. Учёба здесь отличается по среде от центрального St. George.",
+    "kk": "Жасыл кампусы Торонтоның шығыс шетінде орналасқан. Мұндағы оқу ортасы қала орталығындағы St. George кампусынан өзгеше."
+  },
+  "On 21 June 1948, the Manchester Baby ran a program stored electronically in its memory. It was a landmark in the history of modern computing.": {
+    "ru": "21 июня 1948 года Manchester Baby выполнил программу, хранившуюся в электронной памяти. Это стало вехой в истории современных компьютеров.",
+    "kk": "1948 жылғы 21 маусымда Manchester Baby электрондық жадында сақталған бағдарламаны орындады. Бұл қазіргі компьютерлер тарихындағы маңызды кезең болды."
+  },
+  "The Baby was followed by the Manchester Mark I and the Ferranti Mark I, connecting experimental computing with practical machines.": {
+    "ru": "За Baby последовали Manchester Mark I и Ferranti Mark I — переход от экспериментальных вычислений к практическим машинам.",
+    "kk": "Baby-ден кейін Manchester Mark I және Ferranti Mark I пайда болып, тәжірибелік есептеуден практикалық машиналарға өтуге жол ашты."
+  },
+  "What draws your curiosity?": {
+    "ru": "Что тебе интересно?",
+    "kk": "Сені не қызықтырады?"
+  },
+  "Choose a few interests. You can change them later.": {
+    "ru": "Выбери несколько интересов. Потом их можно изменить.",
+    "kk": "Бірнеше қызығушылықты таңда. Кейін өзгертуге болады."
+  },
+  "Building apps": {
+    "ru": "Создавать приложения",
+    "kk": "Қосымшалар жасау"
+  },
+  "Design and creativity": {
+    "ru": "Дизайн и творчество",
+    "kk": "Дизайн және шығармашылық"
+  },
+  "Science and discovery": {
+    "ru": "Наука и открытия",
+    "kk": "Ғылым және жаңалықтар"
+  },
+  "Helping people": {
+    "ru": "Помогать людям",
+    "kk": "Адамдарға көмектесу"
+  },
+  "Business and startups": {
+    "ru": "Бизнес и стартапы",
+    "kk": "Бизнес және стартаптар"
+  },
+  "What do you enjoy doing?": {
+    "ru": "Чем тебе нравится заниматься?",
+    "kk": "Немен айналысқанды ұнатасың?"
+  },
+  "For example: building games, explaining maths to friends, drawing or exploring how things work.": {
+    "ru": "Например: делать игры, объяснять друзьям математику, рисовать или разбираться, как всё устроено.",
+    "kk": "Мысалы: ойын жасау, достарыңа математиканы түсіндіру, сурет салу немесе заттардың қалай жұмыс істейтінін зерттеу."
+  },
+  "MY APPLICANT PROFILE": {
+    "ru": "МОЙ ПРОФИЛЬ АБИТУРИЕНТА",
+    "kk": "МЕНІҢ ТАЛАПКЕР ПРОФИЛІМ"
+  },
+  "More than your test scores.": {
+    "ru": "Ты — больше, чем баллы.",
+    "kk": "Сенің мүмкіндігің ұпаймен шектелмейді."
+  },
+  "Bring your interests, experience and goals together. Then explore universities with your own story in mind.": {
+    "ru": "Собери свои интересы, опыт и цели. С этим профилем будет легче понять, какой университет тебе подходит.",
+    "kk": "Қызығушылықтарыңды, тәжірибеңді және мақсаттарыңды жинақта. Осы профильмен өзіңе сай университетті түсіну оңайырақ болады."
+  },
+  "Build your story": {
+    "ru": "Расскажи о себе",
+    "kk": "Өзің туралы айтып бер"
+  },
+  "Small experiences count. You do not need awards to begin.": {
+    "ru": "Даже небольшой опыт важен. Чтобы начать, награды не нужны.",
+    "kk": "Шағын тәжірибе де маңызды. Бастау үшін марапат қажет емес."
+  },
+  "Experience topics": {
+    "ru": "Темы об опыте",
+    "kk": "Тәжірибе тақырыптары"
+  },
+  "Projects": {
+    "ru": "Проекты",
+    "kk": "Жобалар"
+  },
+  "Competitions": {
+    "ru": "Соревнования",
+    "kk": "Жарыстар"
+  },
+  "Research": {
+    "ru": "Исследования",
+    "kk": "Зерттеулер"
+  },
+  "Community and responsibility": {
+    "ru": "Помощь и ответственность",
+    "kk": "Көмек және жауапкершілік"
+  },
+  "Goals": {
+    "ru": "Цели",
+    "kk": "Мақсаттар"
+  },
+  "Have you built anything? A website, a school project, a design or a small experiment all count. What did you personally do?": {
+    "ru": "Ты что-нибудь создавал? Сайт, школьный проект, дизайн или небольшой эксперимент тоже считаются. Что именно сделал ты?",
+    "kk": "Бірдеңе жасап көрдің бе? Сайт, мектеп жобасы, дизайн немесе шағын тәжірибе де есептеледі. Өзің нақты не істедің?"
+  },
+  "Have you joined hackathons, olympiads, sports or other competitions? Tell me your role and the result, even if you did not win.": {
+    "ru": "Ты участвовал в хакатонах, олимпиадах, спортивных или других соревнованиях? Расскажи о своей роли и результате, даже если не победил.",
+    "kk": "Хакатонға, олимпиадаға, спорттық немесе басқа жарысқа қатыстың ба? Жеңбесең де, өз рөлің мен нәтижеңді айтып бер."
+  },
+  "Have you explored a question in depth, worked with a teacher or written a research project? What did you investigate?": {
+    "ru": "Ты глубоко изучал какой-то вопрос, работал с преподавателем или писал исследовательский проект? Что исследовал?",
+    "kk": "Қандай да бір сұрақты терең зерттедің бе, мұғаліммен жұмыс істедің бе немесе зерттеу жобасын жаздың ба? Нені зерттедің?"
+  },
+  "Have you helped others, volunteered, worked, led a club or taken care of family? What responsibility did you have?": {
+    "ru": "Ты помогал другим, был волонтёром, работал, вёл кружок или заботился о семье? За что ты отвечал?",
+    "kk": "Басқаларға көмектестің бе, ерікті болдың ба, жұмыс істедің бе, үйірме басқардың ба немесе отбасыңа қамқор болдың ба? Не үшін жауапты болдың?"
+  },
+  "What would you like to learn or build next? What kind of problems matter to you?": {
+    "ru": "Чему хочешь научиться или что создать дальше? Какие проблемы тебе важно решать?",
+    "kk": "Әрі қарай нені үйренгің немесе жасағың келеді? Қандай мәселелерді шешу сен үшін маңызды?"
+  },
+  "What happened? What was your contribution? What did you learn? You can also say “not yet”.": {
+    "ru": "Что происходило? Каков твой вклад? Чему научился? Можно написать «пока не пробовал».",
+    "kk": "Не болды? Сенің үлесің қандай? Не үйрендің? «Әзірге байқап көрмедім» деп те жазуға болады."
+  },
+  "AI receives only these interests and notes when you ask for help. Leave out contact details and private information.": {
+    "ru": "Когда просишь помощь, ИИ получает только эти интересы и заметки. Не добавляй контакты и личную информацию.",
+    "kk": "Көмек сұрағанда ЖИ тек осы қызығушылықтар мен жазбаларды алады. Байланыс деректері мен жеке ақпаратты қоспа."
+  },
+  "Help me remember and explain": {
+    "ru": "Помоги вспомнить и описать",
+    "kk": "Еске түсіруге және сипаттауға көмектес"
+  },
+  "Next topic": {
+    "ru": "Следующая тема",
+    "kk": "Келесі тақырып"
+  },
+  "Add your answer to the notes above. Only your notes become part of your profile.": {
+    "ru": "Дополни заметки выше своим ответом. В профиль попадает только то, что написал ты.",
+    "kk": "Жоғарыдағы жазбаларды жауабыңмен толықтыр. Профильге тек өзің жазған ақпарат енеді."
+  },
+  "Your resume": {
+    "ru": "Твоё резюме",
+    "kk": "Сенің түйіндемең"
+  },
+  "Draft with AI": {
+    "ru": "Составить с ИИ",
+    "kk": "ЖИ көмегімен құрастыру"
+  },
+  "Turn your real experience into clear descriptions. Review every line before saving.": {
+    "ru": "Преврати реальный опыт в понятные формулировки. Проверь каждую строку перед сохранением.",
+    "kk": "Нақты тәжірибеңді түсінікті сипаттамаға айналдыр. Сақтамас бұрын әр жолды тексер."
+  },
+  "Draft description": {
+    "ru": "Черновик описания",
+    "kk": "Сипаттама нобайы"
+  },
+  "Based on your words": {
+    "ru": "На основе твоих слов",
+    "kk": "Сенің сөздеріңе негізделген"
+  },
+  "I checked it — save to my profile": {
+    "ru": "Я проверил — сохранить в профиль",
+    "kk": "Тексердім — профиліме сақтау"
+  },
+  "Your resume starts with the experiences above. Nothing is invented or added automatically.": {
+    "ru": "Резюме собирается из твоего опыта выше. Ничего не выдумывается и не добавляется автоматически.",
+    "kk": "Түйіндеме жоғарыдағы тәжірибеңнен құралады. Ештеңе ойдан шығарылмайды және автоматты қосылмайды."
+  },
+  "Download my resume": {
+    "ru": "Скачать резюме",
+    "kk": "Түйіндемені жүктеу"
+  },
+  "Interests": {
+    "ru": "Интересы",
+    "kk": "Қызығушылықтар"
+  },
+  "Education": {
+    "ru": "Образование",
+    "kk": "Білім"
+  },
+  "Experience": {
+    "ru": "Опыт",
+    "kk": "Тәжірибе"
+  },
+  "Interests → experience → university → application": {
+    "ru": "Интересы → опыт → университет → поступление",
+    "kk": "Қызығушылықтар → тәжірибе → университет → оқуға түсу"
+  },
+  "Grades, tests and budget": {
+    "ru": "Оценки, тесты и бюджет",
+    "kk": "Бағалар, тесттер және бюджет"
+  },
+  "Your next step": {
+    "ru": "Твой следующий шаг",
+    "kk": "Келесі қадамың"
+  },
+  "Save your story, then meet the universities and check their requirements.": {
+    "ru": "Сохрани профиль, познакомься с университетами и проверь их требования.",
+    "kk": "Профиліңді сақта, университеттермен таныс және талаптарын тексер."
+  },
+  "Save my story": {
+    "ru": "Сохранить мой опыт",
+    "kk": "Тәжірибемді сақтау"
+  },
+  "AI is helping with your story…": {
+    "ru": "ИИ помогает описать твой опыт…",
+    "kk": "ЖИ тәжірибеңді сипаттауға көмектесіп жатыр…"
+  },
+  "Your story is saved.": {
+    "ru": "Твой опыт сохранён.",
+    "kk": "Тәжірибең сақталды."
+  },
+  "Your draft could not be saved on this device.": {
+    "ru": "Не удалось сохранить черновик на этом устройстве.",
+    "kk": "Бұл құрылғыда нобайды сақтау мүмкін болмады."
+  },
+  "AI could not respond. Your notes are safe. Try again.": {
+    "ru": "ИИ не ответил. Заметки сохранены в форме — попробуй ещё раз.",
+    "kk": "ЖИ жауап бере алмады. Жазбаларың формада сақтаулы — қайта көр."
+  },
+  "My story and resume": {
+    "ru": "Мой профиль и резюме",
+    "kk": "Профилім және түйіндемем"
+  },
+  "Ask AI": {
+    "ru": "Спросить ИИ",
+    "kk": "ЖИ-ден сұрау"
+  },
+  "University tools": {
+    "ru": "Выбор университета",
+    "kk": "Университет таңдау"
+  },
+  "Back to universities": {
+    "ru": "К университетам",
+    "kk": "Университеттерге оралу"
+  },
+  "Your results and requirements": {
+    "ru": "Твои результаты и требования",
+    "kk": "Нәтижелерің және талаптар"
+  },
+  "What do I need?": {
+    "ru": "Что мне нужно?",
+    "kk": "Маған не қажет?"
+  },
+  "Update my scores": {
+    "ru": "Обновить мои баллы",
+    "kk": "Ұпайларымды жаңарту"
+  },
+  "Your saved results, compared with the checked rules. Alternative routes are shown separately.": {
+    "ru": "Твои сохранённые результаты и проверенные требования. Альтернативные способы выполнить условие отмечены отдельно.",
+    "kk": "Сақталған нәтижелерің және тексерілген талаптар. Шартты орындаудың балама жолдары бөлек көрсетілген."
+  },
+  "Your result": {
+    "ru": "У тебя",
+    "kk": "Сенде"
+  },
+  "Requirement": {
+    "ru": "Требуется",
+    "kk": "Талап"
+  },
+  "See policy": {
+    "ru": "Смотри условие",
+    "kk": "Шартты қара"
+  },
+  "Covered by another route": {
+    "ru": "Выполнено другим способом",
+    "kk": "Басқа жолмен орындалған"
+  },
+  "Score to improve": {
+    "ru": "Не хватает баллов",
+    "kk": "Жетпейтін ұпай"
+  },
+  "Not an application blocker": {
+    "ru": "Не мешает подаче",
+    "kk": "Өтініш беруге кедергі емес"
+  },
+  "Needs attention": {
+    "ru": "Нужно проверить",
+    "kk": "Тексеру қажет"
+  },
+  "See the programme-specific checks below. No numeric score threshold is inferred.": {
+    "ru": "Смотри условия программы ниже. Числовой порог без подтверждения не назначается.",
+    "kk": "Төмендегі бағдарлама шарттарын қара. Расталмаған сандық шек қойылмайды."
+  },
+  "The story behind the name": {
+    "ru": "История университета",
+    "kk": "Университет тарихы"
+  },
+  "Read the university history": {
+    "ru": "История на сайте университета",
+    "kk": "Университет сайтындағы тарих"
+  },
+  "Known for": {
+    "ru": "Чем известен",
+    "kk": "Несімен танымал"
+  },
+  "University photograph": {
+    "ru": "Фотография университета",
+    "kk": "Университет фотосуреті"
+  },
+  "Photo source": {
+    "ru": "Источник фото",
+    "kk": "Фото дереккөзі"
+  },
+  "The resume coach sends your interests and experience notes to CloseRouter only when you ask it for help. Review its draft before saving. Your saved story and resume are stored with your account profile; unfinished drafts stay on this device.": {
+    "ru": "Помощник по резюме отправляет интересы и заметки об опыте в CloseRouter только по твоему запросу. Проверь черновик перед сохранением. Сохранённые опыт и резюме хранятся в профиле аккаунта; незавершённые черновики — на этом устройстве.",
+    "kk": "Түйіндеме көмекшісі қызығушылықтарың мен тәжірибе жазбаларыңды CloseRouter-ге тек көмек сұрағанда жібереді. Сақтамас бұрын нобайды тексер. Сақталған тәжірибе мен түйіндеме аккаунт профилінде, ал аяқталмаған нобайлар осы құрылғыда сақталады."
+  },
+  "Remove": {
+    "ru": "Удалить",
+    "kk": "Жою"
+  },
+  "Stop": {
+    "ru": "Остановить",
+    "kk": "Тоқтату"
+  },
+  "Score threshold met": {
+    "ru": "Порог по этому баллу выполнен",
+    "kk": "Осы ұпай бойынша шек орындалған"
+  },
+  "Check component scores and alternative routes": {
+    "ru": "Компоненты экзамена и альтернативные маршруты",
+    "kk": "Емтихан бөлімдері және балама жолдар"
+  },
+  "These are separate routes, not extra requirements to complete together.": {
+    "ru": "Это отдельные варианты выполнения условий. Их не нужно выполнять все одновременно.",
+    "kk": "Бұлар шарттарды орындаудың жеке нұсқалары. Барлығын бір уақытта орындау қажет емес."
+  },
+  "Get to know your future university.": {
+    "ru": "Познакомься со своим будущим университетом.",
+    "kk": "Болашақ университетіңмен таныс."
+  },
+  "Discover the university, check your results and build your application plan.": {
+    "ru": "Узнай о вузе, сравни свои результаты с требованиями и составь план поступления.",
+    "kk": "Университетті таны, нәтижелеріңді талаптармен салыстыр және оқуға түсу жоспарын құр."
+  },
+  "Print or save as PDF": {
+    "ru": "Распечатать или сохранить PDF",
+    "kk": "Басып шығару немесе PDF сақтау"
   }
 }

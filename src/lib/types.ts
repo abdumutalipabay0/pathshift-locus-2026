@@ -72,6 +72,7 @@ export type Program = {
   conditional?: { name: string; fact: string; note: string };
 };
 export type Profile = {
+  background?: import('./background').Background;
   test_willingness?: { IELTS?: boolean; SAT?: boolean; ACT?: boolean };
   school?: {
     natural_science?: number | null;
@@ -172,6 +173,20 @@ export type Recourse = {
   note: string;
 };
 export type Result = {
+  score_checks?: {
+    id: string;
+    label: string;
+    field: string;
+    current: number | null;
+    required: number | null;
+    gap: number | null;
+    verdict: Verdict;
+    alternative: boolean;
+    conditional_route: boolean;
+    route: string;
+    reason: string;
+    facts: string[];
+  }[];
   program: Program;
   admission_state: State;
   evidence_state: Evidence;

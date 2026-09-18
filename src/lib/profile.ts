@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { backgroundSchema } from './background';
 import type { Profile } from './types';
 const date = z
   .string()
@@ -12,6 +13,7 @@ const score = z.number().min(0).max(9).multipleOf(0.5).nullable();
 const testStatus = z.enum(['MISSING', 'PLANNED', 'VALID']);
 export const profileSchema = z
   .object({
+    background: backgroundSchema.optional(),
     test_willingness: z
       .object({
         IELTS: z.boolean().optional(),

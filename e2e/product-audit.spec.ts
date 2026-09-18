@@ -13,7 +13,7 @@ test('saved universities survive country filters and inherited search', async ({
   await page.getByRole('textbox', { name: 'Search programs' }).fill('no such university');
   await expect(page.locator('.program-card')).toHaveCount(0);
   await page
-    .locator('.sidebar')
+    .locator('.context-navigation')
     .getByRole('button', { name: /My shortlist/ })
     .click();
   await expect(page.locator('.program-card')).toHaveCount(2);
@@ -103,7 +103,10 @@ test('leaving a pending scenario cannot restore a stale hypothetical profile', a
   await page.getByRole('switch', { name: /Explore an English result/ }).check();
   await page.getByRole('button', { name: 'Explore this scenario', exact: true }).click();
   await requestStarted;
-  await page.locator('.sidebar').getByRole('button', { name: 'My profile', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'Grades, tests and budget', exact: true })
+    .click();
   const finished = page.waitForResponse((r) => r.url().endsWith('/simulate'));
   release();
   await finished;

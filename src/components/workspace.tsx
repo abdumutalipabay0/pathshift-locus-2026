@@ -56,13 +56,26 @@ import Link from 'next/link';
 import { SignOut } from './entry-header';
 import Brand from './brand';
 import ApplicantSummary from './applicant-summary';
-import UniversityOverview from './university-overview';
+import UniversityOverview, { UniversityBanner } from './university-overview';
+import Image from 'next/image';
+import universityMedia from '@/lib/university-media.json';
+import ApplicantPortfolio from './applicant-portfolio';
+import { planningInterest } from '@/lib/background';
+import RequirementReceipt from './requirement-receipt';
 import { universityStories } from '@/lib/university-stories';
 import AdmissionAssistant from './admission-assistant';
 import { taskProfileStep } from '@/lib/workspace-ux';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 type View =
-  'assistant' | 'lab' | 'map' | 'profile' | 'shortlist' | 'compare' | 'roadmap' | 'sources';
+  | 'portfolio'
+  | 'assistant'
+  | 'lab'
+  | 'map'
+  | 'profile'
+  | 'shortlist'
+  | 'compare'
+  | 'roadmap'
+  | 'sources';
 const labels: Record<State, string> = {
   READY_TO_APPLY: 'Checked requirements met',
   WITHIN_REACH: 'A result needs improvement',
@@ -77,6 +90,7 @@ const friendly = (s: string) =>
     .replaceAll('_', ' ')
     .replace(/^./, (c) => c.toUpperCase());
 const navItems = [
+  { id: 'portfolio', label: 'My story and resume', icon: UserRound },
   { id: 'map', label: 'Universities', icon: Compass },
   { id: 'shortlist', label: 'My shortlist', icon: Bookmark },
   { id: 'compare', label: 'Compare paths', icon: GitCompareArrows },
@@ -289,7 +303,7 @@ export default function Workspace({
   const [assistantQuestion, setAssistantQuestion] = useState('');
   function setDetail(id: string | null, tab: 'about' | 'profile' | 'apply' = 'about') {
     setDetailId(id);
-    setDetailTab(id && universityStories[id] ? tab : 'profile');
+    setDetailTab(tab);
   }
   function changeDetailTab(tab: 'about' | 'profile' | 'apply') {
     setDetailTab(tab);
@@ -359,9 +373,16 @@ export default function Workspace({
     const readView = () => {
       const value = new URL(window.location.href).searchParams.get('view');
       if (
-        ['assistant', 'lab', 'map', 'shortlist', 'compare', 'roadmap', 'sources'].includes(
-          value || '',
-        )
+        [
+          'portfolio',
+          'assistant',
+          'lab',
+          'map',
+          'shortlist',
+          'compare',
+          'roadmap',
+          'sources',
+        ].includes(value || '')
       )
         setView(value as View);
       else setView('map');
@@ -546,7 +567,7 @@ export default function Workspace({
   }, [accountId, initialProfile, storage]);
   const navigate = (v: View) => {
     if (v !== 'assistant') setAssistantQuestion('');
-    if (v === 'lab' || v === 'profile' || v === 'assistant') clearSimulation();
+    if (v === 'portfolio' || v === 'lab' || v === 'profile' || v === 'assistant') clearSimulation();
     setView(v);
     setFilter('all');
     setSearch('');
@@ -613,6 +634,7 @@ export default function Workspace({
             shortlist: profile.shortlist,
             completed: profile.completed,
             personal_plan: profile.personal_plan,
+            background: profile.background,
             documents_by_program: profile.documents_by_program,
           };
           step = Math.max(0, Math.min(3, Number(draft.step) || 0));
@@ -937,39 +959,51 @@ export default function Workspace({
       <aside ref={sidebarRef} id="workspace-navigation" className={`sidebar ${menu ? 'open' : ''}`}>
         <button
           className="brand-button"
-          onClick={() => navigate('lab')}
+          onClick={() => navigate('map')}
           aria-label={tr('PathShift opportunity map')}
         >
           <Brand />
         </button>
         <div className="workspace-label">{tr('YOUR WORKSPACE')}</div>
         <nav aria-label={tr('Main navigation')}>
-          {navItems.map(({ id, label, icon: Icon }) => (
-            <button
-              key={id}
-              data-view={id}
-              onClick={() => navigate(id)}
-              className={`nav-item ${view === id ? 'active' : ''}`}
-              aria-current={view === id ? 'page' : undefined}
-            >
-              <Icon size={18} />
-              {tr(label)}
-              {id === 'shortlist' && <span className="nav-count">{profile.shortlist.length}</span>}
-              {id === 'map' && <span className="nav-active-dot" />}
-            </button>
-          ))}
+          {navItems
+            .filter((n) => ['portfolio', 'map', 'roadmap'].includes(n.id))
+            .map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                data-view={id}
+                onClick={() => navigate(id)}
+                className={`nav-item ${view === id || (id === 'map' && ['shortlist', 'compare'].includes(view)) ? 'active' : ''}`}
+                aria-current={view === id ? 'page' : undefined}
+              >
+                <Icon size={18} />
+                {tr(label)}
+                {id === 'shortlist' && (
+                  <span className="nav-count">{profile.shortlist.length}</span>
+                )}
+                {id === 'map' && <span className="nav-active-dot" />}
+              </button>
+            ))}
         </nav>
         <div className="sidebar-divider" />
+        <button className="nav-item" data-view="assistant" onClick={() => navigate('assistant')}>
+          <MessageCircle size={18} />
+          {tr('Ask AI')}
+        </button>
+        <button className="nav-item" data-view="lab" onClick={() => navigate('lab')}>
+          <FlaskConical size={18} />
+          {tr('What can I improve?')}
+        </button>
         <button
           className={`nav-item ${view === 'profile' ? 'active' : ''}`}
           disabled={busy}
           onClick={() => edit()}
         >
           <UserRound size={18} />
-          {tr('My profile ')}
+          {tr('Grades, tests and budget')}
         </button>
         <div className="sidebar-grow" />
-        <button className="profile-button" disabled={busy} onClick={() => edit()}>
+        <button className="profile-button" disabled={busy} onClick={() => navigate('portfolio')}>
           <span className="avatar">{profile.name.slice(0, 1) || 'A'}</span>
           <span>
             <strong>{profile.name || 'Your profile'}</strong>
@@ -1133,6 +1167,27 @@ export default function Workspace({
                 </details>
               </div>
             )}
+          {['map', 'shortlist', 'compare'].includes(view) && (
+            <nav className="context-navigation" aria-label={tr('University tools')}>
+              {navItems
+                .filter((n) => ['map', 'shortlist', 'compare'].includes(n.id))
+                .map((n) => (
+                  <button
+                    key={n.id}
+                    data-view={n.id}
+                    aria-current={view === n.id ? 'page' : undefined}
+                    onClick={() => navigate(n.id)}
+                  >
+                    {tr(n.label)}
+                  </button>
+                ))}
+            </nav>
+          )}
+          {['lab', 'assistant', 'sources'].includes(view) && (
+            <button className="text-button return-link" onClick={() => navigate('map')}>
+              ← {tr('Back to universities')}
+            </button>
+          )}
           {evaluation && view === 'assistant' && (
             <AdmissionAssistant
               key={JSON.stringify(profile) + locale + assistantQuestion}
@@ -1198,7 +1253,27 @@ export default function Workspace({
               </button>
             </div>
           )}
-          {view === 'profile' ? (
+          {view === 'portfolio' && evaluation ? (
+            <ApplicantPortfolio
+              key={(accountId || 'demo') + ':' + locale}
+              profile={profile}
+              busy={busy}
+              storageKey={'pathshift-story-draft:' + (accountId || 'demo')}
+              onSave={async (background) =>
+                !!(await compute(
+                  {
+                    ...profile,
+                    background,
+                    interest: planningInterest(background, profile.interest),
+                  },
+                  true,
+                  false,
+                ))
+              }
+              onEdit={edit}
+              onExplore={() => navigate('map')}
+            />
+          ) : view === 'profile' ? (
             <ProfileWizard
               key={JSON.stringify(wizard)}
               initial={wizard}
@@ -1227,7 +1302,7 @@ export default function Workspace({
                     <h1>
                       {tr(
                         view === 'map'
-                          ? 'Choose universities to compare.'
+                          ? 'Get to know your future university.'
                           : view === 'shortlist'
                             ? 'Your saved universities'
                             : view === 'compare'
@@ -1240,7 +1315,7 @@ export default function Workspace({
                     <p>
                       {tr(
                         view === 'map'
-                          ? 'See where you stand — and what could change your options.'
+                          ? 'Discover the university, check your results and build your application plan.'
                           : view === 'shortlist'
                             ? 'Save universities here to get their application tasks. Compare selections are separate.'
                             : view === 'compare'
@@ -2250,7 +2325,7 @@ export default function Workspace({
           <footer className="footer">
             <Brand />
             <span>{tr('Better questions. Clearer choices.')}</span>
-            <button onClick={() => navigate('sources')}>
+            <button data-view="sources" onClick={() => navigate('sources')}>
               {tr('How decisions are made ')}
               <ArrowUpRight size={13} />
             </button>
@@ -2266,11 +2341,9 @@ export default function Workspace({
       >
         {selected && (
           <div className="detail-content university-detail">
+            <UniversityBanner result={selected} />
             <nav className="university-sections" aria-label={tr('University sections')}>
-              {(universityStories[selected.program.id]
-                ? (['about', 'profile', 'apply'] as const)
-                : (['profile', 'apply'] as const)
-              ).map((tab) => (
+              {(['about', 'profile', 'apply'] as const).map((tab) => (
                 <button
                   key={tab}
                   type="button"
@@ -2295,6 +2368,14 @@ export default function Workspace({
               />
             )}
             <div hidden={detailTab !== 'profile'}>
+              <RequirementReceipt
+                result={selected}
+                onEdit={() => {
+                  setDetail(null);
+                  edit();
+                }}
+                onSource={setProof}
+              />
               <div className="detail-top">
                 <Badge state={selected.admission_state} label={resultCaption(selected)} />
                 <span className="mini-badge">
@@ -2646,7 +2727,25 @@ function ProgramCard({
           className="school-logo"
           style={{ color: r.program.color, background: r.program.color + '12' }}
         >
-          {tr(r.program.initials)}
+          {universityMedia[r.program.id as keyof typeof universityMedia] ? (
+            <Image
+              src={universityMedia[r.program.id as keyof typeof universityMedia].logo}
+              alt=""
+              width={56}
+              height={36}
+              unoptimized
+              style={{
+                objectFit: 'contain',
+                background: universityMedia[r.program.id as keyof typeof universityMedia].dark
+                  ? '#18243a'
+                  : 'white',
+                padding: 4,
+                borderRadius: 4,
+              }}
+            />
+          ) : (
+            r.program.initials
+          )}
         </span>
         <span className="card-location">
           <Globe2 size={12} />

@@ -7,7 +7,7 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/demo?view=map');
   await expect(
-    page.getByRole('heading', { name: 'Choose universities to compare.' }),
+    page.getByRole('heading', { name: 'Get to know your future university.' }),
   ).toBeVisible();
   await expect(page.locator('.program-card')).toHaveCount(6);
   await page
@@ -39,13 +39,16 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   await page.getByRole('button', { name: 'Save Georgia Tech to shortlist' }).click();
   await expect(page.locator('.save-status')).not.toContainText('Recalculating');
   await page
-    .locator('.sidebar')
+    .locator('.context-navigation')
     .getByRole('button', { name: 'Compare paths', exact: true })
     .click();
   await expect(page.locator('.compare-card')).toHaveCount(2);
   await expect(page.locator('.compare-card').first()).toContainText('Waterloo');
   await expect(page.locator('.compare-card').last()).toContainText('Georgia Tech');
-  await page.locator('.sidebar').getByRole('button', { name: 'My profile', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'Grades, tests and budget', exact: true })
+    .click();
   await page.getByRole('button', { name: '3 Tests & language' }).click();
   await page.getByLabel('IELTS overall', { exact: true }).fill('6.5');
   await page.getByLabel('IELTS writing', { exact: true }).fill('6.5');
@@ -119,7 +122,10 @@ test('mobile layout, navigation and profile form remain usable', async ({ page }
     true,
   );
   await page.getByRole('button', { name: 'Toggle navigation' }).click();
-  await page.locator('.sidebar').getByRole('button', { name: 'My profile', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'Grades, tests and budget', exact: true })
+    .click();
   await expect(page.getByRole('heading', { name: 'Start with where you are.' })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -159,7 +165,10 @@ test('unsupported field and empty filters explain how to recover', async ({ page
   ).toBeVisible();
   await page.getByRole('button', { name: 'Explore all 12 programs' }).click();
   await expect(page.locator('.program-card')).toHaveCount(12);
-  await page.locator('.sidebar').getByRole('button', { name: 'My profile', exact: true }).click();
+  await page
+    .locator('.sidebar')
+    .getByRole('button', { name: 'Grades, tests and budget', exact: true })
+    .click();
   await page.getByLabel('Field of study').selectOption('Medicine');
   await page.getByRole('button', { name: '4 Budget & readiness' }).click();
   await page.getByRole('button', { name: 'Build my opportunity map' }).click();

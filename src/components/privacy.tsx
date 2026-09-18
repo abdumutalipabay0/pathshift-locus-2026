@@ -33,6 +33,11 @@ export default function Privacy() {
             'Sending shares your question, recent conversation and selected academic profile data with CloseRouter. Your account email, name and personal notes are not sent automatically. Do not include private documents.',
           )}
         </p>
+        <p>
+          {tr(
+            'The resume coach sends your interests and experience notes to CloseRouter only when you ask it for help. Review its draft before saving. Your saved story and resume are stored with your account profile; unfinished drafts stay on this device.',
+          )}
+        </p>
       </main>
     </div>
   );
