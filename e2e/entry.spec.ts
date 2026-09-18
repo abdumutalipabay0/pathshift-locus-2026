@@ -74,3 +74,28 @@ for (const locale of ['en', 'ru', 'kk'])
       ).toEqual([]);
     }
   });
+
+test('route atlas responds to keyboard, links to real tools and respects reduced motion', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.locator('.language-picker select').selectOption('en');
+  const atlas = page.locator('.route-atlas');
+  await atlas.getByRole('button', { name: 'Compare', exact: true }).press('Enter');
+  await expect(atlas.getByRole('button', { name: 'Compare', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await expect(atlas.getByRole('heading')).toHaveText('Try a different future');
+  await expect(atlas.getByRole('link')).toHaveAttribute('href', '/demo?view=lab');
+  expect(
+    await atlas
+      .locator('.atlas-detail-content')
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe('none');
+  await atlas.getByRole('button', { name: 'Plan', exact: true }).press('Space');
+  await expect(atlas.getByRole('heading')).toHaveText('One clear next action');
+  await atlas.getByRole('link').click();
+  await expect(page).toHaveURL(/demo\?view=roadmap/);
+});

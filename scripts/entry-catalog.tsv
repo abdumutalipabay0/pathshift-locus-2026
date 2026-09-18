@@ -76,3 +76,19 @@ Profile drafts, comparison choices and saved scenarios are kept on this browser,
 The optional AI scenario composer sends the text you enter to CloseRouter. Your full admission profile is not included in that request. Do not enter identity documents or sensitive personal details in the composer.	Необязательный ИИ-конструктор сценариев отправляет введённый текст в CloseRouter. Полный профиль поступления в этот запрос не включается. Не вводи документы, удостоверяющие личность, или чувствительные личные сведения.	Қосымша ЖИ сценарий құрастырушысы енгізген мәтінді CloseRouter сервисіне жібереді. Сұрауға толық түсу профилің қосылмайды. Жеке бас құжаттарын немесе құпия жеке мәліметтерді енгізбе.
 This is a hackathon prototype. Only provide information you are comfortable using in a prototype. You can edit your profile and export it from the workspace.	Это прототип для хакатона. Указывай только те сведения, которые готов использовать в прототипе. Профиль можно изменить и экспортировать из личного кабинета.	Бұл — хакатонға арналған прототип. Прототипте пайдалануға дайын мәліметтеріңді ғана енгіз. Профильді жеке кабинетте өзгертуге және экспорттауға болады.
 Select your curriculum	Выбери школьную программу	Мектеп бағдарламасын таңда
+Choose a direction	Выберите направление	Бағытты таңдаңыз
+Try this in the demo	Попробовать в демо	Демода байқап көру
+Explore	Изучить	Зерттеу
+Plan	План	Жоспар
+Calculated on	Дата расчёта	Есептеу күні
+How this check is calculated	Как выполняется эта проверка	Бұл тексеру қалай есептеледі
+Academic evidence	Подтверждение результатов учёбы	Оқу нәтижелерін растау
+Valid	Действителен	Жарамды
+Expired	Срок действия истёк	Мерзімі өткен
+SAT status	Статус SAT	SAT мәртебесі
+SAT score	Балл SAT	SAT балы
+SAT test date	Дата сдачи SAT	SAT тапсыру күні
+ACT status	Статус ACT	ACT мәртебесі
+ACT score	Балл ACT	ACT балы
+ACT test date	Дата сдачи ACT	ACT тапсыру күні
+Enter a real profile value here. Future assumptions belong in the path cards.	Здесь укажите реальное значение из профиля. Будущие изменения проверяйте в карточках маршрутов.	Мұнда профильдегі нақты мәнді енгізіңіз. Болашақ өзгерістерді бағыт карточкаларында тексеріңіз.

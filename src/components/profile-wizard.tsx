@@ -413,7 +413,11 @@ export default function ProfileWizard({
               />
               {tr('Taking / completed senior academic English ')}
             </label>
-            <SchoolFields value={p.school} onChange={(school) => set('school', school)} />
+            <SchoolFields
+              defaultOpen={!requireAllSteps}
+              value={p.school}
+              onChange={(school) => set('school', school)}
+            />
           </div>
         )}
         {step === 2 && (

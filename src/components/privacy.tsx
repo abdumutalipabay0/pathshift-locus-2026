@@ -6,7 +6,7 @@ export default function Privacy() {
   return (
     <div className="entry-page">
       <EntryHeader />
-      <main className="privacy-main">
+      <main id="main" className="privacy-main">
         <h1>{tr('Your data in PathShift')}</h1>
         <p>
           {tr(

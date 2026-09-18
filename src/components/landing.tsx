@@ -1,12 +1,46 @@
 'use client';
 import Link from 'next/link';
-import { ArrowUpRight, ArrowRight, GitBranch, ShieldCheck, Route, Check } from 'lucide-react';
+import { useState } from 'react';
+import {
+  ArrowUpRight,
+  ArrowRight,
+  GitBranch,
+  ShieldCheck,
+  Route,
+  Compass,
+  Columns3,
+} from 'lucide-react';
 import EntryHeader from './entry-header';
 import { useLocale } from './locale-provider';
 export default function Landing() {
   const { tr } = useLocale();
+  const [stage, setStage] = useState(0);
+  const routes = [
+    {
+      title: 'Explore',
+      icon: Compass,
+      heading: 'Understand your options',
+      body: 'See requirements you meet and the details still needed.',
+      view: 'map',
+    },
+    {
+      title: 'Compare',
+      icon: Columns3,
+      heading: 'Try a different future',
+      body: 'Change a planned score or budget. Compare the effect before committing.',
+      view: 'lab',
+    },
+    {
+      title: 'Plan',
+      icon: Route,
+      heading: 'One clear next action',
+      body: 'A roadmap with deadlines and reasons you can inspect.',
+      view: 'roadmap',
+    },
+  ];
+  const selected = routes[stage];
   return (
-    <div className="entry-page">
+    <div className="entry-page landing-page">
       <EntryHeader />
       <main id="main" className="landing-main">
         <section className="landing-hero">
@@ -36,39 +70,52 @@ export default function Landing() {
               {tr('Your account. Your own profile. No borrowed scores.')}
             </p>
           </div>
-          <div className="landing-sheet">
-            <div className="between">
+          <div className="route-atlas">
+            <div className="atlas-label">
               <span className="eyebrow">{tr('HOW A PATH TAKES SHAPE')}</span>
               <GitBranch size={22} />
             </div>
-            <div className="landing-origin">
-              <span className="landing-dot" />
-              <div>
-                <strong>{tr('Your starting point')}</strong>
-                <p>{tr('Grades · language · budget · preferences')}</p>
-              </div>
+            <div className="atlas-origin">
+              <span className="atlas-orbit">
+                <ArrowUpRight size={30} />
+              </span>
+              <strong>{tr('Your starting point')}</strong>
+              <p>{tr('Grades · language · budget · preferences')}</p>
             </div>
-            <div className="landing-branches">
-              <article>
-                <span className="mini-badge">{tr('TODAY')}</span>
-                <h2>{tr('Understand your options')}</h2>
-                <p>{tr('See requirements you meet and the details still needed.')}</p>
-              </article>
-              <article className="landing-alternative">
-                <span className="mini-badge">{tr('WHAT IF?')}</span>
-                <h2>{tr('Try a different future')}</h2>
-                <p>
-                  {tr('Change a planned score or budget. Compare the effect before committing.')}
-                </p>
-              </article>
+            <div className="atlas-branches" role="group" aria-label={tr('Choose a direction')}>
+              <svg
+                className="atlas-lines"
+                viewBox="0 0 360 60"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path d="M180 0 V18 Q180 30 165 30 H72 Q60 30 60 44 V60 M180 0 V60 M180 18 Q180 30 195 30 H288 Q300 30 300 44 V60" />
+              </svg>
+              {routes.map((route, index) => (
+                <button
+                  key={route.title}
+                  type="button"
+                  aria-pressed={stage === index}
+                  onClick={() => setStage(index)}
+                >
+                  <route.icon size={22} />
+                  <span>{tr(route.title)}</span>
+                  <span className="atlas-step" aria-hidden="true">
+                    0{index + 1}
+                  </span>
+                </button>
+              ))}
             </div>
-            <div className="landing-outcome">
-              <Route size={22} />
-              <div>
-                <strong>{tr('One clear next action')}</strong>
-                <p>{tr('A roadmap with deadlines and reasons you can inspect.')}</p>
+            <div className="atlas-detail" aria-live="polite" aria-atomic="true">
+              <div key={stage} className={`atlas-detail-content${stage ? ' atlas-switched' : ''}`}>
+                <span className="eyebrow">{tr('YOUR NEXT MOVE')}</span>
+                <h2>{tr(selected.heading)}</h2>
+                <p>{tr(selected.body)}</p>
+                <Link href={`/demo?view=${selected.view}`}>
+                  {tr('Try this in the demo')}
+                  <ArrowUpRight size={18} />
+                </Link>
               </div>
-              <Check size={20} />
             </div>
             <p className="landing-caption">
               {tr('An illustration of the journey, not an admission prediction.')}

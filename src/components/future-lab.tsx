@@ -24,6 +24,8 @@ const stateLabels: Record<string, string> = {
   INDETERMINATE: 'Needs verification',
 };
 const fieldLabels: Record<string, string> = {
+  curriculum: 'School curriculum',
+  'evidence.academic': 'Academic evidence',
   'school.english': 'School English years',
   'school.math': 'School mathematics years',
   'school.science': 'Laboratory science years',
@@ -131,7 +133,6 @@ export default function FutureLab({
   } | null>(null);
   const [text, setText] = useState(''),
     [composer, setComposer] = useState(false),
-    [model, setModel] = useState(''),
     [composing, setComposing] = useState(false);
   const [draft, setDraft] = useState<{
       draft: ComposerDraft;
@@ -150,7 +151,6 @@ export default function FutureLab({
       .then((r) => r.json())
       .then((v) => {
         setComposer(v.composer);
-        setModel(v.model);
       })
       .catch(() => {});
     return () => controller.abort();
@@ -225,7 +225,20 @@ export default function FutureLab({
         ? tr(v ? 'Yes' : 'No')
         : typeof v === 'object'
           ? JSON.stringify(v)
-          : String(v);
+          : typeof v === 'string' &&
+              ['VALID', 'PLANNED', 'EXPIRED', 'NOT_TAKEN', 'UNKNOWN'].includes(v)
+            ? tr(
+                (
+                  {
+                    VALID: 'Valid',
+                    PLANNED: 'Planned',
+                    EXPIRED: 'Expired',
+                    NOT_TAKEN: 'Not taken',
+                    UNKNOWN: 'Not supplied',
+                  } as Record<string, string>
+                )[v],
+              )
+            : String(v);
   const label = (field: string) =>
     tr(
       field.startsWith('documents_by_program.')
@@ -283,9 +296,6 @@ export default function FutureLab({
           <h1>{tr('Explore your possible futures.')}</h1>
           <p>{tr('Find the answer that matters. See which actions change your paths.')}</p>
         </div>
-        <button className="btn secondary" onClick={onEdit}>
-          {tr('Edit profile')}
-        </button>
       </div>
       {error && (
         <div role="alert" className="error-box">
@@ -366,98 +376,6 @@ export default function FutureLab({
                 'Assumed date when planned results and documents are available. Actual scores stay unchanged.',
               )}
             </p>
-          </div>
-          <div className="lab-question panel">
-            <HelpCircle size={23} />
-            <div>
-              <span className="eyebrow">{tr('THE NEXT USEFUL ANSWER')}</span>
-              {question ? (
-                <>
-                  <h2>
-                    {tr(`One answer can clarify ${question.programs.length} program checks.`)}
-                  </h2>
-                  <p>{label(question.field)}</p>
-                  <p className="small muted">
-                    {tr('Why this question:')} {names(question.programs)} ·{' '}
-                    {tr(`${question.resolvedRules} unresolved rules can be checked.`)}
-                  </p>
-                  <form
-                    className="lab-answer"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      void run(async () => {
-                        const next = await request<{ profile: Profile }>({
-                          action: 'answer',
-                          profile,
-                          field: question.field,
-                          value: question.type === 'boolean' ? answer === 'true' : Number(answer),
-                        });
-                        await onProfile(next.profile);
-                        setAnswer('');
-                      });
-                    }}
-                  >
-                    <label>
-                      <span className="sr-only">{tr('Your actual answer')}</span>
-                      {question.type === 'boolean' ? (
-                        <select
-                          aria-label={tr('Your actual answer')}
-                          value={answer}
-                          required
-                          onChange={(e) => setAnswer(e.target.value)}
-                        >
-                          <option value="">{tr('Choose an answer')}</option>
-                          <option value="true">{tr('Yes')}</option>
-                          <option value="false">{tr('No')}</option>
-                        </select>
-                      ) : (
-                        <input
-                          aria-label={tr('Your actual answer')}
-                          type="number"
-                          required
-                          min={question.min}
-                          max={question.max}
-                          step={question.step}
-                          value={answer}
-                          onChange={(e) => setAnswer(e.target.value)}
-                        />
-                      )}
-                    </label>
-                    <button className="btn primary" disabled={saving || loading || answer === ''}>
-                      {tr('Save answer and update graph')}
-                      <ArrowRight size={15} />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn ghost"
-                      onClick={() => {
-                        setSkipped([...skipped, question.field]);
-                        setAnswer('');
-                      }}
-                    >
-                      {tr('I don’t know yet')}
-                    </button>
-                  </form>
-                  <p className="small muted">
-                    {tr(
-                      'Enter a real profile value here. Future assumptions belong in the paths below.',
-                    )}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <h2>{tr('No more supported questions to ask right now.')}</h2>
-                  <p>
-                    {tr('Review remaining source gaps and requirements in the decision receipt.')}
-                  </p>
-                  {skipped.length > 0 && (
-                    <button className="btn ghost" onClick={() => setSkipped([])}>
-                      {tr('Revisit skipped questions')}
-                    </button>
-                  )}
-                </>
-              )}
-            </div>
           </div>
           <div className="lab-board" aria-label={tr('Future paths')}>
             <div className="lab-board-head">
@@ -642,6 +560,95 @@ export default function FutureLab({
               </div>
             )}
           </div>
+          <div className="lab-question panel">
+            <HelpCircle size={23} />
+            <div>
+              <span className="eyebrow">{tr('THE NEXT USEFUL ANSWER')}</span>
+              {question ? (
+                <>
+                  <h2>{label(question.field)}</h2>
+                  <p className="small muted">
+                    {tr('Why this question:')} {names(question.programs)} ·{' '}
+                    {tr(`${question.resolvedRules} unresolved rules can be checked.`)}
+                  </p>
+                  <form
+                    className="lab-answer"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      void run(async () => {
+                        const next = await request<{ profile: Profile }>({
+                          action: 'answer',
+                          profile,
+                          field: question.field,
+                          value: question.type === 'boolean' ? answer === 'true' : Number(answer),
+                        });
+                        await onProfile(next.profile);
+                        setAnswer('');
+                      });
+                    }}
+                  >
+                    <label>
+                      <span className="sr-only">{tr('Your actual answer')}</span>
+                      {question.type === 'boolean' ? (
+                        <select
+                          aria-label={tr('Your actual answer')}
+                          value={answer}
+                          required
+                          onChange={(e) => setAnswer(e.target.value)}
+                        >
+                          <option value="">{tr('Choose an answer')}</option>
+                          <option value="true">{tr('Yes')}</option>
+                          <option value="false">{tr('No')}</option>
+                        </select>
+                      ) : (
+                        <input
+                          aria-label={tr('Your actual answer')}
+                          type="number"
+                          required
+                          min={question.min}
+                          max={question.max}
+                          step={question.step}
+                          value={answer}
+                          onChange={(e) => setAnswer(e.target.value)}
+                        />
+                      )}
+                    </label>
+                    <button className="btn primary" disabled={saving || loading || answer === ''}>
+                      {tr('Save answer and update graph')}
+                      <ArrowRight size={15} />
+                    </button>
+                    <button
+                      type="button"
+                      className="btn ghost"
+                      onClick={() => {
+                        setSkipped([...skipped, question.field]);
+                        setAnswer('');
+                      }}
+                    >
+                      {tr('I don’t know yet')}
+                    </button>
+                  </form>
+                  <p className="small muted">
+                    {tr(
+                      'Enter a real profile value here. Future assumptions belong in the path cards.',
+                    )}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2>{tr('No more supported questions to ask right now.')}</h2>
+                  <p>
+                    {tr('Review remaining source gaps and requirements in the decision receipt.')}
+                  </p>
+                  {skipped.length > 0 && (
+                    <button className="btn ghost" onClick={() => setSkipped([])}>
+                      {tr('Revisit skipped questions')}
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
           <div className="lab-xray panel">
             <div className="lab-board-head">
               <div>
@@ -756,7 +763,10 @@ export default function FutureLab({
                       <div>
                         <dt>{tr('Rule')}</dt>
                         <dd>
-                          <code>{receipt.expression}</code>
+                          <details className="rule-formula">
+                            <summary>{tr('How this check is calculated')}</summary>
+                            <code>{receipt.expression}</code>
+                          </details>
                         </dd>
                       </div>
                       <div>
@@ -789,7 +799,7 @@ export default function FutureLab({
                       </div>
                     </dl>
                     <p className="small muted">
-                      {data.evaluation.dataset_version} ·{' '}
+                      {tr('Calculated on')}
                       {dateLabel((current || data.evaluation).evaluated_at)}
                     </p>
                   </>
@@ -960,7 +970,6 @@ export default function FutureLab({
                     required
                   />
                   <div className="between">
-                    <small>{model} · CloseRouter</small>
                     <button
                       className="btn primary"
                       disabled={composing || loading || text.trim().length < 4}

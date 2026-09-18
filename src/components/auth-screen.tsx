@@ -42,7 +42,7 @@ export default function AuthScreen({
   return (
     <div className="entry-page">
       <EntryHeader />
-      <main className="auth-layout">
+      <main id="main" className="auth-layout">
         <aside>
           <p className="eyebrow">{tr('YOUR ADMISSION JOURNEY')}</p>
           <h1>{tr('Your starting point. Your way forward.')}</h1>

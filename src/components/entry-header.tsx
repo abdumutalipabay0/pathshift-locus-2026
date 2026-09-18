@@ -28,6 +28,9 @@ export default function EntryHeader({ account = false }: { account?: boolean }) 
   const { tr } = useLocale();
   return (
     <header className="entry-header">
+      <a className="skip-link" href="#main">
+        {tr('Skip to main content')}
+      </a>
       <Link href="/" className="brand">
         <span className="brand-symbol">
           <ArrowUpRight />

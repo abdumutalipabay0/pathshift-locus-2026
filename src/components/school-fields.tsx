@@ -4,7 +4,9 @@ import { useLocale } from './locale-provider';
 export function SchoolFields({
   value,
   onChange,
+  defaultOpen = true,
 }: {
+  defaultOpen?: boolean;
   value: Profile['school'];
   onChange: (school: NonNullable<Profile['school']>) => void;
 }) {
@@ -30,7 +32,7 @@ export function SchoolFields({
     ['purdue_english_evidence', 'English evidence selected under Purdue policy'],
   ] as const;
   return (
-    <details className="school-fields" open>
+    <details className="school-fields" open={defaultOpen}>
       <summary>{tr('School coursework · US universities')}</summary>
       <p className="field-note">
         {tr(

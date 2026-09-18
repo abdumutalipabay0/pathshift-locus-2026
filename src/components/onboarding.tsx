@@ -52,7 +52,7 @@ function OnboardingForm({ userId, name }: { userId: string; name: string }) {
   return (
     <div className="entry-page">
       <EntryHeader account />
-      <main className="onboarding-main">
+      <main id="main" className="onboarding-main">
         <p className="eyebrow">{tr('ACCOUNT CREATED · NEXT: YOUR PROFILE')}</p>
         <p className="muted">
           {tr(

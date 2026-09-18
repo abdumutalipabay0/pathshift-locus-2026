@@ -926,18 +926,6 @@ export default function Workspace({
           {tr('My profile ')}
         </button>
         <div className="sidebar-grow" />
-        <div className="sidebar-card">
-          <span className="mini-badge">
-            <GraduationCap size={13} />
-            {tr('FALL 2027 ')}
-          </span>
-          <h3>{tr('One step closer.')}</h3>
-          <p>{tr('Every small change can open a different path.')}</p>
-          <button onClick={() => navigate('roadmap')}>
-            {tr('See my next step ')}
-            <ArrowRight size={15} />
-          </button>
-        </div>
         <button className="profile-button" disabled={busy} onClick={() => edit()}>
           <span className="avatar">{profile.name.slice(0, 1) || 'A'}</span>
           <span>
