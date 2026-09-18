@@ -59,3 +59,7 @@ Design: retain slate #18243a, blue #3559db, pale blue #edf2ff, paper #fff, muted
 ## 2026-09-18 — Visual hierarchy and interaction refresh
 
 See [design-refresh.md](design-refresh.md). Refresh public entry and simplify laboratory presentation without altering source facts, rules, account boundaries or hypothetical scenario isolation. Interactive route atlas uses native keyboard-accessible controls and respects reduced motion; secondary school inputs are progressively disclosed during onboarding.
+
+## 2026-09-18 — Case journey closeout
+
+The current source recheck and delivered scope are in [case-closeout-2026-09-18.md](case-closeout-2026-09-18.md). Replace generic diagnosis with profile-grounded passed checks, obstacles and missing inputs; show up to three explained candidates from the six focus institutions without violating country or hard-budget constraints. Generate optional academic and interest-specific preparation alongside institutional tasks, preserving their independence from admissions decisions. New-account entry includes the diagnosis and explicit next actions. Update README and prepare a synthetic judge login outside Git. Current authentication is provisioned and verified; the earlier provisioning blocker and local-only account storage description are historical. Submission video, PDF, team identities and repository access remain explicitly tracked in submission-demo.md.

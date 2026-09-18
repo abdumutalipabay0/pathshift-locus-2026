@@ -86,3 +86,15 @@ Application facts and original frozen research were not modified in this update.
 - Added five browser regressions for shortlist-country independence, safe draft editing, accurate status counters, empty calendar feedback, and stale scenario response isolation. Added task-editor routing cases and corrupt onboarding-draft checks.
 - Local full pass exposed a 320 px Kazakh status overflow; wrapping fixed and confirmed both by browser inspection and the final production suite.
 - See product-audit-2026-09-18.md for changes and explicit verification limits.
+
+## Case journey closeout — 18 September 2026
+
+- Application commit `e8d63b3`; production deployment `dpl_4Mhb8fpHsNQaFJFYxeCVdXKhuVDy` READY and aliased to https://pathshift-locus-2026.vercel.app.
+- 79 unit/domain/localization tests passed, including five new guidance tests for blank profiles, country/hard-budget constraints, three supported prepared-demo candidates, interest-specific activities and translations.
+- Full local suite passed 49/49 before the three new diagnosis tests were added. The final focused audit passed 8/8, including EN/RU/KK diagnosis at 320 px with axe and no page errors.
+- Final full production suite: **52/52 passed in 3.7 minutes**, with `RUN_ACCOUNT_E2E=1`, including real signup/onboarding, server persistence, logout, fresh-browser login and isolation. QA accounts were cleaned up by the existing test workflow.
+- TypeScript, ESLint, Prettier, diff whitespace checks and production build passed. Final production deployment also compiled and typechecked successfully. Existing third-party Neon Auth dependency peer warnings remain; they did not prevent build or the real authentication lifecycle test.
+- Manual review: current Kazakh local and Russian production diagnosis, profile facts, recommendation actions and roadmap entry. Narrow-screen checks cover all three languages. Temporary audit tab closed.
+- 1069 complete RU/KK catalog entries. Original admissions dataset and source documents unchanged. Re-supplied PDFs verified identical by SHA-256.
+- Dedicated synthetic judge account created separately; fresh login and server profile read verified. Credentials remain in local `outputs/jury-access.md` outside this Git repository, not in logs or source code.
+- See case-closeout-2026-09-18.md and submission-demo.md for explicit limits and outstanding submission materials. Tests do not establish exhaustive correctness, a guaranteed jury score, team eligibility or completed submission.
