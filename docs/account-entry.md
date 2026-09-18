@@ -35,3 +35,7 @@ Without configured infrastructure, forms are visibly disabled and APIs fail clos
 ## Verification before provider activation
 
 73 domain/localization/onboarding unit tests passed. All 41 browser tests passed locally, including anonymous route/API guards, explicit demo entry, full original journey, three-language mobile layout and axe WCAG A/AA checks. TypeScript, ESLint, Prettier and production build passed. Desktop/mobile landing and Kazakh registration screenshots were visually reviewed. These checks do not establish successful live registration, email delivery, signed-in database persistence or account separation against the real provider; those remain activation gates above.
+
+## Published verification
+
+Code commit `697bbac` deployed successfully as `dpl_DudyrQbdAA8d4Ri4hHRn5fyXVqq3` and aliased to https://pathshift-locus-2026.vercel.app/. All six production smoke tests passed: public entry, anonymous route/API protection, mobile accessibility in English/Russian/Kazakh, and the full golden demo journey. Real registration remains disabled pending the documented Neon owner-acceptance step.
