@@ -34,6 +34,24 @@ for (const locale of ['ru', 'kk'] as const) {
       .locator('.sidebar')
       .getByRole('button', { name: t('Grades, tests and budget'), exact: true })
       .click();
+    await page.locator('.wizard-steps button').nth(1).click();
+    const curriculum = page.locator('select[name="curriculum"]');
+    await curriculum.selectOption('Kazakhstan national');
+    await expect(page.locator('#curriculum-guidance')).toContainText(
+      t(
+        'For a regular Kazakhstan school, enter the grade exactly as it appears in your transcript, for example 4.8 out of 5. Do not convert it to GPA or IB.',
+      ),
+    );
+    await expect(page.getByPlaceholder(t('e.g. 4.8'))).toBeVisible();
+    await expect(page.getByPlaceholder(t('e.g. 4.8'))).toHaveValue('');
+    await expect(page.getByLabel(t('Original scale'), { exact: true })).toHaveValue('');
+    await curriculum.selectOption('IB');
+    await expect(page.locator('#curriculum-guidance')).toContainText(
+      t(
+        'Choose IB only if your school officially teaches the IB Diploma Programme. Enter the official or predicted total out of 45.',
+      ),
+    );
+    await page.locator('.wizard-steps button').nth(0).click();
     await page.getByLabel(t('Your name'), { exact: true }).fill('Әлихан');
     await page.locator('.language-picker select').selectOption(locale === 'kk' ? 'ru' : 'kk');
     await expect(page.locator('input[name="name"]')).toHaveValue('Әлихан');
