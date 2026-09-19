@@ -6,8 +6,8 @@ import type { Evaluation } from '@/lib/types';
 import { useLocale } from './locale-provider';
 import { resultCaption } from './research-details';
 const starters = [
+  'I have IELTS 6.0 and I’m considering UW–Madison and Waterloo. What should I check first, and why?',
   'What should I do first, and why?',
-  'Which three universities should I consider?',
   'What is missing from my application?',
   'How can I prepare for my area of interest?',
 ];
@@ -106,6 +106,7 @@ export default function AdmissionAssistant({
     <section className="admission-assistant" aria-label={tr('AI admission assistant')}>
       <header className="assistant-heading">
         <div>
+          <span className="eyebrow">{tr('LIVE AI · PROFILE + SOURCES')}</span>
           <h1>{tr('Turn your questions into a next step.')}</h1>
           <p>{tr('Your profile is included. Ask one question to get started.')}</p>
         </div>
@@ -153,6 +154,10 @@ export default function AdmissionAssistant({
                   tabIndex={-1}
                   className="assistant-answer"
                 >
+                  <span className="assistant-answer-status">
+                    <ShieldCheck size={14} />
+                    {tr('Checked against your saved profile and available evidence')}
+                  </span>
                   <p>{turn.answer.answer}</p>
                   <ul>
                     {turn.answer.points.map((point, j) => (

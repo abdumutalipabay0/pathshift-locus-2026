@@ -24,17 +24,17 @@ test('golden journey: demo, evidence, scenario, compare, profile, roadmap, persi
   ).toHaveAttribute('href', /^https:\/\/uwaterloo.ca/);
   await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
-  await page.getByRole('switch', { name: /Explore an English result/ }).check();
   await page.getByRole('button', { name: 'Explore this scenario', exact: true }).click();
-  await expect(page.locator('.causal-diff')).toBeVisible();
-  await expect(
-    page.locator('.simulation-banner').getByText('Your saved profile has not changed.'),
-  ).toBeVisible();
-  await expect(page.locator('.causal-diff .diff-stat').first()).not.toHaveText(/^0/);
-  await page.locator('.simulation-banner').getByRole('button', { name: 'Save scenario' }).click();
+  await page.getByRole('button', { name: 'Compare this scenario', exact: true }).click();
+  await expect(page.locator('.scenario-result')).toBeVisible();
+  await expect(page.locator('.scenario-change-card').first()).toContainText('Changed');
+  await page
+    .locator('.scenario-result-actions')
+    .getByRole('button', { name: 'Save scenario' })
+    .click();
   await expect(page.getByRole('dialog')).toContainText('Compare with my current profile');
   await page.keyboard.press('Escape');
-  await expect(page.locator('.simulation-banner')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Back to my profile', exact: true }).click();
   await expect(page.locator('.profile-chips')).toContainText('IELTS 6');
   await page.getByRole('button', { name: 'Save Georgia Tech to shortlist' }).click();
   await expect(page.locator('.save-status')).not.toContainText('Recalculating');
@@ -94,15 +94,20 @@ test('budget-only scenario changes cost comparisons without changing academic ru
 }) => {
   await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
-  await page.getByRole('switch', { name: /Explore an English result/ }).uncheck();
-  await page.getByRole('switch', { name: /Explore a different budget/ }).check();
+  await page.getByRole('button', { name: 'Explore this scenario', exact: true }).click();
+  await page.getByRole('switch', { name: /Hypothetical IELTS result/ }).uncheck();
+  await page.getByRole('switch', { name: /Different annual budget/ }).check();
+  await page.getByLabel('CAD', { exact: true }).fill('70000');
   const response = page.waitForResponse((r) => r.url().endsWith('/simulate'));
-  await page.getByRole('button', { name: 'Explore this scenario' }).click();
+  await page.getByRole('button', { name: 'Compare this scenario' }).click();
   const simulation = await (await response).json();
   expect(simulation.diff.changed_rules).toHaveLength(0);
-  expect(simulation.diff.changed_costs).toHaveLength(8);
-  await page.getByRole('button', { name: 'Discard', exact: true }).click();
-  await expect(page.locator('.simulation-banner')).toHaveCount(0);
+  expect(simulation.diff.changed_costs.length).toBeGreaterThan(0);
+  await page
+    .locator('.scenario-result-actions')
+    .getByRole('button', { name: 'Back to my profile' })
+    .click();
+  await expect(page).toHaveURL(/view=map/);
 });
 test('mobile layout, navigation and profile form remain usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });

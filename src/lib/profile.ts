@@ -11,6 +11,16 @@ const date = z
   .nullable();
 const score = z.number().min(0).max(9).multipleOf(0.5).nullable();
 const testStatus = z.enum(['MISSING', 'PLANNED', 'VALID']);
+export const ieltsOverallFromBands = (bands: (number | null)[]) =>
+  bands.every((value) => value !== null)
+    ? Math.round(bands.reduce<number>((sum, value) => sum + (value ?? 0), 0) / 2) / 2
+    : null;
+export const ieltsConsistencyError = (overall: number | null, bands: (number | null)[]) => {
+  const calculated = ieltsOverallFromBands(bands);
+  return overall !== null && calculated !== null && calculated !== overall
+    ? 'IELTS overall does not match the four bands. Check the scores on your result report.'
+    : null;
+};
 export const profileSchema = z
   .object({
     background: backgroundSchema.optional(),
@@ -130,16 +140,12 @@ export const profileSchema = z
         message: 'IB subject points must be between 0 and 42 after removing bonus points.',
       });
     const bands = [p.ielts.reading, p.ielts.writing, p.ielts.listening, p.ielts.speaking];
-    if (
-      p.ielts.overall !== null &&
-      bands.every((v) => v !== null) &&
-      Math.round(bands.reduce<number>((sum, v) => sum + (v ?? 0), 0) / 2) / 2 !== p.ielts.overall
-    )
+    const ieltsError = ieltsConsistencyError(p.ielts.overall, bands);
+    if (ieltsError)
       ctx.addIssue({
         code: 'custom',
         path: ['ielts'],
-        message:
-          'IELTS overall does not match the four bands. Check the scores on your result report.',
+        message: ieltsError,
       });
     if (
       p.curriculum === 'IB' &&

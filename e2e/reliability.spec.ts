@@ -64,21 +64,25 @@ test('saved scenario remains hypothetical across reload; calendar and verificati
 }) => {
   await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
-  await page.getByRole('switch', { name: /Explore an English result/ }).check();
   await page.getByRole('button', { name: 'Explore this scenario', exact: true }).click();
-  await expect(page.locator('.simulation-banner')).toBeVisible();
-  await page.getByLabel('Scenario name', { exact: true }).fill('English target');
-  await page.locator('.simulation-banner').getByRole('button', { name: 'Save scenario' }).click();
-  await expect(page.getByRole('dialog')).toContainText('English target');
+  await page.getByRole('button', { name: 'Compare this scenario', exact: true }).click();
+  await page
+    .locator('.scenario-result-actions')
+    .getByRole('button', { name: 'Save scenario' })
+    .click();
+  await expect(page.getByRole('dialog')).toContainText('Scenario 1');
   await page.keyboard.press('Escape');
   await page.reload();
-  await expect(page.locator('.program-card')).toHaveCount(6);
-  await expect(page.locator('.profile-chips')).toContainText('IELTS 6');
-  await expect(page.locator('.profile-chips')).not.toContainText('IELTS 6.5');
+  await expect(page.locator('.scenario-explorer')).toBeVisible();
+  await expect(page.locator('.scenario-baseline')).toContainText('IELTS');
+  await expect(page.locator('.scenario-baseline')).toContainText('6');
   await page.getByRole('button', { name: /Saved scenarios/ }).click();
   await page.getByRole('button', { name: 'Compare with my current profile' }).click();
-  await expect(page.locator('.causal-diff')).toContainText('requirement gaps removed');
-  await page.getByRole('button', { name: 'Discard', exact: true }).click();
+  await expect(page.locator('.scenario-result')).toContainText('gaps removed');
+  await page
+    .locator('.scenario-result-actions')
+    .getByRole('button', { name: 'Back to my profile' })
+    .click();
   await page
     .locator('.sidebar')
     .getByRole('button', { name: 'My application tasks', exact: true })

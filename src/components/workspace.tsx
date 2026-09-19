@@ -25,7 +25,6 @@ import {
   Search,
   Wallet,
   ExternalLink,
-  MoveRight,
   FlaskConical,
   AlertCircle,
   ChevronDown,
@@ -64,11 +63,13 @@ import { planningInterest } from '@/lib/background';
 import RequirementReceipt from './requirement-receipt';
 import { universityStories } from '@/lib/university-stories';
 import AdmissionAssistant from './admission-assistant';
+import ScenarioExplorer from './scenario-explorer';
 import { taskProfileStep } from '@/lib/workspace-ux';
 const focusPrograms = new Set(['uw', 'waterloo', 'gatech', 'purdue', 'rit', 'asu']);
 type View =
   | 'portfolio'
   | 'assistant'
+  | 'scenario'
   | 'lab'
   | 'map'
   | 'profile'
@@ -96,6 +97,7 @@ const navItems = [
   { id: 'compare', label: 'Compare paths', icon: GitCompareArrows },
   { id: 'roadmap', label: 'My application tasks', icon: Route },
   { id: 'assistant', label: 'AI admission assistant', icon: MessageCircle },
+  { id: 'scenario', label: 'What if?', icon: SlidersHorizontal },
   { id: 'lab', label: 'What can I improve?', icon: FlaskConical },
   { id: 'sources', label: 'Sources & evidence', icon: ShieldCheck },
 ] as const;
@@ -376,6 +378,7 @@ export default function Workspace({
         [
           'portfolio',
           'assistant',
+          'scenario',
           'lab',
           'map',
           'shortlist',
@@ -420,26 +423,11 @@ export default function Workspace({
   const generation = useRef(0);
   const mutationLock = useRef(false);
   const scenarioGeneration = useRef(0);
-  const [scenario, setScenario] = useState({
-    english: false,
-    ielts: 6.5,
-    reading: 6,
-    writing: 6.5,
-    listening: 6,
-    speaking: 6.5,
-    sat: false,
-    satScore: 1450,
-    budget: false,
-    USD: 20000,
-    CAD: 25000,
-    GBP: 15000,
-    country: 'keep',
-    testDate: '',
-  });
   const clearSimulation = () => {
     scenarioGeneration.current++;
     setSimulation(null);
     setSimBusy(false);
+    setSimError('');
   };
   const current = simulation?.after || evaluation;
   const compute = async (p: Profile, persist = true, demoValue = demo) => {
@@ -567,7 +555,7 @@ export default function Workspace({
   }, [accountId, initialProfile, storage]);
   const navigate = (v: View) => {
     if (v !== 'assistant') setAssistantQuestion('');
-    if (v === 'portfolio' || v === 'lab' || v === 'profile' || v === 'assistant') clearSimulation();
+    if (v !== 'scenario') clearSimulation();
     setView(v);
     setFilter('all');
     setSearch('');
@@ -589,22 +577,6 @@ export default function Workspace({
     setResetOpen(false);
     if (!(await compute({ ...structuredClone(demoProfile), documents_by_program: {} }, true, true)))
       return;
-    setScenario({
-      english: false,
-      ielts: 6.5,
-      reading: 6,
-      writing: 6.5,
-      listening: 6,
-      speaking: 6.5,
-      sat: false,
-      satScore: 1450,
-      budget: false,
-      USD: 20000,
-      CAD: 25000,
-      GBP: 15000,
-      country: 'keep',
-      testDate: '',
-    });
     setComparison(['waterloo', 'gatech']);
     navigate('map');
     try {
@@ -721,7 +693,7 @@ export default function Workspace({
       const next = await api<Simulation>('simulate', { profile, mutation: item.mutation });
       if (token === generation.current && request === scenarioGeneration.current) {
         setSimulation(next);
-        navigate('map');
+        navigate('scenario');
       }
     } catch (e) {
       setNotice((e as Error).message);
@@ -729,35 +701,12 @@ export default function Workspace({
       if (request === scenarioGeneration.current) setSimBusy(false);
     }
   };
-  const runScenario = async () => {
+  const runScenario = async (mutation: Partial<Profile>) => {
     const token = generation.current;
     const request = ++scenarioGeneration.current;
     setSimBusy(true);
     setSimError('');
     try {
-      const mutation: Partial<Profile> = scenario.english
-        ? {
-            ielts: {
-              ...profile.ielts,
-              status: 'VALID',
-              overall: scenario.ielts,
-              reading: scenario.reading,
-              writing: scenario.writing,
-              listening: scenario.listening,
-              speaking: scenario.speaking,
-              date: scenario.testDate || profile.ielts.date,
-            },
-          }
-        : {};
-      if (scenario.sat)
-        mutation.sat = {
-          status: 'VALID',
-          score: scenario.satScore,
-          date: scenario.testDate || profile.sat.date,
-        };
-      if (scenario.budget)
-        mutation.budgets = { USD: scenario.USD, CAD: scenario.CAD, GBP: scenario.GBP };
-      if (scenario.country !== 'keep') mutation.countries = [scenario.country];
       const result = await api<Simulation>('simulate', { profile, mutation });
       if (token === generation.current && request === scenarioGeneration.current)
         setSimulation(result);
@@ -990,6 +939,15 @@ export default function Workspace({
           <MessageCircle size={18} />
           {tr('Ask AI')}
         </button>
+        <button
+          className={`nav-item ${view === 'scenario' ? 'active' : ''}`}
+          data-view="scenario"
+          aria-current={view === 'scenario' ? 'page' : undefined}
+          onClick={() => navigate('scenario')}
+        >
+          <SlidersHorizontal size={18} />
+          {tr('What if?')}
+        </button>
         <button className="nav-item" data-view="lab" onClick={() => navigate('lab')}>
           <FlaskConical size={18} />
           {tr('What can I improve?')}
@@ -1103,7 +1061,11 @@ export default function Workspace({
             ),
           )}
           {evaluation &&
-            (view === 'map' || view === 'lab' || view === 'profile' || view === 'roadmap') && (
+            (view === 'map' ||
+              view === 'scenario' ||
+              view === 'lab' ||
+              view === 'profile' ||
+              view === 'roadmap') && (
               <div className="journey-toolbar">
                 <button className="btn secondary small-btn" onClick={() => setSavedOpen(true)}>
                   {tr('Saved scenarios')} · {savedScenarios.length}
@@ -1204,6 +1166,7 @@ export default function Workspace({
                   }
                 }
                 if (action === 'profile') edit();
+                else if (action === 'lab') navigate('scenario');
                 else if (action === 'program' && id) setDetail(id);
                 else if (action !== 'program') navigate(action);
               }}
@@ -1228,32 +1191,26 @@ export default function Workspace({
               onEdit={() => edit()}
             />
           )}
-          {simulation && (
-            <div className="simulation-banner">
-              <FlaskConical size={19} />
-              <div>
-                <strong>{tr('You’re exploring a scenario')}</strong>
-                <span>{tr('Your saved profile has not changed.')}</span>
-                <label className="scenario-name">
-                  {tr('Scenario name')}
-                  <input
-                    maxLength={60}
-                    value={scenarioName}
-                    onChange={(e) => setScenarioName(e.target.value)}
-                    placeholder={tr('e.g. IELTS target')}
-                  />
-                </label>
-              </div>
-              <button className="btn ghost" onClick={clearSimulation}>
-                {tr('Discard ')}
-              </button>
-              <button className="btn primary" onClick={saveScenario}>
-                {tr('Save scenario ')}
-                <Check size={15} />
-              </button>
-            </div>
-          )}
-          {view === 'portfolio' && evaluation ? (
+          {view === 'scenario' && evaluation ? (
+            <ScenarioExplorer
+              profile={profile}
+              simulation={simulation}
+              busy={simBusy}
+              error={simError}
+              onSimulate={runScenario}
+              onReset={clearSimulation}
+              onBack={() => {
+                clearSimulation();
+                navigate('map');
+              }}
+              onRoadmap={() => {
+                clearSimulation();
+                navigate('roadmap');
+              }}
+              onProof={setProof}
+              onSave={saveScenario}
+            />
+          ) : view === 'portfolio' && evaluation ? (
             <ApplicantPortfolio
               key={(accountId || 'demo') + ':' + locale}
               profile={profile}
@@ -1416,8 +1373,33 @@ export default function Workspace({
                             {tr('My next step ')}
                           </button>
                         </div>
-                        <div className="workspace-grid">
+                        <div className="workspace-grid universities-only">
                           <div className="board">
+                            {view === 'map' && (
+                              <section className="scenario-entry-card">
+                                <div className="scenario-entry-path" aria-hidden="true">
+                                  <span>{profile.ielts.overall ?? '—'}</span>
+                                  <i />
+                                  <span>6.5</span>
+                                </div>
+                                <div>
+                                  <span className="eyebrow">{tr('WHAT IF')}</span>
+                                  <h2>{tr('What changes if IELTS becomes 6.5?')}</h2>
+                                  <p>
+                                    {tr(
+                                      'Compare your saved profile with one assumption. See the exact universities, rules and next step that change.',
+                                    )}
+                                  </p>
+                                </div>
+                                <button
+                                  className="btn primary"
+                                  onClick={() => navigate('scenario')}
+                                >
+                                  {tr('Explore this scenario')}
+                                  <ArrowRight size={16} />
+                                </button>
+                              </section>
+                            )}
                             <div className="stats-grid">
                               <button
                                 className={filter === 'READY_TO_APPLY' ? 'selected' : ''}
@@ -1605,348 +1587,6 @@ export default function Workspace({
                               </div>
                             )}
                           </div>
-                          <aside className="scenario-rail" id="scenario-lab">
-                            <details className="scenario-panel panel" open={!accountId}>
-                              <summary className="scenario-disclosure">
-                                {tr('Explore a different score or budget')}
-                              </summary>
-                              <div className="scenario-heading">
-                                <span className="scenario-icon">
-                                  <SlidersHorizontal size={20} />
-                                </span>
-                                <div>
-                                  <h2>{tr('What if?')}</h2>
-                                  <p>{tr('One change. New possibilities.')}</p>
-                                </div>
-                                <span className="mini-badge">{tr('LAB')}</span>
-                              </div>
-                              <fieldset className="scenario-body" disabled={simBusy || busy}>
-                                <label className="toggle-label">
-                                  <span>
-                                    <strong>{tr('Explore an English result')}</strong>
-                                    <small>{tr('Choose the score and bands below')}</small>
-                                  </span>
-                                  <input
-                                    type="checkbox"
-                                    role="switch"
-                                    checked={scenario.english}
-                                    onChange={(e) => {
-                                      setScenario({ ...scenario, english: e.target.checked });
-                                      clearSimulation();
-                                    }}
-                                  />
-                                </label>
-                                <fieldset
-                                  className="scenario-score-fields"
-                                  disabled={!scenario.english || simBusy}
-                                >
-                                  <div className="between">
-                                    <label htmlFor="scenario-ielts">{tr('IELTS overall')}</label>
-                                    <div className="score-pill">
-                                      {profile.ielts.overall === null
-                                        ? '—'
-                                        : money(profile.ielts.overall)}
-                                      <MoveRight size={14} />
-                                      <strong>{money(scenario.ielts)}</strong>
-                                    </div>
-                                  </div>
-                                  <input
-                                    id="scenario-ielts"
-                                    type="range"
-                                    min="4"
-                                    max="9"
-                                    step="0.5"
-                                    value={scenario.ielts}
-                                    onChange={(e) => {
-                                      setScenario({
-                                        ...scenario,
-                                        ielts: Number(e.target.value),
-                                      });
-                                      clearSimulation();
-                                    }}
-                                  />
-                                  <div className="range-labels">
-                                    <span>{money(4)}</span>
-                                    <span>{money(9)}</span>
-                                  </div>
-                                  <details className="scenario-details" open>
-                                    <summary>
-                                      {tr('Component scores ')}
-                                      <ChevronDown size={14} />
-                                    </summary>
-                                    <div className="band-inputs">
-                                      {(
-                                        ['reading', 'writing', 'listening', 'speaking'] as const
-                                      ).map((k) => (
-                                        <label key={k}>
-                                          {tr(k.slice(0, 1).toUpperCase() + k.slice(1))}
-                                          <input
-                                            aria-label={tr(`Scenario ${k}`)}
-                                            type="number"
-                                            min="0"
-                                            max="9"
-                                            step="0.5"
-                                            value={scenario[k]}
-                                            onChange={(e) => {
-                                              setScenario({
-                                                ...scenario,
-                                                [k]: Number(e.target.value),
-                                              });
-                                              clearSimulation();
-                                            }}
-                                          />
-                                        </label>
-                                      ))}
-                                    </div>
-                                  </details>
-                                  <p className="field-note">
-                                    {tr(
-                                      'These are hypothetical scores. Your bands do not automatically change with your overall score. ',
-                                    )}
-                                  </p>
-                                </fieldset>
-                                <div className="scenario-divider" />
-                                <label className="toggle-label">
-                                  <span>
-                                    <strong>{tr('Add a valid SAT')}</strong>
-                                    <small>{tr('Test a required-score branch')}</small>
-                                  </span>
-                                  <input
-                                    type="checkbox"
-                                    role="switch"
-                                    checked={scenario.sat}
-                                    onChange={(e) => {
-                                      setScenario({ ...scenario, sat: e.target.checked });
-                                      clearSimulation();
-                                    }}
-                                  />
-                                </label>
-                                {scenario.sat && (
-                                  <label className="scenario-number">
-                                    {tr('Hypothetical SAT score ')}
-                                    <input
-                                      type="number"
-                                      min="400"
-                                      max="1600"
-                                      step="10"
-                                      value={scenario.satScore}
-                                      onChange={(e) => {
-                                        setScenario({
-                                          ...scenario,
-                                          satScore: Number(e.target.value),
-                                        });
-                                        clearSimulation();
-                                      }}
-                                    />
-                                  </label>
-                                )}
-                                <label className="toggle-label">
-                                  <span>
-                                    <strong>{tr('Explore a different budget')}</strong>
-                                    <small>{tr('Keep academic results separate')}</small>
-                                  </span>
-                                  <input
-                                    type="checkbox"
-                                    role="switch"
-                                    checked={scenario.budget}
-                                    onChange={(e) => {
-                                      setScenario({ ...scenario, budget: e.target.checked });
-                                      clearSimulation();
-                                    }}
-                                  />
-                                </label>
-                                {scenario.budget && (
-                                  <div className="budget-inputs">
-                                    {(['USD', 'CAD', 'GBP'] as const).map((c) => (
-                                      <label key={c}>
-                                        {tr(c)}
-                                        <input
-                                          type="number"
-                                          min="0"
-                                          step="1000"
-                                          value={scenario[c]}
-                                          onChange={(e) => {
-                                            setScenario({
-                                              ...scenario,
-                                              [c]: Number(e.target.value),
-                                            });
-                                            clearSimulation();
-                                          }}
-                                        />
-                                      </label>
-                                    ))}
-                                  </div>
-                                )}
-                                <label className="scenario-number">
-                                  {tr('Country preference ')}
-                                  <select
-                                    disabled={
-                                      !profile.geography_flexible || !!profile.country_locks.length
-                                    }
-                                    value={scenario.country}
-                                    onChange={(e) => {
-                                      setScenario({ ...scenario, country: e.target.value });
-                                      clearSimulation();
-                                    }}
-                                  >
-                                    <option value="keep">{tr('Keep my countries')}</option>
-                                    <option value="US">{tr('United States')}</option>
-                                    <option value="Canada">{tr('Canada')}</option>
-                                    <option value="UK">{tr('United Kingdom')}</option>
-                                  </select>
-                                </label>
-                                {(scenario.english || scenario.sat) && (
-                                  <label className="field-label">
-                                    {tr('Assumed test date (optional)')}
-                                    <input
-                                      type="date"
-                                      value={scenario.testDate}
-                                      onChange={(e) => {
-                                        setScenario({ ...scenario, testDate: e.target.value });
-                                        clearSimulation();
-                                      }}
-                                    />
-                                    <small>
-                                      {tr(
-                                        'Used only for this scenario. Leave blank to keep your recorded date; missing dates remain unknown.',
-                                      )}
-                                    </small>
-                                  </label>
-                                )}
-                                {tr(
-                                  simError && (
-                                    <p className="error-text" role="alert">
-                                      {tr(simError)}
-                                    </p>
-                                  ),
-                                )}
-                                <button
-                                  className="btn primary full"
-                                  onClick={() => void runScenario()}
-                                  disabled={simBusy || busy}
-                                >
-                                  {simBusy ? (
-                                    <LoaderCircle size={17} className="spin" />
-                                  ) : (
-                                    <FlaskConical size={17} />
-                                  )}
-                                  {tr(' ')}
-                                  {tr(simBusy ? 'Recalculating…' : 'Explore this scenario')}
-                                  <ArrowRight size={16} />
-                                </button>
-                                <p className="private-note">
-                                  <ShieldCheck size={12} />
-                                  {tr('Your saved profile has not changed.')}
-                                </p>
-                              </fieldset>
-                              {simulation && (
-                                <div className="causal-diff" aria-live="polite">
-                                  <div className="eyebrow">{tr('HERE’S WHAT CHANGED')}</div>
-                                  <p className="scenario-outcome">
-                                    {tr('Ready routes, current → scenario')}:{' '}
-                                    <strong>
-                                      {
-                                        simulation.before.programs.filter(
-                                          (r) =>
-                                            r.in_scope && r.admission_state === 'READY_TO_APPLY',
-                                        ).length
-                                      }{' '}
-                                      →{' '}
-                                      {
-                                        simulation.after.programs.filter(
-                                          (r) =>
-                                            r.in_scope && r.admission_state === 'READY_TO_APPLY',
-                                        ).length
-                                      }
-                                    </strong>
-                                  </p>
-                                  <p className="small">
-                                    {tr(
-                                      'A scenario shows what would change. It is not an offer or a new test result.',
-                                    )}
-                                  </p>
-                                  <div className="diff-stat">
-                                    <strong>{simulation.diff.removed_blockers.length}</strong>
-                                    <span>{tr('requirement gaps removed')}</span>
-                                  </div>
-                                  <div className="diff-stat">
-                                    <strong>{simulation.diff.changed_states.length}</strong>
-                                    <span>{tr('program states changed')}</span>
-                                  </div>
-                                  <div className="diff-stat">
-                                    <strong>{simulation.diff.changed_costs.length}</strong>
-                                    <span>{tr('dated budget comparisons changed')}</span>
-                                  </div>
-                                  {simulation.diff.changed_rules.slice(0, 6).map((d) => (
-                                    <div className="diff-line" key={d.rule}>
-                                      <span>
-                                        {tr(
-                                          current.programs.find((r) => r.program.id === d.program)
-                                            ?.program.short,
-                                        )}
-                                        <small>{tr(d.label)}</small>
-                                      </span>
-                                      <span>
-                                        {tr(symbols[d.before])}
-                                        <ArrowRight size={11} />
-                                        <strong>{tr(symbols[d.after])}</strong>
-                                      </span>
-                                    </div>
-                                  ))}
-                                  <p className="small">
-                                    {simulation.diff.tasks_removed.length}{' '}
-                                    {tr(' roadmap tasks removed ·')}
-                                    {tr(' ')}
-                                    {tr(
-                                      simulation.diff.next_before === simulation.diff.next_after
-                                        ? 'Next action stays the same'
-                                        : 'Next action updated',
-                                    )}
-                                  </p>
-                                  <button className="btn primary full" onClick={saveScenario}>
-                                    {tr('Save scenario ')}
-                                    <Check size={16} />
-                                  </button>
-                                  <button className="text-button full" onClick={clearSimulation}>
-                                    {tr('Discard changes ')}
-                                  </button>
-                                </div>
-                              )}
-                            </details>
-                            <section className="next-preview">
-                              <span className="eyebrow">
-                                <Route size={13} /> {tr(' YOUR NEXT MOVE ')}
-                              </span>
-                              <h3>
-                                {tr(
-                                  current.next_action?.title ||
-                                    'Choose a path to start your roadmap',
-                                )}
-                              </h3>
-                              <p>
-                                {tr(
-                                  current.next_action
-                                    ? `Connects to ${current.next_action.programs.length} shortlisted ${current.next_action.programs.length === 1 ? 'program' : 'programs'}.`
-                                    : 'Save programs that interest you. Your next steps will take shape here.',
-                                )}
-                              </p>
-                              <button className="text-button" onClick={() => navigate('roadmap')}>
-                                {tr('Open my roadmap ')}
-                                <ArrowUpRight size={15} />
-                              </button>
-                            </section>
-                            <div className="evidence-note">
-                              <ShieldCheck size={20} />
-                              <div>
-                                <strong>{tr('Evidence, not guesswork.')}</strong>
-                                <p>
-                                  {tr(
-                                    'Requirements linked to official sources. Remaining gaps shown clearly. ',
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          </aside>
                         </div>
                       </>
                     )}
