@@ -1,5 +1,5 @@
 import { z } from 'zod';
-export const defaultAdvisorModel = 'google/gemini-3.7-flash';
+export const defaultAdvisorModel = 'openai/gpt-5.6-luna';
 type Message = { role: string; content: string };
 /** One bounded repair attempt; errors never become invented answers. */
 export async function structuredCompletion<T>({
