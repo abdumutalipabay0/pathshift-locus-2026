@@ -121,3 +121,76 @@ New task	Новая задача	Жаңа тапсырма
 Published deadline source	Источник опубликованного срока	Жарияланған мерзімнің дереккөзі
 WITHIN BUDGET	В пределах указанного бюджета	Көрсетілген бюджет шегінде
 OVER BUDGET	Выше указанного бюджета	Көрсетілген бюджеттен жоғары
+WHAT IF	ЧТО, ЕСЛИ	ЕГЕР
+What changes if IELTS becomes 6.5?	Что изменится, если IELTS станет 6,5?	IELTS 6,5 болса, не өзгереді?
+Compare your saved profile with one assumption. See the exact universities, rules and next step that change.	Сравни сохранённый профиль с одним допущением и увидь, какие вузы, правила и следующий шаг изменятся.	Сақталған профиліңді бір болжаммен салыстырып, қай университеттер, ережелер және келесі қадам өзгеретінін көр.
+WHAT IF · DECISION CHECK	ЧТО, ЕСЛИ · ПРОВЕРКА РЕШЕНИЯ	ЕГЕР · ШЕШІМДІ ТЕКСЕРУ
+Test one change. Keep your real profile intact.	Проверь одно изменение, не меняя реальный профиль.	Нақты профиліңді өзгертпей, бір өзгерісті тексер.
+Compare your current results with one hypothetical scenario, then choose the next step.	Сравни текущие результаты с одним гипотетическим сценарием и выбери следующий шаг.	Қазіргі нәтижелеріңді бір болжалды сценариймен салыстырып, келесі қадамды таңда.
+Back to my profile	Вернуться к моему профилю	Менің профиліме оралу
+Scenario steps	Этапы сценария	Сценарий қадамдары
+My current profile	Мой текущий профиль	Менің қазіргі профилім
+What I want to try	Что я хочу попробовать	Нені байқап көргім келеді
+What changed	Что изменилось	Не өзгерді
+CONFIRMED PROFILE	ПОДТВЕРЖДЁННЫЙ ПРОФИЛЬ	РАСТАЛҒАН ПРОФИЛЬ
+IELTS bands	Баллы по разделам IELTS	IELTS бөлімдерінің балдары
+Recorded test date	Дата записанного результата	Сақталған нәтиже күні
+Countries	Страны	Елдер
+These are saved facts. The experiment below cannot overwrite them.	Это сохранённые факты. Эксперимент ниже не может их перезаписать.	Бұл — сақталған деректер. Төмендегі тәжірибе оларды өзгерте алмайды.
+SCENARIO ASSUMPTION	ДОПУЩЕНИЕ СЦЕНАРИЯ	СЦЕНАРИЙ БОЛЖАМЫ
+Select only the change you want to test. Unknown inputs stay unknown.	Выбери только то изменение, которое хочешь проверить. Неизвестные данные останутся неизвестными.	Тексергің келетін өзгерісті ғана таңда. Белгісіз деректер белгісіз болып қалады.
+Hypothetical IELTS result	Гипотетический результат IELTS	Болжалды IELTS нәтижесі
+This is an assumption, not a completed exam.	Это допущение, а не сданный экзамен.	Бұл — болжам, тапсырылған емтихан емес.
+IELTS assumption	Допущение по IELTS	IELTS бойынша болжам
+Overall score	Общий балл	Жалпы балл
+Blank bands stay UNKNOWN for universities that require them.	Пустые разделы останутся UNKNOWN для вузов, которым они нужны.	Бос бөлімдер оларды талап ететін университеттер үшін UNKNOWN болып қалады.
+Calculated overall from these bands	Расчётный общий балл по разделам	Осы бөлімдерден есептелген жалпы балл
+Hypothetical SAT result	Гипотетический результат SAT	Болжалды SAT нәтижесі
+Only programs with a verified SAT rule can change.	Измениться могут только программы с проверенным правилом SAT.	Тек расталған SAT ережесі бар бағдарламалар өзгеруі мүмкін.
+Different annual budget	Другой годовой бюджет	Басқа жылдық бюджет
+Admission checks remain separate from cost.	Проверки требований не смешиваются со стоимостью.	Қабылдау талаптары шығыннан бөлек тексеріледі.
+Assumed result date	Предполагаемая дата результата	Болжалды нәтиже күні
+Required for this experiment; it is not saved as a completed test.	Нужна только для этого эксперимента и не сохраняется как сданный экзамен.	Бұл тәжірибе үшін қажет және тапсырылған емтихан ретінде сақталмайды.
+Check the scenario before comparing	Проверь сценарий перед сравнением	Салыстырмас бұрын сценарийді тексер
+Compare this scenario	Сравнить сценарий	Сценарийді салыстыру
+Comparing paths…	Сравниваем варианты…	Нұсқаларды салыстырып жатырмыз…
+Rechecking the same admission rules without changing your profile.	Повторно проверяем те же правила, не меняя профиль.	Профильді өзгертпей, сол ережелерді қайта тексеріп жатырмыз.
+WHAT CHANGED	ЧТО ИЗМЕНИЛОСЬ	НЕ ӨЗГЕРДІ
+{count} university paths changed	Изменилось университетских вариантов: {count}	Өзгерген университет нұсқалары: {count}
+The checked university paths did not change.	Проверенные университетские варианты не изменились.	Тексерілген университет нұсқалары өзгермеді.
+This is a rule-based comparison of your saved profile and one assumption. It is not an admission prediction.	Это сравнение сохранённого профиля и одного допущения по правилам. Это не прогноз поступления.	Бұл — сақталған профиль мен бір болжамды ережелер бойынша салыстыру. Бұл түсу болжамы емес.
+Change summary	Сводка изменений	Өзгерістер қорытындысы
+rules changed	правил изменилось	ереже өзгерді
+gaps removed	несоответствий устранено	сәйкессіздік жойылды
+task changes	изменений задач	тапсырма өзгерісі
+BASELINE · SAVED	ИСХОДНЫЕ ДАННЫЕ · СОХРАНЕНО	БАСТАПҚЫ КҮЙ · САҚТАЛҒАН
+Confirmed profile data	Подтверждённые данные профиля	Расталған профиль деректері
+HYPOTHETICAL · NOT SAVED	ГИПОТЕЗА · НЕ СОХРАНЕНО	БОЛЖАМ · САҚТАЛМАҒАН
+Assumption for comparison only	Допущение только для сравнения	Тек салыстыруға арналған болжам
+Changed	Изменилось	Өзгерді
+Open rule source	Открыть источник правила	Ереже дереккөзін ашу
+Dated budget comparison	Сравнение бюджета по опубликованному периоду	Жарияланған кезең бойынша бюджетті салыстыру
+Only the cost state changed; academic checks stayed independent.	Изменилось только состояние стоимости; академические проверки остались независимыми.	Тек шығын күйі өзгерді; академиялық тексерулер бөлек қалды.
+Timeline check changed	Проверка срока изменилась	Мерзім тексеруі өзгерді
+The assumed date was compared with the published deadline evidence.	Предполагаемая дата сопоставлена с опубликованным источником дедлайна.	Болжалды күн жарияланған дедлайн дереккөзімен салыстырылды.
+Official facts	Официальные факты	Ресми деректер
+Scenario assumption	Допущение сценария	Сценарий болжамы
+No unsupported change was invented.	Система не выдумала неподтверждённых изменений.	Жүйе расталмаған өзгерісті ойдан шығармады.
+The selected assumption did not alter the verified checks for these universities. Unrelated results stayed stable.	Выбранное допущение не изменило проверенные требования этих вузов. Несвязанные результаты остались прежними.	Таңдалған болжам бұл университеттердің расталған тексерулерін өзгертпеді. Байланыссыз нәтижелер өзгеріссіз қалды.
+MY NEXT STEP	МОЙ СЛЕДУЮЩИЙ ШАГ	МЕНІҢ КЕЛЕСІ ҚАДАМЫМ
+The next action stays the same after this experiment.	После эксперимента следующий шаг не изменился.	Тәжірибеден кейін келесі қадам өзгермеді.
+The next action changed because the evaluated requirements changed.	Следующий шаг изменился вслед за пересчитанными требованиями.	Тексерілген талаптар өзгергендіктен келесі қадам да өзгерді.
+Open my next step	Открыть следующий шаг	Келесі қадамымды ашу
+Edit scenario	Изменить сценарий	Сценарийді өзгерту
+Choose at least one change to compare.	Выбери хотя бы одно изменение для сравнения.	Салыстыру үшін кемінде бір өзгеріс таңда.
+Enter a hypothetical IELTS overall score.	Укажи гипотетический общий балл IELTS.	Болжалды IELTS жалпы балын енгіз.
+Choose the assumed result date so timing is not treated as known.	Укажи предполагаемую дату результата, чтобы срок не считался известным без основания.	Мерзім негізсіз белгілі деп саналмауы үшін болжалды нәтиже күнін көрсет.
+This profile says IELTS is not an available action. Change that preference first.	В профиле указано, что IELTS недоступен как действие. Сначала измени это предпочтение.	Профильде IELTS қолжетімді әрекет емес деп көрсетілген. Алдымен осы таңдауды өзгерт.
+Enter a hypothetical SAT score from 400 to 1600.	Укажи гипотетический балл SAT от 400 до 1600.	400-ден 1600-ге дейінгі болжалды SAT балын енгіз.
+This profile says SAT is not an available action. Change that preference first.	В профиле указано, что SAT недоступен как действие. Сначала измени это предпочтение.	Профильде SAT қолжетімді әрекет емес деп көрсетілген. Алдымен осы таңдауды өзгерт.
+Enter each annual budget as a non-negative amount.	Укажи для каждой валюты неотрицательный годовой бюджет.	Әр валюта үшін теріс емес жылдық бюджетті көрсет.
+Enable financial flexibility in your profile before testing a higher budget.	Разреши гибкость бюджета в профиле перед проверкой более высокой суммы.	Жоғары бюджетті тексермес бұрын профильде қаржылық икемділікті қос.
+Unlock country preferences in your profile before testing another country.	Сними ограничение по странам в профиле перед проверкой другой страны.	Басқа елді тексермес бұрын профильдегі ел шектеуін алып таста.
+The evaluated rule changed.	Результат проверки правила изменился.	Ережені тексеру нәтижесі өзгерді.
+Requirement met	Требование выполнено	Талап орындалды
+Requirement not met	Требование не выполнено	Талап орындалмады

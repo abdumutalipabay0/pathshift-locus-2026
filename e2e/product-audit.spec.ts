@@ -100,8 +100,8 @@ test('leaving a pending scenario cannot restore a stale hypothetical profile', a
   });
   await page.goto('/demo?view=map');
   await expect(page.locator('.program-card')).toHaveCount(6);
-  await page.getByRole('switch', { name: /Explore an English result/ }).check();
   await page.getByRole('button', { name: 'Explore this scenario', exact: true }).click();
+  await page.getByRole('button', { name: 'Compare this scenario', exact: true }).click();
   await requestStarted;
   await page
     .locator('.sidebar')
@@ -111,7 +111,7 @@ test('leaving a pending scenario cannot restore a stale hypothetical profile', a
   release();
   await finished;
   await expect(page.getByLabel('Your name', { exact: true })).toHaveValue(demoProfile.name);
-  await expect(page.locator('.simulation-banner')).toHaveCount(0);
+  await expect(page.locator('.scenario-result')).toHaveCount(0);
 });
 
 for (const locale of ['en', 'ru', 'kk'] as const)

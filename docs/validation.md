@@ -139,3 +139,11 @@ Application commits `23a28b8` and `3b34b68`; production deployment `dpl_GDW7xv2J
 Live production resume-coach request: HTTP 200 in 11.25 seconds, Russian bullet with a literal source quote from synthetic applicant notes. Other live English/Kazakh resume and Russian interview checks succeeded; one earlier interview failed. Controlled browser responses are distinct from these live checks. Exact source quotes and targeted response guards do not establish full semantic correctness; applicants review drafts before saving.
 
 Vercel's deployment-triggering incident temporarily delayed publication. A superseded queued deployment was cancelled; the final deployment succeeded. Manual published Russian desktop review and local 390px university/profile-fit review passed. Temporary tabs closed and viewport override reset. Official sources and implementation decisions: applicant-story-release.md. Frozen admissions policy remains unchanged.
+
+## What if decision check and AI demo — 19 September 2026
+
+- Dedicated four-step What-if flow separates the saved profile from a dated hypothetical result, shows rule-level university diffs and links to canonical evidence. Inconsistent IELTS overall/components block comparison; partial components remain unknown.
+- 100/100 unit/domain/localization tests passed. Full local browser suite: 71 passed and the opt-in real-account lifecycle skipped. Coverage includes EN/RU/KK, 390 px, keyboard navigation, automated WCAG A/AA checks and reduced motion.
+- TypeScript, ESLint and the local production build passed. All release-touched files are formatted; the repository-wide formatting command still reports older drift in untouched files.
+- Frozen research, admission rules and source data were not changed. Live production AI and public deployment checks are recorded after release.
+- Silent recording route and honest network fallback: [demo-video-silent.md](demo-video-silent.md). Detailed scope and limits: [what-if-ai-release.md](what-if-ai-release.md).

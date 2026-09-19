@@ -1,7 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluate, dataset, simulate } from '../src/lib/engine';
-import { demoProfile, profileSchema } from '../src/lib/profile';
+import {
+  demoProfile,
+  ieltsConsistencyError,
+  ieltsOverallFromBands,
+  profileSchema,
+} from '../src/lib/profile';
 import { calendarExport, scenarioMutation } from '../src/lib/journey';
 import { formatDate } from '../src/lib/i18n';
 const now = '2026-09-17T12:00:00Z';
@@ -80,6 +85,11 @@ test('Kazakh dates have meaningful month names even without browser ICU locale d
 });
 
 test('IELTS checks official half-band rounding while preserving unknown components', () => {
+  assert.equal(ieltsOverallFromBands([6, 6.5, 6, 6.5]), 6.5);
+  assert.equal(ieltsOverallFromBands([6, 6, 6, 6]), 6);
+  assert.equal(ieltsOverallFromBands([6, null, 6, 6]), null);
+  assert.equal(ieltsConsistencyError(9, [6, 6.5, 6, 6.5]) !== null, true);
+  assert.equal(ieltsConsistencyError(9, [6, null, 6, 6]), null);
   const p = structuredClone(demoProfile);
   p.ielts = { ...p.ielts, overall: 6.5, reading: 6, writing: 6.5, listening: 6, speaking: 6.5 };
   assert.equal(profileSchema.safeParse(p).success, true);
@@ -89,6 +99,46 @@ test('IELTS checks official half-band rounding while preserving unknown componen
   assert.equal(profileSchema.safeParse(p).success, true);
   p.ielts = { ...p.ielts, overall: 7, reading: 7, writing: 7, listening: 6.5, speaking: 6.5 };
   assert.equal(profileSchema.safeParse(p).success, true);
+});
+test('a hypothetical score needs its own date and never mutates the recorded IELTS result', () => {
+  const p = structuredClone(demoProfile);
+  const scenario = simulate(
+    p,
+    {
+      ielts: {
+        status: 'VALID',
+        overall: 6.5,
+        reading: 6,
+        writing: 6.5,
+        listening: 6,
+        speaking: 6.5,
+        date: '2026-11-20',
+      },
+    },
+    now,
+  );
+  assert.equal(p.ielts.overall, 6);
+  assert.equal(p.ielts.date, '2026-08-15');
+  assert.equal(scenario.before.profile.ielts.overall, 6);
+  assert.equal(scenario.after.profile.ielts.overall, 6.5);
+  assert.equal(scenario.after.profile.ielts.date, '2026-11-20');
+  assert.throws(() =>
+    simulate(
+      p,
+      {
+        ielts: {
+          status: 'VALID',
+          overall: 6.5,
+          reading: 6,
+          writing: 6.5,
+          listening: 6,
+          speaking: 6.5,
+          date: null,
+        },
+      },
+      now,
+    ),
+  );
 });
 test('IB duplicate values agree only when the original scale is explicitly 45', () => {
   assert.equal(profileSchema.safeParse({ ...demoProfile, raw_grade: '40' }).success, false);
