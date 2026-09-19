@@ -56,6 +56,25 @@ export default function ProfileWizard({
   }, [error, step]);
   const set = <K extends keyof Profile>(key: K, value: Profile[K]) =>
     setP((prev) => ({ ...prev, [key]: value }));
+  const setCurriculum = (curriculum: string) =>
+    setP((prev) => ({
+      ...prev,
+      curriculum,
+      raw_grade: '',
+      raw_scale: '',
+      ...(curriculum === 'IB'
+        ? {}
+        : {
+            ib_core_points: null,
+            english_b_hl: null,
+            ib_total: null,
+            math_aa_hl: null,
+            english_a: null,
+            ib_diploma: null,
+            ib_courses: null,
+            hl_courses: null,
+          }),
+    }));
   const numeric = (v: string) => (v === '' ? null : Number(v));
   const save = () => {
     const result = profileSchema.safeParse(p);
@@ -94,7 +113,7 @@ export default function ProfileWizard({
       </p>
       <p className="notice">
         {tr(
-          'This workspace covers 12 Computer Science programs for international first-year entry in Fall 2027. IB is the best-supported curriculum; other routes may need verification.',
+          'This workspace covers 12 Computer Science programs for international first-year entry in Fall 2027. Choose the curriculum shown on your school documents; unverified equivalencies stay unknown.',
         )}
       </p>
       <p className="small muted">
@@ -264,9 +283,11 @@ export default function ProfileWizard({
               <label>
                 {tr('School curriculum ')}
                 <select
+                  name="curriculum"
                   required
                   value={p.curriculum}
-                  onChange={(e) => set('curriculum', e.target.value)}
+                  onChange={(e) => setCurriculum(e.target.value)}
+                  aria-describedby="curriculum-guidance"
                 >
                   <option value="" disabled>
                     {tr('Select your curriculum')}
@@ -289,11 +310,17 @@ export default function ProfileWizard({
                 </select>
               </label>
               <label>
-                {tr('Grade / predicted total ')}
+                {tr('Grade / predicted result ')}
                 <input
                   value={p.raw_grade}
                   onChange={(e) => set('raw_grade', e.target.value)}
-                  placeholder={tr('e.g. 42 or 4.8')}
+                  placeholder={tr(
+                    p.curriculum === 'IB'
+                      ? 'e.g. 42'
+                      : p.curriculum === 'Kazakhstan national'
+                        ? 'e.g. 4.8'
+                        : 'Enter the original result',
+                  )}
                 />
               </label>
               <label>
@@ -301,10 +328,29 @@ export default function ProfileWizard({
                 <input
                   value={p.raw_scale}
                   onChange={(e) => set('raw_scale', e.target.value)}
-                  placeholder={tr('e.g. 45 or 5.0')}
+                  placeholder={
+                    p.curriculum === 'IB'
+                      ? '45'
+                      : p.curriculum === 'Kazakhstan national'
+                        ? '5'
+                        : tr('Original scale')
+                  }
                 />
               </label>
             </div>
+            <p id="curriculum-guidance" className="notice" aria-live="polite">
+              {p.curriculum === 'IB'
+                ? tr(
+                    'Choose IB only if your school officially teaches the IB Diploma Programme. Enter the official or predicted total out of 45.',
+                  )
+                : p.curriculum === 'Kazakhstan national'
+                  ? tr(
+                      'For a regular Kazakhstan school, enter the grade exactly as it appears in your transcript, for example 4.8 out of 5. Do not convert it to GPA or IB.',
+                    )
+                  : tr(
+                      'For NIS or another specialized school, choose the curriculum written on your transcript, not the school brand. If it is not listed, choose Other.',
+                    )}
+            </p>
             {p.curriculum === 'IB' && (
               <div className="form-grid">
                 <label>

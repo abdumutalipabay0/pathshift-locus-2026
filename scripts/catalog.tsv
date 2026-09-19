@@ -278,9 +278,16 @@ School status	Статус обучения	Оқу мәртебесі
 Currently studying	Продолжаю учиться	Оқып жүрмін
 Completed	Завершено	Аяқталған
 Grade / predicted total	Оценка или прогнозируемый балл	Баға немесе болжамды жалпы балл
+Grade / predicted result	Оценка или прогнозируемый результат	Баға немесе болжамды нәтиже
 Original scale	Исходная шкала	Бастапқы шкала
 e.g. 42 or 4.8	Например, 42 или 4,8	Мысалы, 42 немесе 4,8
 e.g. 45 or 5.0	Например, 45 или 5,0	Мысалы, 45 немесе 5,0
+e.g. 42	Например, 42	Мысалы, 42
+e.g. 4.8	Например, 4,8	Мысалы, 4,8
+Enter the original result	Введите результат в исходной шкале	Нәтижені бастапқы шкалада енгізіңіз
+Choose IB only if your school officially teaches the IB Diploma Programme. Enter the official or predicted total out of 45.	Выбирайте IB, только если школа официально преподаёт программу IB Diploma. Введите официальный или прогнозируемый балл из 45.	IB нұсқасын мектебіңіз IB Diploma бағдарламасын ресми оқытса ғана таңдаңыз. Ресми немесе болжамды балды 45 балдық шкалада енгізіңіз.
+For a regular Kazakhstan school, enter the grade exactly as it appears in your transcript, for example 4.8 out of 5. Do not convert it to GPA or IB.	Для обычной казахстанской школы укажите оценку точно как в табеле или транскрипте, например 4,8 из 5. Не переводите её самостоятельно в GPA или IB.	Кәдімгі қазақстандық мектеп үшін бағаны табельде немесе транскриптте көрсетілгендей енгізіңіз, мысалы 5-тен 4,8. Оны GPA немесе IB шкаласына өзіңіз аудармаңыз.
+For NIS or another specialized school, choose the curriculum written on your transcript, not the school brand. If it is not listed, choose Other.	Для НИШ или другой специализированной школы выбирайте программу, указанную в транскрипте, а не название школы. Если её нет в списке, выберите «Другая».	НЗМ немесе басқа мамандандырылған мектеп үшін мектеп атауын емес, транскриптте көрсетілген бағдарламаны таңдаңыз. Ол тізімде болмаса, «Басқа» нұсқасын таңдаңыз.
 IB total	Общий балл IB	IB жалпы балы
 Math Analysis & Approaches HL	Математика IB: Analysis & Approaches HL	IB математикасы: Analysis & Approaches HL
 Leave blank if not taken	Оставьте пустым, если не изучали	Оқымаған болсаңыз, бос қалдырыңыз
